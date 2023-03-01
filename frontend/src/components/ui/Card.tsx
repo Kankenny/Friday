@@ -6,7 +6,11 @@ type Props = {
 };
 
 const Card = ({ children, twClasses }: Props) => {
-  return <div className={`rounded-lg shadow-lg ${twClasses}`}>{children}</div>;
+  return (
+    <div className={`p-2 rounded-lg shadow-lg bg-red-500 ${twClasses}`}>
+      {children}
+    </div>
+  );
 };
 
 export default Card;
