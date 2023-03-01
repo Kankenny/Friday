@@ -3,7 +3,7 @@ import StyledInput from "./components/ui/StyledInput";
 
 function App() {
   return (
-    <div className="flex justify-center flex-col items-center space-y-4">
+    <div className="flex justify-center flex-col items-center">
       <div className="w-64 space-y-4">
         <h1>Styled Input Component</h1>
         <StyledInput label="Some Label" name="Some Label" type="text" />
