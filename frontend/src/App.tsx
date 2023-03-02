@@ -1,12 +1,12 @@
-import Card from "./components/ui/Card";
-import StyledInput from "./components/ui/StyledInput";
+import Card from "./components/ui/Card"
+import StyledInput from "./components/ui/StyledInput"
 
 function App() {
   return (
     <div className="flex justify-center flex-col items-center">
       <div className="w-64 space-y-4">
         <h1 className="text-2xl font-bold">StyledInput Component</h1>
-        <StyledInput label="Some Label" name="Some Label" type="text" />
+        <StyledInput placeholder="Some Label" name="Some Label" type="text" />
       </div>
 
       <div className="w-64 space-y-4">
@@ -24,7 +24,7 @@ function App() {
         {/* Put component here */}
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
