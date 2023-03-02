@@ -1,5 +1,5 @@
-import Card from "./components/ui/Card"
-import StyledInput from "./components/ui/StyledInput"
+import Card from "./components/ui/Card";
+import StyledInput from "./components/ui/StyledInput";
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         {/* Put component here */}
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
