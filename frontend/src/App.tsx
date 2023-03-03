@@ -5,7 +5,6 @@ import Home from "./components/routes/Home";
 import Playground from "./components/routes/Playground";
 import RouterLink from "./components/ui/RouterLink";
 
-
 function App() {
   return (
     <>
