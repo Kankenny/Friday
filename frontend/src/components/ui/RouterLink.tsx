@@ -7,7 +7,10 @@ type Props = {
 
 const RouterLink = ({ to, routerLinkText }: Props) => {
   return (
-    <Link to={to} className=" text-secondary py-2 px-4">
+    <Link
+      to={to}
+      className="text-secondary py-2 px-4 hover:text-tertiary duration-100"
+    >
       {routerLinkText}
     </Link>
   );
