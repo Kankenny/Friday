@@ -2,6 +2,7 @@ import React from "react";
 import Card from "../ui/Card";
 import StyledInput from "../ui/StyledInput";
 import StyledButton from "../ui/StyledButton";
+import Accordion from "../ui/Accordion";
 
 const Playground = () => {
   return (
@@ -35,6 +36,14 @@ const Playground = () => {
       <div className="w-96 space-y-4">
         <h1 className="text-2xl font-bold">StyledLink Component</h1>
         {/* Put component here */}
+      </div>
+
+      <div className="w-96 space-y-4">
+        <h1 className="text-2xl font-bold">Accordion Component</h1>
+        <Accordion title="Some Title">
+          <h1>Some Heading</h1>
+          <p>Some other description</p>
+        </Accordion>
       </div>
     </div>
   );
