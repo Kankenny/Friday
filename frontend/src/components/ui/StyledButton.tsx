@@ -2,11 +2,17 @@ import React from "react";
 type Props = {
   onClick: () => void;
   buttonText: string;
+  intent?: "primary" | "secondary";
 };
-const StyledButton = ({ onClick, buttonText }: Props) => {
+const StyledButton = ({ onClick, buttonText, intent = "primary" }: Props) => {
+  const activatedButtonClasses =
+    intent === "primary"
+      ? "bg-secondary text-main"
+      : "bg-main text-secondary border-2 border-secondary";
+
   return (
     <button
-      className="bg-secondary text-main rounded-xl text-center text-base px-4 py-2 hover:scale-105 duration-100"
+      className={`w-28 rounded-xl text-center text-sm px-4 py-2 hover:scale-105 duration-100 ${activatedButtonClasses}`}
       onClick={onClick}
     >
       {buttonText}

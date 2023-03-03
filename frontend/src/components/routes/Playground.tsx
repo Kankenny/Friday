@@ -18,7 +18,18 @@ const Playground = () => {
 
       <div className="w-96 space-y-4">
         <h1 className="text-2xl font-bold">StyledButton Component</h1>
-         <StyledButton onClick={()=>console.log("hello")} buttonText={"HELLLOOO"}></StyledButton>
+        <div className="flex space-x-10">
+          <StyledButton
+            onClick={() => console.log("hello")}
+            buttonText={"Primary"}
+            intent="primary"
+          />
+          <StyledButton
+            onClick={() => console.log("hello")}
+            buttonText={"Secondary"}
+            intent="secondary"
+          />
+        </div>
       </div>
 
       <div className="w-96 space-y-4">
