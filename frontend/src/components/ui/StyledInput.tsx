@@ -1,8 +1,8 @@
 type Props = {
-  name: string
-  type: "text" | "email" | "password"
-  placeholder: string
-}
+  name: string;
+  type: "text" | "email" | "password";
+  placeholder: string;
+};
 
 const StyledInput = ({
   name,
@@ -17,16 +17,16 @@ const StyledInput = ({
         id={name}
         type={type}
         placeholder=""
-        className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 border-gray-200"
+        className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-secondary border-gray-200"
       />
       <label
         htmlFor={name}
-        className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+        className="absolute duration-200 top-3 -z-1 origin-0 text-secondary"
       >
         {placeholder}
       </label>
     </div>
-  )
-}
+  );
+};
 
-export default StyledInput
+export default StyledInput;
