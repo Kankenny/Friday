@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../ui/Card";
 import StyledInput from "../ui/StyledInput";
+import StyledButton from "../ui/StyledButton";
 
 const Playground = () => {
   return (
@@ -17,7 +18,7 @@ const Playground = () => {
 
       <div className="w-96 space-y-4">
         <h1 className="text-2xl font-bold">StyledButton Component</h1>
-        {/* Put component here */}
+         <StyledButton onClick={()=>console.log("hello")} buttonText={"HELLLOOO"}></StyledButton>
       </div>
 
       <div className="w-96 space-y-4">
