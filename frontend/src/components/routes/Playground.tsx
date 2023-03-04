@@ -1,9 +1,9 @@
-import React from "react";
-import Card from "../ui/Card";
-import StyledInput from "../ui/StyledInput";
-import StyledButton from "../ui/StyledButton";
-import Accordion from "../ui/Accordion";
-import StyledLink from "../ui/StyledLink";
+import Card from "../ui/Card"
+import StyledInput from "../ui/StyledInput"
+import StyledButton from "../ui/StyledButton"
+import Accordion from "../ui/Accordion"
+import StyledLink from "../ui/StyledLink"
+import Overview from "../ui/Overview"
 
 const Playground = () => {
   return (
@@ -36,7 +36,7 @@ const Playground = () => {
 
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
         <h1 className="text-2xl font-bold">StyledLink Component</h1>
-        <StyledLink href="something" linkText="somethingElse"/>
+        <StyledLink href="something" linkText="somethingElse" />
       </div>
 
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
@@ -46,8 +46,25 @@ const Playground = () => {
           <p>Some other description</p>
         </Accordion>
       </div>
-    </div>
-  );
-};
 
-export default Playground;
+      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+        <h1 className="text-2xl font-bold">Overview Component</h1>
+        <Overview twClasses="space-y-5">
+          <h1 className="text-lg font bold capitalize">
+            I am an Overview Component
+          </h1>
+          <p className="text-xs">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+            voluptatem corporis asperiores aperiam, inventore corrupti sed
+            dolorum ad quisquam, soluta laborum in officiis sit. Voluptate quis,
+            iusto neque ut nemo blanditiis temporibus qui perspiciatis,
+            doloremque vel, dolore ipsum quisquam! Voluptatem minima ad natus
+            ducimus adipisci dolorem maiores. Sequi, aperiam dolor!
+          </p>
+        </Overview>
+      </div>
+    </div>
+  )
+}
+
+export default Playground
