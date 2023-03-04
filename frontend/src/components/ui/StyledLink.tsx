@@ -6,10 +6,10 @@ type Props = {
 const StyledLink = ({ href, linkText }: Props) => {
   return (
     <a
-      href="https://mddlknntt.monday.com/boards/4007749836"
+      href= {href}
       className="underline text-tertiary hover:duration-200 hover:text-secondary"
     >
-      Our Monday board
+      {linkText}
     </a>
   )
 }

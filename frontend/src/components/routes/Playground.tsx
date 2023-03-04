@@ -36,7 +36,7 @@ const Playground = () => {
 
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
         <h1 className="text-2xl font-bold">StyledLink Component</h1>
-        <StyledLink href="something" linkText="somethingElse" />
+        <StyledLink href="add link here" linkText="Link" />
       </div>
 
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
