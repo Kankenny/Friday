@@ -8,7 +8,6 @@ type Props = {
 
 const RouterLink = ({ to, routerLinkText, twClasses }: Props) => {
   const { pathname } = useLocation()
-  console.log(pathname)
 
   const activatedRouterLinkClasses = pathname === to && "text-tertiary"
 
