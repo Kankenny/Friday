@@ -1,8 +1,8 @@
 type Props = {
-  name: string;
-  type: "text" | "email" | "password";
-  placeholder: string;
-};
+  name: string
+  type: "text" | "email" | "password"
+  placeholder: string
+}
 
 const StyledInput = ({
   name,
@@ -26,7 +26,7 @@ const StyledInput = ({
         {placeholder}
       </label>
     </div>
-  );
-};
+  )
+}
 
-export default StyledInput;
+export default StyledInput

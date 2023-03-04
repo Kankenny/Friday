@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 
 type Props = {
-  children: React.ReactNode;
-  twClasses?: string;
-};
+  children: React.ReactNode
+  twClasses?: string
+}
 
 const Card = ({ children, twClasses }: Props) => {
   return (
@@ -12,7 +12,7 @@ const Card = ({ children, twClasses }: Props) => {
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

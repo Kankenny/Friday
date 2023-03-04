@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 type Props = {
-  title: string;
-  children: React.ReactNode;
-};
+  title: string
+  children: React.ReactNode
+}
 
 const Accordion = ({ title, children }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
+    setIsOpen(!isOpen)
+  }
 
   return (
     <div className="border rounded-md overflow-hidden mb-4">
@@ -45,7 +45,7 @@ const Accordion = ({ title, children }: Props) => {
         <div className="px-4 py-3">{children}</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Accordion;
+export default Accordion
