@@ -1,19 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 type Props = {
-  to: string;
-  routerLinkText: string;
-};
+  to: string
+  routerLinkText: string
+  twClasses?: string
+}
 
-const RouterLink = ({ to, routerLinkText }: Props) => {
+const RouterLink = ({ to, routerLinkText, twClasses }: Props) => {
   return (
     <Link
       to={to}
-      className="text-secondary py-2 px-4 hover:text-tertiary duration-100"
+      className={`text-secondary hover:text-tertiary duration-100 ${twClasses}`}
     >
       {routerLinkText}
     </Link>
-  );
-};
+  )
+}
 
-export default RouterLink;
+export default RouterLink
