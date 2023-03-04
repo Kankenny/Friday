@@ -3,6 +3,7 @@ import Card from "../ui/Card";
 import StyledInput from "../ui/StyledInput";
 import StyledButton from "../ui/StyledButton";
 import Accordion from "../ui/Accordion";
+import StyledLink from "../ui/StyledLink";
 
 const Playground = () => {
   return (
@@ -35,7 +36,7 @@ const Playground = () => {
 
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
         <h1 className="text-2xl font-bold">StyledLink Component</h1>
-        {/* Put component here */}
+        <StyledLink href="something" linkText="somethingElse"/>
       </div>
 
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">

@@ -6,7 +6,7 @@ type Props = {
 };
 
 const StyledLink = ({ href, linkText }: Props) => {
-  return <a href={href}>{linkText}</a>;
+  return <a href="https://mddlknntt.monday.com/boards/4007749836">Our Monday board</a>;
 };
 
 export default StyledLink;
