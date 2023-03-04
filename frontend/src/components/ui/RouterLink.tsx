@@ -10,7 +10,7 @@ const RouterLink = ({ to, routerLinkText, twClasses }: Props) => {
   return (
     <Link
       to={to}
-      className={`text-secondary hover:text-tertiary duration-100 ${twClasses}`}
+      className={`text-lg font-bold text-secondary hover:text-tertiary duration-100 ${twClasses}`}
     >
       {routerLinkText}
     </Link>

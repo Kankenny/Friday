@@ -10,6 +10,7 @@ import Body from "./components/layout/body/Body"
 function App() {
   return (
     <>
+      {/* Wrap RouterLinks with Header*/}
       <div className="space-x-4">
         <RouterLink to="/" routerLinkText="Landing Page" />
         <RouterLink to="/app" routerLinkText="App" />
@@ -24,6 +25,7 @@ function App() {
           <Route path="/playground" element={<Playground />} />
         </Routes>
       </Body>
+      {/* Wrap future content below with Footer */}
     </>
   )
 }
