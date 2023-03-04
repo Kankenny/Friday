@@ -50,7 +50,7 @@ const Playground = () => {
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
         <h1 className="text-2xl font-bold">Overview Component</h1>
         <Overview twClasses="space-y-5">
-          <h1 className="text-lg font bold capitalize">
+          <h1 className="text-lg font-bold capitalize">
             I am an Overview Component
           </h1>
           <p className="text-xs">
