@@ -14,7 +14,7 @@ function App() {
       <div className="space-x-4">
         <RouterLink to="/" routerLinkText="Landing Page" />
         <RouterLink to="/app" routerLinkText="App" />
-        <RouterLink to="*" routerLinkText="404 Page" />
+        <RouterLink to="/404Error" routerLinkText="404 Page" />
         <RouterLink to="/playground" routerLinkText="Playground" />
       </div>
       <Body>
