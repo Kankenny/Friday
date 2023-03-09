@@ -2,7 +2,8 @@ import RouterLink from "../../ui/RouterLink"
 
 const Header = () => {
   return (
-  <header className = "bg-main flex justify-between items-center">
+  <header className = "bg-white flex justify-between items-center">
+    <div className = "font-bold text-xl">friday</div>
     <nav> 
     <div className="space-x-4">
         <RouterLink to="/" routerLinkText="Landing Page" />
