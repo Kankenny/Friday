@@ -1,11 +1,11 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 
-import LandingPage from "./components/routes/LandingPage"
-import Home from "./components/routes/Home"
-import Playground from "./components/routes/Playground"
-import PageNotFound from "./components/routes/404Page"
-import RouterLink from "./components/ui/RouterLink"
-import Body from "./components/layout/body/Body"
+import LandingPage from "./components/routes/LandingPage";
+import Home from "./components/routes/Home";
+import Playground from "./components/routes/Playground";
+import PageNotFound from "./components/routes/404Page";
+import RouterLink from "./components/ui/RouterLink";
+import Body from "./components/layout/body/Body";
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
       </Body>
       {/* Wrap future content below with Footer */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
