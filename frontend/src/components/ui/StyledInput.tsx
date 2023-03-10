@@ -1,8 +1,8 @@
 type Props = {
-  name: string
-  type: "text" | "email" | "password"
-  placeholder: string
-}
+  name: string;
+  type: "text" | "email" | "password";
+  placeholder: string;
+};
 
 const StyledInput = ({
   name,
@@ -21,12 +21,12 @@ const StyledInput = ({
       />
       <label
         htmlFor={name}
-        className="absolute duration-200 top-3 -z-1 origin-0 text-secondary"
+        className="absolute duration-200 ease-in-out top-3 -z-1 origin-0 text-secondary"
       >
         {placeholder}
       </label>
     </div>
-  )
-}
+  );
+};
 
-export default StyledInput
+export default StyledInput;

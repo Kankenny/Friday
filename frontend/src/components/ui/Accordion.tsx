@@ -22,7 +22,7 @@ const Accordion = ({ title, children }: Props) => {
         <svg
           className={`${
             isOpen ? "transform rotate-180" : ""
-          } h-7 w-7 text-secondary  duration-300`}
+          } h-7 w-7 text-secondary  duration-300 ease-in-out`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
