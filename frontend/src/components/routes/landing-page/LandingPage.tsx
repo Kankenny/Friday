@@ -9,7 +9,9 @@ const LandingPage = () => {
     <div className="text-secondary py-4 space-y-4">
       <StyledLink
         href="https://mddlknntt.monday.com/boards/4007785360/pulses/4086640487"
-        linkText="Templates can be seen here"
+        linkText="Templates can be seen here in the Files section of the subtask"
+        target="_blank"
+        rel="noopener noreferrer"
       />
       <Headline />
       <Features />

@@ -1,15 +1,15 @@
 type Props = {
   href: string;
   linkText: string;
+  [key: string]: any;
 };
 
-const StyledLink = ({ href, linkText }: Props) => {
+const StyledLink = ({ href, linkText, ...rest }: Props) => {
   return (
     <a
       href={href}
       className="underline text-tertiary hover:duration-200 ease-in-out hover:text-secondary"
-      target="_blank"
-      rel="noopener noreferrer"
+      {...rest}
     >
       {linkText}
     </a>
