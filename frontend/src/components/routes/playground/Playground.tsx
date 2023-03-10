@@ -8,6 +8,12 @@ import Overview from "../../ui/Overview";
 const Playground = () => {
   return (
     <div className="flex justify-center flex-col items-center">
+      <Overview>
+        <h1 className="text-4xl font-extrabold">
+          This playground route is for dev purposes only
+        </h1>
+      </Overview>
+
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
         <h1 className="text-2xl font-bold">StyledInput Component</h1>
         <StyledInput placeholder="Some Label" name="Some Label" type="text" />
