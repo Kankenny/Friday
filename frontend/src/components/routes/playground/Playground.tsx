@@ -1,9 +1,9 @@
-import Card from "../ui/Card"
-import StyledInput from "../ui/StyledInput"
-import StyledButton from "../ui/StyledButton"
-import Accordion from "../ui/Accordion"
-import StyledLink from "../ui/StyledLink"
-import Overview from "../ui/Overview"
+import Card from "../../ui/Card";
+import StyledInput from "../../ui/StyledInput";
+import StyledButton from "../../ui/StyledButton";
+import Accordion from "../../ui/Accordion";
+import StyledLink from "../../ui/StyledLink";
+import Overview from "../../ui/Overview";
 
 const Playground = () => {
   return (
@@ -64,7 +64,7 @@ const Playground = () => {
         </Overview>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Playground
+export default Playground;

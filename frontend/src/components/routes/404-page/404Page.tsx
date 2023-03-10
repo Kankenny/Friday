@@ -1,5 +1,5 @@
-import Overview from "../ui/Overview"
-import RouterLink from "../ui/RouterLink"
+import Overview from "../../ui/Overview";
+import RouterLink from "../../ui/RouterLink";
 
 const PageNotFound = () => {
   return (
@@ -15,7 +15,7 @@ const PageNotFound = () => {
         to go back to the landing page.
       </p>
     </Overview>
-  )
-}
+  );
+};
 
-export default PageNotFound
+export default PageNotFound;

@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 
 // Routes
-import LandingPage from "./components/routes/LandingPage";
-import Home from "./components/routes/Home";
-import Playground from "./components/routes/Playground";
-import PageNotFound from "./components/routes/404Page";
+import LandingPage from "./components/routes/landing-page/LandingPage";
+import Home from "./components/routes/home/Home";
+import Playground from "./components/routes/playground/Playground";
+import PageNotFound from "./components/routes/404-page/404Page";
 import Body from "./components/layout/body/Body";
 import Header from "./components/layout/header/Header";
 
