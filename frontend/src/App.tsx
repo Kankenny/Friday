@@ -7,6 +7,7 @@ import Playground from "./components/routes/playground/Playground";
 import PageNotFound from "./components/routes/404-page/404Page";
 import Body from "./components/layout/body/Body";
 import Header from "./components/layout/header/Header";
+import Footer from "./components/layout/footer/Footer";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           {/* plaground route here is for dev purposes only */}
         </Routes>
       </Body>
-      {/* Wrap future content below with Footer */}
+      <Footer />
     </>
   );
 }
