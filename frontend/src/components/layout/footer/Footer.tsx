@@ -1,32 +1,25 @@
-import React from "react";
-import RouterLink from "../../ui/RouterLink";
+import RouterDiv from "../../ui/RouterDiv"
+import RouterLink from "../../ui/RouterLink"
 
 const Footer = () => {
   return (
-    <footer className="text-white bg-secondary justify-between items-center px-4 py-4 rounded-t-lg">
-      <div className="top-half flex justify-between items-center">
-        <div className="left-half">
-          <p className="text-md font-bold">friday</p>
-          <p className="text-sm">a better day than monday || we know you're looking forward to it</p>
+    <footer className="text-white bg-secondary justify-between items-center p-4 rounded-t-lg space-y-8">
+      <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
+        <div>
+          <RouterDiv to="/">friday</RouterDiv>
+          <p className="text-sm text-tertiary">a better day than monday</p>
         </div>
-        <div className="right-half flex space-x-4 items-center">
-          <RouterLink to="/404Page" routerLinkText="our mission" />
-          <RouterLink to="/404Page" routerLinkText="contact us" />
-          <RouterLink to="/404Page" routerLinkText="Get Started" />
+        <div className="flex flex-col md:flex-row gap-4 items-center">
+          <RouterLink to="/app" routerLinkText="App" />
+          <RouterLink to="/playground" routerLinkText="Playground" />
         </div>
       </div>
       <hr />
-      <br />
-      <div className="text-sm flex justify-between">
-        <p>Copyright© JEKT. All rights reserved.</p>
-        <div className="flex space-x-6">
-          <p>terms of use</p>
-          <p>privacy policy</p>
-        </div>
+      <div className="text-sm text-center md:text-left">
+        <p>Copyright ©</p>
       </div>
     </footer>
+  )
+}
 
-  );
-};
-
-export default Footer;
+export default Footer
