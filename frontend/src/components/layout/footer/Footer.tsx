@@ -1,9 +1,9 @@
-import RouterDiv from "../../ui/RouterDiv"
-import RouterLink from "../../ui/RouterLink"
+import RouterDiv from "../../ui/RouterDiv";
+import RouterLink from "../../ui/RouterLink";
 
 const Footer = () => {
   return (
-    <footer className="text-white bg-secondary justify-between items-center p-4 rounded-t-lg space-y-8">
+    <footer className="text-white bg-secondary justify-between items-center p-4 space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
         <div>
           <RouterDiv to="/">friday</RouterDiv>
@@ -19,7 +19,7 @@ const Footer = () => {
         <p>Copyright ©</p>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
