@@ -3,15 +3,15 @@ import Overview from "../../ui/Overview"
 
 const FAQ = () => {
   return (
-    <div className="container mx-auto max-w-[30%] flex flex-col space-y-5">
-      <Overview twClasses="mb-8">
-        <h1 className="text-4xl font-extrabold">Frequently Asked Questions</h1>
+    <div className="mx-auto max-w-lg flex flex-col space-y-5">
+      <Overview twClasses="mb-10">
+        <h1 className="text-5xl font-extrabold">Frequently Asked Questions</h1>
       </Overview>
       <Accordion title="What is Friday?">
         <p>
           Friday is a productivity application that aims to encourage users to
           be systematic, effective, and performant. Our application is designed
-          to organize user tasks in an efficient manner.
+          to organize user to dos in an efficient manner.
         </p>
       </Accordion>
       <Accordion title="What makes your application different from traditional to do applications?">
