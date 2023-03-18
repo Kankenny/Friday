@@ -17,10 +17,12 @@ const Accordion = ({ title, children }: Props) => {
 
   return (
     <div
-      className={`group bg-secondary text-main border border-secondary border-opacity-30 rounded-md overflow-hidden p-2 cursor-pointer ${openAccordionClasses}`}
-      onClick={toggleAccordion}
+      className={`group bg-secondary text-main border border-secondary border-opacity-30 rounded-md overflow-hidden p-2 ${openAccordionClasses}`}
     >
-      <div className="px-4 py-3 flex justify-between items-center ">
+      <div
+        className="px-4 py-3 flex justify-between items-center cursor-pointer"
+        onClick={toggleAccordion}
+      >
         <h2 className="text-lg font-medium">{title}</h2>
         <svg
           className={`${isOpen ? "transform rotate-180" : ""} h-7 w-7`}
@@ -36,13 +38,7 @@ const Accordion = ({ title, children }: Props) => {
           />
         </svg>
       </div>
-      <div
-        className={`${
-          isOpen
-            ? "max-h-screen duration-300 ease-in"
-            : "max-h-0 duration-300 ease-out"
-        } overflow-hidden`}
-      >
+      <div className={`${isOpen ? "max-h-screen" : "max-h-0"} overflow-hidden`}>
         <div className="px-4 py-3">{children}</div>
       </div>
     </div>
