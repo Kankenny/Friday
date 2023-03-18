@@ -25,7 +25,9 @@ const Accordion = ({ title, children }: Props) => {
       >
         <h2 className="text-lg font-extrabold">{title}</h2>
         <svg
-          className={`${isOpen ? "transform rotate-180" : ""} h-7 w-7`}
+          className={`${
+            isOpen ? "transform rotate-180 duration-300" : ""
+          } h-7 w-7`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
