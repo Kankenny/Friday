@@ -16,8 +16,8 @@ const LandingPage = () => {
       />
       <Headline />
       <Features />
-      <FAQ />
       <MissionVision />
+      <FAQ />
       <LetsGetStarted />
     </div>
   )
