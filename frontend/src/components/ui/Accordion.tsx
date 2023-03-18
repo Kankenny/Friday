@@ -23,7 +23,7 @@ const Accordion = ({ title, children }: Props) => {
         className="px-4 py-3 flex justify-between items-center cursor-pointer"
         onClick={toggleAccordion}
       >
-        <h2 className="text-lg font-medium">{title}</h2>
+        <h2 className="text-lg font-extrabold">{title}</h2>
         <svg
           className={`${isOpen ? "transform rotate-180" : ""} h-7 w-7`}
           xmlns="http://www.w3.org/2000/svg"

@@ -1,9 +1,10 @@
-import Card from "../../ui/Card";
-import StyledInput from "../../ui/StyledInput";
-import StyledButton from "../../ui/StyledButton";
-import Accordion from "../../ui/Accordion";
-import StyledLink from "../../ui/StyledLink";
-import Overview from "../../ui/Overview";
+import Card from "../../ui/Card"
+import StyledInput from "../../ui/StyledInput"
+import StyledButton from "../../ui/StyledButton"
+import Accordion from "../../ui/Accordion"
+import StyledLink from "../../ui/StyledLink"
+import Overview from "../../ui/Overview"
+import Logo from "../../ui/Logo"
 
 const Playground = () => {
   return (
@@ -13,6 +14,11 @@ const Playground = () => {
           This playground route is for dev purposes only
         </h1>
       </Overview>
+
+      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+        <h1 className="text-2xl font-bold">Logo Component</h1>
+        <Logo />
+      </div>
 
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
         <h1 className="text-2xl font-bold">StyledInput Component</h1>
@@ -70,7 +76,7 @@ const Playground = () => {
         </Overview>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Playground;
+export default Playground
