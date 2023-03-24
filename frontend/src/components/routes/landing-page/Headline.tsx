@@ -8,8 +8,8 @@ const days = ["Monday", "Tuesday", "Wednesday", "Thursday",];
 const Headline = () => {
   return (
     <div className="flex justify-center mx-auto h-full text-left">
-      <div className="bg-white p-8 md:p-16">
-        <h1 className="text-tertiary text-6xl md: font-bold mb-8">
+      <div className="bg-white p-16 ">
+        <h1 className="text-tertiary text-6xl font-bold mb-8">
           {head}{days[0]}
         </h1>
         <p className="text-gray-500 text-xl mb-10">
@@ -21,7 +21,7 @@ const Headline = () => {
           intent="primary"
         />
       </div>
-      <div className="w-2/5 md:w-1/2">
+      <div className="w-2/5 ">
         <img src="/to-do.gif" alt="to-do gif" className="ml-auto" />
       </div>
     </div>
