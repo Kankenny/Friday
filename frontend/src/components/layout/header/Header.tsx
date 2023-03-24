@@ -12,6 +12,7 @@ const Header = () => {
       medium(md) breakpoint. We will support mobile view someday using
       this */}
       <nav className="space-x-4 hidden md:block">
+        <RouterLink to="/" routerLinkText="Home" />
         <RouterLink to="/app" routerLinkText="App" />
         <RouterLink to="/playground" routerLinkText="Playground" />
       </nav>
