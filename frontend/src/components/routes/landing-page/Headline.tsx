@@ -12,7 +12,7 @@ const Headline = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center mx-auto h-full text-center md:text-left">
+    <div className="container mx-auto flex flex-col md:flex-row items-center justify-center h-full text-center md:text-left">
       <div className="bg-white p-16 space-y-10">
         <h1 className="text-tertiary text-7xl font-bold">
           {head}

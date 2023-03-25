@@ -1,6 +1,6 @@
 const Features = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 m-8 text-xl text-tertiary text-center">
+    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 m-8 text-xl text-tertiary text-center">
       <div className="p-10">
         <img
           src="/list.gif"

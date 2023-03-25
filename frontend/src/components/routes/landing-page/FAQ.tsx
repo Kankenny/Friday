@@ -3,7 +3,7 @@ import Overview from "../../ui/Overview"
 
 const FAQ = () => {
   return (
-    <div className="mx-auto max-w-lg flex flex-col space-y-5">
+    <div className="container mx-auto max-w-2xl flex flex-col space-y-5">
       <Overview twClasses="mb-10">
         <h1 className="text-5xl font-extrabold">Frequently Asked Questions</h1>
       </Overview>
