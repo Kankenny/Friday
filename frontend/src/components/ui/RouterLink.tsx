@@ -1,15 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"
 
 type Props = {
-  to: string;
-  routerLinkText: string;
-  twClasses?: string;
-};
+  to: string
+  routerLinkText: string
+  twClasses?: string
+}
 
 const RouterLink = ({ to, routerLinkText, twClasses }: Props) => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
-  const activatedRouterLinkClasses = pathname === to && "text-tertiary";
+  const activatedRouterLinkClasses = pathname === to && "text-tertiary"
 
   return (
     <Link
@@ -18,7 +18,7 @@ const RouterLink = ({ to, routerLinkText, twClasses }: Props) => {
     >
       {routerLinkText}
     </Link>
-  );
-};
+  )
+}
 
-export default RouterLink;
+export default RouterLink
