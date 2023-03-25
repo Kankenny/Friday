@@ -14,7 +14,7 @@ const FAQ = () => {
           to organize user to dos in an efficient manner.
         </p>
       </Accordion>
-      <Accordion title="What makes your platform different?">
+      <Accordion title="What makes our platform different?">
         <p className="indent-8 text-justify">
           Our application allows our users to be able to prioritize their tasks
           based on several factors such as the deadline, or you can even set it

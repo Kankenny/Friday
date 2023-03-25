@@ -1,16 +1,22 @@
 import RouterLink from "../../ui/RouterLink"
 
 const subhead = "The next best task management application"
-const head = "A Better Day Than "
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
+let head = "A Better Day Than "
 
 const Headline = () => {
+  const date = new Date()
+  const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "long" })
+
+  if (dayOfWeek === "Friday") {
+    head = "The best day, "
+  }
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-center mx-auto h-full text-center md:text-left">
       <div className="bg-white p-16 ">
         <h1 className="text-tertiary text-6xl font-bold mb-8">
           {head}
-          {days[0]}
+          {dayOfWeek}
         </h1>
         <p className="text-gray-500 text-xl mb-10">{subhead}</p>
         <RouterLink
