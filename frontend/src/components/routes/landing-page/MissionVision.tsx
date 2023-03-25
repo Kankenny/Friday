@@ -14,12 +14,12 @@ const MissionVision = () => {
           <h1 className="text-5xl font-bold text-tertiary h-full">
             Our Mission
           </h1>
-          <p className="text-xl leading-9">{mission}</p>
+          <p className="text-xl leading-9 indent-14 text-justify">{mission}</p>
         </div>
       </Card>
       <Card twClasses="container mx-auto bg-secondary text-white">
         <div className="flex flex-col-reverse md:flex-row items-center gap-10">
-          <p className="text-xl leading-9">{vision}</p>
+          <p className="text-xl leading-9 indent-14 text-justify">{vision}</p>
           <h1 className="text-5xl font-bold text-tertiary h-full">
             Our Vision
           </h1>
