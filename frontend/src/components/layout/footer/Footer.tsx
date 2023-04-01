@@ -7,8 +7,13 @@ const Footer = () => {
     <footer className="text-white bg-secondary justify-between items-center p-4 space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
         <div className="flex flex-col md:flex-row gap-4 items-center">
-          <RouterLink to="/app" routerLinkText="App" />
-          <RouterLink to="/playground" routerLinkText="Playground" />
+          <RouterLink to="/" routerLinkText="Home" twClasses="text-lg" />
+          <RouterLink to="/app" routerLinkText="App" twClasses="text-lg" />
+          <RouterLink
+            to="/playground"
+            routerLinkText="Playground"
+            twClasses="text-lg"
+          />
         </div>
         <div>
           <RouterDiv to="/">
