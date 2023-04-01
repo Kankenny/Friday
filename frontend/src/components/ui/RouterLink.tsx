@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 
 type Props = {
@@ -7,9 +8,13 @@ type Props = {
 }
 
 const RouterLink = ({ to, routerLinkText, twClasses }: Props) => {
-  const { pathname } = useLocation()
+  const location = useLocation()
 
-  const activatedRouterLinkClasses = pathname === to && "text-tertiary"
+  const activatedRouterLinkClasses = location.pathname === to && "text-tertiary"
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
 
   return (
     <Link
