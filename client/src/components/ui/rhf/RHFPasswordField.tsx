@@ -8,10 +8,10 @@ type Props = {
 }
 
 const RHFPasswordField = ({ label, register, error }: Props) => {
-    const { icon, inputType } = usePasswordToggle()
+  const { icon, inputType } = usePasswordToggle()
 
   return (
-    <div className="relative my-5 w-full">
+    <div className="relative">
       <input
         type={inputType}
         className="peer h-10 w-full rounded-sm border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-transparent focus:border-tertiary focus:outline-none"
@@ -26,10 +26,12 @@ const RHFPasswordField = ({ label, register, error }: Props) => {
       >
         {label}
       </label>
-      <div className="absolute top-0 right-0 pr-3 h-full flex items-center">
+      <div className="absolute bottom-3 right-0 pr-2 h-full flex items-center">
         {icon}
       </div>
-      <p className="min-h-[2em] text-xs font-semibold text-red-500">{error}</p>
+      <p className="min-h-[2em] text-xs font-semibold text-red-500 text-left">
+        {error}
+      </p>
     </div>
   )
 }
