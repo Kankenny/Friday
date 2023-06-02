@@ -7,7 +7,7 @@ import mongoose from "mongoose"
 import JWTRequest from "../lib/types/JWTRequestType"
 
 // Validators
-import { registerFormSchema } from "../../../common/validations/registerFormValidator"
+import {registerFormSchema} from "../../common/validations/registerFormValidator"
 
 export const registerUser = async (req: Request, res: Response) => {
   // Validate body using the register form schema
@@ -200,7 +200,7 @@ export const verifySecurityQA = async (req: Request, res: Response) => {
 
     const isMatch = await bcrypt.compare(
       securityQuestionAnswer,
-      existingUser.securityQuestionAnswer
+      existingUser.securityAnswer
     )
     // Check if the security question answer matches existing user's answer
     if (!isMatch) {
@@ -242,16 +242,6 @@ export const resetPassword = async (req: Request, res: Response) => {
     })
   }
 
-  // Check if password strength is sufficient
-  if (!verifyPasswordStrength(password)) {
-    return res.status(400).json({
-      message:
-        "Password must have at least 8 characters long, one uppercase, one lowercase, one number, and one special character!",
-      data: null,
-      ok: false,
-    })
-  }
-
   try {
     // Hashing new password
     const salt = await bcrypt.genSalt(10)
@@ -284,10 +274,10 @@ export const resetPassword = async (req: Request, res: Response) => {
 
 export const changeUserDetails = async (req: JWTRequest, res: Response) => {
   // Destructure the payload attached to the body
-  const { fullName, userId, password, address } = req.body
+  const { firstName, lastName, userId, password, address } = req.body
 
   // Check if appropriate payload is attached to the body
-  if (!userId || !password || !fullName || !address) {
+  if (!userId || !password || !firstName || !lastName || !address) {
     return res.status(400).json({
       message: "Full Name, Password and Address properties are required!",
       data: null,
@@ -335,8 +325,8 @@ export const changeUserDetails = async (req: JWTRequest, res: Response) => {
 
   try {
     // Update user details
-    existingUser.address = address
-    existingUser.fullName = fullName
+    existingUser.firstName = firstName
+    existingUser.lastName = lastName
     await existingUser.save()
 
     res.status(200).json({
@@ -386,38 +376,6 @@ export const changePassword = async (req: JWTRequest, res: Response) => {
     return res
       .status(400)
       .json({ message: "Bad Request!", data: null, ok: false })
-  }
-
-  // Check if password and confirmPassword matches
-  if (newPassword !== newConfirmPassword) {
-    return res.status(400).json({
-      message: "New Password does not match!",
-      data: null,
-      ok: false,
-    })
-  }
-
-  // Check if new password strength is sufficient
-  if (!verifyPasswordStrength(newPassword)) {
-    return res.status(400).json({
-      message:
-        "New password must have at least 8 characters long, one uppercase, one lowercase, one number, and one special character!",
-      data: null,
-      ok: false,
-    })
-  }
-
-  // Check if old password matches user password
-  const doesOldPasswordMatch = await bcrypt.compare(
-    oldPassword,
-    existingUser.password
-  )
-  if (!doesOldPasswordMatch) {
-    return res.status(400).json({
-      message: "You provided the wrong password!",
-      data: null,
-      ok: false,
-    })
   }
 
   // Check if oldPassword and newPassword matches
