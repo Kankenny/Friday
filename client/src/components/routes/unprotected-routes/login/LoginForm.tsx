@@ -9,6 +9,7 @@ import useAuthContext from "../../../../lib/hooks/context-hooks/useAuthContext"
 import RouterLink from "../../../ui/RouterLink"
 import RHFPasswordField from "../../../ui/rhf/RHFPasswordField"
 import RHFInputField from "../../../ui/rhf/RHFInputField"
+import Alert from "@mui/material/Alert"
 
 // Validators
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -95,6 +96,8 @@ const LoginForm = () => {
         </div>
         <LoginButton />
       </form>
+      {error && <Alert severity="error">{error}</Alert>}
+      {success && <Alert severity="success">{success}</Alert>}
       <RegisterLink />
     </div>
   )
