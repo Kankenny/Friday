@@ -1,4 +1,4 @@
-import Card from "../../ui/Card"
+import Card from "../../../ui/Card"
 
 const mission =
   "At Friday, we are dedicated to improving the lives of individuals by equipping them with the tools and resources they need to succeed. Our mission is to empower people to achieve their goals and aspirations by providing a powerful yet user-friendly application that simplifies task management and helps prioritize their to-do lists."

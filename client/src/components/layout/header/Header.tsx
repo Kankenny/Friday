@@ -13,7 +13,7 @@ const Header = () => {
       this */}
       <nav className="space-x-4 hidden md:block">
         <RouterLink to="/" routerLinkText="Home" twClasses="text-lg" />
-        <RouterLink to="/app" routerLinkText="App" twClasses="text-lg" />
+        <RouterLink to="/login" routerLinkText="Login" twClasses="text-lg" />
         <RouterLink
           to="/playground"
           routerLinkText="Playground"

@@ -1,4 +1,4 @@
-import RouterLink from "../../ui/RouterLink"
+import RouterLink from "../../../ui/RouterLink"
 
 const subhead = "The next best task management application"
 let head = "A Better Day Than "

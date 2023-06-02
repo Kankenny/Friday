@@ -1,5 +1,5 @@
-import Accordion from "../../ui/Accordion"
-import Overview from "../../ui/Overview"
+import Accordion from "../../../ui/Accordion"
+import Overview from "../../../ui/Overview"
 
 const FAQ = () => {
   return (

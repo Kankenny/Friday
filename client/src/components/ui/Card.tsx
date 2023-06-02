@@ -8,7 +8,7 @@ type Props = {
 const Card = ({ children, twClasses }: Props) => {
   return (
     <div
-      className={`p-2 rounded-lg shadow-lg bg-main text-secondary ${twClasses}`}
+      className={` ${twClasses} p-2 rounded-lg shadow-lg bg-main text-secondary`}
     >
       {children}
     </div>
