@@ -96,8 +96,16 @@ const LoginForm = () => {
         </div>
         <LoginButton />
       </form>
-      {error && <Alert severity="error">{error}</Alert>}
-      {success && <Alert severity="success">{success}</Alert>}
+      {error && (
+        <Alert severity="error" className="text-red-500 my-5 rounded-lg">
+          {error}
+        </Alert>
+      )}
+      {success && (
+        <Alert severity="success" className="text-red-500 my-5 rounded-lg">
+          {success}
+        </Alert>
+      )}
       <RegisterLink />
     </div>
   )
