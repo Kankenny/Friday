@@ -1,8 +1,8 @@
 import { NextFunction, Response } from "express"
 import jwt from "jsonwebtoken"
 
-import DecodedJWT from "../lib/types/DecodedJWT"
-import JWTRequest from "../lib/types/JWTRequest"
+import JWTRequest from "../lib/types/JWTRequestType"
+import DecodedJWT from "../lib/types/DecodedJWTType"
 
 const verifyToken = async (
   req: JWTRequest,
