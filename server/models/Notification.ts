@@ -22,6 +22,6 @@ const NotificationSchema = new Schema({
   },
 })
 
-const NotificationModel = mongoose.model("Subtask", NotificationSchema)
+const NotificationModel = mongoose.model("Notification", NotificationSchema)
 
 export default NotificationModel
