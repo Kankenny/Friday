@@ -5,6 +5,9 @@ import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
 
+// Routes
+import AuthRoute from "./routes/auth"
+
 // Environment Variables
 const PORT = process.env.port
 const MONGODB_URI = process.env.MONGODB_URI
@@ -23,6 +26,9 @@ app.use(
     exposedHeaders: ["Authorization"],
   })
 )
+
+// Route Declarations
+app.use("/api/auth", AuthRoute)
 
 mongoose.connect(MONGODB_URI!).then(() => {
   console.log("> Server connected to MongoDB")

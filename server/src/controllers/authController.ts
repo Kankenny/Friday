@@ -11,7 +11,7 @@ import UserModel from "../models/User"
 import JWTRequest from "../lib/types/JWTRequestType"
 
 // Validators
-import {registerFormSchema} from "../../common/validations/registerFormValidator"
+import { registerFormSchema } from "../../../common/validations/registerFormValidator"
 
 export const registerUser = async (req: Request, res: Response) => {
   // Validate body using the register form schema
