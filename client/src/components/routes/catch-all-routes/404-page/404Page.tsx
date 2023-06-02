@@ -1,5 +1,5 @@
-import Overview from "../../ui/Overview";
-import RouterLink from "../../ui/RouterLink";
+import Overview from "../../../ui/Overview";
+import RouterLink from "../../../ui/RouterLink";
 
 const PageNotFound = () => {
   return (

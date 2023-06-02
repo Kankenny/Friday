@@ -1,10 +1,10 @@
-import Card from "../../ui/Card"
-import StyledInput from "../../ui/StyledInput"
-import StyledButton from "../../ui/StyledButton"
-import Accordion from "../../ui/Accordion"
-import StyledLink from "../../ui/StyledLink"
-import Overview from "../../ui/Overview"
-import Logo from "../../ui/Logo"
+import Card from "../../../ui/Card"
+import StyledInput from "../../../ui/StyledInput"
+import StyledButton from "../../../ui/StyledButton"
+import Accordion from "../../../ui/Accordion"
+import StyledLink from "../../../ui/StyledLink"
+import Overview from "../../../ui/Overview"
+import Logo from "../../../ui/Logo"
 
 const Playground = () => {
   return (
