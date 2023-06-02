@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken"
 
 import UserModel from "../models/User"
 import mongoose from "mongoose"
-import JWTRequest from "../lib/types/JWTRequest"
+import JWTRequest from "../lib/types/JWTRequestType"
 
 // Validators
 import { registerFormSchema } from "../../../common/validations/registerFormValidator"
