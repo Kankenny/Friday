@@ -25,7 +25,9 @@ export const registerFormSchema = z.object({
     .min(1, { message: "Security Question is required!" }),
   securityAnswer: z
     .string()
-    .min(1, { message: "Security Question Answer is required!" }),
+    .min(1, { message: "Security Question Answer is required!" })
+    .trim()
+    .toLowerCase(),
 })
 
 export type registerFormType = z.infer<typeof registerFormSchema>

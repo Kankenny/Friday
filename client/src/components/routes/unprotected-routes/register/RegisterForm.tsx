@@ -79,7 +79,7 @@ const RegisterForm = () => {
               Let's Get To Know You Better
             </h1>
           </div>
-          <div className="flex gap-5 justify-between">
+          <div className="flex justify-between">
             <RHFInputField
               label="First Name"
               register={register("firstName")}
