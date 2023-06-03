@@ -9,6 +9,7 @@ import Body from "./components/layout/body/Body"
 import Header from "./components/layout/header/Header"
 import Footer from "./components/layout/footer/Footer"
 import Login from "./components/routes/unprotected-routes/login/Login"
+import Register from "./components/routes/unprotected-routes/register/Register"
 
 function App() {
   return (
@@ -19,10 +20,11 @@ function App() {
           {/* Unprotected Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/app" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/playground" element={<Playground />} />
 
           {/* Protected Routes */}
-          <Route path="/login" element={<Login />} />
 
           {/* Catch-all  Routes */}
           <Route path="*" element={<PageNotFound />} />

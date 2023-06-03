@@ -9,7 +9,7 @@ import useAuthContext from "../../../../lib/hooks/context-hooks/useAuthContext"
 import RouterLink from "../../../ui/RouterLink"
 import RHFPasswordField from "../../../ui/rhf/RHFPasswordField"
 import RHFInputField from "../../../ui/rhf/RHFInputField"
-import Alert from "@mui/material/Alert"
+import Alert from "../../../ui/mui/Alert"
 
 // Validators
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -17,8 +17,6 @@ import {
   loginFormSchema,
   loginFormType,
 } from "../../../../../../common/validations/loginFormValidator"
-import BasicTooltip from "../../../ui/mui/PrivacyTooltip"
-import PrivacyTooltip from "../../../ui/mui/PrivacyTooltip"
 
 const LoginForm = () => {
   const { login } = useAuthContext()
@@ -99,16 +97,8 @@ const LoginForm = () => {
         </div>
         <LoginButton />
       </form>
-      {error && (
-        <Alert severity="error" className="text-red-500 my-5 rounded-lg">
-          {error}
-        </Alert>
-      )}
-      {success && (
-        <Alert severity="success" className="text-red-500 my-5 rounded-lg">
-          {success}
-        </Alert>
-      )}
+      {error && <Alert severity="error" message={error} />}
+      {success && <Alert severity="success" message={success} />}
       <RegisterLink />
     </div>
   )
