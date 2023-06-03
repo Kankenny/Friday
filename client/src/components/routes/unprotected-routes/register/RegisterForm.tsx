@@ -63,7 +63,9 @@ const RegisterForm = () => {
         return
       }
 
-      navigate("/login")
+      navigate("/login", {
+        state: { registeredSuccessfullyMessage: json.message },
+      })
     }
     registerUser()
   }

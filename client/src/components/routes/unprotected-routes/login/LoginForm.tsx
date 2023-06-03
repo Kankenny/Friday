@@ -18,7 +18,12 @@ import {
   loginFormType,
 } from "../../../../../../common/validations/loginFormValidator"
 
-const LoginForm = () => {
+// Types
+type Props = {
+  registeredSuccessfullyMessage?: string
+}
+
+const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
   const { login } = useAuthContext()
   const navigate = useNavigate()
 
@@ -98,7 +103,13 @@ const LoginForm = () => {
         <LoginButton />
       </form>
       {error && <Alert severity="error" message={error} />}
-      {success && <Alert severity="success" message={success} />}
+      {success ||
+        (registeredSuccessfullyMessage && (
+          <Alert
+            severity="success"
+            message={success || registeredSuccessfullyMessage}
+          />
+        ))}
       <RegisterLink />
     </div>
   )
