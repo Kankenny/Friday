@@ -1,7 +1,5 @@
 import { z } from "zod"
-
-const strongPasswordRegex =
-  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+import { strongPasswordRegex } from "../constants/strongPasswordRegex"
 
 export const registerFormSchema = z
   .object({

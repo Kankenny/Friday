@@ -13,6 +13,9 @@ import JWTRequest from "../lib/types/JWTRequestType"
 // Validators
 import { registerFormSchema } from "../../../common/validations/registerFormValidator"
 import { loginFormSchema } from "../../../common/validations/loginFormValidator"
+import { forgotPasswordFormSchema } from "../../../common/validations/forgotPasswordFormValidator"
+import { securityAnswerFormSchema } from "../../../common/validations/securityAnswerFormValidator"
+import { resetPasswordFormSchema } from "../../../common/validations/resetPasswordFormValidator"
 
 export const registerUser = async (req: Request, res: Response) => {
   // Validate body using the register form schema
@@ -144,22 +147,25 @@ export const loginUser = async (req: Request, res: Response) => {
 }
 
 export const getSecurityQuestion = async (req: Request, res: Response) => {
-  // destructure the payload attached to the body
-  const { username } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!username) {
+  // Validate body using the register form schema
+  try {
+    forgotPasswordFormSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
     return res.status(400).json({
-      message: "username property is required!",
+      message: "Invalid security question form data!",
       data: null,
       ok: false,
     })
   }
 
+  // destructure the payload attached to the body
+  const { usernameOrEmail } = req.body
+
   try {
     // Check if the username already exists in the db
     const existingUser = await UserModel.findOne({
-      username: username,
+      $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
     })
     if (!existingUser) {
       return res
@@ -170,6 +176,7 @@ export const getSecurityQuestion = async (req: Request, res: Response) => {
     res.status(200).json({
       message: "Security questions successfully fetched!",
       data: {
+        firstName: existingUser.firstName,
         username: existingUser.username,
         securityQuestion: existingUser.securityQuestion,
       },
@@ -181,17 +188,20 @@ export const getSecurityQuestion = async (req: Request, res: Response) => {
 }
 
 export const verifySecurityQA = async (req: Request, res: Response) => {
-  // destructure the payload attached to the body
-  const { username, securityQuestionAnswer } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!username || !securityQuestionAnswer) {
+  // Validate body using the register form schema
+  try {
+    securityAnswerFormSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
     return res.status(400).json({
-      message: "username and securityQuestionAnswer properties are required!",
+      message: "Invalid security answer form data!",
       data: null,
       ok: false,
     })
   }
+
+  // destructure the payload attached to the body
+  const { securityAnswer, username } = req.body
 
   try {
     // Check if the username already exists in the db
@@ -205,7 +215,7 @@ export const verifySecurityQA = async (req: Request, res: Response) => {
     }
 
     const isMatch = await bcrypt.compare(
-      securityQuestionAnswer,
+      securityAnswer,
       existingUser.securityAnswer
     )
     // Check if the security question answer matches existing user's answer
@@ -226,40 +236,35 @@ export const verifySecurityQA = async (req: Request, res: Response) => {
 }
 
 export const resetPassword = async (req: Request, res: Response) => {
+  // Validate body using the register form schema
+  try {
+    resetPasswordFormSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
+    return res.status(400).json({
+      message: "Invalid reset password form data!",
+      data: null,
+      ok: false,
+    })
+  }
+
   // destructure the payload attached to the body
-  const { username, password, confirmPassword } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!username || !password || !confirmPassword) {
-    return res.status(400).json({
-      message:
-        "username, password, and confirmPassword properties are required!",
-      data: null,
-      ok: false,
-    })
-  }
-
-  // Check if password and confirmPassword matches
-  if (password !== confirmPassword) {
-    return res.status(400).json({
-      message: "Password does not match!",
-      data: null,
-      ok: false,
-    })
-  }
+  const { username, newPassword } = req.body
 
   try {
-    // Hashing new password
-    const salt = await bcrypt.genSalt(10)
-    const newHashedPassword = await bcrypt.hash(password, salt)
-
-    // Update user password
-    const user = await UserModel.findOne({ username })
-    user!.password = newHashedPassword
-    await user!.save()
+    // Check if user exists
+    const existingUser = await UserModel.findOne({ username })
+    if (!existingUser) {
+      return res
+        .status(404)
+        .json({ message: "Bad request!", data: null, ok: false })
+    }
 
     // Check if new password matches old password
-    const doesOldPasswordMatch = await bcrypt.compare(password, user!.password)
+    const doesOldPasswordMatch = await bcrypt.compare(
+      newPassword,
+      existingUser.password
+    )
     if (doesOldPasswordMatch) {
       return res.status(400).json({
         message: "New password cannot be the same as the old password!",
@@ -268,9 +273,17 @@ export const resetPassword = async (req: Request, res: Response) => {
       })
     }
 
+    // Hashing new password
+    const salt = await bcrypt.genSalt(10)
+    const newHashedPassword = await bcrypt.hash(newPassword, salt)
+
+    // Update user password
+    existingUser.password = newHashedPassword
+    await existingUser.save()
+
     res.status(200).json({
       message: "Password Reset Successful!",
-      data: { username: user!.username, _id: user!._id },
+      data: { username: existingUser.username, _id: existingUser._id },
       ok: true,
     })
   } catch (error) {

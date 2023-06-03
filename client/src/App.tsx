@@ -10,9 +10,12 @@ import Header from "./components/layout/header/Header"
 import Footer from "./components/layout/footer/Footer"
 import Login from "./components/routes/unprotected-routes/login/Login"
 import Register from "./components/routes/unprotected-routes/register/Register"
+import ForgotPassword from "./components/routes/unprotected-routes/forgot-password/ForgotPassword"
+import SecurityAnswer from "./components/routes/unprotected-routes/forgot-password/SecurityAnswer"
 
 // Container Component
 import AppContainer from "./AppContainer"
+import ResetPassword from "./components/routes/unprotected-routes/forgot-password/ResetPassword"
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
           <Route path="/app" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/security-answer" element={<SecurityAnswer />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/playground" element={<Playground />} />
           {/* Protected Routes */}
           {/* Catch-all  Routes */}
