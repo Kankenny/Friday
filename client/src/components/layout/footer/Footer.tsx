@@ -16,7 +16,7 @@ const Footer = () => {
           />
         </div>
         <div>
-          <RouterDiv to="/">
+          <RouterDiv to="/app">
             <Logo />
           </RouterDiv>
         </div>
