@@ -26,7 +26,6 @@ type Props = {
 const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
   const { login } = useAuthContext()
   const navigate = useNavigate()
-
   const {
     register,
     handleSubmit,
