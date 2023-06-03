@@ -21,9 +21,6 @@ const Footer = () => {
           </RouterDiv>
         </div>
       </div>
-      <div className="text-sm text-center md:text-left">
-        <p>Copyright ©</p>
-      </div>
     </footer>
   )
 }

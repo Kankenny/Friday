@@ -63,6 +63,7 @@ export const registerUser = async (req: Request, res: Response) => {
     const user = new UserModel({
       firstName,
       lastName,
+      profilePicture: "",
       email,
       username,
       password: hashedPassword,
