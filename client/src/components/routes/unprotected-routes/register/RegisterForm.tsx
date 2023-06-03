@@ -56,6 +56,8 @@ const RegisterForm = () => {
       )
       const json = await response.json()
 
+      console.log(json)
+
       if (!json.ok) {
         setError(json.message)
         return

@@ -28,54 +28,53 @@ export const registerUser = async (req: Request, res: Response) => {
 
   // destructure the payload attached to the body
   const {
-    fullName,
+    firstName,
+    lastName,
     email,
     username,
     password,
-    address,
     securityQuestion,
     securityAnswer,
   } = req.body
 
   try {
-    // Hashing password
     const salt = await bcrypt.genSalt()
+
+    // Hashing password
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    // Hashing securityQuestionAnswer
-    const hashedSecurityQuestionAnswer = await bcrypt.hash(securityAnswer, salt)
-
-    // Clean the username by removing whitespaces and converting to lowercase
-    const cleanedUsername = username.toLowerCase().replace(/\s+/g, "") // '  hello world ' -> 'helloworld'
+    // Hashing securityAnswer
+    const hashedSecurityAnswer = await bcrypt.hash(securityAnswer, salt)
 
     // Check if the username or email already exists in the db
     const existingUser = await UserModel.findOne({
-      $or: [
-        { username: cleanedUsername.toLowerCase() },
-        { email: email.toLowerCase() },
-      ],
+      $or: [{ username }, { email }],
     })
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "Username already exists!", data: null, ok: false })
+      return res.status(400).json({
+        message: "Username or email already exists!",
+        data: null,
+        ok: false,
+      })
     }
 
     // Creating new User
     const user = new UserModel({
-      fullName,
-      email: email.trim().toLowerCase(),
-      username: cleanedUsername.toLowerCase(),
+      firstName,
+      lastName,
+      email,
+      username,
       password: hashedPassword,
-      address,
-      balance: 0,
-      listedListings: [],
-      biddedListings: [],
-      disputedListings: [],
-      wonListings: [],
-      disputesToManage: [],
       securityQuestion,
-      securityQuestionAnswer: hashedSecurityQuestionAnswer,
+      securityAnswer: hashedSecurityAnswer,
+      following: [],
+      followers: [],
+      blocked: [],
+      posts: [],
+      upvotedPosts: [],
+      downvotedPosts: [],
+      savedPosts: [],
+      comments: [],
     })
 
     // Saving new User

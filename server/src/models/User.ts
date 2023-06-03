@@ -36,42 +36,60 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  following: {
-    type: ObjectId,
-    ref: "User",
-  },
-  followers: {
-    type: ObjectId,
-    ref: "User",
-  },
-  blocked: {
-    type: ObjectId,
-    ref: "User",
-  },
-  posts: {
-    type: ObjectId,
-    ref: "Post",
-  },
-  upvotedPosts: {
-    type: ObjectId,
-    ref: "Post",
-  },
-  downvotedPosts: {
-    type: ObjectId,
-    ref: "Post",
-  },
-  savedPosts: {
-    type: ObjectId,
-    ref: "Post",
-  },
-  notifications: {
-    type: ObjectId,
-    ref: "Notification",
-  },
-  comments: {
-    type: ObjectId,
-    ref: "Comment",
-  },
+  following: [
+    {
+      type: ObjectId,
+      ref: "User",
+    },
+  ],
+  followers: [
+    {
+      type: ObjectId,
+      ref: "User",
+    },
+  ],
+  blocked: [
+    {
+      type: ObjectId,
+      ref: "User",
+    },
+  ],
+  posts: [
+    {
+      type: ObjectId,
+      ref: "Post",
+    },
+  ],
+  upvotedPosts: [
+    {
+      type: ObjectId,
+      ref: "Post",
+    },
+  ],
+  downvotedPosts: [
+    {
+      type: ObjectId,
+      ref: "Post",
+    },
+  ],
+  savedPosts: [
+    {
+      type: ObjectId,
+      ref: "Post",
+    },
+  ],
+  notifications: [
+    {
+      type: ObjectId,
+      ref: "Notification",
+    },
+  ],
+  comments: [
+    {
+      type: ObjectId,
+      ref: "Comment",
+    },
+  ],
 })
 
 const UserModel = mongoose.model("User", UserSchema)
