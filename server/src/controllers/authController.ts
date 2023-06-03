@@ -90,6 +90,7 @@ export const registerUser = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -142,6 +143,7 @@ export const loginUser = async (req: Request, res: Response) => {
       .header("Authorization", `Bearer ${token}`)
       .json({ message: "Login Success!", data: { user, token }, ok: true })
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -183,6 +185,7 @@ export const getSecurityQuestion = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -231,6 +234,7 @@ export const verifySecurityQA = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -287,6 +291,7 @@ export const resetPassword = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -354,6 +359,7 @@ export const changeUserDetails = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -425,6 +431,7 @@ export const changePassword = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -497,6 +504,7 @@ export const changeSecurityQA = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
