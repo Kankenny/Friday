@@ -12,6 +12,7 @@ import JWTRequest from "../lib/types/JWTRequestType"
 
 // Validators
 import { registerFormSchema } from "../../../common/validations/registerFormValidator"
+import { loginFormSchema } from "../../../common/validations/loginFormValidator"
 
 export const registerUser = async (req: Request, res: Response) => {
   // Validate body using the register form schema
@@ -95,32 +96,33 @@ export const loginUser = async (req: Request, res: Response) => {
 	Compare the password in the req to encrypted password in the DB.
 	*/
 
-  // destructure the payload attached to the body
-  const { username, password } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!username || !password) {
+  // Validate body using the register form schema
+  try {
+    loginFormSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
     return res.status(400).json({
-      message: "username and password properties are required!",
+      message: "Invalid login form data!",
       data: null,
       ok: false,
     })
   }
 
-  try {
-    const user = await UserModel.findOne({
-      username: username.toLowerCase(),
-    })
+  // destructure the payload attached to the body
+  const { username, password } = req.body
 
+  try {
+    // Check if user exists
+    const user = await UserModel.findOne({
+      username,
+    })
     if (!user)
       return res
         .status(400)
         .json({ message: "User not found", data: null, ok: false })
 
-    const doesPasswordMatch = await bcrypt.compare(
-      req.body.password,
-      user!.password
-    )
+    // Check if the password matches
+    const doesPasswordMatch = await bcrypt.compare(password, user.password)
     if (!doesPasswordMatch)
       return res
         .status(400)
