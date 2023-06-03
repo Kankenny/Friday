@@ -44,26 +44,36 @@ const PostSchema = new Schema({
     type: String,
     required: true,
   },
-  authorizedUsers: {
-    type: ObjectId,
-    ref: "User",
-  },
-  upvotedBy: {
-    type: ObjectId,
-    ref: "User",
-  },
-  downvotedBy: {
-    type: ObjectId,
-    ref: "User",
-  },
-  tasks: {
-    type: ObjectId,
-    ref: "Task",
-  },
-  comments: {
-    type: ObjectId,
-    ref: "Comment",
-  },
+  authorizedUsers: [
+    {
+      type: ObjectId,
+      ref: "User",
+    },
+  ],
+  upvotedBy: [
+    {
+      type: ObjectId,
+      ref: "User",
+    },
+  ],
+  downvotedBy: [
+    {
+      type: ObjectId,
+      ref: "User",
+    },
+  ],
+  tasks: [
+    {
+      type: ObjectId,
+      ref: "Task",
+    },
+  ],
+  comments: [
+    {
+      type: ObjectId,
+      ref: "Comment",
+    },
+  ],
 })
 
 const PostModel = mongoose.model("Post", PostSchema)

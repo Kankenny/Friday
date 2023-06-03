@@ -58,6 +58,7 @@ const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
         }
       )
 
+      console.log(response)
       const data = await response.json()
 
       if (!data.ok) {
@@ -67,6 +68,8 @@ const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
       }
 
       const token = response.headers.get("authorization")
+
+      console.log(data, token)
 
       setError("")
       setSuccess(data.data.message)
