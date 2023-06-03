@@ -9,7 +9,7 @@ import useAuthContext from "../../../../lib/hooks/context-hooks/useAuthContext"
 import RouterLink from "../../../ui/RouterLink"
 import RHFPasswordField from "../../../ui/rhf/RHFPasswordField"
 import RHFInputField from "../../../ui/rhf/RHFInputField"
-import Alert from "@mui/material/Alert"
+import Alert from "../../../ui/mui/Alert"
 
 // Validators
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -18,10 +18,14 @@ import {
   loginFormType,
 } from "../../../../../../common/validations/loginFormValidator"
 
-const LoginForm = () => {
+// Types
+type Props = {
+  registeredSuccessfullyMessage?: string
+}
+
+const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
   const { login } = useAuthContext()
   const navigate = useNavigate()
-
   const {
     register,
     handleSubmit,
@@ -66,7 +70,7 @@ const LoginForm = () => {
       setError("")
       setSuccess(data.data.message)
       login(data.data.user._id, token!, data.data.user.isAdmin)
-      navigate("/", { replace: true })
+      navigate("/app", { replace: true })
     }
     loginUser()
   }
@@ -87,6 +91,7 @@ const LoginForm = () => {
             label="password"
             register={register("password")}
             error={errors.password?.message}
+            twClasses="w-full"
           />
           <RouterLink
             routerLinkText="Forgot Password?"
@@ -96,16 +101,14 @@ const LoginForm = () => {
         </div>
         <LoginButton />
       </form>
-      {error && (
-        <Alert severity="error" className="text-red-500 my-5 rounded-lg">
-          {error}
-        </Alert>
-      )}
-      {success && (
-        <Alert severity="success" className="text-red-500 my-5 rounded-lg">
-          {success}
-        </Alert>
-      )}
+      {error && <Alert severity="error" message={error} />}
+      {success ||
+        (registeredSuccessfullyMessage && (
+          <Alert
+            severity="success"
+            message={success || registeredSuccessfullyMessage}
+          />
+        ))}
       <RegisterLink />
     </div>
   )

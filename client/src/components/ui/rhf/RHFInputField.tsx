@@ -4,11 +4,12 @@ type Props = {
   label: string
   register: UseFormRegisterReturn
   error?: string
+  twClasses?: string
 }
 
-const RHFInputField = ({ label, register, error }: Props) => {
+const RHFInputField = ({ label, register, error, twClasses }: Props) => {
   return (
-    <div className="relative">
+    <div className={`${twClasses} relative`}>
       <input
         type="text"
         className="peer h-10 w-full rounded-sm border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-transparent focus:border-tertiary focus:outline-none"

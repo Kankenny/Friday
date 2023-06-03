@@ -12,6 +12,10 @@ import JWTRequest from "../lib/types/JWTRequestType"
 
 // Validators
 import { registerFormSchema } from "../../../common/validations/registerFormValidator"
+import { loginFormSchema } from "../../../common/validations/loginFormValidator"
+import { forgotPasswordFormSchema } from "../../../common/validations/forgotPasswordFormValidator"
+import { securityAnswerFormSchema } from "../../../common/validations/securityAnswerFormValidator"
+import { resetPasswordFormSchema } from "../../../common/validations/resetPasswordFormValidator"
 
 export const registerUser = async (req: Request, res: Response) => {
   // Validate body using the register form schema
@@ -28,54 +32,54 @@ export const registerUser = async (req: Request, res: Response) => {
 
   // destructure the payload attached to the body
   const {
-    fullName,
+    firstName,
+    lastName,
     email,
     username,
     password,
-    address,
     securityQuestion,
     securityAnswer,
   } = req.body
 
   try {
-    // Hashing password
     const salt = await bcrypt.genSalt()
+
+    // Hashing password
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    // Hashing securityQuestionAnswer
-    const hashedSecurityQuestionAnswer = await bcrypt.hash(securityAnswer, salt)
-
-    // Clean the username by removing whitespaces and converting to lowercase
-    const cleanedUsername = username.toLowerCase().replace(/\s+/g, "") // '  hello world ' -> 'helloworld'
+    // Hashing securityAnswer
+    const hashedSecurityAnswer = await bcrypt.hash(securityAnswer, salt)
 
     // Check if the username or email already exists in the db
     const existingUser = await UserModel.findOne({
-      $or: [
-        { username: cleanedUsername.toLowerCase() },
-        { email: email.toLowerCase() },
-      ],
+      $or: [{ username }, { email }],
     })
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "Username already exists!", data: null, ok: false })
+      return res.status(400).json({
+        message: "Username or email already exists!",
+        data: null,
+        ok: false,
+      })
     }
 
     // Creating new User
     const user = new UserModel({
-      fullName,
-      email: email.trim().toLowerCase(),
-      username: cleanedUsername.toLowerCase(),
+      firstName,
+      lastName,
+      profilePicture: "",
+      email,
+      username,
       password: hashedPassword,
-      address,
-      balance: 0,
-      listedListings: [],
-      biddedListings: [],
-      disputedListings: [],
-      wonListings: [],
-      disputesToManage: [],
       securityQuestion,
-      securityQuestionAnswer: hashedSecurityQuestionAnswer,
+      securityAnswer: hashedSecurityAnswer,
+      following: [],
+      followers: [],
+      blocked: [],
+      posts: [],
+      upvotedPosts: [],
+      downvotedPosts: [],
+      savedPosts: [],
+      comments: [],
     })
 
     // Saving new User
@@ -86,6 +90,7 @@ export const registerUser = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -96,32 +101,33 @@ export const loginUser = async (req: Request, res: Response) => {
 	Compare the password in the req to encrypted password in the DB.
 	*/
 
-  // destructure the payload attached to the body
-  const { username, password } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!username || !password) {
+  // Validate body using the register form schema
+  try {
+    loginFormSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
     return res.status(400).json({
-      message: "username and password properties are required!",
+      message: "Invalid login form data!",
       data: null,
       ok: false,
     })
   }
 
-  try {
-    const user = await UserModel.findOne({
-      username: username.toLowerCase(),
-    })
+  // destructure the payload attached to the body
+  const { username, password } = req.body
 
+  try {
+    // Check if user exists
+    const user = await UserModel.findOne({
+      username,
+    })
     if (!user)
       return res
         .status(400)
         .json({ message: "User not found", data: null, ok: false })
 
-    const doesPasswordMatch = await bcrypt.compare(
-      req.body.password,
-      user!.password
-    )
+    // Check if the password matches
+    const doesPasswordMatch = await bcrypt.compare(password, user.password)
     if (!doesPasswordMatch)
       return res
         .status(400)
@@ -137,27 +143,31 @@ export const loginUser = async (req: Request, res: Response) => {
       .header("Authorization", `Bearer ${token}`)
       .json({ message: "Login Success!", data: { user, token }, ok: true })
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: error, data: null, ok: false })
   }
 }
 
 export const getSecurityQuestion = async (req: Request, res: Response) => {
-  // destructure the payload attached to the body
-  const { username } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!username) {
+  // Validate body using the register form schema
+  try {
+    forgotPasswordFormSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
     return res.status(400).json({
-      message: "username property is required!",
+      message: "Invalid security question form data!",
       data: null,
       ok: false,
     })
   }
 
+  // destructure the payload attached to the body
+  const { usernameOrEmail } = req.body
+
   try {
     // Check if the username already exists in the db
     const existingUser = await UserModel.findOne({
-      username: username,
+      $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
     })
     if (!existingUser) {
       return res
@@ -168,28 +178,33 @@ export const getSecurityQuestion = async (req: Request, res: Response) => {
     res.status(200).json({
       message: "Security questions successfully fetched!",
       data: {
+        firstName: existingUser.firstName,
         username: existingUser.username,
         securityQuestion: existingUser.securityQuestion,
       },
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
 
 export const verifySecurityQA = async (req: Request, res: Response) => {
-  // destructure the payload attached to the body
-  const { username, securityQuestionAnswer } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!username || !securityQuestionAnswer) {
+  // Validate body using the register form schema
+  try {
+    securityAnswerFormSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
     return res.status(400).json({
-      message: "username and securityQuestionAnswer properties are required!",
+      message: "Invalid security answer form data!",
       data: null,
       ok: false,
     })
   }
+
+  // destructure the payload attached to the body
+  const { securityAnswer, username } = req.body
 
   try {
     // Check if the username already exists in the db
@@ -203,7 +218,7 @@ export const verifySecurityQA = async (req: Request, res: Response) => {
     }
 
     const isMatch = await bcrypt.compare(
-      securityQuestionAnswer,
+      securityAnswer,
       existingUser.securityAnswer
     )
     // Check if the security question answer matches existing user's answer
@@ -219,45 +234,41 @@ export const verifySecurityQA = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
 
 export const resetPassword = async (req: Request, res: Response) => {
+  // Validate body using the register form schema
+  try {
+    resetPasswordFormSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
+    return res.status(400).json({
+      message: "Invalid reset password form data!",
+      data: null,
+      ok: false,
+    })
+  }
+
   // destructure the payload attached to the body
-  const { username, password, confirmPassword } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!username || !password || !confirmPassword) {
-    return res.status(400).json({
-      message:
-        "username, password, and confirmPassword properties are required!",
-      data: null,
-      ok: false,
-    })
-  }
-
-  // Check if password and confirmPassword matches
-  if (password !== confirmPassword) {
-    return res.status(400).json({
-      message: "Password does not match!",
-      data: null,
-      ok: false,
-    })
-  }
+  const { username, newPassword } = req.body
 
   try {
-    // Hashing new password
-    const salt = await bcrypt.genSalt(10)
-    const newHashedPassword = await bcrypt.hash(password, salt)
-
-    // Update user password
-    const user = await UserModel.findOne({ username })
-    user!.password = newHashedPassword
-    await user!.save()
+    // Check if user exists
+    const existingUser = await UserModel.findOne({ username })
+    if (!existingUser) {
+      return res
+        .status(404)
+        .json({ message: "Bad request!", data: null, ok: false })
+    }
 
     // Check if new password matches old password
-    const doesOldPasswordMatch = await bcrypt.compare(password, user!.password)
+    const doesOldPasswordMatch = await bcrypt.compare(
+      newPassword,
+      existingUser.password
+    )
     if (doesOldPasswordMatch) {
       return res.status(400).json({
         message: "New password cannot be the same as the old password!",
@@ -266,12 +277,21 @@ export const resetPassword = async (req: Request, res: Response) => {
       })
     }
 
+    // Hashing new password
+    const salt = await bcrypt.genSalt(10)
+    const newHashedPassword = await bcrypt.hash(newPassword, salt)
+
+    // Update user password
+    existingUser.password = newHashedPassword
+    await existingUser.save()
+
     res.status(200).json({
       message: "Password Reset Successful!",
-      data: { username: user!.username, _id: user!._id },
+      data: { username: existingUser.username, _id: existingUser._id },
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -339,6 +359,7 @@ export const changeUserDetails = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -410,6 +431,7 @@ export const changePassword = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }
@@ -482,6 +504,7 @@ export const changeSecurityQA = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error, data: null, ok: false })
   }
 }

@@ -5,13 +5,14 @@ type Props = {
   label: string
   register: UseFormRegisterReturn
   error?: string
+  twClasses?: string
 }
 
-const RHFPasswordField = ({ label, register, error }: Props) => {
+const RHFPasswordField = ({ label, register, error, twClasses }: Props) => {
   const { icon, inputType } = usePasswordToggle()
 
   return (
-    <div className="relative">
+    <div className={`${twClasses} relative`}>
       <input
         type={inputType}
         className="peer h-10 w-full rounded-sm border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-transparent focus:border-tertiary focus:outline-none"
