@@ -17,6 +17,8 @@ import {
   loginFormSchema,
   loginFormType,
 } from "../../../../../../common/validations/loginFormValidator"
+import BasicTooltip from "../../../ui/mui/PrivacyTooltip"
+import PrivacyTooltip from "../../../ui/mui/PrivacyTooltip"
 
 const LoginForm = () => {
   const { login } = useAuthContext()
@@ -87,6 +89,7 @@ const LoginForm = () => {
             label="password"
             register={register("password")}
             error={errors.password?.message}
+            twClasses="w-full"
           />
           <RouterLink
             routerLinkText="Forgot Password?"
