@@ -38,6 +38,7 @@ export const getUser = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: err, data: null, ok: false })
   }
 }
@@ -112,6 +113,7 @@ export const getUserFollowers = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: err, data: null, ok: false })
   }
 }
@@ -320,6 +322,7 @@ export const unfollowUser = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: err, data: null, ok: false })
   }
 }
