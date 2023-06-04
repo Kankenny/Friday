@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from "express"
 // Auth Controller Functions
 import {
   getUser,
+  getUserBlocked,
   getUserFollowers,
   getUserFollowing,
 } from "../controllers/userController"
@@ -36,6 +37,14 @@ UserRoute.get(
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => getUserFollowers(req as JWTRequest, res)
+)
+
+// GET USER BLOCKED
+UserRoute.get(
+  "/:userId/blocked",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => getUserBlocked(req as JWTRequest, res)
 )
 
 export default UserRoute
