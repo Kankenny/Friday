@@ -17,3 +17,5 @@ UserRoute.get(
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => getUser(req as JWTRequest, res)
 )
+
+export default UserRoute
