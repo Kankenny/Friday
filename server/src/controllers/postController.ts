@@ -56,36 +56,27 @@ export const getPost = async (req: Request, res: Response) => {
 }
 
 export const createPost = async (req: JWTRequest, res: Response) => {
-  // Validate body using the create post schema
   try {
+    // Validate body using the create post schema
     createPostSchema.parse(req.body)
-  } catch (err) {
-    console.log(err)
-    return res.status(400).json({
-      message: "Invalid create post data!",
-      data: null,
-      ok: false,
-    })
-  }
 
-  // Destructure payload from the request body
-  const {
-    title,
-    creatorId,
-    creatorUsername,
-    dueDate,
-    color,
-    category,
-    visibility,
-    authorization,
-  } = req.body
+    // Destructure payload from the request body
+    const {
+      title,
+      creatorId,
+      creatorUsername,
+      dueDate,
+      color,
+      category,
+      visibility,
+      authorization,
+    } = req.body
 
-  try {
     // Extract decoded token from verifyToken middleware
     const { _idFromToken } = req.user
 
     // Check if user exists
-    const existingUser = await UserModel.findById({ _idFromToken })
+    const existingUser = await UserModel.findById(_idFromToken)
     if (!existingUser) {
       return res
         .status(400)
@@ -112,14 +103,16 @@ export const createPost = async (req: JWTRequest, res: Response) => {
 
     await newPost.save()
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Post successfully created!",
       data: newPost,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ message: err, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res
+      .status(500)
+      .json({ message: "Failed to create post!", data: null, ok: false })
   }
 }
 
