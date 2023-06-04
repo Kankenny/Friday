@@ -16,28 +16,13 @@ import verifyToken from "../middlewares/verifyToken"
 const UserRoute = express.Router()
 
 // GET USER
-UserRoute.get(
-  "/:userId",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => getUser(req as JWTRequest, res)
-)
+UserRoute.get("/:userId", getUser)
 
 // GET USER FOLLOWING
-UserRoute.get(
-  "/:userId/following",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => getUserFollowing(req as JWTRequest, res)
-)
+UserRoute.get("/:userId/following", getUserFollowing)
 
 // GET USER FOLLOWERS
-UserRoute.get(
-  "/:userId/followers",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => getUserFollowers(req as JWTRequest, res)
-)
+UserRoute.get("/:userId/followers", getUserFollowers)
 
 // GET USER BLOCKED
 UserRoute.get(

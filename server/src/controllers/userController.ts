@@ -3,7 +3,7 @@ import UserModel from "../models/User"
 import mongoose from "mongoose"
 import JWTRequest from "../lib/types/JWTRequestType"
 
-export const getUser = async (req: JWTRequest, res: Response) => {
+export const getUser = async (req: Request, res: Response) => {
   // Extract username from request params
   const { userId } = req.params
 
@@ -19,16 +19,6 @@ export const getUser = async (req: JWTRequest, res: Response) => {
     return res
       .status(400)
       .json({ message: "Invalid userId!", data: null, ok: false })
-  }
-
-  // Extract decoded token from verifyToken middleware
-  const { _idFromToken } = req.user
-
-  // Check if user has an id equal to the id from the token
-  if (userId !== _idFromToken) {
-    return res
-      .status(400)
-      .json({ message: "Invalid Credentials!", data: null, ok: false })
   }
 
   try {
@@ -52,7 +42,7 @@ export const getUser = async (req: JWTRequest, res: Response) => {
   }
 }
 
-export const getUserFollowing = async (req: JWTRequest, res: Response) => {
+export const getUserFollowing = async (req: Request, res: Response) => {
   // Extract username from params
   const { userId } = req.params
 
@@ -68,16 +58,6 @@ export const getUserFollowing = async (req: JWTRequest, res: Response) => {
     return res
       .status(400)
       .json({ message: "Invalid userId!", data: null, ok: false })
-  }
-
-  // Extract decoded token from verifyToken middleware
-  const { _idFromToken } = req.user
-
-  // Check if user has an id equal to the id from the token
-  if (userId !== _idFromToken) {
-    return res
-      .status(400)
-      .json({ message: "Invalid Credentials!", data: null, ok: false })
   }
 
   try {
@@ -99,7 +79,7 @@ export const getUserFollowing = async (req: JWTRequest, res: Response) => {
   }
 }
 
-export const getUserFollowers = async (req: JWTRequest, res: Response) => {
+export const getUserFollowers = async (req: Request, res: Response) => {
   // Extract username from params
   const { userId } = req.params
 
@@ -115,16 +95,6 @@ export const getUserFollowers = async (req: JWTRequest, res: Response) => {
     return res
       .status(400)
       .json({ message: "Invalid userId!", data: null, ok: false })
-  }
-
-  // Extract decoded token from verifyToken middleware
-  const { _idFromToken } = req.user
-
-  // Check if user has an id equal to the id from the token
-  if (userId !== _idFromToken) {
-    return res
-      .status(400)
-      .json({ message: "Invalid Credentials!", data: null, ok: false })
   }
 
   try {
