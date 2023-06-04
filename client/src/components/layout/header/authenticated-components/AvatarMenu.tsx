@@ -47,7 +47,10 @@ export default function AvatarMenu() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 30, height: 30 }} className="bg-tertiary">
+          <Avatar
+            sx={{ width: 30, height: 30 }}
+            className="bg-main text-secondary"
+          >
             M
           </Avatar>
         </IconButton>

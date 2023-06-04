@@ -31,7 +31,7 @@ export default function NotificationMenu({ options }: Props) {
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         onClick={handleClick}
-        className="text-tertiary"
+        className="text-main"
       >
         <Badge badgeContent={options.length} color="secondary">
           <NotificationsIcon className="h-6 w-auto" />
