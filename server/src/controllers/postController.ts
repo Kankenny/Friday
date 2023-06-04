@@ -47,3 +47,48 @@ export const getPost = async (req: Request, res: Response) => {
     res.status(500).json({ message: err, data: null, ok: false })
   }
 }
+
+export const createPost = async (req: Request, res: Response) => {
+  // Destructure payload from the request body
+  const {
+    title,
+    creatorId,
+    creatorUsername,
+    dueDate,
+    color,
+    category,
+    visibility,
+    authorization,
+  } = req.body
+
+  try {
+    const newPost = new PostModel({
+      title,
+      creatorId,
+      creatorUsername,
+      dueDate,
+      color,
+      category,
+      visibility,
+      authorization,
+      upvotes: 0,
+      downvotes: 0,
+      authorizedUsers: [],
+      upvotedBy: [],
+      downvotedBy: [],
+      tasks: [],
+      comments: [],
+    })
+
+    await newPost.save()
+
+    res.status(200).json({
+      message: "Post successfully created!",
+      data: newPost,
+      ok: true,
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ message: err, data: null, ok: false })
+  }
+}
