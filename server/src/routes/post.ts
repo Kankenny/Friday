@@ -5,6 +5,7 @@ import {
   getPosts,
   getPost,
   updatePost,
+  deletePost,
   authorizeUserToPost,
   unauthorizeUserToPost,
   upvotePost,
@@ -30,6 +31,14 @@ PostRouter.put(
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => updatePost(req as JWTRequest, res)
+)
+
+// DELETE POST
+PostRouter.delete(
+  "/:postId",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => deletePost(req as JWTRequest, res)
 )
 
 // AUTHORIZE USER
