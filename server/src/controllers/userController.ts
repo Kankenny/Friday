@@ -34,7 +34,7 @@ export const getUser = async (req: JWTRequest, res: Response) => {
   try {
     // Check if user exists
     const existingUser = await UserModel.findById(userId).populate(
-      "posts savedPosts notifications"
+      "posts savedPosts upvotedPosts downvotedPosts notifications"
     )
     if (!existingUser) {
       return res
