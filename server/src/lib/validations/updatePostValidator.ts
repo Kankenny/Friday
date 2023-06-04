@@ -1,15 +1,16 @@
 import { z } from "zod"
 
+// Disallow these fields to be updated on the update post controller
 const updatePostSchema = z.object({
-  creatorId: z.void(),
-  creatorUsername: z.void(),
-  upvotes: z.void(),
-  downvotes: z.void(),
-  authorizedUsers: z.void(),
-  upvotedBy: z.void(),
-  downvotedBy: z.void(),
-  tasks: z.void(),
-  comments: z.void(),
+  creatorId: z.never(),
+  creatorUsername: z.never(),
+  upvotes: z.never(),
+  downvotes: z.never(),
+  authorizedUsers: z.never(),
+  upvotedBy: z.never(),
+  downvotedBy: z.never(),
+  tasks: z.never(),
+  comments: z.never(),
 })
 
 export default updatePostSchema
