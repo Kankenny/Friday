@@ -9,8 +9,8 @@ import RouterLink from "../../ui/RouterLink"
 const Footer = () => {
   const { isLoggedIn } = useAuthContext()
   return (
-    <footer className="text-white bg-secondary justify-between items-center p-4 space-y-8">
-      <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
+    <footer className="bg-secondary w-full p-4 space-y-8">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
         {isLoggedIn ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
         <div>
           <RouterDiv to="/">
