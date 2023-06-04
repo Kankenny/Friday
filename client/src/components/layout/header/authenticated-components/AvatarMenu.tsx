@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom"
+import useAuthContext from "../../../../lib/hooks/context-hooks/useAuthContext"
 import * as React from "react"
 import Avatar from "@mui/material/Avatar"
 import Menu from "@mui/material/Menu"
@@ -11,14 +13,24 @@ import Settings from "@mui/icons-material/Settings"
 import Logout from "@mui/icons-material/Logout"
 
 export default function AvatarMenu() {
+  const { logout } = useAuthContext()
+  const navigate = useNavigate()
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
+
+  const handleLogout = () => {
+    logout()
+    navigate("/login")
+  }
+
   const handleClose = () => {
     setAnchorEl(null)
   }
+
   return (
     <React.Fragment>
       <Tooltip title="Account settings">
@@ -59,7 +71,7 @@ export default function AvatarMenu() {
           <Settings fontSize="small" />
           <p>Settings</p>
         </MenuItem>
-        <MenuItem onClick={handleClose} className="space-x-2">
+        <MenuItem onClick={handleLogout} className="space-x-2">
           <Logout fontSize="small" />
           <p>Logout</p>
         </MenuItem>

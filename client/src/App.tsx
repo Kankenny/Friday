@@ -17,6 +17,7 @@ import SecurityAnswer from "./components/routes/unprotected-routes/forgot-passwo
 import AppContainer from "./AppContainer"
 import ResetPassword from "./components/routes/unprotected-routes/forgot-password/ResetPassword"
 import Profile from "./components/routes/protected-routes/profile/Profile"
+import RequireAuth from "./components/routes/protected-routes/navigation-guards/RequireAuth"
 
 function App() {
   return (
@@ -33,8 +34,11 @@ function App() {
           <Route path="/security-answer" element={<SecurityAnswer />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/playground" element={<Playground />} />
+
           {/* Protected Routes */}
-          <Route path="/profile" element={<Profile />} />
+          <Route element={<RequireAuth />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
 
           {/* Catch-all  Routes */}
           <Route path="*" element={<PageNotFound />} />
