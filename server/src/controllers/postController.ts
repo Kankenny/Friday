@@ -212,12 +212,19 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
         .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
-    const objectId = new mongoose.Types.ObjectId(userIdToAuthorize)
+    let objectId
+    try {
+      objectId = new mongoose.Types.ObjectId(userIdToAuthorize)
+    } catch (error) {
+      return res
+        .status(400)
+        .json({ message: "Invalid userIdToAuthorize!", data: null, ok: false })
+    }
 
     // Check if user is already authorized on the post
-    const isAlreadyAuthorized = existingPost.authorizedUsers.some((userId) => {
-      return objectId.equals(userId)
-    })
+    const isAlreadyAuthorized = existingPost.authorizedUsers.some((userId) =>
+      objectId.equals(userId)
+    )
     if (isAlreadyAuthorized) {
       return res
         .status(400)
@@ -225,8 +232,7 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
     }
 
     // Update authorizedUsers
-    const updatedAuthorizedUsers = [...existingPost.authorizedUsers, objectId]
-    existingPost.authorizedUsers = updatedAuthorizedUsers
+    existingPost.authorizedUsers.push(objectId)
     await existingPost.save()
 
     return res.status(200).json({
@@ -234,10 +240,10 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
       data: null,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({
-      message: `Failed to authorize user!: ${err}}`,
+      message: `Failed to authorize user!: ${error}`,
       data: null,
       ok: false,
     })
