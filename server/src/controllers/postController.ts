@@ -1,7 +1,10 @@
 import { Request, Response } from "express"
 import PostModel from "../models/Post"
+
+// Validators
+import createPostSchema from "../lib/validations/createPostValidator"
+import JWTRequest from "../lib/types/JWTRequestType"
 import UserModel from "../models/User"
-import mongoose from "mongoose"
 
 export const getPosts = async (req: Request, res: Response) => {
   try {
@@ -48,7 +51,19 @@ export const getPost = async (req: Request, res: Response) => {
   }
 }
 
-export const createPost = async (req: Request, res: Response) => {
+export const createPost = async (req: JWTRequest, res: Response) => {
+  // Validate body using the create post schema
+  try {
+    createPostSchema.parse(req.body)
+  } catch (err) {
+    console.log(err)
+    return res.status(400).json({
+      message: "Invalid create post data!",
+      data: null,
+      ok: false,
+    })
+  }
+
   // Destructure payload from the request body
   const {
     title,
@@ -62,6 +77,17 @@ export const createPost = async (req: Request, res: Response) => {
   } = req.body
 
   try {
+    // Extract decoded token from verifyToken middleware
+    const { _idFromToken } = req.user
+
+    // Check if user exists
+    const existingUser = await UserModel.findById({ _idFromToken })
+    if (!existingUser) {
+      return res
+        .status(400)
+        .json({ message: "Invalid Credentials!", data: null, ok: false })
+    }
+
     const newPost = new PostModel({
       title,
       creatorId,

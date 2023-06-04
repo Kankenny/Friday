@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 import JWTRequest from "../lib/types/JWTRequestType"
 
 export const getUser = async (req: JWTRequest, res: Response) => {
-  // Extract username from params
+  // Extract username from request params
   const { userId } = req.params
 
   // Check if appropriate payload is attached to the body
