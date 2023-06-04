@@ -8,7 +8,6 @@ import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
-import PersonAdd from "@mui/icons-material/PersonAdd"
 import Settings from "@mui/icons-material/Settings"
 import Logout from "@mui/icons-material/Logout"
 
@@ -22,7 +21,13 @@ export default function AvatarMenu() {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleLogout = () => {
+  const handleProfileClick = () => {
+    handleClose()
+    navigate("/profile")
+  }
+
+  const handleLogoutClick = () => {
+    handleClose()
     logout()
     navigate("/login")
   }
@@ -59,19 +64,15 @@ export default function AvatarMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose} className="space-x-2">
+        <MenuItem onClick={handleProfileClick} className="space-x-2">
           <AccountCircleIcon /> <p>Profile</p>
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose} className="space-x-2">
-          <PersonAdd fontSize="small" />
-          <p>Add another account</p>
-        </MenuItem>
-        <MenuItem onClick={handleClose} className="space-x-2">
           <Settings fontSize="small" />
           <p>Settings</p>
         </MenuItem>
-        <MenuItem onClick={handleLogout} className="space-x-2">
+        <MenuItem onClick={handleLogoutClick} className="space-x-2">
           <Logout fontSize="small" />
           <p>Logout</p>
         </MenuItem>
