@@ -26,7 +26,9 @@ export const getPosts = async (req: Request, res: Response) => {
       .json({ message: "Posts successfully fetched!", data: posts, ok: true })
   } catch (err) {
     console.log(err)
-    res.status(500).json({ message: err, data: null, ok: false })
+    res
+      .status(500)
+      .json({ message: `Failed to get posts: ${err}`, data: null, ok: false })
   }
 }
 
@@ -51,7 +53,9 @@ export const getPost = async (req: Request, res: Response) => {
     })
   } catch (err) {
     console.log(err)
-    res.status(500).json({ message: err, data: null, ok: false })
+    res
+      .status(500)
+      .json({ message: `Failed to get post!: ${err}`, data: null, ok: false })
   }
 }
 
@@ -108,11 +112,13 @@ export const createPost = async (req: JWTRequest, res: Response) => {
       data: newPost,
       ok: true,
     })
-  } catch (error) {
-    console.error(error)
-    return res
-      .status(500)
-      .json({ message: "Failed to create post!", data: null, ok: false })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      message: `Failed to create post!: ${err}`,
+      data: null,
+      ok: false,
+    })
   }
 }
 
@@ -164,11 +170,13 @@ export const updatePost = async (req: JWTRequest, res: Response) => {
       data: updatedPost,
       ok: true,
     })
-  } catch (error) {
-    console.error(error)
-    return res
-      .status(500)
-      .json({ message: "Failed to update post!", data: null, ok: false })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      message: `Failed to update post!: ${err}`,
+      data: null,
+      ok: false,
+    })
   }
 }
 
@@ -226,10 +234,12 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
       data: null,
       ok: true,
     })
-  } catch (error) {
-    console.error(error)
-    return res
-      .status(500)
-      .json({ message: "Failed to update post!", data: null, ok: false })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      message: `Failed to authorize user!: ${err}}`,
+      data: null,
+      ok: false,
+    })
   }
 }
