@@ -6,6 +6,10 @@ import {
   getUserBlocked,
   getUserFollowers,
   getUserFollowing,
+  followUser,
+  unfollowUser,
+  blockUser,
+  unblockUser,
 } from "../controllers/userController"
 
 // Types
@@ -16,28 +20,13 @@ import verifyToken from "../middlewares/verifyToken"
 const UserRoute = express.Router()
 
 // GET USER
-UserRoute.get(
-  "/:userId",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => getUser(req as JWTRequest, res)
-)
+UserRoute.get("/:userId", getUser)
 
 // GET USER FOLLOWING
-UserRoute.get(
-  "/:userId/following",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => getUserFollowing(req as JWTRequest, res)
-)
+UserRoute.get("/:userId/following", getUserFollowing)
 
 // GET USER FOLLOWERS
-UserRoute.get(
-  "/:userId/followers",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => getUserFollowers(req as JWTRequest, res)
-)
+UserRoute.get("/:userId/followers", getUserFollowers)
 
 // GET USER BLOCKED
 UserRoute.get(
@@ -45,6 +34,38 @@ UserRoute.get(
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => getUserBlocked(req as JWTRequest, res)
+)
+
+// FOLLOW USER
+UserRoute.post(
+  "/:userId/follow/:followerId",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => followUser(req as JWTRequest, res)
+)
+
+// UNFOLLOW USER
+UserRoute.delete(
+  "/:userId/unfollow/:followerId",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => unfollowUser(req as JWTRequest, res)
+)
+
+// BLOCK USER
+UserRoute.post(
+  "/:userId/block/:blockedUserId",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => blockUser(req as JWTRequest, res)
+)
+
+// UNBLOCK USER
+UserRoute.delete(
+  "/:userId/unblock/:unblockedUserId",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => unblockUser(req as JWTRequest, res)
 )
 
 export default UserRoute
