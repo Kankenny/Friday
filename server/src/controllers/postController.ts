@@ -124,27 +124,18 @@ export const createPost = async (req: JWTRequest, res: Response) => {
 }
 
 export const updatePost = async (req: JWTRequest, res: Response) => {
-  // Validate body using the update post schema
   try {
+    // Validate body using the update post schema
     updatePostSchema.parse(req.body)
-  } catch (err) {
-    console.log(err)
-    return res.status(400).json({
-      message: "Invalid update post data!",
-      data: null,
-      ok: false,
-    })
-  }
 
-  // Destructure payload from the request params
-  const { postId } = req.params
+    // Destructure payload from the request params
+    const { postId } = req.params
 
-  try {
     // Extract decoded token from verifyToken middleware
     const { _idFromToken } = req.user
 
     // Check if user exists
-    const existingUser = await UserModel.findById({ _idFromToken })
+    const existingUser = await UserModel.findById(_idFromToken)
     if (!existingUser) {
       return res
         .status(400)
@@ -152,7 +143,7 @@ export const updatePost = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if post exists
-    const existingPost = await PostModel.findById({ postId })
+    const existingPost = await PostModel.findById(postId)
     if (!existingPost) {
       return res
         .status(400)
@@ -168,20 +159,22 @@ export const updatePost = async (req: JWTRequest, res: Response) => {
     }
 
     // Update post
-    const fieldsToBeUpdated = updatePostSchema.parse(req.body)
+    const fieldsToBeUpdated = req.body
     const updatedPost = await PostModel.findByIdAndUpdate(
       postId,
       { $set: { ...fieldsToBeUpdated } },
       { new: true }
     )
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Post successfully updated!",
       data: updatedPost,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ message: err, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res
+      .status(500)
+      .json({ message: "Failed to update post!", data: null, ok: false })
   }
 }
