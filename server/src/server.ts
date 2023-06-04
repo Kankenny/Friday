@@ -7,6 +7,7 @@ import cors from "cors"
 
 // Routes
 import AuthRoute from "./routes/auth"
+import UserRoute from "./routes/user"
 
 // Environment Variables
 const PORT = process.env.port
@@ -29,6 +30,7 @@ app.use(
 
 // Route Declarations
 app.use("/api/auth", AuthRoute)
+app.use("/api/user", UserRoute)
 
 mongoose.connect(MONGODB_URI!).then(() => {
   console.log("> Server connected to MongoDB")
