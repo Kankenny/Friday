@@ -18,6 +18,7 @@ import AppContainer from "./AppContainer"
 import ResetPassword from "./components/routes/unprotected-routes/forgot-password/ResetPassword"
 import Profile from "./components/routes/protected-routes/profile/Profile"
 import RequireAuth from "./components/routes/protected-routes/navigation-guards/RequireAuth"
+import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 
 function App() {
   return (
@@ -25,15 +26,19 @@ function App() {
       <Header />
       <Body>
         <Routes>
-          {/* Unprotected Routes */}
+          {/* Hybrid Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/app" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/security-answer" element={<SecurityAnswer />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/playground" element={<Playground />} />
+
+          {/* Unprotected Routes */}
+          <Route element={<RequireUnauth />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/security-answer" element={<SecurityAnswer />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/playground" element={<Playground />} />
+          </Route>
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
