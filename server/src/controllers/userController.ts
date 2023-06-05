@@ -1,6 +1,11 @@
+// Dependencies
 import { Request, Response } from "express"
-import UserModel from "../models/User"
 import mongoose from "mongoose"
+
+// Models
+import UserModel from "../models/User"
+
+// Types
 import JWTRequest from "../lib/types/JWTRequestType"
 
 export const getUser = async (req: Request, res: Response) => {

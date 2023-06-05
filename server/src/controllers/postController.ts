@@ -1,4 +1,8 @@
+// Dependencies
 import { Request, Response } from "express"
+import mongoose from "mongoose"
+
+// Models
 import PostModel from "../models/Post"
 import UserModel from "../models/User"
 
@@ -8,7 +12,6 @@ import JWTRequest from "../lib/types/JWTRequestType"
 // Validators
 import createPostSchema from "../lib/validations/createPostValidator"
 import updatePostSchema from "../lib/validations/updatePostValidator"
-import mongoose from "mongoose"
 
 export const getPosts = async (req: Request, res: Response) => {
   try {
