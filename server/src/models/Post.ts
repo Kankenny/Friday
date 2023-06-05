@@ -42,6 +42,7 @@ const PostSchema = new Schema({
   },
   authorization: {
     type: String,
+    enum: ["personal", "collab"],
     required: true,
   },
   authorizedUsers: [
