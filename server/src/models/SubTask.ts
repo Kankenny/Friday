@@ -10,6 +10,7 @@ const SubtaskSchema = new Schema({
   },
   progress: {
     type: String,
+    enum: ["done", "working on it", "stuck", "untouched"],
     required: true,
   },
   taskId: {
