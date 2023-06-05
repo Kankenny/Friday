@@ -79,7 +79,7 @@ export const createTask = async (req: Request, res: Response) => {
     // Create new task
     const newTask = new TaskModel({
       title,
-      progress: "working-on-it",
+      progress: "working on it",
       postId,
     })
 
