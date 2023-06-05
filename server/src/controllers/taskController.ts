@@ -1,5 +1,6 @@
 // Dependencies
 import { Request, Response } from "express"
+import mongoose from "mongoose"
 
 // Models
 import PostModel from "../models/Post"
@@ -8,6 +9,9 @@ import TaskModel from "../models/Task"
 // Validators
 import createTaskSchema from "../lib/validations/createTaskValidator"
 import updateTaskProgressSchema from "../lib/validations/updateTaskProgressValidator"
+
+// Types
+import JWTRequest from "../lib/types/JWTRequestType"
 
 export const getPostTasks = async (req: Request, res: Response) => {
   // Extract postId from the request query
@@ -95,7 +99,7 @@ export const createTask = async (req: Request, res: Response) => {
   }
 }
 
-export const changeTaskProgress = async (req: Request, res: Response) => {
+export const changeTaskProgress = async (req: JWTRequest, res: Response) => {
   try {
     // Validate body using the update task progress schema
     updateTaskProgressSchema.parse(req.body)
@@ -139,6 +143,19 @@ export const changeTaskProgress = async (req: Request, res: Response) => {
         data: null,
         ok: false,
       })
+    }
+
+    // Check if the user who is updating the task is authorized to do so
+    const { _idFromToken } = req.user
+    const objectId = new mongoose.Types.ObjectId(_idFromToken)
+    const isOwner = existingPost.creatorId === objectId
+    const isCollaborator = existingPost.authorizedUsers.some((userId) =>
+      userId.equals(objectId)
+    )
+    if (!isOwner || !isCollaborator) {
+      return res
+        .status(400)
+        .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
     // Update task progress
