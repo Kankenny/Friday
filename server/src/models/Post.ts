@@ -30,6 +30,8 @@ const PostSchema = new Schema({
   },
   visibility: {
     type: String,
+    enum: ["personal", "collaborators", "private", "public"],
+    default: "public",
     required: true,
   },
   upvotes: {
