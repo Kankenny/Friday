@@ -7,9 +7,12 @@ const updatePostSchema = z.object({
   dueDate: z.date().optional(),
   color: z.string().optional(),
   category: z.string().optional(),
-  visibility: z.enum(["personal", "collaborators", "private", "public"]),
+  visibility: z
+    .enum(["personal", "collaborators", "private", "public"])
+    .optional(),
   upvotes: z.never(),
   downvotes: z.never(),
+  authorization: z.enum(["personal", "collaborators"]).optional(),
   authorizedUsers: z.never(),
   upvotedBy: z.never(),
   downvotedBy: z.never(),
