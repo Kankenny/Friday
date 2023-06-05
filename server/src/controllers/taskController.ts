@@ -48,7 +48,7 @@ export const getPostTasks = async (req: Request, res: Response) => {
   }
 }
 
-export const createTask = async (req: Request, res: Response) => {
+export const createTask = async (req: JWTRequest, res: Response) => {
   // Extract postId from the request query
   const postId = req.query.postId
   if (!postId) {
@@ -79,6 +79,19 @@ export const createTask = async (req: Request, res: Response) => {
       return res
         .status(404)
         .json({ message: "Post not found!", data: null, ok: false })
+    }
+
+    // Check if the user who is creating the task is authorized to do so
+    const { _idFromToken } = req.user
+    const objectId = new mongoose.Types.ObjectId(_idFromToken)
+    const isOwner = existingPost.creatorId === objectId
+    const isCollaborator = existingPost.authorizedUsers.some((userId) =>
+      userId.equals(objectId)
+    )
+    if (!isOwner || !isCollaborator) {
+      return res
+        .status(400)
+        .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
     // Create new task
