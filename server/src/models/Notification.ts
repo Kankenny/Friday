@@ -11,10 +11,12 @@ const NotificationSchema = new Schema(
     },
     type: {
       type: String,
+      enum: ["invite to collab", "follow"],
       required: true,
     },
     isVisited: {
       type: Boolean,
+      default: false,
       required: true,
     },
     notificationOwnerId: {
