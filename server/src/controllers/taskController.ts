@@ -7,8 +7,8 @@ import PostModel from "../models/Post"
 import TaskModel from "../models/Task"
 
 // Validators
-import createTaskSchema from "../lib/validations/createTaskValidator"
-import updateTaskProgressSchema from "../lib/validations/updateTaskProgressValidator"
+import createTaskSchema from "../lib/validations/task/createTaskValidator"
+import updateTaskProgressSchema from "../lib/validations/task/updateTaskProgressValidator"
 
 // Types
 import JWTRequest from "../lib/types/JWTRequestType"
