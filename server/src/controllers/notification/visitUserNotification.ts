@@ -7,41 +7,39 @@ import NotificationModel from "../../models/Notification"
 // Types
 import JWTRequest from "../../lib/types/JWTRequestType"
 
-export const visitUserNotification = async (req: JWTRequest, res: Response) => {
+export const visitUserNotifications = async (
+  req: JWTRequest,
+  res: Response
+) => {
   try {
-    // Extract notification id from the request params
-    const { notificationId } = req.params
-
-    // Check if the notification exists
-    const existingNotification = await NotificationModel.findById(
-      notificationId
-    )
-    if (!existingNotification) {
-      return res.status(404).json({
-        message: "Notification does not exist!",
-        data: null,
-        ok: false,
-      })
-    }
-
     // Extract id from token
     const { _idFromToken } = req.user
 
-    // Check if id from token matches the notificationOwnerId
-    if (!existingNotification.notificationOwnerId!.equals(_idFromToken)) {
-      return res.status(400).json({
-        message: "Invalid Credentials!",
+    // Check if the notification exists
+    const unvisitedNotifications = await NotificationModel.find({
+      isVisited: true,
+      notificationOwnerId: _idFromToken,
+    })
+    if (!unvisitedNotifications) {
+      return res.status(404).json({
+        message: "All notifications of the user are already seen!",
         data: null,
-        ok: false,
+        ok: true,
       })
     }
 
-    // Mark the notification as visited
-    existingNotification.isVisited = true
-    await existingNotification.save()
+    // Mark the notifications as visited
+    // Mark the notifications as visited
+    await NotificationModel.updateMany(
+      {
+        isVisited: false,
+        notificationOwnerId: _idFromToken,
+      },
+      { isVisited: true }
+    )
 
     res.status(200).json({
-      message: "Notification visited successfully!",
+      message: "Notifications visited successfully!",
       data: null,
       ok: true,
     })
