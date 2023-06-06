@@ -5,17 +5,17 @@ import jwt from "jsonwebtoken"
 import mongoose from "mongoose"
 
 // Models
-import UserModel from "../models/User"
+import UserModel from "../../models/User"
 
 // Types
-import JWTRequest from "../lib/types/JWTRequestType"
+import JWTRequest from "../../lib/types/JWTRequestType"
 
 // Validators
-import { registerFormSchema } from "../../../common/validations/registerFormValidator"
-import { loginFormSchema } from "../../../common/validations/loginFormValidator"
-import { forgotPasswordFormSchema } from "../../../common/validations/forgotPasswordFormValidator"
-import { securityAnswerFormSchema } from "../../../common/validations/securityAnswerFormValidator"
-import { resetPasswordFormSchema } from "../../../common/validations/resetPasswordFormValidator"
+import { registerFormSchema } from "../../../../common/validations/registerFormValidator"
+import { loginFormSchema } from "../../../../common/validations/loginFormValidator"
+import { forgotPasswordFormSchema } from "../../../../common/validations/forgotPasswordFormValidator"
+import { securityAnswerFormSchema } from "../../../../common/validations/securityAnswerFormValidator"
+import { resetPasswordFormSchema } from "../../../../common/validations/resetPasswordFormValidator"
 
 export const registerUser = async (req: Request, res: Response) => {
   // Validate body using the register form schema
