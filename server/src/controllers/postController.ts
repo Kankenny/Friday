@@ -409,6 +409,19 @@ export const upvotePost = async (req: JWTRequest, res: Response) => {
       })
     }
 
+    // Check if the user has downvoted the post. If so, remove their downvote
+    const hasAlreadyDownvoted = existingPost.downvotedBy.some((userId) =>
+      userId.equals(existingUser._id)
+    )
+    if (hasAlreadyDownvoted) {
+      // Remove user's downvote and update upvotes
+      existingPost.downvotes -= 1
+      const filteredDownvotedBy = existingPost.downvotedBy.filter((userId) =>
+        userId.equals(existingUser._id)
+      )
+      existingPost.downvotedBy = filteredDownvotedBy
+    }
+
     // Check if the user has already upvoted the post
     const hasAlreadyUpvoted = existingPost.upvotedBy.some((userId) =>
       userId.equals(existingUser._id)
