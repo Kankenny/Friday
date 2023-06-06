@@ -1,6 +1,6 @@
 // Dependencies
 import { Response } from "express"
-import { ObjectId } from "mongodb"
+import mongoose from "mongoose"
 
 // Models
 import CommentModel from "../../models/Comment"
@@ -62,7 +62,9 @@ export const createComment = async (req: JWTRequest, res: Response) => {
     // Determine if the user has appropriate visibility on the post
     const postCreator = await UserModel.findById(existingPost.creatorId)
 
-    const isCreator = new ObjectId(commenterId).equals(postCreator!._id)
+    const isCreator = new mongoose.Types.ObjectId(commenterId).equals(
+      postCreator!._id
+    )
     const isPublic = existingPost.visibility === "public"
     const isCollaborator = existingPost.authorizedUsers.some((user) =>
       user._id.equals(commenterId)
