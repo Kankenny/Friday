@@ -5,7 +5,7 @@ import mongoose from "mongoose"
 // Models
 import PostModel from "../models/Post"
 import TaskModel from "../models/Task"
-import SubtaskModel from "../models/SubTask"
+import SubtaskModel from "../models/Subtask"
 
 // Validators
 import createSubtaskSchema from "../lib/validations/subtask/createSubtaskValidator"
@@ -117,7 +117,7 @@ export const createSubtask = async (req: JWTRequest, res: Response) => {
     const newSubtask = new SubtaskModel({
       title,
       progress: "untouched",
-      postId,
+      taskId,
     })
 
     await newSubtask.save()
