@@ -1,14 +1,19 @@
+// Dependencies
 import { Request, Response } from "express"
+import mongoose from "mongoose"
+
+// Models
 import PostModel from "../models/Post"
 import UserModel from "../models/User"
+import TaskModel from "../models/Task"
+import SubtaskModel from "../models/Subtask"
 
 // Types
 import JWTRequest from "../lib/types/JWTRequestType"
 
 // Validators
-import createPostSchema from "../lib/validations/createPostValidator"
-import updatePostSchema from "../lib/validations/updatePostValidator"
-import mongoose from "mongoose"
+import createPostSchema from "../lib/validations/post/createPostValidator"
+import updatePostSchema from "../lib/validations/post/updatePostValidator"
 
 export const getPosts = async (req: Request, res: Response) => {
   try {
@@ -212,8 +217,10 @@ export const deletePost = async (req: JWTRequest, res: Response) => {
         .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
-    // Delete the post
+    // Delete the post and the tasks and subtasks included in the post
     await PostModel.deleteOne({ _id: postId })
+    await TaskModel.deleteMany({ postId })
+    await SubtaskModel.deleteMany({ taskId: { $in: existingPost.tasks } })
 
     res.status(200).json({
       message: "Post successfully deleted!",

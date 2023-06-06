@@ -30,6 +30,8 @@ const PostSchema = new Schema({
   },
   visibility: {
     type: String,
+    enum: ["personal", "collaborators", "private", "public"],
+    default: "public",
     required: true,
   },
   upvotes: {
@@ -42,6 +44,7 @@ const PostSchema = new Schema({
   },
   authorization: {
     type: String,
+    enum: ["personal", "collaborators"],
     required: true,
   },
   authorizedUsers: [

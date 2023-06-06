@@ -10,12 +10,19 @@ const TaskSchema = new Schema({
   },
   progress: {
     type: String,
+    enum: ["done", "working on it", "stuck", "untouched"],
     required: true,
   },
   postId: {
     type: ObjectId,
     ref: "Post",
   },
+  subtasks: [
+    {
+      type: ObjectId,
+      ref: "Subtask",
+    },
+  ],
 })
 
 const TaskModel = mongoose.model("Task", TaskSchema)
