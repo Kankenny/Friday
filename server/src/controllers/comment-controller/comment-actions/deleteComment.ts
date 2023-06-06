@@ -2,10 +2,10 @@
 import { Response } from "express"
 
 // Models
-import CommentModel from "../../models/Comment"
+import CommentModel from "../../../models/Comment"
 
 // Types
-import JWTRequest from "../../lib/types/JWTRequestType"
+import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const deleteComment = async (req: JWTRequest, res: Response) => {
   try {

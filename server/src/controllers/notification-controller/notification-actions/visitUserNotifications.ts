@@ -2,10 +2,10 @@
 import { Response } from "express"
 
 // Models
-import NotificationModel from "../../models/Notification"
+import NotificationModel from "../../../models/Notification"
 
 // Types
-import JWTRequest from "../../lib/types/JWTRequestType"
+import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const visitUserNotifications = async (
   req: JWTRequest,

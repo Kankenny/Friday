@@ -3,15 +3,15 @@ import { Response } from "express"
 import mongoose from "mongoose"
 
 // Models
-import CommentModel from "../../models/Comment"
-import UserModel from "../../models/User"
-import PostModel from "../../models/Post"
+import CommentModel from "../../../models/Comment"
+import UserModel from "../../../models/User"
+import PostModel from "../../../models/Post"
 
 // Validators
-import createCommentSchema from "../../lib/validations/comment/createCommentValidator"
+import createCommentSchema from "../../../lib/validations/comment/createCommentValidator"
 
 // Types
-import JWTRequest from "../../lib/types/JWTRequestType"
+import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const createComment = async (req: JWTRequest, res: Response) => {
   // Validate body using the create comment schema
