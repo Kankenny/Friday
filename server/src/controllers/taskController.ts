@@ -5,6 +5,7 @@ import mongoose from "mongoose"
 // Models
 import PostModel from "../models/Post"
 import TaskModel from "../models/Task"
+import SubtaskModel from "../models/Subtask"
 
 // Validators
 import createTaskSchema from "../lib/validations/task/createTaskValidator"
@@ -237,8 +238,9 @@ export const deleteTask = async (req: JWTRequest, res: Response) => {
         .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
-    // Delete the task
+    // Delete the task and all its subtasks
     await TaskModel.deleteOne({ _id: taskId })
+    await SubtaskModel.deleteMany({ taskId })
 
     res.status(200).json({
       message: "Task deleted successfully!",
