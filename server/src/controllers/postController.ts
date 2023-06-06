@@ -10,8 +10,8 @@ import UserModel from "../models/User"
 import JWTRequest from "../lib/types/JWTRequestType"
 
 // Validators
-import createPostSchema from "../lib/validations/createPostValidator"
-import updatePostSchema from "../lib/validations/updatePostValidator"
+import createPostSchema from "../lib/validations/post/createPostValidator"
+import updatePostSchema from "../lib/validations/post/updatePostValidator"
 
 export const getPosts = async (req: Request, res: Response) => {
   try {
