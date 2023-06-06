@@ -97,7 +97,7 @@ export const createTask = async (req: JWTRequest, res: Response) => {
     // Create new task
     const newTask = new TaskModel({
       title,
-      progress: "working on it",
+      progress: "untouched",
       postId,
     })
 

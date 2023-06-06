@@ -116,7 +116,7 @@ export const createSubtask = async (req: JWTRequest, res: Response) => {
     // Create new task
     const newSubtask = new SubtaskModel({
       title,
-      progress: "working on it",
+      progress: "untouched",
       postId,
     })
 
