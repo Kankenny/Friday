@@ -1,7 +1,7 @@
 import { Response } from "express"
-import UserModel from "../../models/User"
-import NotificationModel from "../../models/Notification"
-import JWTRequest from "../../lib/types/JWTRequestType"
+import UserModel from "../../../models/User"
+import NotificationModel from "../../../models/Notification"
+import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const getUserNotifications = async (req: JWTRequest, res: Response) => {
   try {

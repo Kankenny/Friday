@@ -10,7 +10,7 @@ import {
   unauthorizeUserToPost,
   upvotePost,
   downvotePost,
-} from "../controllers/postController"
+} from "../controllers/post-controller/postController"
 
 // Types
 import JWTRequest from "../lib/types/JWTRequestType"

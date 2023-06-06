@@ -10,7 +10,7 @@ import {
   unfollowUser,
   blockUser,
   unblockUser,
-} from "../controllers/userController"
+} from "../controllers/user-controller/userController"
 
 // Types
 import JWTRequest from "../lib/types/JWTRequestType"

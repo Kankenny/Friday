@@ -10,7 +10,7 @@ import {
   changeUserDetails,
   changePassword,
   changeSecurityQA,
-} from "../controllers/authController"
+} from "../controllers/auth-controller/authController"
 
 // Middlewares
 import verifyToken from "../middlewares/verifyToken"
