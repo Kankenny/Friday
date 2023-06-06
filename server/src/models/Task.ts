@@ -17,6 +17,12 @@ const TaskSchema = new Schema({
     type: ObjectId,
     ref: "Post",
   },
+  subtasks: [
+    {
+      type: ObjectId,
+      ref: "Subtask",
+    },
+  ],
 })
 
 const TaskModel = mongoose.model("Task", TaskSchema)
