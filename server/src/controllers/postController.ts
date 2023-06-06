@@ -271,7 +271,7 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
         .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
-    let objectId
+    let objectId: any
     try {
       objectId = new mongoose.Types.ObjectId(userIdToAuthorize)
     } catch (error) {
