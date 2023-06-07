@@ -43,7 +43,12 @@ AuthRoute.post(
 )
 
 // RESET PASSWORD
-AuthRoute.post("/reset-password", resetPassword)
+AuthRoute.post(
+  "/reset-password",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => resetPassword(req as JWTRequest, res)
+)
 
 // CHANGE USER DETAILS
 AuthRoute.post(
