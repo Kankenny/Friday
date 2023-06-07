@@ -1,5 +1,5 @@
 // Dependencies
-import { Request, Response } from "express"
+import { Response } from "express"
 import bcrypt from "bcrypt"
 
 // Models
@@ -31,6 +31,7 @@ export const verifySecurityQA = async (req: JWTRequest, res: Response) => {
   try {
     // Check if the username already exists in the db
     const existingUser = await UserModel.findById(_idFromToken)
+
     if (!existingUser) {
       return res
         .status(400)
