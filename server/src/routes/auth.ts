@@ -30,7 +30,12 @@ AuthRoute.post("/login", loginUser)
 AuthRoute.post("/get-security-question", getSecurityQuestion)
 
 // VERIFY SECURITY QA
-AuthRoute.post("/verify-security-qa", verifySecurityQA)
+AuthRoute.post(
+  "/verify-security-qa",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => verifySecurityQA(req as JWTRequest, res)
+)
 
 // RESET PASSWORD
 AuthRoute.post("/reset-password", resetPassword)

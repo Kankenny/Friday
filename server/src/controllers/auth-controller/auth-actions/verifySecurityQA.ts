@@ -7,8 +7,9 @@ import UserModel from "../../../models/User"
 
 // Validators
 import { securityAnswerFormSchema } from "../../../../../common/validations/securityAnswerFormValidator"
+import JWTRequest from "../../../lib/types/JWTRequestType"
 
-export const verifySecurityQA = async (req: Request, res: Response) => {
+export const verifySecurityQA = async (req: JWTRequest, res: Response) => {
   // Validate body using the register form schema
   try {
     securityAnswerFormSchema.parse(req.body)
@@ -22,13 +23,14 @@ export const verifySecurityQA = async (req: Request, res: Response) => {
   }
 
   // destructure the payload attached to the body
-  const { securityAnswer, username } = req.body
+  const { securityAnswer } = req.body
+
+  // Extract decoded token from verifyToken middleware
+  const { _idFromToken } = req.user
 
   try {
     // Check if the username already exists in the db
-    const existingUser = await UserModel.findOne({
-      username,
-    })
+    const existingUser = await UserModel.findById(_idFromToken)
     if (!existingUser) {
       return res
         .status(400)
