@@ -5,7 +5,7 @@ const ObjectId = Schema.Types.ObjectId
 
 const CommentSchema = new Schema(
   {
-    comment: {
+    body: {
       type: String,
       required: true,
     },

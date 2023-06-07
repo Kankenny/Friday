@@ -27,7 +27,7 @@ export const createComment = async (req: JWTRequest, res: Response) => {
   }
 
   // Extract comment information from the request body
-  const { comment } = req.body
+  const { body } = req.body
 
   // Extract postId and commenterId from the request params
   const { postId, commenterId } = req.params
@@ -83,7 +83,7 @@ export const createComment = async (req: JWTRequest, res: Response) => {
 
     // Create new comment
     const newComment = new CommentModel({
-      comment,
+      body,
       commenterId,
       postId,
     })
