@@ -6,73 +6,55 @@ import bcrypt from "bcrypt"
 // Models
 import UserModel from "../../../models/User"
 
+// Validators
+import { changeUserDetailsFormSchema } from "../../../../../common/validations/changeUserDetailsFormValidator"
+
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const changeUserDetails = async (req: JWTRequest, res: Response) => {
-  // Destructure the payload attached to the body
-  const { firstName, lastName, userId, password, address } = req.body
-
-  // Check if appropriate payload is attached to the body
-  if (!userId || !password || !firstName || !lastName || !address) {
-    return res.status(400).json({
-      message: "Full Name, Password and Address properties are required!",
-      data: null,
-      ok: false,
-    })
-  }
-
-  // Check if userId is a valid ObjectId
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return res
-      .status(400)
-      .json({ message: "Invalid userId!", data: null, ok: false })
-  }
-
-  // Extract decoded token from verifyToken middleware
-  const { _idFromToken } = req.user
-
-  // Check if user has an id equal to the id from the token
-  if (userId !== _idFromToken) {
-    return res
-      .status(400)
-      .json({ message: "Invalid Credentials!", data: null, ok: false })
-  }
-
-  // Check if user exists
-  const existingUser = await UserModel.findOne({ _id: userId })
-  if (!existingUser) {
-    return res
-      .status(400)
-      .json({ message: "Bad Request!", data: null, ok: false })
-  }
-
-  // Check if password matches user password
-  const doesPasswordMatch = await bcrypt.compare(
-    password,
-    existingUser.password
-  )
-  if (!doesPasswordMatch) {
-    return res.status(400).json({
-      message: "You provided the wrong password!",
-      data: null,
-      ok: false,
-    })
-  }
-
   try {
-    // Update user details
-    existingUser.firstName = firstName
-    existingUser.lastName = lastName
-    await existingUser.save()
+    // Validate body using the register form schema
+    changeUserDetailsFormSchema.parse(req.body)
 
-    res.status(200).json({
-      message: "User Details Updated Successfully!",
+    // Extract decoded token from verifyToken middleware
+    const { _idFromToken } = req.user
+
+    // Check if id from token is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(_idFromToken)) {
+      return res.status(400).json({
+        message: "Invalid userId!",
+        data: null,
+        ok: false,
+      })
+    }
+
+    // Check if user exists
+    const existingUser = await UserModel.findById(_idFromToken)
+    if (!existingUser) {
+      return res.status(400).json({
+        message: "User not found!",
+        data: null,
+        ok: false,
+      })
+    }
+
+    const fieldsToBeUpdated = req.body
+    await UserModel.findByIdAndUpdate(_idFromToken, fieldsToBeUpdated, {
+      new: true,
+    })
+
+    return res.status(200).json({
+      message: "User details updated successfully!",
       data: null,
       ok: true,
     })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: error, data: null, ok: false })
+    return res.status(500).json({
+      message: "Internal Server Error",
+      data: null,
+      ok: false,
+    })
   }
 }
