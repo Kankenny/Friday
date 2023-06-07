@@ -11,6 +11,7 @@ import {
   unauthorizeUserToPost,
   upvotePost,
   downvotePost,
+  revertUpvoteOrDownvote,
 } from "../controllers/post-controller/postController"
 
 // Types
@@ -80,6 +81,15 @@ PostRouter.put(
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => downvotePost(req as JWTRequest, res)
+)
+
+// REVERT UPVOTE OR DOWNVOTE ON POST
+PostRouter.put(
+  "/:postId/revert",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) =>
+    revertUpvoteOrDownvote(req as JWTRequest, res)
 )
 
 export default PostRouter
