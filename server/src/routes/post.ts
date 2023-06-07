@@ -51,7 +51,7 @@ PostRouter.delete(
 )
 
 // AUTHORIZE USER
-PostRouter.post(
+PostRouter.put(
   "/:postId/authorize/:userIdToAuthorize",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -59,7 +59,7 @@ PostRouter.post(
 )
 
 // UNAUTHORIZE USER
-PostRouter.post(
+PostRouter.put(
   "/:postId/unauthorize/:userIdToUnauthorize",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -67,7 +67,7 @@ PostRouter.post(
 )
 
 // UPVOTE POST
-PostRouter.post(
+PostRouter.put(
   "/:postId/upvote",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -75,7 +75,7 @@ PostRouter.post(
 )
 
 // DOWNVOTE POST
-PostRouter.post(
+PostRouter.put(
   "/:postId/downvote",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
