@@ -15,7 +15,7 @@ export const getPostTasks = async (req: Request, res: Response) => {
 
   try {
     // Check for the existence of the post
-    const existingPost = await PostModel.findById(postId)
+    const existingPost = await PostModel.findById(postId).populate("tasks")
     if (!existingPost) {
       return res
         .status(404)
