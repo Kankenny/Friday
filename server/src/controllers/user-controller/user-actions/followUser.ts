@@ -21,6 +21,16 @@ export const followUser = async (req: JWTRequest, res: Response) => {
     })
   }
 
+  // Check if follower is the followee
+  const isTheSameUser = userId === followerId
+  if (isTheSameUser) {
+    return res.status(400).json({
+      message: "You cannot follow yourself!",
+      data: null,
+      ok: false,
+    })
+  }
+
   // Extract decoded token from verifyToken middleware
   const { _idFromToken } = req.user
 

@@ -21,6 +21,16 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
     })
   }
 
+  // Check if blocker is the blockee
+  const isTheSameUser = userId === blockedUserId
+  if (isTheSameUser) {
+    return res.status(400).json({
+      message: "You cannot block yourself!",
+      data: null,
+      ok: false,
+    })
+  }
+
   // Extract decoded token from verifyToken middleware
   const { _idFromToken } = req.user
 
