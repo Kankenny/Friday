@@ -40,13 +40,17 @@ export const changeUserDetails = async (req: JWTRequest, res: Response) => {
     }
 
     const fieldsToBeUpdated = req.body
-    await UserModel.findByIdAndUpdate(_idFromToken, fieldsToBeUpdated, {
-      new: true,
-    })
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      _idFromToken,
+      fieldsToBeUpdated,
+      {
+        new: true,
+      }
+    )
 
     return res.status(200).json({
       message: "User details updated successfully!",
-      data: null,
+      data: updatedUser,
       ok: true,
     })
   } catch (error) {
