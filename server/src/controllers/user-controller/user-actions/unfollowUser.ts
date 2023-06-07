@@ -62,7 +62,7 @@ export const unfollowUser = async (req: JWTRequest, res: Response) => {
 
     const objectId = new mongoose.Types.ObjectId(followerId)
     // Check if the user is followed by the follower
-    if (!existingUser.followers.includes(objectId)) {
+    if (!existingUser.following.includes(objectId)) {
       return res.status(400).json({
         message: "User is not followed by the follower!",
         data: null,
