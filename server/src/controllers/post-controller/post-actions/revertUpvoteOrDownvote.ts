@@ -44,7 +44,7 @@ export const revertUpvoteOrDownvote = async (
     )
     if (!hasAlreadyUpvoted || !hasAlreadyDownvoted) {
       return res.status(400).json({
-        message: "Invalid Request!",
+        message: "You have not upvoted or downvoted this post!",
         data: null,
         ok: false,
       })
