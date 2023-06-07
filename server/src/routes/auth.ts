@@ -27,7 +27,12 @@ AuthRoute.post("/register", registerUser)
 AuthRoute.post("/login", loginUser)
 
 // GET SECURITY QUESTION
-AuthRoute.post("/get-security-question", getSecurityQuestion)
+AuthRoute.get(
+  "/get-security-question",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => getSecurityQuestion(req as JWTRequest, res)
+)
 
 // VERIFY SECURITY QA
 AuthRoute.post(

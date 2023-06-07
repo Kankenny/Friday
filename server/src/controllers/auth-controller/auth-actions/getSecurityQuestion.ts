@@ -1,5 +1,5 @@
 // Dependencies
-import { Request, Response } from "express"
+import { Response } from "express"
 
 // Models
 import UserModel from "../../../models/User"
@@ -7,7 +7,10 @@ import UserModel from "../../../models/User"
 // Validators
 import { forgotPasswordFormSchema } from "../../../../../common/validations/forgotPasswordFormValidator"
 
-export const getSecurityQuestion = async (req: Request, res: Response) => {
+// Types
+import JWTRequest from "../../../lib/types/JWTRequestType"
+
+export const getSecurityQuestion = async (req: JWTRequest, res: Response) => {
   // Validate body using the register form schema
   try {
     forgotPasswordFormSchema.parse(req.body)
@@ -20,11 +23,14 @@ export const getSecurityQuestion = async (req: Request, res: Response) => {
     })
   }
 
+  // Extract decoded token from verifyToken middleware
+  const { _idFromToken } = req.user
+
   // destructure the payload attached to the body
   const { usernameOrEmail } = req.body
 
   try {
-    // Check if the username already exists in the db
+    // Check if the user exists
     const existingUser = await UserModel.findOne({
       $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
     })
@@ -32,6 +38,14 @@ export const getSecurityQuestion = async (req: Request, res: Response) => {
       return res
         .status(400)
         .json({ message: "User does not exist!", data: null, ok: false })
+    }
+
+    // Check if existing user matches the ID from the token
+    const doesMatch = existingUser._id.equals(_idFromToken)
+    if (!doesMatch) {
+      return res
+        .status(400)
+        .json({ message: "Invalid credentials!", data: null, ok: false })
     }
 
     res.status(200).json({
