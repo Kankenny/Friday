@@ -52,7 +52,7 @@ export const createTask = async (req: JWTRequest, res: Response) => {
     const isCollaborator = existingPost.authorizedUsers.some((userId) =>
       userId.equals(objectId)
     )
-    if (!isOwner || !isCollaborator) {
+    if (!isOwner && !isCollaborator) {
       return res
         .status(400)
         .json({ message: "Unauthorized request!", data: null, ok: false })
