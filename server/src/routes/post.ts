@@ -4,6 +4,7 @@ import express, { NextFunction, Request, Response } from "express"
 import {
   getPosts,
   getPost,
+  createPost,
   updatePost,
   deletePost,
   authorizeUserToPost,
@@ -24,6 +25,14 @@ PostRouter.get("/", getPosts)
 
 // GET POST
 PostRouter.get("/:postId", getPost)
+
+// CREATE POST
+PostRouter.post(
+  "/",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => createPost(req as JWTRequest, res)
+)
 
 // UPDATE POST
 PostRouter.put(
