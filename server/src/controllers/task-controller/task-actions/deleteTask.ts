@@ -46,12 +46,12 @@ export const deleteTask = async (req: JWTRequest, res: Response) => {
       })
     }
 
+    // Check if the user who is deleting the task is authorized to do so
     const isOwner = existingPost.creatorId!.equals(objectId)
     const isCollaborator = existingPost.authorizedUsers.some((userId) =>
       userId.equals(objectId)
     )
-
-    if (!isOwner || !isCollaborator) {
+    if (!isOwner && !isCollaborator) {
       return res
         .status(400)
         .json({ message: "Unauthorized request!", data: null, ok: false })
