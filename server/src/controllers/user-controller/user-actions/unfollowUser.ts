@@ -71,10 +71,10 @@ export const unfollowUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Update user's followers and follower's following list
-    existingUser.followers = existingUser.followers.filter(
+    existingUser.following = existingUser.following.filter(
       (follower) => !follower.equals(objectId)
     )
-    existingFollower.following = existingFollower.following.filter(
+    existingFollower.followers = existingFollower.followers.filter(
       (user) => !user.equals(userId)
     )
 

@@ -81,8 +81,8 @@ export const followUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Update user's followers and follower's following list
-    existingUser.followers.push(objectId)
-    existingFollower.following.push(objectId)
+    existingUser.following.push(objectId)
+    existingFollower.followers.push(objectId)
     await existingUser.save()
     await existingFollower.save()
 
