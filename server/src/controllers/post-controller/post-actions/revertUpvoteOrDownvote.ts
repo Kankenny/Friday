@@ -51,21 +51,33 @@ export const revertUpvoteOrDownvote = async (
     }
 
     if (hasAlreadyUpvoted) {
-      // Revert upvote
+      // Revert post upvote
       existingPost.upvotes -= 1
-      existingPost.upvotedBy.filter(
+      existingPost.upvotedBy = existingPost.upvotedBy.filter(
         (upvotedUsers) => !upvotedUsers._id.equals(existingUser._id)
       )
       await existingPost.save()
+
+      // Revert user's upvote
+      existingUser.upvotedPosts = existingUser.upvotedPosts.filter(
+        (upvotedPost) => !upvotedPost.equals(existingPost._id)
+      )
+      await existingUser.save()
     }
 
-    if (hasAlreadyUpvoted) {
-      // Revert downvote
-      existingPost.upvotes -= 1
-      existingPost.downvotedBy.filter(
+    if (hasAlreadyDownvoted) {
+      // Revert post downvote
+      existingPost.downvotes -= 1
+      existingPost.downvotedBy = existingPost.downvotedBy.filter(
         (downvotedUsers) => !downvotedUsers._id.equals(existingUser._id)
       )
       await existingPost.save()
+
+      // Revert user's downvote
+      existingUser.upvotedPosts = existingUser.upvotedPosts.filter(
+        (upvotedPost) => !upvotedPost.equals(existingPost._id)
+      )
+      await existingUser.save()
     }
 
     res.status(200).json({
