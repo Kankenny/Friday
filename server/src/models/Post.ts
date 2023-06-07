@@ -9,10 +9,6 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
-    creatorId: {
-      type: ObjectId,
-      ref: "User",
-    },
     creatorUsername: {
       type: String,
       required: true,
