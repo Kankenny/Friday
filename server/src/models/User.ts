@@ -79,6 +79,12 @@ const UserSchema = new Schema(
         ref: "Post",
       },
     ],
+    authorizedPosts: [
+      {
+        type: ObjectId,
+        ref: "Post",
+      },
+    ],
     notifications: [
       {
         type: ObjectId,

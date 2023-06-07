@@ -70,6 +70,7 @@ export const registerUser = async (req: Request, res: Response) => {
       upvotedPosts: [],
       downvotedPosts: [],
       savedPosts: [],
+      authorizedPosts: [],
       comments: [],
     })
 
