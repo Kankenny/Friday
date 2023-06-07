@@ -43,7 +43,7 @@ AuthRoute.post(
 )
 
 // RESET PASSWORD
-AuthRoute.post(
+AuthRoute.put(
   "/reset-password",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -51,7 +51,7 @@ AuthRoute.post(
 )
 
 // CHANGE USER DETAILS
-AuthRoute.post(
+AuthRoute.put(
   "/change/user-details",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -59,7 +59,7 @@ AuthRoute.post(
 )
 
 // CHANGE PASSWORD
-AuthRoute.post(
+AuthRoute.put(
   "/change/password",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -67,7 +67,7 @@ AuthRoute.post(
 )
 
 // CHANGE SECURITY QA
-AuthRoute.post(
+AuthRoute.put(
   "/change/security-qa",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
