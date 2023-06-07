@@ -30,16 +30,16 @@ export const unauthorizeUserToPost = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if unauthorizer exists
-    const existingUnauthorizer = await UserModel.findById(_idFromToken)
-    if (!existingUnauthorizer) {
+    const existingDeauthorizer = await UserModel.findById(_idFromToken)
+    if (!existingDeauthorizer) {
       return res
         .status(400)
         .json({ message: "Authorizer does not exist!", data: null, ok: false })
     }
 
     // Check if unauthorizee exists
-    const existingUnauthorizee = await UserModel.findById(userIdToUnauthorize)
-    if (!existingUnauthorizee) {
+    const existingDeauthorizee = await UserModel.findById(userIdToUnauthorize)
+    if (!existingDeauthorizee) {
       return res
         .status(404)
         .json({ message: "Authorizee does not exist", data: null, ok: false })
@@ -55,7 +55,7 @@ export const unauthorizeUserToPost = async (req: JWTRequest, res: Response) => {
 
     // Check if the user that is authorizing is the owner of the post
     const isOwner =
-      existingUnauthorizer.username === existingPost.creatorUsername
+      existingDeauthorizer.username === existingPost.creatorUsername
     if (!isOwner) {
       return res.status(400).json({
         message: "Invalid Request!",
@@ -82,6 +82,12 @@ export const unauthorizeUserToPost = async (req: JWTRequest, res: Response) => {
     )
     existingPost.authorizedUsers = filteredAuthorizedUsers
     await existingPost.save()
+
+    // Update deauthorizee's authorizedPosts field
+    existingDeauthorizee.authorizedPosts.filter(
+      (authorizedPosts) => !authorizedPosts._id.equals(existingPost._id)
+    )
+    await existingDeauthorizee.save()
 
     return res.status(200).json({
       message: "User successfully unauthorized!",

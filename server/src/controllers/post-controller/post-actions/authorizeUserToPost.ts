@@ -75,6 +75,9 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
     existingPost.authorizedUsers.push(objectId)
     await existingPost.save()
 
+    // Update authorizee's authorizedPosts field
+    existingAuthorizee.authorizedPosts.push(existingPost._id)
+
     return res.status(200).json({
       message: "User successfully authorized!",
       data: null,
