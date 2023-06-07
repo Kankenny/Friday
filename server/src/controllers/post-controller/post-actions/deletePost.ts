@@ -35,7 +35,8 @@ export const deletePost = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if the user that is deleting the post is the owner
-    const isOwner = existingUser.username === existingPost.creatorUsername
+    const isOwner = existingPost.creatorId!.equals(existingUser._id)
+
     if (!isOwner) {
       return res
         .status(400)
