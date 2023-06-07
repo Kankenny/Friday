@@ -19,6 +19,7 @@ export const createPost = async (req: JWTRequest, res: Response) => {
     // Destructure payload from the request body
     const {
       title,
+      creatorId,
       creatorUsername,
       dueDate,
       color,
@@ -40,6 +41,7 @@ export const createPost = async (req: JWTRequest, res: Response) => {
 
     const newPost = new PostModel({
       title,
+      creatorId,
       creatorUsername,
       dueDate,
       color,
