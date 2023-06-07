@@ -61,6 +61,12 @@ export const deleteTask = async (req: JWTRequest, res: Response) => {
     await TaskModel.deleteOne({ _id: taskId })
     await SubtaskModel.deleteMany({ taskId })
 
+    // Remove tasks field of the post
+    existingPost.tasks = existingPost.tasks.filter(
+      (task) => !task._id.equals(existingTask._id)
+    )
+    await existingPost.save()
+
     res.status(200).json({
       message: "Task deleted successfully!",
       data: null,

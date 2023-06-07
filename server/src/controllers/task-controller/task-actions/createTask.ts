@@ -64,8 +64,11 @@ export const createTask = async (req: JWTRequest, res: Response) => {
       progress: "untouched",
       postId,
     })
-
     await newTask.save()
+
+    // Add task to the tasks field of the post
+    existingPost.tasks.push(newTask._id)
+    await existingPost.save()
 
     res
       .status(200)
