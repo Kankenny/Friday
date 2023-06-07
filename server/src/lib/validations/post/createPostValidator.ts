@@ -8,7 +8,7 @@ const createPostSchema = z.object({
   color: z.string().min(1),
   category: z.string().min(1),
   visibility: z.enum(["personal", "collaborators", "private", "public"]),
-  authorization: z.string().min(1),
+  authorization: z.enum(["personal", "collaborators"]),
 })
 
 export default createPostSchema
