@@ -2,22 +2,22 @@ import { z } from "zod"
 
 const updatePostSchema = z.object({
   title: z.string().trim().optional(),
-  creatorId: z.never(),
-  creatorUsername: z.never(),
+  creatorId: z.undefined(),
+  creatorUsername: z.undefined(),
   dueDate: z.date().optional(),
   color: z.string().optional(),
   category: z.string().optional(),
   visibility: z
     .enum(["personal", "collaborators", "private", "public"])
     .optional(),
-  upvotes: z.never(),
-  downvotes: z.never(),
+  upvotes: z.undefined(),
+  downvotes: z.undefined(),
   authorization: z.enum(["personal", "collaborators"]).optional(),
-  authorizedUsers: z.never(),
-  upvotedBy: z.never(),
-  downvotedBy: z.never(),
-  tasks: z.never(),
-  comments: z.never(),
+  authorizedUsers: z.undefined(),
+  upvotedBy: z.undefined(),
+  downvotedBy: z.undefined(),
+  tasks: z.undefined(),
+  comments: z.undefined(),
 })
 
 export default updatePostSchema

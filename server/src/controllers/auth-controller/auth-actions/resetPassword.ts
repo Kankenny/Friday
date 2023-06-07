@@ -1,5 +1,5 @@
 // Dependencies
-import { Request, Response } from "express"
+import { Response } from "express"
 import bcrypt from "bcrypt"
 
 // Models
@@ -8,7 +8,10 @@ import UserModel from "../../../models/User"
 // Validators
 import { resetPasswordFormSchema } from "../../../../../common/validations/resetPasswordFormValidator"
 
-export const resetPassword = async (req: Request, res: Response) => {
+// Types
+import JWTRequest from "../../../lib/types/JWTRequestType"
+
+export const resetPassword = async (req: JWTRequest, res: Response) => {
   // Validate body using the register form schema
   try {
     resetPasswordFormSchema.parse(req.body)
@@ -22,11 +25,14 @@ export const resetPassword = async (req: Request, res: Response) => {
   }
 
   // destructure the payload attached to the body
-  const { username, newPassword } = req.body
+  const { newPassword } = req.body
+
+  // Extract decoded token from verifyToken middleware
+  const { _idFromToken } = req.user
 
   try {
     // Check if user exists
-    const existingUser = await UserModel.findOne({ username })
+    const existingUser = await UserModel.findById(_idFromToken)
     if (!existingUser) {
       return res
         .status(404)

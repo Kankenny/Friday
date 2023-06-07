@@ -27,16 +27,31 @@ AuthRoute.post("/register", registerUser)
 AuthRoute.post("/login", loginUser)
 
 // GET SECURITY QUESTION
-AuthRoute.post("/get-security-question", getSecurityQuestion)
+AuthRoute.get(
+  "/get-security-question",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => getSecurityQuestion(req as JWTRequest, res)
+)
 
 // VERIFY SECURITY QA
-AuthRoute.post("/verify-security-qa", verifySecurityQA)
+AuthRoute.post(
+  "/verify-security-qa",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => verifySecurityQA(req as JWTRequest, res)
+)
 
 // RESET PASSWORD
-AuthRoute.post("/reset-password", resetPassword)
+AuthRoute.put(
+  "/reset-password",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => resetPassword(req as JWTRequest, res)
+)
 
 // CHANGE USER DETAILS
-AuthRoute.post(
+AuthRoute.put(
   "/change/user-details",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -44,7 +59,7 @@ AuthRoute.post(
 )
 
 // CHANGE PASSWORD
-AuthRoute.post(
+AuthRoute.put(
   "/change/password",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -52,7 +67,7 @@ AuthRoute.post(
 )
 
 // CHANGE SECURITY QA
-AuthRoute.post(
+AuthRoute.put(
   "/change/security-qa",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
