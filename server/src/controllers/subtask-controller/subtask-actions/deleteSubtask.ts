@@ -63,7 +63,7 @@ export const deleteSubtask = async (req: JWTRequest, res: Response) => {
       userId.equals(objectId)
     )
 
-    if (!isOwner || !isCollaborator) {
+    if (!isOwner && !isCollaborator) {
       return res
         .status(400)
         .json({ message: "Unauthorized request!", data: null, ok: false })
