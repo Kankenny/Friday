@@ -79,6 +79,15 @@ export const followUser = async (req: JWTRequest, res: Response) => {
       })
     }
 
+    // Check if the follower blocks the user to follow
+    if (existingFollower.blocked.includes(existingUserToFollow._id)) {
+      return res.status(400).json({
+        message: "You cannot follow someone you are blocking!",
+        data: null,
+        ok: false,
+      })
+    }
+
     // Update user's followers and follower's following list
     existingFollower.following.push(existingUserToFollow._id)
     existingUserToFollow.followers.push(existingFollower._id)
