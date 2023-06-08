@@ -60,9 +60,7 @@ export const unblockUser = async (req: JWTRequest, res: Response) => {
         .json({ message: "Unblocked user not found!", data: null, ok: false })
     }
 
-    const unblockedUserObjectId = new mongoose.Types.ObjectId(userToUnblockId)
-    // Check if the user is already unblocked
-    if (!existingUser.blocked.includes(unblockedUserObjectId)) {
+    if (!existingUser.blocked.includes(unblockedUser._id)) {
       return res.status(400).json({
         message: "User is not blocked!",
         data: null,
@@ -72,7 +70,7 @@ export const unblockUser = async (req: JWTRequest, res: Response) => {
 
     // Remove the unblocked user from the user's blocked array
     existingUser.blocked = existingUser.blocked.filter(
-      (id) => !id.equals(unblockedUserObjectId)
+      (id) => !id.equals(unblockedUser._id)
     )
 
     await existingUser.save()

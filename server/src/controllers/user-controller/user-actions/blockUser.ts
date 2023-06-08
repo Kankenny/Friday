@@ -55,24 +55,23 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
 
   try {
     // Check if user exists
-    const existingUser = await UserModel.findById(userId)
-    if (!existingUser) {
+    const existingBlocker = await UserModel.findById(userId)
+    if (!existingBlocker) {
       return res
         .status(404)
         .json({ message: "User not found!", data: null, ok: false })
     }
 
     // Check if blocked user exists
-    const blockedUser = await UserModel.findById(userToBlockId)
-    if (!blockedUser) {
+    const existingUserToBlock = await UserModel.findById(userToBlockId)
+    if (!existingUserToBlock) {
       return res
         .status(404)
         .json({ message: "Blocked user not found!", data: null, ok: false })
     }
 
-    const blockedUserObjectId = new mongoose.Types.ObjectId(userToBlockId)
     // Check if the user is already blocked
-    if (existingUser.blocked.includes(blockedUserObjectId)) {
+    if (existingBlocker.blocked.includes(existingUserToBlock._id)) {
       return res.status(400).json({
         message: "User is already blocked!",
         data: null,
@@ -81,20 +80,20 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Remove the blocked user from the user's following list
-    existingUser.following = existingUser.following.filter(
-      (id) => !id.equals(blockedUserObjectId)
+    existingBlocker.following = existingBlocker.following.filter(
+      (userFollowedId) => !userFollowedId.equals(existingUserToBlock._id)
     )
 
     // Remove the user from the blocked user's followers list
-    blockedUser.followers = blockedUser.followers.filter(
-      (id) => !id.equals(existingUser._id)
+    existingUserToBlock.followers = existingUserToBlock.followers.filter(
+      (followerId) => !followerId.equals(existingBlocker._id)
     )
 
     // Add userToBlockId to user's blocked array
-    existingUser.blocked.push(blockedUserObjectId)
+    existingBlocker.blocked.push(existingUserToBlock._id)
 
-    await existingUser.save()
-    await blockedUser.save()
+    await existingBlocker.save()
+    await existingUserToBlock.save()
 
     res.status(200).json({
       message: "User successfully blocked!",
