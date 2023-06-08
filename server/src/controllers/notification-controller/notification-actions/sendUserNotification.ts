@@ -19,7 +19,7 @@ export const sendUserNotification = async (req: JWTRequest, res: Response) => {
     const existingSender = await UserModel.findById(_idFromToken)
     if (!existingSender) {
       return res.status(404).json({
-        message: "Sender does not exist!",
+        message: "Notification sender does not exist!",
         data: null,
         ok: false,
       })
@@ -29,7 +29,7 @@ export const sendUserNotification = async (req: JWTRequest, res: Response) => {
     const existingRecipient = await UserModel.findById(recipientId)
     if (!existingRecipient) {
       return res.status(404).json({
-        message: "Recipient does not exist!",
+        message: "Notification recipient does not exist!",
         data: null,
         ok: false,
       })
@@ -52,7 +52,7 @@ export const sendUserNotification = async (req: JWTRequest, res: Response) => {
     await existingRecipient.save()
 
     res.status(200).json({
-      message: "User notification sent successfully!",
+      message: `User notification sent successfully to ${existingRecipient.username}!`,
       data: newNotification,
       ok: true,
     })

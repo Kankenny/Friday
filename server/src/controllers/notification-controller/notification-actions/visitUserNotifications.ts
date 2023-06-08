@@ -29,7 +29,6 @@ export const visitUserNotifications = async (
     }
 
     // Mark the notifications as visited
-    // Mark the notifications as visited
     await NotificationModel.updateMany(
       {
         isVisited: false,
