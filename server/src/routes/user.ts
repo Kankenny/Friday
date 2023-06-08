@@ -46,7 +46,7 @@ UserRoute.put(
 
 // UNFOLLOW USER
 UserRoute.put(
-  "/:userId/unfollow/:userToUnfollow",
+  "/:userId/unfollow/:userToUnfollowId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => unfollowUser(req as JWTRequest, res)
