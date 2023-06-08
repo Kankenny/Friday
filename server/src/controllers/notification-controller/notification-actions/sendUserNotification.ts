@@ -2,7 +2,6 @@ import { Response } from "express"
 import UserModel from "../../../models/User"
 import NotificationModel from "../../../models/Notification"
 import JWTRequest from "../../../lib/types/JWTRequestType"
-import mongoose from "mongoose"
 import sendUserNotificationSchema from "../../../lib/validations/notification/sendUserNotificationValidator"
 
 export const sendUserNotification = async (req: JWTRequest, res: Response) => {
@@ -58,9 +57,9 @@ export const sendUserNotification = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      message: "Internal server error!",
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

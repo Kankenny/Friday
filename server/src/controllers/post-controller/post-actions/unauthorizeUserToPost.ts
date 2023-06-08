@@ -94,10 +94,10 @@ export const unauthorizeUserToPost = async (req: JWTRequest, res: Response) => {
       data: null,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({
-      message: `Failed to unauthorize user!: ${err}}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

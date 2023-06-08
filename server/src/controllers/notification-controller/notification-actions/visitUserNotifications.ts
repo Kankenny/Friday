@@ -44,9 +44,9 @@ export const visitUserNotifications = async (
       ok: true,
     })
   } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      message: "Internal server error!",
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

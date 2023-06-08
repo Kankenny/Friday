@@ -88,7 +88,7 @@ export const revertUpvoteOrDownvote = async (
   } catch (error) {
     console.error(error)
     return res.status(500).json({
-      message: `Failed to revert upvote/downvote post!: ${error}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

@@ -80,7 +80,7 @@ export const upvotePost = async (req: JWTRequest, res: Response) => {
   } catch (error) {
     console.error(error)
     return res.status(500).json({
-      message: `Failed to upvote post!: ${error}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

@@ -32,12 +32,19 @@ export const getUserFollowing = async (req: Request, res: Response) => {
         .json({ message: "User not found!", data: null, ok: false })
     }
 
+    console.log("TEST")
+
     res.status(200).json({
       message: "User following successfully fetched!",
       data: existingUser.following,
       ok: true,
     })
-  } catch (err) {
-    res.status(500).json({ message: err, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

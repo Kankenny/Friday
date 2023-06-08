@@ -39,8 +39,12 @@ export const getUser = async (req: Request, res: Response) => {
       data: existingUser,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ message: err, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

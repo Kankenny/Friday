@@ -54,9 +54,9 @@ export const changeUserDetails = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return res.status(500).json({
-      message: "Internal Server Error",
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

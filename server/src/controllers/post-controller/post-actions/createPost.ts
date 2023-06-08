@@ -64,10 +64,10 @@ export const createPost = async (req: JWTRequest, res: Response) => {
       data: newPost,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({
-      message: `Failed to create post!: ${err}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

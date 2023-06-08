@@ -45,7 +45,11 @@ export const getTaskSubtasks = async (req: Request, res: Response) => {
       ok: true,
     })
   } catch (error) {
-    console.log(error)
-    return res.status(500).json({ message: error, data: null, ok: false })
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

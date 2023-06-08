@@ -73,9 +73,9 @@ export const deleteTask = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return res.status(500).json({
-      message: "Internal server error",
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })
