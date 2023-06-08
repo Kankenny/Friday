@@ -11,22 +11,13 @@ import JWTRequest from "../../../lib/types/JWTRequestType"
 export const deleteComment = async (req: JWTRequest, res: Response) => {
   try {
     // Extract commentId and commenterId from the request params
-    const { commentId, deleterId } = req.params
+    const { commentId } = req.params
 
     // Extract id from token
     const { _idFromToken } = req.user
 
-    // Extract postId  from the request query
+    // Extract postId from the request query
     const { postId } = req.query
-
-    // Determine if id from token and deleterId from params match
-    if (deleterId !== _idFromToken) {
-      return res.status(400).json({
-        message: "Invalid Credentials!",
-        data: null,
-        ok: false,
-      })
-    }
 
     // Check if the comment exists
     const existingComment = await CommentModel.findById(commentId)
@@ -47,7 +38,7 @@ export const deleteComment = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if the commenter is the owner of the comment
-    const isOwner = existingComment.commenterId!.equals(deleterId)
+    const isOwner = existingComment.commenterId!.equals(_idFromToken)
     if (!isOwner) {
       return res.status(403).json({
         message: "You cannot delete a comment that is not yours!",

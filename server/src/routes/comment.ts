@@ -24,7 +24,7 @@ CommentRoute.post(
 
 // DELETE COMMENT
 CommentRoute.delete(
-  "/delete/:commentId/:deleterId",
+  "/:commentId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => deleteComment(req as JWTRequest, res)
