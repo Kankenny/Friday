@@ -4,6 +4,7 @@ import express, { Request, Response, NextFunction } from "express"
 // Notifications Controller Functions
 import {
   getUserNotifications,
+  sendUserNotification,
   visitUserNotifications,
 } from "../controllers/notification-controller/notificationsController"
 
@@ -34,11 +35,10 @@ NotificationRouter.put(
 
 // SEND USER NOTIFICATIONS
 NotificationRouter.post(
-  "/visit",
+  "/",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) =>
-    visitUserNotifications(req as JWTRequest, res)
+  (req: Request, res: Response) => sendUserNotification(req as JWTRequest, res)
 )
 
 export default NotificationRouter
