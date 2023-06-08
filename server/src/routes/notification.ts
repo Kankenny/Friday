@@ -32,4 +32,13 @@ NotificationRouter.put(
     visitUserNotifications(req as JWTRequest, res)
 )
 
+// SEND USER NOTIFICATIONS
+NotificationRouter.post(
+  "/visit",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) =>
+    visitUserNotifications(req as JWTRequest, res)
+)
+
 export default NotificationRouter
