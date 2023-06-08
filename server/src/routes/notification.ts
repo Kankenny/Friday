@@ -26,7 +26,7 @@ NotificationRouter.get(
 
 // VISIT USER NOTIFICATIONS
 NotificationRouter.put(
-  "/visit",
+  "/",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) =>
