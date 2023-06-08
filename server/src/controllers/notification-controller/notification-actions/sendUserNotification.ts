@@ -46,6 +46,7 @@ export const sendUserNotification = async (req: JWTRequest, res: Response) => {
       isVisited: false,
       notificationOwnerId: existingRecipient._id,
     })
+    await newNotification.save()
 
     // Update notifications field of recipient
     existingRecipient.notifications.push(newNotification._id)

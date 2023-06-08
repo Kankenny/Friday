@@ -68,7 +68,9 @@ export const deleteComment = async (req: JWTRequest, res: Response) => {
     await existingPost.save()
 
     // Update comments field of user
-    existingUser.comments.push(existingComment._id)
+    existingUser.comments = existingUser.comments.filter(
+      (comment) => !comment._id.equals(existingComment._id)
+    )
     await existingUser.save()
 
     res.status(200).json({
