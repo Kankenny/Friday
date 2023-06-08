@@ -48,6 +48,12 @@ export const deletePost = async (req: JWTRequest, res: Response) => {
     await TaskModel.deleteMany({ postId })
     await SubtaskModel.deleteMany({ taskId: { $in: existingPost.tasks } })
 
+    // Update posts field of the user
+    existingUser.posts = existingUser.posts.filter(
+      (post) => !post._id.equals(existingPost._id)
+    )
+    await existingUser.save()
+
     res.status(200).json({
       message: "Post successfully deleted!",
       data: null,

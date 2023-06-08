@@ -39,6 +39,7 @@ export const createPost = async (req: JWTRequest, res: Response) => {
         .json({ message: "Invalid Credentials!", data: null, ok: false })
     }
 
+    // Create new post
     const newPost = new PostModel({
       title,
       creatorId,
@@ -56,8 +57,11 @@ export const createPost = async (req: JWTRequest, res: Response) => {
       tasks: [],
       comments: [],
     })
-
     await newPost.save()
+
+    // Update posts field of the user
+    existingUser.posts.push(newPost._id)
+    await existingUser.save()
 
     return res.status(200).json({
       message: "Post successfully created!",

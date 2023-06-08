@@ -53,6 +53,11 @@ export const downvotePost = async (req: JWTRequest, res: Response) => {
         userId.equals(existingUser._id)
       )
       existingPost.upvotedBy = filteredUpvotedBy
+
+      // Remove post from user's upvotedPosts field
+      existingUser.upvotedPosts = existingUser.upvotedPosts.filter(
+        (upvotedPost) => !upvotedPost._id.equals(existingPost._id)
+      )
     }
 
     // Check if the user has already downvoted the post
@@ -71,6 +76,10 @@ export const downvotePost = async (req: JWTRequest, res: Response) => {
     existingPost.downvotes += 1
     existingPost.downvotedBy.push(existingUser._id)
     await existingPost.save()
+
+    // Update downvotedPosts of the user
+    existingUser.downvotedPosts.push(existingPost._id)
+    await existingUser.save()
 
     res.status(200).json({
       message: "Post successfully downvoted!",
