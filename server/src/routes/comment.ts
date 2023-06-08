@@ -16,7 +16,7 @@ const CommentRoute = express.Router()
 
 // CREATE COMMENT
 CommentRoute.post(
-  "/create/:postId/:commenterId",
+  "/",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => createComment(req as JWTRequest, res)

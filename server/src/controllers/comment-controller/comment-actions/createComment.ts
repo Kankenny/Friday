@@ -29,22 +29,15 @@ export const createComment = async (req: JWTRequest, res: Response) => {
   // Extract comment information from the request body
   const { body } = req.body
 
-  // Extract postId and commenterId from the request params
-  const { postId, commenterId } = req.params
+  // Extract postId  from the request query
+  const { postId } = req.query
 
   // Extract id from token
   const { _idFromToken } = req.user
 
-  // Determine if id from token and commenter id matches
-  if (commenterId !== _idFromToken) {
-    return res
-      .status(400)
-      .json({ message: "Invalid Credentials!", data: null, ok: false })
-  }
-
   try {
     // Check if commenter exists
-    const existingCommenter = await UserModel.findById(commenterId)
+    const existingCommenter = await UserModel.findById(_idFromToken)
     if (!existingCommenter) {
       return res
         .status(404)
@@ -62,12 +55,12 @@ export const createComment = async (req: JWTRequest, res: Response) => {
     // Determine if the user has appropriate visibility on the post
     const postCreator = await UserModel.findById(existingPost.creatorId)
 
-    const isCreator = new mongoose.Types.ObjectId(commenterId).equals(
+    const isCreator = new mongoose.Types.ObjectId(_idFromToken).equals(
       postCreator!._id
     )
     const isPublic = existingPost.visibility === "public"
     const isCollaborator = existingPost.authorizedUsers.some((user) =>
-      user._id.equals(commenterId)
+      user._id.equals(_idFromToken)
     )
     const isCommentorFollowingTheCreator = existingCommenter.following.some(
       (user) => user._id.equals(postCreator!._id)
@@ -84,7 +77,7 @@ export const createComment = async (req: JWTRequest, res: Response) => {
     // Create new comment
     const newComment = new CommentModel({
       body,
-      commenterId,
+      commenterId: _idFromToken,
       postId,
     })
     await newComment.save()
