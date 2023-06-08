@@ -12,8 +12,8 @@ import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const deleteSubtask = async (req: JWTRequest, res: Response) => {
   try {
-    // Extract subtaskId from the request query
-    const subtaskId = req.query.subtaskId
+    // Extract subtaskId from the request params
+    const { subtaskId } = req.params
     if (!subtaskId) {
       return res.status(400).json({
         message: "Bad Request!",
@@ -71,6 +71,12 @@ export const deleteSubtask = async (req: JWTRequest, res: Response) => {
 
     // Delete the subtask
     await SubtaskModel.deleteOne({ _id: subtaskId })
+
+    // Update subtasks field of the task
+    existingTask.subtasks = existingTask.subtasks.filter(
+      (subtask) => !subtask._id.equals(subtaskId)
+    )
+    await existingTask.save()
 
     res.status(200).json({
       message: "Subtask deleted successfully!",

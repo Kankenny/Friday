@@ -61,7 +61,7 @@ export const createSubtask = async (req: JWTRequest, res: Response) => {
     const isCollaborator = existingPost.authorizedUsers.some((userId) =>
       userId.equals(objectId)
     )
-    if (!isOwner || !isCollaborator) {
+    if (!isOwner && !isCollaborator) {
       return res
         .status(400)
         .json({ message: "Unauthorized request!", data: null, ok: false })
@@ -73,8 +73,11 @@ export const createSubtask = async (req: JWTRequest, res: Response) => {
       progress: "untouched",
       taskId,
     })
-
     await newSubtask.save()
+
+    // Update subtasks field of the task
+    existingTask.subtasks.push(newSubtask._id)
+    await existingTask.save()
 
     res.status(200).json({
       message: "Subtask successfully created!",
