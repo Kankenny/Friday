@@ -7,11 +7,12 @@ export const registerFormSchema = z
     lastName: z.string().min(1, { message: "Last name is required!" }),
     email: z.string().email("Email address is invalid!"),
     username: z
-      .string({ required_error: "Username is required!" })
+      .string()
       .min(3, { message: "Username is too short!" })
       .max(15, { message: "Username is too long!" }),
     password: z
-      .string({ required_error: "Password is required!" })
+      .string()
+      .min(8, { message: "Password is too short!" })
       .regex(strongPasswordRegex, {
         message:
           "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be a minimum of 8 characters long.",
