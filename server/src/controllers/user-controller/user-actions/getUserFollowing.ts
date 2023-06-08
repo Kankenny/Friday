@@ -32,8 +32,6 @@ export const getUserFollowing = async (req: Request, res: Response) => {
         .json({ message: "User not found!", data: null, ok: false })
     }
 
-    console.log("TEST")
-
     res.status(200).json({
       message: "User following successfully fetched!",
       data: existingUser.following,

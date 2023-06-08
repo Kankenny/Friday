@@ -9,20 +9,20 @@ import UserModel from "../../../models/User"
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const blockUser = async (req: JWTRequest, res: Response) => {
-  // Extract userId and blockedUserId from request params
-  const { userId, blockedUserId } = req.params
+  // Extract userId and userToBlockId from request params
+  const { userId, userToBlockId } = req.params
 
   // Check if appropriate payload is attached to the body
-  if (!userId || !blockedUserId) {
+  if (!userId || !userToBlockId) {
     return res.status(400).json({
-      message: "userId and blockedUserId params are required!",
+      message: "userId and userToBlockId params are required!",
       data: null,
       ok: false,
     })
   }
 
   // Check if blocker is the blockee
-  const isTheSameUser = userId === blockedUserId
+  const isTheSameUser = userId === userToBlockId
   if (isTheSameUser) {
     return res.status(400).json({
       message: "You cannot block yourself!",
@@ -41,13 +41,13 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
       .json({ message: "Invalid Credentials!", data: null, ok: false })
   }
 
-  // Check if userId and blockedUserId are valid ObjectIds
+  // Check if userId and userToBlockId are valid ObjectIds
   if (
     !mongoose.Types.ObjectId.isValid(userId) ||
-    !mongoose.Types.ObjectId.isValid(blockedUserId)
+    !mongoose.Types.ObjectId.isValid(userToBlockId)
   ) {
     return res.status(400).json({
-      message: "Invalid userId or blockedUserId!",
+      message: "Invalid userId or userToBlockId!",
       data: null,
       ok: false,
     })
@@ -63,14 +63,14 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if blocked user exists
-    const blockedUser = await UserModel.findById(blockedUserId)
+    const blockedUser = await UserModel.findById(userToBlockId)
     if (!blockedUser) {
       return res
         .status(404)
         .json({ message: "Blocked user not found!", data: null, ok: false })
     }
 
-    const blockedUserObjectId = new mongoose.Types.ObjectId(blockedUserId)
+    const blockedUserObjectId = new mongoose.Types.ObjectId(userToBlockId)
     // Check if the user is already blocked
     if (existingUser.blocked.includes(blockedUserObjectId)) {
       return res.status(400).json({
@@ -90,7 +90,7 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
       (id) => !id.equals(existingUser._id)
     )
 
-    // Add blockedUserId to user's blocked array
+    // Add userToBlockId to user's blocked array
     existingUser.blocked.push(blockedUserObjectId)
 
     await existingUser.save()

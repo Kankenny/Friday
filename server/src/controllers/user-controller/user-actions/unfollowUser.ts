@@ -10,12 +10,12 @@ import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const unfollowUser = async (req: JWTRequest, res: Response) => {
   // Extract userId and followerId from request params
-  const { userId, followerId } = req.params
+  const { userId, userToUnfollowId } = req.params
 
   // Check if appropriate payload is attached to the body
-  if (!userId || !followerId) {
+  if (!userId || !userToUnfollowId) {
     return res.status(400).json({
-      message: "userId and followerId params are required!",
+      message: "userId and userToUnfollowId params are required!",
       data: null,
       ok: false,
     })
@@ -31,13 +31,13 @@ export const unfollowUser = async (req: JWTRequest, res: Response) => {
       .json({ message: "Invalid Credentials!", data: null, ok: false })
   }
 
-  // Check if userId and followerId are valid ObjectIds
+  // Check if userId and userToUnfollowId are valid ObjectIds
   if (
     !mongoose.Types.ObjectId.isValid(userId) ||
-    !mongoose.Types.ObjectId.isValid(followerId)
+    !mongoose.Types.ObjectId.isValid(userToUnfollowId)
   ) {
     return res.status(400).json({
-      message: "Invalid userId or followerId!",
+      message: "Invalid userId or userToUnfollowId!",
       data: null,
       ok: false,
     })
@@ -53,14 +53,14 @@ export const unfollowUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if follower exists
-    const existingFollower = await UserModel.findById(followerId)
+    const existingFollower = await UserModel.findById(userToUnfollowId)
     if (!existingFollower) {
       return res
         .status(404)
         .json({ message: "Follower not found!", data: null, ok: false })
     }
 
-    const objectId = new mongoose.Types.ObjectId(followerId)
+    const objectId = new mongoose.Types.ObjectId(userToUnfollowId)
     // Check if the user is followed by the follower
     if (!existingUser.following.includes(objectId)) {
       return res.status(400).json({

@@ -38,7 +38,7 @@ UserRoute.get(
 
 // FOLLOW USER
 UserRoute.put(
-  "/:userId/follow/:followerId",
+  "/:userId/follow/:userToFollowId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => followUser(req as JWTRequest, res)
@@ -46,7 +46,7 @@ UserRoute.put(
 
 // UNFOLLOW USER
 UserRoute.put(
-  "/:userId/unfollow/:followerId",
+  "/:userId/unfollow/:userToUnfollow",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => unfollowUser(req as JWTRequest, res)
@@ -54,7 +54,7 @@ UserRoute.put(
 
 // BLOCK USER
 UserRoute.put(
-  "/:userId/block/:blockedUserId",
+  "/:userId/block/:userToBlockId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => blockUser(req as JWTRequest, res)
@@ -62,7 +62,7 @@ UserRoute.put(
 
 // UNBLOCK USER
 UserRoute.put(
-  "/:userId/unblock/:unblockedUserId",
+  "/:userId/unblock/:userToUnblockId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => unblockUser(req as JWTRequest, res)

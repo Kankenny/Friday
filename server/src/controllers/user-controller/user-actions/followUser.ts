@@ -10,19 +10,19 @@ import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const followUser = async (req: JWTRequest, res: Response) => {
   // Extract userId and followerId from request params
-  const { userId, followerId } = req.params
+  const { userId, userToFollowId } = req.params
 
   // Check if appropriate payload is attached to the body
-  if (!userId || !followerId) {
+  if (!userId || !userToFollowId) {
     return res.status(400).json({
-      message: "userId and followerId params are required!",
+      message: "userId and userToFollowId params are required!",
       data: null,
       ok: false,
     })
   }
 
   // Check if follower is the followee
-  const isTheSameUser = userId === followerId
+  const isTheSameUser = userId === userToFollowId
   if (isTheSameUser) {
     return res.status(400).json({
       message: "You cannot follow yourself!",
@@ -44,7 +44,7 @@ export const followUser = async (req: JWTRequest, res: Response) => {
   // Check if userId and followerId are valid ObjectIds
   if (
     !mongoose.Types.ObjectId.isValid(userId) ||
-    !mongoose.Types.ObjectId.isValid(followerId)
+    !mongoose.Types.ObjectId.isValid(userToFollowId)
   ) {
     return res.status(400).json({
       message: "Invalid userId or followerId!",
@@ -63,14 +63,14 @@ export const followUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if follower exists
-    const existingFollower = await UserModel.findById(followerId)
-    if (!existingFollower) {
+    const existingUserToFollow = await UserModel.findById(userToFollowId)
+    if (!existingUserToFollow) {
       return res
         .status(404)
-        .json({ message: "Follower not found!", data: null, ok: false })
+        .json({ message: "User to follow not found!", data: null, ok: false })
     }
 
-    const objectId = new mongoose.Types.ObjectId(followerId)
+    const objectId = new mongoose.Types.ObjectId(userToFollowId)
     // Check if the user is already followed by the follower
     if (existingUser.following.includes(objectId)) {
       return res.status(400).json({
@@ -82,9 +82,9 @@ export const followUser = async (req: JWTRequest, res: Response) => {
 
     // Update user's followers and follower's following list
     existingUser.following.push(objectId)
-    existingFollower.followers.push(objectId)
+    existingUserToFollow.followers.push(objectId)
     await existingUser.save()
-    await existingFollower.save()
+    await existingUserToFollow.save()
 
     res.status(200).json({
       message: "User successfully followed!",
