@@ -3,9 +3,13 @@ import UserModel from "../../../models/User"
 import NotificationModel from "../../../models/Notification"
 import JWTRequest from "../../../lib/types/JWTRequestType"
 import mongoose from "mongoose"
+import sendUserNotificationSchema from "../../../lib/validations/notification/sendUserNotificationValidator"
 
 export const sendUserNotification = async (req: JWTRequest, res: Response) => {
   try {
+    // Validate body using the send user notification schema
+    sendUserNotificationSchema.parse(req.body)
+
     // Extract sender id from token
     const { _idFromToken } = req.user
 
