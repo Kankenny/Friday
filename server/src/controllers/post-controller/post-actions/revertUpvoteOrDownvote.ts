@@ -42,7 +42,7 @@ export const revertUpvoteOrDownvote = async (
     const hasAlreadyDownvoted = existingPost.downvotedBy.some((userId) =>
       userId.equals(existingUser._id)
     )
-    if (!hasAlreadyUpvoted || !hasAlreadyDownvoted) {
+    if (!hasAlreadyUpvoted && !hasAlreadyDownvoted) {
       return res.status(400).json({
         message: "You have not upvoted or downvoted this post!",
         data: null,
