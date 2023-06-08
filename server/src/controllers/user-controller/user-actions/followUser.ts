@@ -55,11 +55,11 @@ export const followUser = async (req: JWTRequest, res: Response) => {
 
   try {
     // Check if user exists
-    const existingUser = await UserModel.findById(userId)
-    if (!existingUser) {
+    const existingFollower = await UserModel.findById(userId)
+    if (!existingFollower) {
       return res
         .status(404)
-        .json({ message: "User not found!", data: null, ok: false })
+        .json({ message: "Follower not found!", data: null, ok: false })
     }
 
     // Check if follower exists
@@ -70,9 +70,8 @@ export const followUser = async (req: JWTRequest, res: Response) => {
         .json({ message: "User to follow not found!", data: null, ok: false })
     }
 
-    const objectId = new mongoose.Types.ObjectId(userToFollowId)
     // Check if the user is already followed by the follower
-    if (existingUser.following.includes(objectId)) {
+    if (existingFollower.following.includes(existingUserToFollow._id)) {
       return res.status(400).json({
         message: "User is already followed by the follower!",
         data: null,
@@ -81,9 +80,9 @@ export const followUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Update user's followers and follower's following list
-    existingUser.following.push(objectId)
-    existingUserToFollow.followers.push(objectId)
-    await existingUser.save()
+    existingFollower.following.push(existingUserToFollow._id)
+    existingUserToFollow.followers.push(existingFollower._id)
+    await existingFollower.save()
     await existingUserToFollow.save()
 
     res.status(200).json({
