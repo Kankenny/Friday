@@ -3,6 +3,7 @@ import { Response } from "express"
 
 // Models
 import CommentModel from "../../../models/Comment"
+import PostModel from "../../../models/Post"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
@@ -14,6 +15,9 @@ export const deleteComment = async (req: JWTRequest, res: Response) => {
 
     // Extract id from token
     const { _idFromToken } = req.user
+
+    // Extract postId  from the request query
+    const { postId } = req.query
 
     // Determine if id from token and deleterId from params match
     if (deleterId !== _idFromToken) {
@@ -34,6 +38,14 @@ export const deleteComment = async (req: JWTRequest, res: Response) => {
       })
     }
 
+    // Check if post exists
+    const existingPost = await PostModel.findById(postId)
+    if (!existingPost) {
+      return res
+        .status(404)
+        .json({ message: "Post does not exist!", data: null, ok: false })
+    }
+
     // Check if the commenter is the owner of the comment
     const isOwner = existingComment.commenterId!.equals(deleterId)
     if (!isOwner) {
@@ -46,6 +58,12 @@ export const deleteComment = async (req: JWTRequest, res: Response) => {
 
     // Delete the comment
     await CommentModel.findByIdAndDelete(commentId)
+
+    // Update comments field of post
+    existingPost.comments = existingPost.comments.filter(
+      (comment) => !comment._id.equals(commentId)
+    )
+    await existingPost.save()
 
     res.status(200).json({
       message: "Comment successfully deleted!",
