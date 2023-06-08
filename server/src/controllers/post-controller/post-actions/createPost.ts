@@ -17,16 +17,8 @@ export const createPost = async (req: JWTRequest, res: Response) => {
     createPostSchema.parse(req.body)
 
     // Destructure payload from the request body
-    const {
-      title,
-      creatorId,
-      creatorUsername,
-      dueDate,
-      color,
-      category,
-      visibility,
-      authorization,
-    } = req.body
+    const { title, dueDate, color, category, visibility, authorization } =
+      req.body
 
     // Extract decoded token from verifyToken middleware
     const { _idFromToken } = req.user
@@ -42,8 +34,8 @@ export const createPost = async (req: JWTRequest, res: Response) => {
     // Create new post
     const newPost = new PostModel({
       title,
-      creatorId,
-      creatorUsername,
+      creatorId: existingUser._id,
+      creatorUsername: existingUser.username,
       dueDate,
       color,
       category,
