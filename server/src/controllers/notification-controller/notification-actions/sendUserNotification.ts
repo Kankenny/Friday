@@ -2,17 +2,31 @@ import { Response } from "express"
 import UserModel from "../../../models/User"
 import NotificationModel from "../../../models/Notification"
 import JWTRequest from "../../../lib/types/JWTRequestType"
+import mongoose from "mongoose"
 
 export const sendUserNotification = async (req: JWTRequest, res: Response) => {
   try {
-    // Extract id from token
+    // Extract sender id from token
     const { _idFromToken } = req.user
 
-    // Check if the user exists
-    const existingUser = await UserModel.findById(_idFromToken)
-    if (!existingUser) {
+    // Extract recipient id from request params
+    const { recipientId } = req.params
+
+    // Check if the sender exists
+    const existingSender = await UserModel.findById(_idFromToken)
+    if (!existingSender) {
       return res.status(404).json({
-        message: "User does not exist!",
+        message: "Sender does not exist!",
+        data: null,
+        ok: false,
+      })
+    }
+
+    // Check if the recipient exists
+    const existingRecipient = await UserModel.findById(recipientId)
+    if (!existingRecipient) {
+      return res.status(404).json({
+        message: "Recipient does not exist!",
         data: null,
         ok: false,
       })
@@ -21,18 +35,25 @@ export const sendUserNotification = async (req: JWTRequest, res: Response) => {
     // Extract payload from the body
     const { title, type, idLinkToEntity } = req.body
 
+    // Determine if idLinkToEntity is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(idLinkToEntity)) {
+      return res
+        .status(400)
+        .json({ message: "Invalid idLinkToEntity!", data: null, ok: false })
+    }
+
     // Create new notification
     const newNotification = new NotificationModel({
       title,
       type,
       idLinkToEntity,
       isVisited: false,
-      notificationOwnerId: existingUser._id,
+      notificationOwnerId: existingRecipient._id,
     })
 
     // Update notifications field of recipient
-    existingUser.notifications.push(newNotification._id)
-    await existingUser.save()
+    existingRecipient.notifications.push(newNotification._id)
+    await existingRecipient.save()
 
     res.status(200).json({
       message: "User notification sent successfully!",
