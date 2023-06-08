@@ -39,13 +39,6 @@ export const sendUserNotification = async (req: JWTRequest, res: Response) => {
     // Extract payload from the body
     const { title, type, idLinkToEntity } = req.body
 
-    // Determine if idLinkToEntity is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(idLinkToEntity)) {
-      return res
-        .status(400)
-        .json({ message: "Invalid idLinkToEntity!", data: null, ok: false })
-    }
-
     // Create new notification
     const newNotification = new NotificationModel({
       title,

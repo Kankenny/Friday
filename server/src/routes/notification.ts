@@ -35,7 +35,7 @@ NotificationRouter.put(
 
 // SEND USER NOTIFICATIONS
 NotificationRouter.post(
-  "/",
+  "/:recipientId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => sendUserNotification(req as JWTRequest, res)
