@@ -18,8 +18,9 @@ export const changeSubtaskProgress = async (req: JWTRequest, res: Response) => {
     // Validate body using the update subtask progress schema
     updateSubtaskProgressSchema.parse(req.body)
 
-    // Extract progress payload from the request body
-    const { progress, subtaskId } = req.body
+    // Extract progress payload from the request body and params
+    const { progress } = req.body
+    const { subtaskId } = req.params
 
     // Extract postId and taskId from the request query
     const { postId, taskId } = req.query
@@ -68,7 +69,7 @@ export const changeSubtaskProgress = async (req: JWTRequest, res: Response) => {
     const isCollaborator = existingPost.authorizedUsers.some((userId) =>
       userId.equals(objectId)
     )
-    if (!isOwner || !isCollaborator) {
+    if (!isOwner && !isCollaborator) {
       return res
         .status(400)
         .json({ message: "Unauthorized request!", data: null, ok: false })
