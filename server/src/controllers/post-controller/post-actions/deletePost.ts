@@ -35,7 +35,8 @@ export const deletePost = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if the user that is deleting the post is the owner
-    const isOwner = existingUser.username === existingPost.creatorUsername
+    const isOwner = existingPost.creatorId!.equals(existingUser._id)
+
     if (!isOwner) {
       return res
         .status(400)
@@ -47,15 +48,21 @@ export const deletePost = async (req: JWTRequest, res: Response) => {
     await TaskModel.deleteMany({ postId })
     await SubtaskModel.deleteMany({ taskId: { $in: existingPost.tasks } })
 
+    // Update posts field of the user
+    existingUser.posts = existingUser.posts.filter(
+      (post) => !post._id.equals(existingPost._id)
+    )
+    await existingUser.save()
+
     res.status(200).json({
       message: "Post successfully deleted!",
       data: null,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({
-      message: `Failed to delete post!: ${err}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

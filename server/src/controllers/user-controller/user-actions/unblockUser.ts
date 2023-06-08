@@ -9,13 +9,13 @@ import UserModel from "../../../models/User"
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const unblockUser = async (req: JWTRequest, res: Response) => {
-  // Extract userId and unblockedUserId from request params
-  const { userId, unblockedUserId } = req.params
+  // Extract userId and userToUnblockId from request params
+  const { userId, userToUnblockId } = req.params
 
   // Check if appropriate payload is attached to the body
-  if (!userId || !unblockedUserId) {
+  if (!userId || !userToUnblockId) {
     return res.status(400).json({
-      message: "userId and unblockedUserId params are required!",
+      message: "userId and userToUnblockId params are required!",
       data: null,
       ok: false,
     })
@@ -31,13 +31,13 @@ export const unblockUser = async (req: JWTRequest, res: Response) => {
       .json({ message: "Invalid Credentials!", data: null, ok: false })
   }
 
-  // Check if userId and unblockedUserId are valid ObjectIds
+  // Check if userId and userToUnblockId are valid ObjectIds
   if (
     !mongoose.Types.ObjectId.isValid(userId) ||
-    !mongoose.Types.ObjectId.isValid(unblockedUserId)
+    !mongoose.Types.ObjectId.isValid(userToUnblockId)
   ) {
     return res.status(400).json({
-      message: "Invalid userId or unblockedUserId!",
+      message: "Invalid userId or userToUnblockId!",
       data: null,
       ok: false,
     })
@@ -53,16 +53,14 @@ export const unblockUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if unblocked user exists
-    const unblockedUser = await UserModel.findById(unblockedUserId)
+    const unblockedUser = await UserModel.findById(userToUnblockId)
     if (!unblockedUser) {
       return res
         .status(404)
         .json({ message: "Unblocked user not found!", data: null, ok: false })
     }
 
-    const unblockedUserObjectId = new mongoose.Types.ObjectId(unblockedUserId)
-    // Check if the user is already unblocked
-    if (!existingUser.blocked.includes(unblockedUserObjectId)) {
+    if (!existingUser.blocked.includes(unblockedUser._id)) {
       return res.status(400).json({
         message: "User is not blocked!",
         data: null,
@@ -72,7 +70,7 @@ export const unblockUser = async (req: JWTRequest, res: Response) => {
 
     // Remove the unblocked user from the user's blocked array
     existingUser.blocked = existingUser.blocked.filter(
-      (id) => !id.equals(unblockedUserObjectId)
+      (id) => !id.equals(unblockedUser._id)
     )
 
     await existingUser.save()
@@ -82,7 +80,12 @@ export const unblockUser = async (req: JWTRequest, res: Response) => {
       data: null,
       ok: true,
     })
-  } catch (err) {
-    res.status(500).json({ message: err, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

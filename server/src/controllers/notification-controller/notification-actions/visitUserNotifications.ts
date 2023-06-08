@@ -29,7 +29,6 @@ export const visitUserNotifications = async (
     }
 
     // Mark the notifications as visited
-    // Mark the notifications as visited
     await NotificationModel.updateMany(
       {
         isVisited: false,
@@ -44,9 +43,9 @@ export const visitUserNotifications = async (
       ok: true,
     })
   } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      message: "Internal server error!",
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

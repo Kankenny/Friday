@@ -59,9 +59,11 @@ export const changeSecurityQA = async (req: JWTRequest, res: Response) => {
       ok: true,
     })
   } catch (error) {
-    console.log(error)
-    res
-      .status(500)
-      .json({ message: "Internal Server Error!", data: null, ok: false })
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

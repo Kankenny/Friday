@@ -17,12 +17,32 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
     // Extract decoded token from verifyToken middleware
     const { _idFromToken } = req.user
 
-    // Check if user exists
-    const existingUser = await UserModel.findById(_idFromToken)
-    if (!existingUser) {
+    // Check if userIdToAuthorize is a valid objectId
+    let objectId: any
+    try {
+      objectId = new mongoose.Types.ObjectId(userIdToAuthorize)
+    } catch (error) {
+      return res.status(400).json({
+        message: "Invalid userIdToAuthorize!",
+        data: null,
+        ok: false,
+      })
+    }
+
+    // Check if authorizer exists
+    const existingAuthorizer = await UserModel.findById(_idFromToken)
+    if (!existingAuthorizer) {
       return res
         .status(400)
-        .json({ message: "Invalid Credentials!", data: null, ok: false })
+        .json({ message: "Authorizer does not exist!", data: null, ok: false })
+    }
+
+    // Check if authorizee exists
+    const existingAuthorizee = await UserModel.findById(userIdToAuthorize)
+    if (!existingAuthorizee) {
+      return res
+        .status(404)
+        .json({ message: "Authorizee does not exist", data: null, ok: false })
     }
 
     // Check if post exists
@@ -34,20 +54,11 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if the user that is authorizing is the owner of the post
-    const isOwner = existingUser.username === existingPost.creatorUsername
+    const isOwner = existingAuthorizer.username === existingPost.creatorUsername
     if (!isOwner) {
       return res
         .status(400)
         .json({ message: "Unauthorized request!", data: null, ok: false })
-    }
-
-    let objectId: any
-    try {
-      objectId = new mongoose.Types.ObjectId(userIdToAuthorize)
-    } catch (error) {
-      return res
-        .status(400)
-        .json({ message: "Invalid userIdToAuthorize!", data: null, ok: false })
     }
 
     // Check if user is already authorized on the post
@@ -64,6 +75,9 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
     existingPost.authorizedUsers.push(objectId)
     await existingPost.save()
 
+    // Update authorizee's authorizedPosts field
+    existingAuthorizee.authorizedPosts.push(existingPost._id)
+
     return res.status(200).json({
       message: "User successfully authorized!",
       data: null,
@@ -72,7 +86,7 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
   } catch (error) {
     console.error(error)
     return res.status(500).json({
-      message: `Failed to authorize user!: ${error}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

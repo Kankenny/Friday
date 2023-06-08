@@ -9,13 +9,23 @@ import UserModel from "../../../models/User"
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const blockUser = async (req: JWTRequest, res: Response) => {
-  // Extract userId and blockedUserId from request params
-  const { userId, blockedUserId } = req.params
+  // Extract userId and userToBlockId from request params
+  const { userId, userToBlockId } = req.params
 
   // Check if appropriate payload is attached to the body
-  if (!userId || !blockedUserId) {
+  if (!userId || !userToBlockId) {
     return res.status(400).json({
-      message: "userId and blockedUserId params are required!",
+      message: "userId and userToBlockId params are required!",
+      data: null,
+      ok: false,
+    })
+  }
+
+  // Check if blocker is the blockee
+  const isTheSameUser = userId === userToBlockId
+  if (isTheSameUser) {
+    return res.status(400).json({
+      message: "You cannot block yourself!",
       data: null,
       ok: false,
     })
@@ -31,13 +41,13 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
       .json({ message: "Invalid Credentials!", data: null, ok: false })
   }
 
-  // Check if userId and blockedUserId are valid ObjectIds
+  // Check if userId and userToBlockId are valid ObjectIds
   if (
     !mongoose.Types.ObjectId.isValid(userId) ||
-    !mongoose.Types.ObjectId.isValid(blockedUserId)
+    !mongoose.Types.ObjectId.isValid(userToBlockId)
   ) {
     return res.status(400).json({
-      message: "Invalid userId or blockedUserId!",
+      message: "Invalid userId or userToBlockId!",
       data: null,
       ok: false,
     })
@@ -45,24 +55,23 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
 
   try {
     // Check if user exists
-    const existingUser = await UserModel.findById(userId)
-    if (!existingUser) {
+    const existingBlocker = await UserModel.findById(userId)
+    if (!existingBlocker) {
       return res
         .status(404)
         .json({ message: "User not found!", data: null, ok: false })
     }
 
     // Check if blocked user exists
-    const blockedUser = await UserModel.findById(blockedUserId)
-    if (!blockedUser) {
+    const existingUserToBlock = await UserModel.findById(userToBlockId)
+    if (!existingUserToBlock) {
       return res
         .status(404)
         .json({ message: "Blocked user not found!", data: null, ok: false })
     }
 
-    const blockedUserObjectId = new mongoose.Types.ObjectId(blockedUserId)
     // Check if the user is already blocked
-    if (existingUser.blocked.includes(blockedUserObjectId)) {
+    if (existingBlocker.blocked.includes(existingUserToBlock._id)) {
       return res.status(400).json({
         message: "User is already blocked!",
         data: null,
@@ -71,27 +80,32 @@ export const blockUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Remove the blocked user from the user's following list
-    existingUser.following = existingUser.following.filter(
-      (id) => !id.equals(blockedUserObjectId)
+    existingBlocker.following = existingBlocker.following.filter(
+      (userFollowedId) => !userFollowedId.equals(existingUserToBlock._id)
     )
 
     // Remove the user from the blocked user's followers list
-    blockedUser.followers = blockedUser.followers.filter(
-      (id) => !id.equals(existingUser._id)
+    existingUserToBlock.followers = existingUserToBlock.followers.filter(
+      (followerId) => !followerId.equals(existingBlocker._id)
     )
 
-    // Add blockedUserId to user's blocked array
-    existingUser.blocked.push(blockedUserObjectId)
+    // Add userToBlockId to user's blocked array
+    existingBlocker.blocked.push(existingUserToBlock._id)
 
-    await existingUser.save()
-    await blockedUser.save()
+    await existingBlocker.save()
+    await existingUserToBlock.save()
 
     res.status(200).json({
       message: "User successfully blocked!",
       data: null,
       ok: true,
     })
-  } catch (err) {
-    res.status(500).json({ message: err, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

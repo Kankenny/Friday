@@ -17,12 +17,32 @@ export const unauthorizeUserToPost = async (req: JWTRequest, res: Response) => {
     // Extract decoded token from verifyToken middleware
     const { _idFromToken } = req.user
 
-    // Check if user exists
-    const existingUser = await UserModel.findById(_idFromToken)
-    if (!existingUser) {
+    // Check if userIdToAuthorize is a valid objectId
+    let objectId: any
+    try {
+      objectId = new mongoose.Types.ObjectId(userIdToUnauthorize)
+    } catch (error) {
+      return res.status(400).json({
+        message: "Invalid userIdToAuthorize!",
+        data: null,
+        ok: false,
+      })
+    }
+
+    // Check if unauthorizer exists
+    const existingDeauthorizer = await UserModel.findById(_idFromToken)
+    if (!existingDeauthorizer) {
       return res
         .status(400)
-        .json({ message: "Invalid Credentials!", data: null, ok: false })
+        .json({ message: "Authorizer does not exist!", data: null, ok: false })
+    }
+
+    // Check if unauthorizee exists
+    const existingDeauthorizee = await UserModel.findById(userIdToUnauthorize)
+    if (!existingDeauthorizee) {
+      return res
+        .status(404)
+        .json({ message: "Authorizee does not exist", data: null, ok: false })
     }
 
     // Check if post exists
@@ -34,14 +54,15 @@ export const unauthorizeUserToPost = async (req: JWTRequest, res: Response) => {
     }
 
     // Check if the user that is authorizing is the owner of the post
-    const isOwner = existingUser.username === existingPost.creatorUsername
+    const isOwner =
+      existingDeauthorizer.username === existingPost.creatorUsername
     if (!isOwner) {
-      return res
-        .status(400)
-        .json({ message: "Unauthorized request!", data: null, ok: false })
+      return res.status(400).json({
+        message: "Invalid Request!",
+        data: null,
+        ok: false,
+      })
     }
-
-    const objectId = new mongoose.Types.ObjectId(userIdToUnauthorize)
 
     // Check if user is authorized on the post
     const isAuthorized = existingPost.authorizedUsers.some((userId) =>
@@ -62,15 +83,21 @@ export const unauthorizeUserToPost = async (req: JWTRequest, res: Response) => {
     existingPost.authorizedUsers = filteredAuthorizedUsers
     await existingPost.save()
 
+    // Update deauthorizee's authorizedPosts field
+    existingDeauthorizee.authorizedPosts.filter(
+      (authorizedPosts) => !authorizedPosts._id.equals(existingPost._id)
+    )
+    await existingDeauthorizee.save()
+
     return res.status(200).json({
       message: "User successfully unauthorized!",
       data: null,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({
-      message: `Failed to unauthorize user!: ${err}}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

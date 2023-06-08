@@ -5,12 +5,16 @@ const ObjectId = Schema.Types.ObjectId
 
 const CommentSchema = new Schema(
   {
-    comment: {
+    body: {
       type: String,
       required: true,
     },
     commenterId: {
       type: ObjectId,
+      required: "User",
+    },
+    commentorUsername: {
+      type: String,
       required: "User",
     },
     postId: {

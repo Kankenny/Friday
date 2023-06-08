@@ -16,6 +16,7 @@ export const changeUserDetailsFormSchema = z.object({
   upvotedPosts: z.undefined(),
   downvotedPosts: z.undefined(),
   savedPosts: z.undefined(),
+  authorizedPosts: z.undefined(),
   notifications: z.undefined(),
   comments: z.undefined(),
 })

@@ -8,6 +8,7 @@ import { authorizeUserToPost } from "./post-actions/authorizeUserToPost"
 import { unauthorizeUserToPost } from "./post-actions/unauthorizeUserToPost"
 import { upvotePost } from "./post-actions/upvotePost"
 import { downvotePost } from "./post-actions/downvotePost"
+import { revertUpvoteOrDownvote } from "./post-actions/revertUpvoteOrDownvote"
 
 export {
   getPosts,
@@ -19,4 +20,5 @@ export {
   unauthorizeUserToPost,
   upvotePost,
   downvotePost,
+  revertUpvoteOrDownvote,
 }

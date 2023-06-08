@@ -30,15 +30,15 @@ SubtaskRouter.post(
 
 // DELETE TASK
 SubtaskRouter.delete(
-  "/deleteSubtask",
+  "/:subtaskId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => deleteSubtask(req as JWTRequest, res)
 )
 
 // CHANGE TASK PROGRESS
-SubtaskRouter.post(
-  "/changeSubtaskProgress",
+SubtaskRouter.put(
+  "/:subtaskId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => changeSubtaskProgress(req as JWTRequest, res)

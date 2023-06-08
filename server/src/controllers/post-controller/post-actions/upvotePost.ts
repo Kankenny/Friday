@@ -47,12 +47,17 @@ export const upvotePost = async (req: JWTRequest, res: Response) => {
       userId.equals(existingUser._id)
     )
     if (hasAlreadyDownvoted) {
-      // Remove user's downvote and update upvotes
+      // Remove user's downvote
       existingPost.downvotes -= 1
       const filteredDownvotedBy = existingPost.downvotedBy.filter((userId) =>
         userId.equals(existingUser._id)
       )
       existingPost.downvotedBy = filteredDownvotedBy
+
+      // Remove post from user's downvotedPosts field
+      existingUser.downvotedPosts = existingUser.downvotedPosts.filter(
+        (downvotedPost) => !downvotedPost._id.equals(existingPost._id)
+      )
     }
 
     // Check if the user has already upvoted the post
@@ -72,6 +77,10 @@ export const upvotePost = async (req: JWTRequest, res: Response) => {
     existingPost.upvotedBy.push(existingUser._id)
     await existingPost.save()
 
+    // Update upvotedPosts of the user
+    existingUser.upvotedPosts.push(existingPost._id)
+    await existingUser.save()
+
     res.status(200).json({
       message: "Post successfully upvoted!",
       data: null,
@@ -80,7 +89,7 @@ export const upvotePost = async (req: JWTRequest, res: Response) => {
   } catch (error) {
     console.error(error)
     return res.status(500).json({
-      message: `Failed to upvote post!: ${error}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

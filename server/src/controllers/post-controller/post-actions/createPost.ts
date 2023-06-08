@@ -17,16 +17,8 @@ export const createPost = async (req: JWTRequest, res: Response) => {
     createPostSchema.parse(req.body)
 
     // Destructure payload from the request body
-    const {
-      title,
-      creatorId,
-      creatorUsername,
-      dueDate,
-      color,
-      category,
-      visibility,
-      authorization,
-    } = req.body
+    const { title, dueDate, color, category, visibility, authorization } =
+      req.body
 
     // Extract decoded token from verifyToken middleware
     const { _idFromToken } = req.user
@@ -39,10 +31,11 @@ export const createPost = async (req: JWTRequest, res: Response) => {
         .json({ message: "Invalid Credentials!", data: null, ok: false })
     }
 
+    // Create new post
     const newPost = new PostModel({
       title,
-      creatorId,
-      creatorUsername,
+      creatorId: existingUser._id,
+      creatorUsername: existingUser.username,
       dueDate,
       color,
       category,
@@ -56,18 +49,21 @@ export const createPost = async (req: JWTRequest, res: Response) => {
       tasks: [],
       comments: [],
     })
-
     await newPost.save()
+
+    // Update posts field of the user
+    existingUser.posts.push(newPost._id)
+    await existingUser.save()
 
     return res.status(200).json({
       message: "Post successfully created!",
       data: newPost,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({
-      message: `Failed to create post!: ${err}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })

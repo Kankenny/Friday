@@ -4,12 +4,14 @@ import express, { NextFunction, Request, Response } from "express"
 import {
   getPosts,
   getPost,
+  createPost,
   updatePost,
   deletePost,
   authorizeUserToPost,
   unauthorizeUserToPost,
   upvotePost,
   downvotePost,
+  revertUpvoteOrDownvote,
 } from "../controllers/post-controller/postController"
 
 // Types
@@ -24,6 +26,14 @@ PostRouter.get("/", getPosts)
 
 // GET POST
 PostRouter.get("/:postId", getPost)
+
+// CREATE POST
+PostRouter.post(
+  "/",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => createPost(req as JWTRequest, res)
+)
 
 // UPDATE POST
 PostRouter.put(
@@ -42,7 +52,7 @@ PostRouter.delete(
 )
 
 // AUTHORIZE USER
-PostRouter.post(
+PostRouter.put(
   "/:postId/authorize/:userIdToAuthorize",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -50,7 +60,7 @@ PostRouter.post(
 )
 
 // UNAUTHORIZE USER
-PostRouter.post(
+PostRouter.put(
   "/:postId/unauthorize/:userIdToUnauthorize",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -58,7 +68,7 @@ PostRouter.post(
 )
 
 // UPVOTE POST
-PostRouter.post(
+PostRouter.put(
   "/:postId/upvote",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
@@ -66,11 +76,20 @@ PostRouter.post(
 )
 
 // DOWNVOTE POST
-PostRouter.post(
+PostRouter.put(
   "/:postId/downvote",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => downvotePost(req as JWTRequest, res)
+)
+
+// REVERT UPVOTE OR DOWNVOTE ON POST
+PostRouter.put(
+  "/:postId/revert",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) =>
+    revertUpvoteOrDownvote(req as JWTRequest, res)
 )
 
 export default PostRouter

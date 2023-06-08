@@ -16,7 +16,7 @@ const CommentRoute = express.Router()
 
 // CREATE COMMENT
 CommentRoute.post(
-  "/create/:postId/:commenterId",
+  "/",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => createComment(req as JWTRequest, res)
@@ -24,7 +24,7 @@ CommentRoute.post(
 
 // DELETE COMMENT
 CommentRoute.delete(
-  "/delete/:commentId/:deleterId",
+  "/:commentId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => deleteComment(req as JWTRequest, res)

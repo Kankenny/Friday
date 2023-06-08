@@ -25,10 +25,12 @@ export const getPost = async (req: Request, res: Response) => {
       data: existingPost,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
-    res
-      .status(500)
-      .json({ message: `Failed to get post!: ${err}`, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

@@ -14,6 +14,10 @@ const NotificationSchema = new Schema(
       enum: ["invite to collab", "follow"],
       required: true,
     },
+    idLinkToEntity: {
+      type: String,
+      required: true,
+    },
     isVisited: {
       type: Boolean,
       default: false,

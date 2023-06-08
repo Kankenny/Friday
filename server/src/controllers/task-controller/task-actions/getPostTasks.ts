@@ -15,7 +15,7 @@ export const getPostTasks = async (req: Request, res: Response) => {
 
   try {
     // Check for the existence of the post
-    const existingPost = await PostModel.findById(postId)
+    const existingPost = await PostModel.findById(postId).populate("tasks")
     if (!existingPost) {
       return res
         .status(404)
@@ -34,7 +34,11 @@ export const getPostTasks = async (req: Request, res: Response) => {
       .status(200)
       .json({ message: "Tasks successfully fetched!", data: tasks, ok: true })
   } catch (error) {
-    console.log(error)
-    return res.status(500).json({ message: error, data: null, ok: false })
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

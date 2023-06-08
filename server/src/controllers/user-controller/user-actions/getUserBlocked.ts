@@ -50,7 +50,12 @@ export const getUserBlocked = async (req: JWTRequest, res: Response) => {
       data: existingUser.blocked,
       ok: true,
     })
-  } catch (err) {
-    res.status(500).json({ message: err, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

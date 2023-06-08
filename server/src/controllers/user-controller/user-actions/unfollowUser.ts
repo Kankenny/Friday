@@ -10,12 +10,12 @@ import JWTRequest from "../../../lib/types/JWTRequestType"
 
 export const unfollowUser = async (req: JWTRequest, res: Response) => {
   // Extract userId and followerId from request params
-  const { userId, followerId } = req.params
+  const { userId, userToUnfollowId } = req.params
 
   // Check if appropriate payload is attached to the body
-  if (!userId || !followerId) {
+  if (!userId || !userToUnfollowId) {
     return res.status(400).json({
-      message: "userId and followerId params are required!",
+      message: "userId and userToUnfollowId params are required!",
       data: null,
       ok: false,
     })
@@ -31,13 +31,13 @@ export const unfollowUser = async (req: JWTRequest, res: Response) => {
       .json({ message: "Invalid Credentials!", data: null, ok: false })
   }
 
-  // Check if userId and followerId are valid ObjectIds
+  // Check if userId and userToUnfollowId are valid ObjectIds
   if (
     !mongoose.Types.ObjectId.isValid(userId) ||
-    !mongoose.Types.ObjectId.isValid(followerId)
+    !mongoose.Types.ObjectId.isValid(userToUnfollowId)
   ) {
     return res.status(400).json({
-      message: "Invalid userId or followerId!",
+      message: "Invalid userId or userToUnfollowId!",
       data: null,
       ok: false,
     })
@@ -45,24 +45,24 @@ export const unfollowUser = async (req: JWTRequest, res: Response) => {
 
   try {
     // Check if user exists
-    const existingUser = await UserModel.findById(userId)
-    if (!existingUser) {
+    const existingFollower = await UserModel.findById(userId)
+    if (!existingFollower) {
       return res
         .status(404)
         .json({ message: "User not found!", data: null, ok: false })
     }
 
     // Check if follower exists
-    const existingFollower = await UserModel.findById(followerId)
-    if (!existingFollower) {
+    const existingUserToUnfollow = await UserModel.findById(userToUnfollowId)
+    if (!existingUserToUnfollow) {
       return res
         .status(404)
-        .json({ message: "Follower not found!", data: null, ok: false })
+        .json({ message: "User to unfollow not found!", data: null, ok: false })
     }
 
-    const objectId = new mongoose.Types.ObjectId(followerId)
+    const objectId = new mongoose.Types.ObjectId(userToUnfollowId)
     // Check if the user is followed by the follower
-    if (!existingUser.followers.includes(objectId)) {
+    if (!existingFollower.following.includes(objectId)) {
       return res.status(400).json({
         message: "User is not followed by the follower!",
         data: null,
@@ -71,23 +71,27 @@ export const unfollowUser = async (req: JWTRequest, res: Response) => {
     }
 
     // Update user's followers and follower's following list
-    existingUser.followers = existingUser.followers.filter(
-      (follower) => !follower.equals(objectId)
-    )
     existingFollower.following = existingFollower.following.filter(
-      (user) => !user.equals(userId)
+      (followingId) => !followingId.equals(objectId)
+    )
+    existingUserToUnfollow.followers = existingUserToUnfollow.followers.filter(
+      (followerId) => !followerId.equals(userId)
     )
 
-    await existingUser.save()
     await existingFollower.save()
+    await existingUserToUnfollow.save()
 
     res.status(200).json({
       message: "User successfully unfollowed!",
       data: null,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ message: err, data: null, ok: false })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: `Internal Server Error!: ${error}`,
+      data: null,
+      ok: false,
+    })
   }
 }

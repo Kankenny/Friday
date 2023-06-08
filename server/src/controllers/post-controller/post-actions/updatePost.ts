@@ -59,10 +59,10 @@ export const updatePost = async (req: JWTRequest, res: Response) => {
       data: updatedPost,
       ok: true,
     })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({
-      message: `Failed to update post!: ${err}`,
+      message: `Internal Server Error!: ${error}`,
       data: null,
       ok: false,
     })
