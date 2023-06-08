@@ -31,5 +31,5 @@ NotificationRouter.put(
   (req: Request, res: Response) =>
     visitUserNotifications(req as JWTRequest, res)
 )
-NotificationRouter
+
 export default NotificationRouter
