@@ -38,14 +38,22 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!user)
       return res
         .status(400)
-        .json({ message: "User not found", data: null, ok: false })
+        .json({
+          message: "Invalid username or password!",
+          data: null,
+          ok: false,
+        })
 
     // Check if the password matches
     const doesPasswordMatch = await bcrypt.compare(password, user.password)
     if (!doesPasswordMatch)
       return res
         .status(400)
-        .json({ message: "User not found", data: null, ok: false })
+        .json({
+          message: "Invalid username or password!",
+          data: null,
+          ok: false,
+        })
 
     const token = jwt.sign(
       { _idFromToken: user._id },
