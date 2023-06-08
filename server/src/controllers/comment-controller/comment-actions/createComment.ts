@@ -87,6 +87,10 @@ export const createComment = async (req: JWTRequest, res: Response) => {
     existingPost.comments.push(newComment._id)
     await existingPost.save()
 
+    // Update comments field of user
+    existingCommenter.comments.push(newComment._id)
+    await existingCommenter.save()
+
     res.status(200).json({
       message: "Comment successfully created!",
       data: newComment,

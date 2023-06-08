@@ -7,6 +7,7 @@ import PostModel from "../../../models/Post"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
+import UserModel from "../../../models/User"
 
 export const deleteComment = async (req: JWTRequest, res: Response) => {
   try {
@@ -18,6 +19,16 @@ export const deleteComment = async (req: JWTRequest, res: Response) => {
 
     // Extract postId from the request query
     const { postId } = req.query
+
+    // Check if the user exists
+    const existingUser = await UserModel.findById(_idFromToken)
+    if (!existingUser) {
+      return res.status(404).json({
+        message: "User does not exist!",
+        data: null,
+        ok: false,
+      })
+    }
 
     // Check if the comment exists
     const existingComment = await CommentModel.findById(commentId)
@@ -55,6 +66,10 @@ export const deleteComment = async (req: JWTRequest, res: Response) => {
       (comment) => !comment._id.equals(commentId)
     )
     await existingPost.save()
+
+    // Update comments field of user
+    existingUser.comments.push(existingComment._id)
+    await existingUser.save()
 
     res.status(200).json({
       message: "Comment successfully deleted!",
