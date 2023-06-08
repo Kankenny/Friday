@@ -28,7 +28,7 @@ export const createSubtask = async (req: JWTRequest, res: Response) => {
   } catch (err) {
     console.log(err)
     return res.status(400).json({
-      message: "Invalid register form data!",
+      message: "Invalid create subtask data!",
       data: null,
       ok: false,
     })
