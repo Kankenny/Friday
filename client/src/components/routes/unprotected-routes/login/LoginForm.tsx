@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
-import useAuthContext from "../../../../lib/hooks/context-hooks/useAuthContext"
+import { useDispatch } from "react-redux"
+import { login } from "../../../../lib/store/slices/auth-slice/authSlice"
 
 // Components
 import RouterLink from "../../../ui/RouterLink"
@@ -24,7 +25,8 @@ type Props = {
 }
 
 const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
-  const { login } = useAuthContext()
+  const dispatch = useDispatch()
+
   const navigate = useNavigate()
   const {
     register,
@@ -65,11 +67,9 @@ const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
         return
       }
 
-      const token = response.headers.get("authorization")
-
       setError("")
       setSuccess(data.data.message)
-      login(data.data.user._id, token!, data.data.user.isAdmin)
+      dispatch(login(data.data.token))
       navigate("/app", { replace: true })
     }
     loginUser()
