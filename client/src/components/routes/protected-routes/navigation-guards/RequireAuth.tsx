@@ -1,9 +1,9 @@
 // Hooks
 import { useLocation, Outlet, Navigate } from "react-router-dom"
-import useAuthContext from "../../../../lib/hooks/redux-hook/useAuthContext"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useRedux"
 
 const RequireAuth = () => {
-  const { isLoggedIn } = useAuthContext()
+  const { isLoggedIn } = useTypedSelector((state) => state.auth)
 
   const location = useLocation()
 

@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom"
-import useAuthContext from "../../../../lib/hooks/redux-hook/useAuthContext"
+import { useDispatch } from "react-redux"
+import { logout } from "../../../../lib/store/slices/auth-slice/authSlice"
+
 import * as React from "react"
 import Avatar from "@mui/material/Avatar"
 import Menu from "@mui/material/Menu"
@@ -12,7 +14,7 @@ import Settings from "@mui/icons-material/Settings"
 import Logout from "@mui/icons-material/Logout"
 
 export default function AvatarMenu() {
-  const { logout } = useAuthContext()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -28,7 +30,7 @@ export default function AvatarMenu() {
 
   const handleLogoutClick = () => {
     handleClose()
-    logout()
+    dispatch(logout())
     navigate("/login")
   }
 
