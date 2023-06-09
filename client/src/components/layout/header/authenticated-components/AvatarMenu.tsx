@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import useAuthContext from "../../../../lib/hooks/context-hooks/useAuthContext"
+import useAuthContext from "../../../../lib/hooks/redux-hook/useAuthContext"
 import * as React from "react"
 import Avatar from "@mui/material/Avatar"
 import Menu from "@mui/material/Menu"
