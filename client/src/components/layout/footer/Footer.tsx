@@ -1,5 +1,5 @@
 // Hooks
-import { useTypedSelector } from "../../../lib/hooks/redux-hook/useRedux"
+import { useTypedSelector } from "../../../lib/hooks/redux-hook/useTypedSelector"
 
 // Components
 import Logo from "../../ui/Logo"
