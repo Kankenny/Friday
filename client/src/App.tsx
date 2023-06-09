@@ -12,11 +12,11 @@ import Login from "./components/routes/unprotected-routes/login/Login"
 import Register from "./components/routes/unprotected-routes/register/Register"
 import ForgotPassword from "./components/routes/unprotected-routes/forgot-password/ForgotPassword"
 import SecurityAnswer from "./components/routes/unprotected-routes/forgot-password/SecurityAnswer"
+import ResetPassword from "./components/routes/unprotected-routes/forgot-password/ResetPassword"
+import Profile from "./components/routes/protected-routes/profile/Profile"
 
 // Container Component
 import AppContainer from "./AppContainer"
-import ResetPassword from "./components/routes/unprotected-routes/forgot-password/ResetPassword"
-import Profile from "./components/routes/protected-routes/profile/Profile"
 import RequireAuth from "./components/routes/protected-routes/navigation-guards/RequireAuth"
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 
