@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { authSliceType } from "../../../types/authSliceType"
-import {
-  persistLogin as persistLoginFunction,
-  login as loginFunction,
-  logout as logoutFunction,
-} from "./authActions"
+import { persistLoginReducer, loginReducer, logoutReducer } from "./authActions"
 
 const initialState: authSliceType = {
   isLoggedIn: false,
@@ -15,9 +11,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    persistLogin: persistLoginFunction,
-    login: loginFunction,
-    logout: logoutFunction,
+    persistLogin: persistLoginReducer,
+    login: loginReducer,
+    logout: logoutReducer,
   },
 })
 
