@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom"
 
 // Routes
-import LandingPage from "./components/routes/unprotected-routes/landing-page/LandingPage"
-import Home from "./components/routes/unprotected-routes/home/Home"
+import LandingPage from "./components/routes/hybrid-routes/landing-page/LandingPage"
+import Home from "./components/routes/hybrid-routes/home/Home"
 import Playground from "./components/routes/unprotected-routes/playground/Playground"
 import PageNotFound from "./components/routes/catch-all-routes/404-page/404Page"
 import Body from "./components/layout/body/Body"
