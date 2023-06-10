@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header className="bg-secondary w-full">
       <div className="container mx-auto flex justify-between items-center px-4 py-4">
-        <RouterDiv to="/">
+        <RouterDiv to={!isLoggedIn ? "/" : "/app"}>
           <Logo />
         </RouterDiv>
         {isLoggedIn ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}

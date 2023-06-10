@@ -14,7 +14,7 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
         {isLoggedIn ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
         <div>
-          <RouterDiv to="/">
+          <RouterDiv to={!isLoggedIn ? "/" : "/app"}>
             <Logo />
           </RouterDiv>
         </div>

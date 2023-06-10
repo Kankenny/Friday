@@ -41,12 +41,14 @@ const ResetPasswordForm = ({ username }: Props) => {
 
   const resetPasswordHandler = async (formData: resetPasswordFormType) => {
     try {
-      await authAPI.post("/reset-password", {
+      const { data } = await authAPI.post("/reset-password", {
         ...formData,
         username,
       })
 
-      navigate("/login")
+      navigate("/login", {
+        state: { successMessage: data.message },
+      })
     } catch (err) {
       if (isAxiosError(err)) {
         setError(err.response?.data.message)

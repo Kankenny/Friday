@@ -26,10 +26,10 @@ import {
 
 // Types
 type Props = {
-  registeredSuccessfullyMessage?: string
+  successMessage?: string
 }
 
-const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
+const LoginForm = ({ successMessage }: Props) => {
   const dispatch = useDispatch()
 
   const {
@@ -90,8 +90,8 @@ const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
         <LoginButton />
       </form>
       {error && <Alert severity="error" message={error} />}
-      {registeredSuccessfullyMessage && !error && (
-        <Alert severity="success" message={registeredSuccessfullyMessage} />
+      {successMessage && !error && (
+        <Alert severity="success" message={successMessage} />
       )}
       <RegisterLink />
     </div>

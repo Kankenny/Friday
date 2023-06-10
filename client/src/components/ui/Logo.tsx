@@ -1,4 +1,7 @@
+import { useTypedSelector } from "../../lib/hooks/redux-hook/useTypedSelector"
+
 const Logo = () => {
+  const { isLoggedIn } = useTypedSelector((state) => state.auth)
   return (
     <div className="h-15 w-15 flex flex-row items-center">
       <svg
@@ -39,7 +42,11 @@ const Logo = () => {
           strokeWidth="0"
         />
       </svg>
-      <h1 className="text-2xl font-extrabold tracking-wide hover:text-tertiary duration-200">
+      <h1
+        className={`text-2xl font-extrabold tracking-wide hover:text-tertiary duration-200 ${
+          isLoggedIn && "text-tertiary"
+        }`}
+      >
         Friday
       </h1>
     </div>

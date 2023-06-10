@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import { persistLogin } from "./lib/store/slices/auth-slice/authSlice"
 
 // Routes
-import LandingPage from "./components/routes/hybrid-routes/landing-page/LandingPage"
+import LandingPage from "./components/routes/unprotected-routes/landing-page/LandingPage"
 import Home from "./components/routes/hybrid-routes/home/Home"
 import Playground from "./components/routes/unprotected-routes/playground/Playground"
 import PageNotFound from "./components/routes/catch-all-routes/404-page/404Page"
@@ -36,11 +36,11 @@ function App() {
       <Body>
         <Routes>
           {/* Hybrid Routes */}
-          <Route path="/" element={<LandingPage />} />
           <Route path="/app" element={<Home />} />
 
           {/* Unprotected Routes */}
           <Route element={<RequireUnauth />}>
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
