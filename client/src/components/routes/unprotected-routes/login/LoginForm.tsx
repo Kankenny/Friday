@@ -1,15 +1,21 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { isAxiosError } from "axios"
+
 // Hooks
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
-import { login } from "../../../../lib/store/slices/auth-slice/authSlice"
 
 // Components
 import RouterLink from "../../../ui/RouterLink"
 import RHFPasswordField from "../../../ui/rhf/RHFPasswordField"
 import RHFInputField from "../../../ui/rhf/RHFInputField"
 import Alert from "../../../ui/mui/Alert"
+
+// Reducers
+import { login } from "../../../../lib/store/slices/auth-slice/authSlice"
+
+// Services
+import authAPI from "../../../../lib/services/axios-instances/authAPI"
 
 // Validators
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -42,26 +48,21 @@ const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
   const [error, setError] = useState("")
 
   const loginUserHandler = async (formData: loginFormType) => {
-    const response = await fetch(
-      `http://localhost:${
-        import.meta.env.VITE_BACKEND_SERVER_PORT
-      }/api/auth/login`,
-      {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: { "Content-Type": "application/json" },
+    try {
+      const { data } = await authAPI.post("/login", formData)
+
+      if (!data.ok) {
+        setError(data.message)
+        return
       }
-    )
 
-    const data = await response.json()
-
-    if (!data.ok) {
-      setError(data.message)
-      return
+      setError("")
+      dispatch(login(data.data.token))
+    } catch (err) {
+      if (isAxiosError(err)) {
+        setError(err.response?.data.message)
+      }
     }
-
-    setError("")
-    dispatch(login(data.data.token))
   }
 
   return (

@@ -1,5 +1,5 @@
 // Dependencies
-import { Response } from "express"
+import { Request, Response } from "express"
 
 // Models
 import UserModel from "../../../models/User"
@@ -7,10 +7,7 @@ import UserModel from "../../../models/User"
 // Validators
 import { forgotPasswordFormSchema } from "../../../../../common/validations/forgotPasswordFormValidator"
 
-// Types
-import JWTRequest from "../../../lib/types/JWTRequestType"
-
-export const getSecurityQuestion = async (req: JWTRequest, res: Response) => {
+export const getSecurityQuestion = async (req: Request, res: Response) => {
   // Validate body using the register form schema
   try {
     forgotPasswordFormSchema.parse(req.body)
@@ -22,10 +19,6 @@ export const getSecurityQuestion = async (req: JWTRequest, res: Response) => {
       ok: false,
     })
   }
-
-  // Extract decoded token from verifyToken middleware
-  const { _idFromToken } = req.user
-
   // destructure the payload attached to the body
   const { usernameOrEmail } = req.body
 
@@ -40,16 +33,8 @@ export const getSecurityQuestion = async (req: JWTRequest, res: Response) => {
         .json({ message: "User does not exist!", data: null, ok: false })
     }
 
-    // Check if existing user matches the ID from the token
-    const doesMatch = existingUser._id.equals(_idFromToken)
-    if (!doesMatch) {
-      return res
-        .status(400)
-        .json({ message: "Invalid credentials!", data: null, ok: false })
-    }
-
     res.status(200).json({
-      message: "Security questions successfully fetched!",
+      message: "Security question successfully fetched!",
       data: {
         firstName: existingUser.firstName,
         username: existingUser.username,

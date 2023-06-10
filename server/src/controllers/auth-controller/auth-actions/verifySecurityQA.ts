@@ -1,5 +1,5 @@
 // Dependencies
-import { Response } from "express"
+import { Request, Response } from "express"
 import bcrypt from "bcrypt"
 
 // Models
@@ -7,9 +7,8 @@ import UserModel from "../../../models/User"
 
 // Validators
 import { securityAnswerFormSchema } from "../../../../../common/validations/securityAnswerFormValidator"
-import JWTRequest from "../../../lib/types/JWTRequestType"
 
-export const verifySecurityQA = async (req: JWTRequest, res: Response) => {
+export const verifySecurityQA = async (req: Request, res: Response) => {
   // Validate body using the register form schema
   try {
     securityAnswerFormSchema.parse(req.body)
@@ -23,26 +22,23 @@ export const verifySecurityQA = async (req: JWTRequest, res: Response) => {
   }
 
   // destructure the payload attached to the body
-  const { securityAnswer } = req.body
-
-  // Extract decoded token from verifyToken middleware
-  const { _idFromToken } = req.user
+  const { username, securityAnswer } = req.body
 
   try {
     // Check if the username already exists in the db
-    const existingUser = await UserModel.findById(_idFromToken)
+    const existingUser = await UserModel.findOne({ username })
 
     if (!existingUser) {
       return res
         .status(400)
-        .json({ message: "Invalid auth!", data: null, ok: false })
+        .json({ message: "User not found!", data: null, ok: false })
     }
 
+    // Check if the security question answer matches existing user's answer
     const isMatch = await bcrypt.compare(
       securityAnswer,
       existingUser.securityAnswer
     )
-    // Check if the security question answer matches existing user's answer
     if (!isMatch) {
       return res
         .status(400)

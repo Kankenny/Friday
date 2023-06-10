@@ -27,28 +27,13 @@ AuthRoute.post("/register", registerUser)
 AuthRoute.post("/login", loginUser)
 
 // GET SECURITY QUESTION
-AuthRoute.get(
-  "/get-security-question",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => getSecurityQuestion(req as JWTRequest, res)
-)
+AuthRoute.post("/get-security-question", getSecurityQuestion)
 
 // VERIFY SECURITY QA
-AuthRoute.post(
-  "/verify-security-qa",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => verifySecurityQA(req as JWTRequest, res)
-)
+AuthRoute.post("/verify-security-qa", verifySecurityQA)
 
 // RESET PASSWORD
-AuthRoute.put(
-  "/reset-password",
-  (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => resetPassword(req as JWTRequest, res)
-)
+AuthRoute.put("/reset-password", resetPassword)
 
 // CHANGE USER DETAILS
 AuthRoute.put(

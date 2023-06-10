@@ -7,6 +7,10 @@ import { useForm } from "react-hook-form"
 import RHFPasswordField from "../../../ui/rhf/RHFPasswordField"
 import Alert from "../../../ui/mui/Alert"
 
+// Services
+import authAPI from "../../../../lib/services/axios-instances/authAPI"
+import { isAxiosError } from "axios"
+
 // Validators
 import {
   resetPasswordFormSchema,
@@ -36,30 +40,18 @@ const ResetPasswordForm = ({ username }: Props) => {
   }, [setFocus])
 
   const resetPasswordHandler = async (formData: resetPasswordFormType) => {
-    console.log(username)
-    const response = await fetch(
-      `http://localhost:${
-        import.meta.env.VITE_BACKEND_SERVER_PORT
-      }/api/auth/reset-password`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          ...formData,
-          username,
-        }),
-        headers: { "Content-Type": "application/json" },
+    try {
+      await authAPI.post("/reset-password", {
+        ...formData,
+        username,
+      })
+
+      navigate("/login")
+    } catch (err) {
+      if (isAxiosError(err)) {
+        setError(err.response?.data.message)
       }
-    )
-
-    const data = await response.json()
-    console.log(data)
-    if (!data.ok) {
-      setError(data.message)
-      return
     }
-
-    setError("")
-    navigate("/login")
   }
 
   return (

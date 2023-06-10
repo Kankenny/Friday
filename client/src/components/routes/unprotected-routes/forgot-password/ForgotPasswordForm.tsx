@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom"
 // Components
 import RHFInputField from "../../../ui/rhf/RHFInputField"
 
+// Services
+import authAPI from "../../../../lib/services/axios-instances/authAPI"
+import { isAxiosError } from "axios"
+
 // Validators
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -31,33 +35,22 @@ const ForgotPasswordForm = () => {
   const getSecurityQuestionHandler = async (
     formData: forgotPasswordFormType
   ) => {
-    const response = await fetch(
-      `http://localhost:${
-        import.meta.env.VITE_BACKEND_SERVER_PORT
-      }/api/auth/get-security-question`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          ...formData,
-        }),
-        headers: { "Content-Type": "application/json" },
+    try {
+      const { data } = await authAPI.post("/get-security-question", formData)
+
+      navigate("/security-answer", {
+        state: {
+          firstName: data.data.firstName,
+          username: data.data.username,
+          securityQuestion: data.data.securityQuestion,
+        },
+      })
+    } catch (err) {
+      if (isAxiosError(err)) {
+        navigate("/login")
+        return
       }
-    )
-
-    const data = await response.json()
-
-    if (!data.ok) {
-      navigate("/login")
-      return
     }
-
-    navigate("/security-answer", {
-      state: {
-        firstName: data.data.firstName,
-        username: data.data.username,
-        securityQuestion: data.data.securityQuestion,
-      },
-    })
   }
 
   return (
