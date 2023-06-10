@@ -1,6 +1,6 @@
 # Friday
 
-An SaaS productivity platform that allows users to post and view tasks.
+A SaaS productivity platform that allows users to post and view tasks.
 
 ## Work in progress
 
