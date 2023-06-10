@@ -7,6 +7,10 @@ import { useForm } from "react-hook-form"
 import RHFInputField from "../../../ui/rhf/RHFInputField"
 import Alert from "../../../ui/mui/Alert"
 
+// Services
+import authAPI from "../../../../lib/services/axios-instances/authAPI"
+import { isAxiosError } from "axios"
+
 // Validators
 import {
   securityAnswerFormSchema,
@@ -43,31 +47,24 @@ const SecurityAnswerForm = ({
   }, [setFocus])
 
   const verifySecurityQAHandler = async (formData: securityAnswerFormType) => {
-    const response = await fetch(
-      `http://localhost:${
-        import.meta.env.VITE_BACKEND_SERVER_PORT
-      }/api/auth/verify-security-qa`,
-      {
-        method: "POST",
-        body: JSON.stringify({ ...formData, username }),
-        headers: { "Content-Type": "application/json" },
-      }
-    )
-    const data = await response.json()
-
-    if (!data.ok) {
-      setError(data.message)
-      return
-    }
-
-    setError("")
-    navigate("/reset-password", {
-      state: {
-        successMessage: data.message,
-        firstName,
+    try {
+      const { data } = await authAPI.post("/verify-security-qa", {
+        ...formData,
         username,
-      },
-    })
+      })
+
+      navigate("/reset-password", {
+        state: {
+          successMessage: data.message,
+          firstName,
+          username,
+        },
+      })
+    } catch (err) {
+      if (isAxiosError(err)) {
+        setError(err.response?.data.message)
+      }
+    }
   }
 
   return (

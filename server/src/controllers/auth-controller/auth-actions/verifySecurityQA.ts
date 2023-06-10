@@ -22,13 +22,11 @@ export const verifySecurityQA = async (req: Request, res: Response) => {
   }
 
   // destructure the payload attached to the body
-  const { usernameOrEmail, securityAnswer } = req.body
+  const { username, securityAnswer } = req.body
 
   try {
     // Check if the username already exists in the db
-    const existingUser = await UserModel.findOne({
-      $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
-    })
+    const existingUser = await UserModel.findOne({ username })
 
     if (!existingUser) {
       return res

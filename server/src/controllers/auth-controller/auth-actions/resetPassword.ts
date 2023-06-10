@@ -22,13 +22,12 @@ export const resetPassword = async (req: Request, res: Response) => {
   }
 
   // destructure the payload attached to the body
-  const { usernameOrEmail, newPassword } = req.body
+  const { username, newPassword } = req.body
 
   try {
     // Check if user exists
-    const existingUser = await UserModel.findOne({
-      $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
-    })
+    const existingUser = await UserModel.findOne({ username })
+
     if (!existingUser) {
       return res
         .status(404)
