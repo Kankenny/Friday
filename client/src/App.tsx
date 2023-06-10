@@ -1,4 +1,7 @@
 import { Routes, Route } from "react-router-dom"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { persistLogin } from "./lib/store/slices/auth-slice/authSlice"
 
 // Routes
 import LandingPage from "./components/routes/hybrid-routes/landing-page/LandingPage"
@@ -21,6 +24,12 @@ import RequireAuth from "./components/routes/protected-routes/navigation-guards/
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(persistLogin())
+  }, [dispatch])
+
   return (
     <AppContainer>
       <Header />

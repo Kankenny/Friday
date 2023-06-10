@@ -12,7 +12,8 @@ export const loginReducer = (
   state: authSliceType,
   action: PayloadAction<string>
 ) => {
-  localStorage.setItem("token", action.payload)
+  const token = action.payload
+  localStorage.setItem("token", token)
   state.token = action.payload
   state.isLoggedIn = true
 }

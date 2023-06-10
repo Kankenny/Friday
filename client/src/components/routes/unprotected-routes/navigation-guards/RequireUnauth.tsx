@@ -4,13 +4,12 @@ import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelec
 
 const RequireUnauth = () => {
   const { isLoggedIn } = useTypedSelector((state) => state.auth)
-
   const location = useLocation()
 
   return !isLoggedIn ? (
     <Outlet />
   ) : (
-    <Navigate to="/" state={{ from: location }} replace />
+    <Navigate to="/app" state={{ from: location }} replace />
   )
 }
 
