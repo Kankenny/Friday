@@ -1,5 +1,5 @@
 // Hooks
-import useAuthContext from "../../../lib/hooks/context-hooks/useAuthContext"
+import { useTypedSelector } from "../../../lib/hooks/redux-hook/useTypedSelector"
 
 // Components
 import RouterDiv from "../../ui/RouterDiv"
@@ -9,7 +9,7 @@ import NotificationMenu from "./authenticated-components/NotificationIcon"
 import AvatarMenu from "./authenticated-components/AvatarMenu"
 
 const Header = () => {
-  const { isLoggedIn } = useAuthContext()
+  const { isLoggedIn } = useTypedSelector((state) => state.auth)
   return (
     <header className="bg-secondary w-full">
       <div className="container mx-auto flex justify-between items-center px-4 py-4">

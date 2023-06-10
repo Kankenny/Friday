@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // Hooks
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
-import useAuthContext from "../../../../lib/hooks/context-hooks/useAuthContext"
+import { useDispatch } from "react-redux"
+import { login } from "../../../../lib/store/slices/auth-slice/authSlice"
 
 // Components
 import RouterLink from "../../../ui/RouterLink"
@@ -24,8 +24,8 @@ type Props = {
 }
 
 const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
-  const { login } = useAuthContext()
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const {
     register,
     handleSubmit,
@@ -40,45 +40,34 @@ const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
   }, [setFocus])
 
   const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
 
-  const loginUserHandler = (data: loginFormType) => {
-    const payload = data
-
-    const loginUser = async () => {
-      const response = await fetch(
-        `http://localhost:${
-          import.meta.env.VITE_BACKEND_SERVER_PORT
-        }/api/auth/login`,
-        {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: { "Content-Type": "application/json" },
-        }
-      )
-
-      const data = await response.json()
-
-      if (!data.ok) {
-        setError(data.message)
-        setSuccess("")
-        return
+  const loginUserHandler = async (formData: loginFormType) => {
+    const response = await fetch(
+      `http://localhost:${
+        import.meta.env.VITE_BACKEND_SERVER_PORT
+      }/api/auth/login`,
+      {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
       }
+    )
 
-      const token = response.headers.get("authorization")
+    const data = await response.json()
 
-      setError("")
-      setSuccess(data.data.message)
-      login(data.data.user._id, token!, data.data.user.isAdmin)
-      navigate("/app", { replace: true })
+    if (!data.ok) {
+      setError(data.message)
+      return
     }
-    loginUser()
+
+    setError("")
+    dispatch(login(data.data.token))
   }
 
   return (
     <div className="p-10">
       <form
-        className="flex flex-col space-y-5 gap-5"
+        className="flex flex-col gap-5"
         onSubmit={handleSubmit(loginUserHandler)}
       >
         <RHFInputField
@@ -86,29 +75,23 @@ const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
           register={register("username")}
           error={errors.username?.message}
         />
-        <div className="flex flex-col">
-          <RHFPasswordField
-            label="password"
-            register={register("password")}
-            error={errors.password?.message}
-            twClasses="w-full"
-          />
-          <RouterLink
-            routerLinkText="Forgot Password?"
-            twClasses="text-xs ml-auto text-secondary"
-            to="/forgot-password"
-          />
-        </div>
+        <RHFPasswordField
+          label="password"
+          register={register("password")}
+          error={errors.password?.message}
+          twClasses="w-full"
+        />
+        <RouterLink
+          routerLinkText="Forgot Password?"
+          twClasses="text-xs ml-auto text-secondary"
+          to="/forgot-password"
+        />
         <LoginButton />
       </form>
       {error && <Alert severity="error" message={error} />}
-      {success ||
-        (registeredSuccessfullyMessage && (
-          <Alert
-            severity="success"
-            message={success || registeredSuccessfullyMessage}
-          />
-        ))}
+      {registeredSuccessfullyMessage && !error && (
+        <Alert severity="success" message={registeredSuccessfullyMessage} />
+      )}
       <RegisterLink />
     </div>
   )

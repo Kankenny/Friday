@@ -1,5 +1,5 @@
 // Hooks
-import useAuthContext from "../../../lib/hooks/context-hooks/useAuthContext"
+import { useTypedSelector } from "../../../lib/hooks/redux-hook/useTypedSelector"
 
 // Components
 import Logo from "../../ui/Logo"
@@ -7,7 +7,8 @@ import RouterDiv from "../../ui/RouterDiv"
 import RouterLink from "../../ui/RouterLink"
 
 const Footer = () => {
-  const { isLoggedIn } = useAuthContext()
+  const { isLoggedIn } = useTypedSelector((state) => state.auth)
+
   return (
     <footer className="bg-secondary w-full p-4 space-y-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
