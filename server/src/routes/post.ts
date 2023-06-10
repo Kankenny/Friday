@@ -8,6 +8,7 @@ import {
   updatePost,
   deletePost,
   savePost,
+  copyPost,
   authorizeUserToPost,
   unauthorizeUserToPost,
   upvotePost,
@@ -58,6 +59,14 @@ PostRouter.put(
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => savePost(req as JWTRequest, res)
+)
+
+// COPY POST
+PostRouter.post(
+  "/:postId/copy",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => copyPost(req as JWTRequest, res)
 )
 
 // AUTHORIZE USER
