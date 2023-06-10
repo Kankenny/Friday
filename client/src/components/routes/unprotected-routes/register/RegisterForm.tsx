@@ -14,6 +14,9 @@ import ConfirmPasswordTooltip from "../../../ui/mui/ConfirmPasswordTooltip"
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined"
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined"
 
+// Services
+import authAPI from "../../../../lib/services/axios-instances/authAPI"
+
 // Validators
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -42,29 +45,17 @@ const RegisterForm = () => {
 
   const navigate = useNavigate()
 
-  const registerUserHandler = (data: registerFormType) => {
+  const registerUserHandler = (formData: registerFormType) => {
     const registerUser = async () => {
-      const response = await fetch(
-        `http://localhost:${
-          import.meta.env.VITE_BACKEND_SERVER_PORT
-        }/api/auth/register`,
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: { "Content-Type": "application/json" },
-        }
-      )
-      const json = await response.json()
+      const { data } = await authAPI.post("/register", formData)
 
-      console.log(json)
-
-      if (!json.ok) {
-        setError(json.message)
+      if (!data.ok) {
+        setError(data.message)
         return
       }
 
       navigate("/login", {
-        state: { registeredSuccessfullyMessage: json.message },
+        state: { registeredSuccessfullyMessage: data.message },
       })
     }
     registerUser()

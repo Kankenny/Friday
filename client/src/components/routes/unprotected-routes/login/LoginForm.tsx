@@ -1,3 +1,5 @@
+import { isAxiosError } from "axios"
+
 // Hooks
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -46,15 +48,21 @@ const LoginForm = ({ registeredSuccessfullyMessage }: Props) => {
   const [error, setError] = useState("")
 
   const loginUserHandler = async (formData: loginFormType) => {
-    const { data } = await authAPI.post("login", formData)
+    try {
+      const { data } = await authAPI.post("/login", formData)
 
-    if (!data.ok) {
-      setError(data.message)
-      return
+      if (!data.ok) {
+        setError(data.message)
+        return
+      }
+
+      setError("")
+      dispatch(login(data.data.token))
+    } catch (err) {
+      if (isAxiosError(err)) {
+        setError(err.response?.data.message)
+      }
     }
-
-    setError("")
-    dispatch(login(data.data.token))
   }
 
   return (
