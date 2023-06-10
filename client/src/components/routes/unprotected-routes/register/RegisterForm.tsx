@@ -55,7 +55,7 @@ const RegisterForm = () => {
       }
 
       navigate("/login", {
-        state: { registeredSuccessfullyMessage: data.message },
+        state: { successMessage: data.message },
       })
     }
     registerUser()

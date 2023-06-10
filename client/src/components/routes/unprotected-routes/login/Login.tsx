@@ -5,8 +5,7 @@ import LoginForm from "./LoginForm"
 
 const Login = () => {
   const location = useLocation()
-  const registeredSuccessfullyMessage =
-    location.state?.registeredSuccessfullyMessage
+  const successMessage = location.state?.successMessage
 
   return (
     <Body>
@@ -15,9 +14,7 @@ const Login = () => {
           <h1 className="text-3xl font-semibold bg-secondary text-main p-5 rounded-t-md">
             Sign in
           </h1>
-          <LoginForm
-            registeredSuccessfullyMessage={registeredSuccessfullyMessage}
-          />
+          <LoginForm successMessage={successMessage} />
         </Card>
       </div>
     </Body>
