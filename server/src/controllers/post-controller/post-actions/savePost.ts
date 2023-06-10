@@ -8,14 +8,8 @@ import UserModel from "../../../models/User"
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
-// Validators
-import updatePostSchema from "../../../lib/validations/post/updatePostValidator"
-
-export const updatePost = async (req: JWTRequest, res: Response) => {
+export const savePost = async (req: JWTRequest, res: Response) => {
   try {
-    // Validate body using the update post schema
-    updatePostSchema.parse(req.body)
-
     // Destructure payload from the request params
     const { postId } = req.params
 
@@ -40,23 +34,21 @@ export const updatePost = async (req: JWTRequest, res: Response) => {
 
     // Check if the user that is updating is the creator of the post
     const isOwner = existingUser.username === existingPost.creatorUsername
-    if (!isOwner) {
-      return res
-        .status(400)
-        .json({ message: "Unauthorized request!", data: null, ok: false })
+    if (isOwner) {
+      return res.status(400).json({
+        message: "You cannot save a post that is yours!",
+        data: null,
+        ok: false,
+      })
     }
 
-    // Update post
-    const fieldsToBeUpdated = req.body
-    const updatedPost = await PostModel.findByIdAndUpdate(
-      postId,
-      { $set: { ...fieldsToBeUpdated } },
-      { new: true }
-    )
+    // Save post
+    existingUser.savedPosts.push(existingPost._id)
+    await existingUser.save()
 
     return res.status(200).json({
-      message: "Post successfully updated!",
-      data: updatedPost,
+      message: "Post successfully saved!",
+      data: null,
       ok: true,
     })
   } catch (error) {
