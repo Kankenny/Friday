@@ -1,25 +1,35 @@
 import { PayloadAction } from "@reduxjs/toolkit"
-import { authSliceType } from "../../../types/authSliceType"
+import { AuthSliceType } from "../../../types/slice-types/authSliceType"
 
-export const persistLoginReducer = (state: authSliceType) => {
-  if (localStorage.getItem("token") !== null) {
+export const persistLoginReducer = (state: AuthSliceType) => {
+  if (
+    localStorage.getItem("token") !== null &&
+    localStorage.getItem("_id") !== null
+  ) {
     state.token = localStorage.getItem("token")
+    state._id = localStorage.getItem("_id")
     state.isLoggedIn = true
   }
 }
 
 export const loginReducer = (
-  state: authSliceType,
-  action: PayloadAction<string>
+  state: AuthSliceType,
+  action: PayloadAction<{ token: string; _id: string }>
 ) => {
-  const token = action.payload
+  const token = action.payload.token
   localStorage.setItem("token", token)
-  state.token = action.payload
+
+  const _id = action.payload._id
+  localStorage.setItem("_id", _id)
+
+  state._id = _id
+  state.token = token
   state.isLoggedIn = true
 }
 
-export const logoutReducer = (state: authSliceType) => {
+export const logoutReducer = (state: AuthSliceType) => {
   localStorage.removeItem("token")
   state.token = null
+  state._id = null
   state.isLoggedIn = false
 }

@@ -5,7 +5,7 @@ import { Response } from "express"
 import PostModel from "../../../models/Post"
 import UserModel from "../../../models/User"
 import TaskModel from "../../../models/Task"
-import SubtaskModel from "../../../models/SubTask"
+import SubtaskModel from "../../../models/Subtask"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"

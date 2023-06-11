@@ -57,7 +57,7 @@ const LoginForm = ({ successMessage }: Props) => {
       }
 
       setError("")
-      dispatch(login(data.data.token))
+      dispatch(login({ token: data.data.token, _id: data.data.user._id }))
     } catch (err) {
       if (isAxiosError(err)) {
         setError(err.response?.data.message)

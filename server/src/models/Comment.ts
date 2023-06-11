@@ -13,7 +13,7 @@ const CommentSchema = new Schema(
       type: ObjectId,
       required: "User",
     },
-    commentorUsername: {
+    commenterUsername: {
       type: String,
       required: "User",
     },

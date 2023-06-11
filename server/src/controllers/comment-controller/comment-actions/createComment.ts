@@ -78,7 +78,7 @@ export const createComment = async (req: JWTRequest, res: Response) => {
     const newComment = new CommentModel({
       body,
       commenterId: _idFromToken,
-      commentorUsername: existingCommenter.username,
+      commenterUsername: existingCommenter.username,
       postId,
     })
     await newComment.save()
