@@ -17,3 +17,5 @@ TimelineRoute.get(
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => getUserTimeline(req as JWTRequest, res)
 )
+
+export default TimelineRoute

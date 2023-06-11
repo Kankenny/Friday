@@ -13,6 +13,7 @@ import CommentRoute from "./routes/comment"
 import NotificationRoute from "./routes/notification"
 import TaskRoute from "./routes/task"
 import SubtaskRoute from "./routes/subtask"
+import TimelineRoute from "./routes/timeline"
 
 // Environment Variables
 const PORT = process.env.port
@@ -41,6 +42,7 @@ app.use("/api/comment", CommentRoute)
 app.use("/api/notification", NotificationRoute)
 app.use("/api/task", TaskRoute)
 app.use("/api/subtask", SubtaskRoute)
+app.use("/api/timeline", TimelineRoute)
 
 mongoose.connect(MONGODB_URI!).then(() => {
   console.log("> Server connected to MongoDB")
