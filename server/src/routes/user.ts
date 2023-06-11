@@ -10,6 +10,7 @@ import {
   unfollowUser,
   blockUser,
   unblockUser,
+  getUserTimeline,
 } from "../controllers/user-controller/userController"
 
 // Types
@@ -34,6 +35,14 @@ UserRoute.get(
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => getUserBlocked(req as JWTRequest, res)
+)
+
+// GET USER TIMELINE
+UserRoute.get(
+  "/timeline",
+  (req: Request, res: Response, next: NextFunction) =>
+    verifyToken(req as JWTRequest, res, next),
+  (req: Request, res: Response) => getUserTimeline(req as JWTRequest, res)
 )
 
 // FOLLOW USER
