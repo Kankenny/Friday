@@ -1,4 +1,4 @@
-export interface authSliceType {
+export interface AuthSliceType {
   isLoggedIn: boolean
   token: string | null
 }

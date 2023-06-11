@@ -1,3 +1,6 @@
+import { CommentType } from "./CommentType"
+import { TaskType } from "./TaskType"
+
 export interface PostType {
   _id: string
   title: string
