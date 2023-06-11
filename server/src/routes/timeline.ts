@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express"
 
-// Auth Controller Functions
-import { getUserTimeline } from "../controllers/user-controller/userController"
+// Timeline Controller Functions
+import { getUserTimeline } from "../controllers/timeline-controller/timelineController"
 
 // Types
 import JWTRequest from "../lib/types/JWTRequestType"
