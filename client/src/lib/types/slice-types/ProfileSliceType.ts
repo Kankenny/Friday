@@ -2,7 +2,7 @@ import { PostType } from "../primitive-types/postType"
 import { NotificationType } from "../primitive-types/NotificationType"
 import { CommentType } from "../primitive-types/CommentType"
 
-export interface profileSliceType {
+export interface ProfileSliceType {
   _id: string
   firstName: string
   lastName: string
