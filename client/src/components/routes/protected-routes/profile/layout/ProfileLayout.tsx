@@ -6,7 +6,7 @@ import UserDetails from "./UserDetails"
 const ProfileLayout = () => {
   return (
     <div className="flex px-10">
-      <div className="hidden md:flex min-h-screen w-[20.2em] max-w-[20.2em] min-w-[20.2em] flex-col mr-5 p-5 space-y-5">
+      <div className="min-h-screen w-[20.2em] max-w-[20.2em] min-w-[20.2em] flex-col mr-5 p-5 space-y-5">
         <ProfilePicture />
         <UserDetails />
       </div>

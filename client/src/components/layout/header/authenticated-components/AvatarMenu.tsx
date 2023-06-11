@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
 import { logout } from "../../../../lib/store/slices/auth-slice/authSlice"
 import Button from "@mui/material/Button"
 import ClickAwayListener from "@mui/material/ClickAwayListener"
@@ -15,11 +16,10 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined"
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 
-type Props = {
-  src?: string
-}
-
-export default function MenuListComposition({ src }: Props) {
+export default function MenuListComposition() {
+  const { profilePicture, firstName } = useTypedSelector(
+    (state) => state.profile
+  )
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [open, setOpen] = React.useState(false)
@@ -87,8 +87,8 @@ export default function MenuListComposition({ src }: Props) {
           onClick={handleToggle}
           className="rounded-full"
         >
-          <Avatar className="text-secondary" src={src}>
-            {src ? "" : "K"}
+          <Avatar className="text-secondary capitalize" src={profilePicture}>
+            {profilePicture ? "" : firstName.charAt(0)}
           </Avatar>
         </Button>
       </Tooltip>

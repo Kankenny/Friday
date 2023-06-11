@@ -1,16 +1,16 @@
 import { Avatar } from "@mui/material"
+import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 
-type Props = {
-  src?: string
-}
-
-const ProfilePicture = ({ src }: Props) => {
+const ProfilePicture = () => {
+  const { profilePicture, firstName } = useTypedSelector(
+    (state) => state.profile
+  )
   return (
     <Avatar
-      className="h-64 w-64 cursor-pointer text-6xl hover:bg-secondary hover:text-tertiary hover:opacity-70 duration-200 ease-in-out"
-      src={src}
+      className="h-64 w-64 cursor-pointer text-6xl hover:bg-secondary hover:text-tertiary hover:opacity-70 duration-200 ease-in-out capitalize"
+      src={profilePicture}
     >
-      {src ? "" : "K"}
+      {profilePicture ? "" : firstName.charAt(0)}
     </Avatar>
   )
 }

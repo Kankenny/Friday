@@ -12,13 +12,14 @@ const UserDetails = () => {
         <h1 className="font-bold text-xl">
           {firstName} {lastName}
         </h1>
-        <h1>
-          @ <span className="underline">{username}</span>
+        <h1 className="flex items-center gap-1">
+          <span className="text-xs">@</span>
+          <span className="underline">{username}</span>
         </h1>
         <h1 className="font-extralight">{email}</h1>
       </div>
       <div className="space-x-2">
-        <PeopleAltOutlinedIcon />{" "}
+        <PeopleAltOutlinedIcon />
         <span>
           <b>{followers.length}</b> followers
         </span>
