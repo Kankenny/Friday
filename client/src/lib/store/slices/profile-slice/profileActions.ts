@@ -5,5 +5,5 @@ export const setUserDetailsReducer = (
   state: ProfileSliceType,
   action: PayloadAction<ProfileSliceType>
 ) => {
-  state = { ...action.payload }
+  return { ...state, ...action.payload }
 }
