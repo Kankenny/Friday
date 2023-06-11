@@ -44,9 +44,17 @@ export const deletePost = async (req: JWTRequest, res: Response) => {
     }
 
     // Delete the post and the tasks and subtasks included in the post
-    await PostModel.deleteOne({ _id: postId })
-    await TaskModel.deleteMany({ postId })
-    await SubtaskModel.deleteMany({ taskId: { $in: existingPost.tasks } })
+    const deletePostPromise = PostModel.deleteOne({ _id: postId })
+    const deleteTasksPromise = TaskModel.deleteMany({ postId })
+    const deleteSubtasksPromise = SubtaskModel.deleteMany({
+      taskId: { $in: existingPost.tasks },
+    })
+
+    await Promise.all([
+      deletePostPromise,
+      deleteTasksPromise,
+      deleteSubtasksPromise,
+    ])
 
     // Update posts field of the user
     existingUser.posts = existingUser.posts.filter(
