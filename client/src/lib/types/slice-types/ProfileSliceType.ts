@@ -1,4 +1,5 @@
 import { PostType } from "../primitive-types/postType"
+import { NotificationType } from "../primitive-types/NotificationType"
 import { CommentType } from "../primitive-types/CommentType"
 
 export interface profileSliceType {
@@ -16,6 +17,6 @@ export interface profileSliceType {
   downvotedPosts: PostType[]
   savedPosts: PostType[]
   authorizedPosts: PostType[]
-  notifications: []
+  notifications: NotificationType[]
   comments: CommentType[]
 }
