@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit"
 import { AuthSliceType } from "../../../types/slice-types/AuthSliceType"
 
-export const persistLoginReducer = (state: authSliceType) => {
+export const persistLoginReducer = (state: AuthSliceType) => {
   if (localStorage.getItem("token") !== null) {
     state.token = localStorage.getItem("token")
     state.isLoggedIn = true
