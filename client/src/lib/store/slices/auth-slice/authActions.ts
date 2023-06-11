@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit"
-import { authSliceType } from "../../../types/authSliceType"
+import { AuthSliceType } from "../../../types/slice-types/AuthSliceType"
 
 export const persistLoginReducer = (state: authSliceType) => {
   if (localStorage.getItem("token") !== null) {
@@ -9,7 +9,7 @@ export const persistLoginReducer = (state: authSliceType) => {
 }
 
 export const loginReducer = (
-  state: authSliceType,
+  state: AuthSliceType,
   action: PayloadAction<string>
 ) => {
   const token = action.payload
@@ -18,7 +18,7 @@ export const loginReducer = (
   state.isLoggedIn = true
 }
 
-export const logoutReducer = (state: authSliceType) => {
+export const logoutReducer = (state: AuthSliceType) => {
   localStorage.removeItem("token")
   state.token = null
   state.isLoggedIn = false

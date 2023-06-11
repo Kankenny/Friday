@@ -1,0 +1,17 @@
+export interface PostType {
+  _id: string
+  title: string
+  creatorId: string
+  creatorUsername: string
+  color: string
+  category: string
+  visibility: string
+  upvotes: number
+  downvotes: number
+  authorization: string
+  authorizedUsers: string
+  upvotedBy: string[]
+  downvotedBy: string[]
+  tasks: TaskType[]
+  comments: CommentType[]
+}

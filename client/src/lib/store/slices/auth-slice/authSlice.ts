@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { authSliceType } from "../../../types/authSliceType"
+import { AuthSliceType } from "../../../types/slice-types/AuthSliceType"
 import { persistLoginReducer, loginReducer, logoutReducer } from "./authActions"
 
-const initialState: authSliceType = {
+const initialState: AuthSliceType = {
   isLoggedIn: false,
   token: null,
 }
