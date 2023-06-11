@@ -22,6 +22,7 @@ import Profile from "./components/routes/protected-routes/profile/Profile"
 import AppContainer from "./AppContainer"
 import RequireAuth from "./components/routes/protected-routes/navigation-guards/RequireAuth"
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
+import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
 
 function App() {
   const dispatch = useDispatch()
@@ -51,7 +52,9 @@ function App() {
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
-            <Route path="/profile" element={<Profile />} />
+            <Route element={<ProfileLayout />}>
+              <Route path="/profile" element={<Profile />} />
+            </Route>
           </Route>
 
           {/* Catch-all  Routes */}
