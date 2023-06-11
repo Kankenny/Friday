@@ -1,87 +1,150 @@
+import * as React from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { logout } from "../../../../lib/store/slices/auth-slice/authSlice"
-
-import * as React from "react"
-import Avatar from "@mui/material/Avatar"
-import Menu from "@mui/material/Menu"
+import Button from "@mui/material/Button"
+import ClickAwayListener from "@mui/material/ClickAwayListener"
+import Grow from "@mui/material/Grow"
+import Paper from "@mui/material/Paper"
+import Popper from "@mui/material/Popper"
 import MenuItem from "@mui/material/MenuItem"
-import Divider from "@mui/material/Divider"
-import IconButton from "@mui/material/IconButton"
+import MenuList from "@mui/material/MenuList"
+import Avatar from "@mui/material/Avatar"
 import Tooltip from "@mui/material/Tooltip"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
-import Settings from "@mui/icons-material/Settings"
-import Logout from "@mui/icons-material/Logout"
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined"
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined"
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 
-export default function AvatarMenu() {
+type Props = {
+  src?: string
+}
+
+export default function MenuListComposition({ src }: Props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [open, setOpen] = React.useState(false)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen)
   }
 
-  const handleProfileClick = () => {
-    handleClose()
+  const handleProfileClick = (e: React.MouseEvent | Event) => {
+    handleClose(e)
     navigate("/profile")
   }
 
-  const handleLogoutClick = () => {
-    handleClose()
+  const handleSettingsClick = (e: React.MouseEvent | Event) => {
+    handleClose(e)
+    navigate("/settings")
+  }
+
+  const handleLogoutClick = (e: React.MouseEvent | Event) => {
+    handleClose(e)
     dispatch(logout())
     navigate("/login")
   }
 
-  const handleClose = () => {
-    setAnchorEl(null)
+  const handleClose = (event: Event | React.SyntheticEvent) => {
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target as HTMLElement)
+    ) {
+      return
+    }
+
+    setOpen(false)
   }
 
+  function handleListKeyDown(event: React.KeyboardEvent) {
+    if (event.key === "Tab") {
+      event.preventDefault()
+      setOpen(false)
+    } else if (event.key === "Escape") {
+      setOpen(false)
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open)
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current?.focus()
+    }
+
+    prevOpen.current = open
+  }, [open])
+
   return (
-    <React.Fragment>
-      <Tooltip title="Account settings">
-        <IconButton
-          onClick={handleClick}
-          size="small"
-          sx={{ ml: 2 }}
-          aria-controls={open ? "account-menu" : undefined}
-          aria-haspopup="true"
+    <div>
+      <Tooltip title="Account settings" disableHoverListener={open}>
+        <Button
+          ref={anchorRef}
+          id="composition-button"
+          aria-controls={open ? "composition-menu" : undefined}
           aria-expanded={open ? "true" : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+          className="rounded-full"
         >
-          <Avatar
-            sx={{ width: 30, height: 30 }}
-            className="bg-main text-secondary"
-          >
-            M
+          <Avatar className="text-secondary" src={src}>
+            {src ? "" : "K"}
           </Avatar>
-        </IconButton>
+        </Button>
       </Tooltip>
-      <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
+      <Popper
         open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        MenuListProps={{
-          className: "caret-transparent",
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        placement="bottom-start"
+        transition
+        disablePortal
       >
-        <MenuItem onClick={handleProfileClick} className="space-x-2">
-          <AccountCircleIcon /> <p>Profile</p>
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose} className="space-x-2">
-          <Settings fontSize="small" />
-          <p>Settings</p>
-        </MenuItem>
-        <MenuItem onClick={handleLogoutClick} className="space-x-2">
-          <Logout fontSize="small" />
-          <p>Logout</p>
-        </MenuItem>
-      </Menu>
-    </React.Fragment>
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom-start" ? "left top" : "left bottom",
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList
+                  autoFocusItem={open}
+                  id="composition-menu"
+                  aria-labelledby="composition-button"
+                  onKeyDown={handleListKeyDown}
+                  className=""
+                >
+                  <MenuItem
+                    onClick={(e) => handleProfileClick(e)}
+                    divider
+                    className="flex gap-2 items-center"
+                  >
+                    <AccountCircleOutlinedIcon />
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={(e) => handleSettingsClick(e)}
+                    className="flex gap-2 items-center"
+                  >
+                    <SettingsOutlinedIcon />
+                    Settings
+                  </MenuItem>
+                  <MenuItem
+                    onClick={(e) => handleLogoutClick(e)}
+                    className="flex gap-2 items-center"
+                  >
+                    <LogoutOutlinedIcon />
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </div>
   )
 }
