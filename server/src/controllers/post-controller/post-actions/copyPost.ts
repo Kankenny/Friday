@@ -85,6 +85,10 @@ export const copyPost = async (req: JWTRequest, res: Response) => {
     // Save the new post
     await newPost.save()
 
+    // Update existing users post field
+    existingUser.posts.push(newPost._id)
+    await existingUser.save()
+
     return res.status(200).json({
       message: "Post successfully copied!",
       data: null,
