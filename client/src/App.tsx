@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { persistLogin } from "./lib/store/slices/auth-slice/authSlice"
+import userAPI from "./lib/services/axios-instances/userAPI"
 
 // Routes
 import LandingPage from "./components/routes/unprotected-routes/landing-page/LandingPage"
@@ -23,13 +24,29 @@ import AppContainer from "./AppContainer"
 import RequireAuth from "./components/routes/protected-routes/navigation-guards/RequireAuth"
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
+import { setUserDetails } from "./lib/store/slices/profile-slice/profileSlice"
+import { useTypedSelector } from "./lib/hooks/redux-hook/useTypedSelector"
 
 function App() {
   const dispatch = useDispatch()
+  const { _id } = useTypedSelector((state) => state.auth)
 
   useEffect(() => {
     dispatch(persistLogin())
-  }, [dispatch])
+    const fetchUserDetails = async () => {
+      try {
+        const { data } = await userAPI.get(`/${_id}`)
+        dispatch(setUserDetails(data.data))
+      } catch (err) {
+        console.log(err)
+        throw new Error("Failed to fetch user details")
+      }
+    }
+
+    if (_id) {
+      fetchUserDetails()
+    }
+  }, [dispatch, _id])
 
   return (
     <AppContainer>
