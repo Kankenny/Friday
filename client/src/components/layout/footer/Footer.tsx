@@ -1,4 +1,5 @@
 // Hooks
+import { useLocation } from "react-router-dom"
 import { useTypedSelector } from "../../../lib/hooks/redux-hook/useTypedSelector"
 
 // Components
@@ -8,13 +9,15 @@ import RouterLink from "../../ui/RouterLink"
 
 const Footer = () => {
   const { isLoggedIn } = useTypedSelector((state) => state.auth)
+  const { pathname } = useLocation()
+  const timelineOrWorkspacePath = pathname === "/app" ? "/app" : "app/workspace"
 
   return (
     <footer className="bg-secondary w-full p-4 space-y-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
         {isLoggedIn ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
         <div>
-          <RouterDiv to={!isLoggedIn ? "/" : "/app"}>
+          <RouterDiv to={!isLoggedIn ? "/" : timelineOrWorkspacePath}>
             <Logo />
           </RouterDiv>
         </div>
