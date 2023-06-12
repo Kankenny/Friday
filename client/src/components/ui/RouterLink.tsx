@@ -10,7 +10,8 @@ type Props = {
 const RouterLink = ({ to, routerLinkText, twClasses }: Props) => {
   const location = useLocation()
 
-  const activatedRouterLinkClasses = location.pathname === to && "text-tertiary"
+  const activatedRouterLinkClasses =
+    location.pathname.includes(to) && "text-tertiary"
 
   useEffect(() => {
     window.scrollTo(0, 0)
