@@ -19,15 +19,15 @@ import ForgotPassword from "./components/routes/unprotected-routes/forgot-passwo
 import SecurityAnswer from "./components/routes/unprotected-routes/forgot-password/SecurityAnswer"
 import ResetPassword from "./components/routes/unprotected-routes/forgot-password/ResetPassword"
 import Profile from "./components/routes/protected-routes/profile/Profile"
-import Timeline from "./components/routes/hybrid-routes/home/timeline/Timeline"
-import Workspace from "./components/routes/hybrid-routes/home/workspace/Workspace"
+import Timeline from "./components/routes/protected-routes/home/timeline/Timeline"
+import Workspace from "./components/routes/protected-routes/home/workspace/Workspace"
 
 // Container Component
 import AppContainer from "./AppContainer"
 import RequireAuth from "./components/routes/protected-routes/navigation-guards/RequireAuth"
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
-import HomeLayout from "./components/routes/hybrid-routes/home/home-layout/HomeLayout"
+import HomeLayout from "./components/routes/protected-routes/home/home-layout/HomeLayout"
 
 function App() {
   const dispatch = useDispatch()
@@ -55,12 +55,6 @@ function App() {
       <Header />
       <Body>
         <Routes>
-          {/* Hybrid Routes */}
-          <Route element={<HomeLayout />}>
-            <Route path="/app" element={<Timeline />} />
-            <Route path="/app/workspace" element={<Workspace />} />
-          </Route>
-
           {/* Unprotected Routes */}
           <Route element={<RequireUnauth />}>
             <Route path="/" element={<LandingPage />} />
@@ -74,6 +68,10 @@ function App() {
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
+            <Route element={<HomeLayout />}>
+              <Route path="/app" element={<Timeline />} />
+              <Route path="/app/workspace" element={<Workspace />} />
+            </Route>
             <Route element={<ProfileLayout />}>
               <Route path="/profile" element={<Profile />} />
             </Route>
