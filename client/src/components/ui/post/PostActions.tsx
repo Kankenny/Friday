@@ -7,7 +7,6 @@ const PostActions = () => {
 
   const handleNewTaskSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("TEST")
   }
 
   return (

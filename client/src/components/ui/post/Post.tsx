@@ -3,7 +3,7 @@ import { useState } from "react"
 import ColumnHeaders from "./headers/ColumnHeaders"
 import MainHeader from "./headers/MainHeader"
 import PostActions from "./PostActions"
-import Task from "./Task"
+import Task from "./tasks/Task"
 
 const Post = () => {
   const [isExpanded, setIsExpanded] = useState(false)

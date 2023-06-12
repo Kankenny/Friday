@@ -1,6 +1,6 @@
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined"
 import { useState } from "react"
-import Subtask from "./Subtask"
+import Subtask from "../Subtask"
 
 const Task = () => {
   const [isExpanded, setIsExpanded] = useState(false)
