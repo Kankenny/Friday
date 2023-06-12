@@ -18,14 +18,16 @@ const Subtask = () => {
           10/01/1001
         </h1>
       </div>
-      <h1 className="border border-secondary opacity-50 flex items-center p-2 pl-9 text-sm">
-        <AddOutlinedIcon className="h-5 w-5" />
-        <input
-          type="text"
-          placeholder="Add Subtask"
-          className="h-full outline-none"
-        />
-      </h1>
+      <div className="border border-secondary p-2 pl-9 text-sm">
+        <div className="opacity-50 flex items-center">
+          <AddOutlinedIcon className="h-5 w-5" />
+          <input
+            type="text"
+            placeholder="Add Subtask"
+            className="h-full outline-none"
+          />
+        </div>
+      </div>
     </>
   )
 }
