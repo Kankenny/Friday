@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-import ColumnHeaders from "./ColumnHeaders"
-import MainHeader from "./MainHeader"
+import ColumnHeaders from "./headers/ColumnHeaders"
+import MainHeader from "./headers/MainHeader"
 import PostActions from "./PostActions"
 import Task from "./Task"
 
