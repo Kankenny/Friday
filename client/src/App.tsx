@@ -2,11 +2,12 @@ import { Routes, Route } from "react-router-dom"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { persistLogin } from "./lib/store/slices/auth-slice/authSlice"
+import { setUserDetails } from "./lib/store/slices/profile-slice/profileSlice"
+import { useTypedSelector } from "./lib/hooks/redux-hook/useTypedSelector"
 import userAPI from "./lib/services/axios-instances/userAPI"
 
 // Routes
 import LandingPage from "./components/routes/unprotected-routes/landing-page/LandingPage"
-import Home from "./components/routes/hybrid-routes/home/Home"
 import Playground from "./components/routes/unprotected-routes/playground/Playground"
 import PageNotFound from "./components/routes/catch-all-routes/404-page/404Page"
 import Body from "./components/layout/body/Body"
@@ -18,15 +19,15 @@ import ForgotPassword from "./components/routes/unprotected-routes/forgot-passwo
 import SecurityAnswer from "./components/routes/unprotected-routes/forgot-password/SecurityAnswer"
 import ResetPassword from "./components/routes/unprotected-routes/forgot-password/ResetPassword"
 import Profile from "./components/routes/protected-routes/profile/Profile"
+import Timeline from "./components/routes/protected-routes/home/timeline/Timeline"
+import Workspace from "./components/routes/protected-routes/home/workspace/Workspace"
 
 // Container Component
 import AppContainer from "./AppContainer"
 import RequireAuth from "./components/routes/protected-routes/navigation-guards/RequireAuth"
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
-import { setUserDetails } from "./lib/store/slices/profile-slice/profileSlice"
-import { useTypedSelector } from "./lib/hooks/redux-hook/useTypedSelector"
-import HomeLayout from "./components/routes/hybrid-routes/home/layout/HomeLayout"
+import HomeLayout from "./components/routes/protected-routes/home/home-layout/HomeLayout"
 
 function App() {
   const dispatch = useDispatch()
@@ -54,11 +55,6 @@ function App() {
       <Header />
       <Body>
         <Routes>
-          {/* Hybrid Routes */}
-          <Route element={<HomeLayout />}>
-            <Route path="/app" element={<Home />} />
-          </Route>
-
           {/* Unprotected Routes */}
           <Route element={<RequireUnauth />}>
             <Route path="/" element={<LandingPage />} />
@@ -72,6 +68,10 @@ function App() {
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
+            <Route element={<HomeLayout />}>
+              <Route path="/app" element={<Timeline />} />
+              <Route path="/app/workspace" element={<Workspace />} />
+            </Route>
             <Route element={<ProfileLayout />}>
               <Route path="/profile" element={<Profile />} />
             </Route>

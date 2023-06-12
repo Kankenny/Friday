@@ -4,7 +4,7 @@ import NavigationTabs from "./NavigationTabs"
 
 const HomeLayout = () => {
   return (
-    <div className="p-10">
+    <div className="p-10 space-y-5">
       <NavigationTabs />
       <div className="min-h-screen w-full flex">
         <Outlet />
