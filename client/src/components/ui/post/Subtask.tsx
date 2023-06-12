@@ -19,8 +19,8 @@ const Subtask = () => {
         </h1>
       </div>
       <div className="border border-secondary p-2 pl-9 text-sm">
-        <div className="opacity-50 flex items-center">
-          <AddOutlinedIcon className="h-5 w-5" />
+        <div className="flex items-center">
+          <AddOutlinedIcon className="h-5 w-5 opacity-50" />
           <input
             type="text"
             placeholder="Add Subtask"
