@@ -5,7 +5,7 @@ const PostActions = () => {
   return (
     <div className="flex justify-between border border-secondary rounded-b-md text-sm p-2">
       <h1 className="opacity-50 flex items-center">
-        <AddOutlinedIcon />
+        <AddOutlinedIcon className="h-5 w-5" />
         <input
           type="text"
           placeholder="Add task"
@@ -13,7 +13,7 @@ const PostActions = () => {
         />
       </h1>
       <h1 className="cursor-pointer">
-        <CommentOutlinedIcon className="mr-2 opacity-100" />
+        <CommentOutlinedIcon className="mr-2 opacity-100 h-5 w-5" />
         Comments
       </h1>
     </div>
