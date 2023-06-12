@@ -26,6 +26,7 @@ import RequireUnauth from "./components/routes/unprotected-routes/navigation-gua
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
 import { setUserDetails } from "./lib/store/slices/profile-slice/profileSlice"
 import { useTypedSelector } from "./lib/hooks/redux-hook/useTypedSelector"
+import HomeLayout from "./components/routes/hybrid-routes/home/layout/HomeLayout"
 
 function App() {
   const dispatch = useDispatch()
@@ -54,7 +55,9 @@ function App() {
       <Body>
         <Routes>
           {/* Hybrid Routes */}
-          <Route path="/app" element={<Home />} />
+          <Route element={<HomeLayout />}>
+            <Route path="/app" element={<Home />} />
+          </Route>
 
           {/* Unprotected Routes */}
           <Route element={<RequireUnauth />}>
