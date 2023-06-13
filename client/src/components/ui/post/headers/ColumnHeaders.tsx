@@ -1,4 +1,10 @@
-const ColumnHeaders = () => {
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
+
+type Props = {
+  post: PostType
+}
+
+const ColumnHeaders = ({ post }: Props) => {
   return (
     <div className="flex justify-between text-center font-semibold ">
       <h1 className="flex-grow max-w-[50%] border border-secondary p-2 rounded-tl-md text-sm">

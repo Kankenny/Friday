@@ -1,8 +1,13 @@
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined"
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined"
 import { useRef } from "react"
+import { PostType } from "../../../lib/types/primitive-types/PostType"
 
-const PostActions = () => {
+type Props = {
+  post: PostType
+}
+
+const PostActions = ({ post }: Props) => {
   const newTaskRef = useRef(null)
 
   const handleNewTaskSubmit = (e: React.FormEvent) => {

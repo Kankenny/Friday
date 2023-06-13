@@ -2,13 +2,15 @@ import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined"
 import Tooltip from "@mui/material/Tooltip"
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined"
 import { Dispatch, SetStateAction } from "react"
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
 
 type Props = {
+  post: PostType
   isExpanded: boolean
   setIsExpanded: Dispatch<SetStateAction<boolean>>
 }
 
-const MainHeader = ({ setIsExpanded, isExpanded }: Props) => {
+const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
   return (
     <div className="p-2">
       <div className="flex justify-between">
