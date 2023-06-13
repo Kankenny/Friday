@@ -3,7 +3,7 @@ import express, { Request, Response, NextFunction } from "express"
 
 // Task Controller Functions
 import {
-  changeSubtaskProgress,
+  updateSubtask,
   createSubtask,
   deleteSubtask,
   getTaskSubtasks,
@@ -41,7 +41,7 @@ SubtaskRouter.put(
   "/:subtaskId",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => changeSubtaskProgress(req as JWTRequest, res)
+  (req: Request, res: Response) => updateSubtask(req as JWTRequest, res)
 )
 
 export default SubtaskRouter

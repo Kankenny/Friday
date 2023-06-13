@@ -8,7 +8,7 @@ import TaskModel from "../../../models/Task"
 import SubtaskModel from "../../../models/Subtask"
 
 // Validators
-import updateSubtaskProgressSchema from "../../../lib/validations/subtask/updateSubtaskProgressValidator"
+import updateSubtaskSchema from "../../../lib/validations/subtask/updateSubtaskValidator"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
@@ -16,7 +16,7 @@ import JWTRequest from "../../../lib/types/JWTRequestType"
 export const updateSubtask = async (req: JWTRequest, res: Response) => {
   try {
     // Validate body using the update subtask progress schema
-    const fieldsToBeUpdated = updateSubtaskProgressSchema.parse(req.body)
+    const fieldsToBeUpdated = updateSubtaskSchema.parse(req.body)
 
     // Extract progress payload from the request body and params
     const { progress } = req.body

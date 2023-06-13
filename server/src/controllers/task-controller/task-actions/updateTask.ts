@@ -7,7 +7,7 @@ import PostModel from "../../../models/Post"
 import TaskModel from "../../../models/Task"
 
 // Validators
-import updateTaskProgressSchema from "../../../lib/validations/task/updateTaskValidator"
+import updateTaskSchema from "../../../lib/validations/task/updateTaskValidator"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
@@ -15,7 +15,7 @@ import JWTRequest from "../../../lib/types/JWTRequestType"
 export const updateTask = async (req: JWTRequest, res: Response) => {
   try {
     // Validate body using the update task progress schema
-    const fieldsToBeUpdated = updateTaskProgressSchema.parse(req.body)
+    const fieldsToBeUpdated = updateTaskSchema.parse(req.body)
 
     // Check if post exists
     const postId = req.query.postId
