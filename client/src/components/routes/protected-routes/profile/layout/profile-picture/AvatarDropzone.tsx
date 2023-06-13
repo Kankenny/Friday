@@ -5,6 +5,7 @@ import cloudinaryAPI from "../../../../../../lib/services/axios-instances/cloudi
 import authAPI from "../../../../../../lib/services/axios-instances/authAPI"
 import { changeProfilePicture } from "../../../../../../lib/store/slices/profile-slice/profileSlice"
 import { useDispatch } from "react-redux"
+import { LinearProgress } from "@mui/material"
 
 type Props = {
   firstName: string
@@ -14,6 +15,7 @@ type Props = {
 const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
   const dispatch = useDispatch()
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       "image/*": [".png", ".jpg", ".jpeg"],
@@ -25,6 +27,7 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
   })
 
   const handleSubmit = async () => {
+    setIsLoading(true)
     if (selectedFile) {
       const formData = new FormData()
       formData.append("file", selectedFile)
@@ -37,6 +40,7 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
         })
 
         dispatch(changeProfilePicture(data.secure_url))
+        setIsLoading(false)
       } catch (error) {
         console.log(error)
       }
@@ -75,6 +79,7 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
         onClick={handleSubmit}
         twClasses="w-full text-xl font-semibold bg-secondary text-tertiary border-2 border-secondary"
       />
+      {isLoading && <LinearProgress />}
     </div>
   )
 }
