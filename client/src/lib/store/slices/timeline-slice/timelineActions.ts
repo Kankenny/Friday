@@ -7,4 +7,5 @@ export const setTimelineReducer = (
   action: PayloadAction<PostType[]>
 ) => {
   state.posts = action.payload
+  state.isLoading = false
 }
