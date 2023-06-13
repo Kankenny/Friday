@@ -1,7 +1,7 @@
 import { useState } from "react"
-import Post from "../../../../ui/post/Post"
 import StyledButton from "../../../../ui/StyledButton"
 import CreatePostInput from "../home-layout/CreatePostInput"
+import WorkspacePosts from "./WorkspacePosts"
 
 const Workspace = () => {
   const [isCreating, setIsCreating] = useState(false)
@@ -14,11 +14,7 @@ const Workspace = () => {
         twClasses={isCreating ? "hidden" : ""}
       />
       {isCreating && <CreatePostInput />}
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      <WorkspacePosts />
     </div>
   )
 }
