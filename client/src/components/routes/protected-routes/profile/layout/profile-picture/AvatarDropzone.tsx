@@ -2,6 +2,9 @@ import { useState } from "react"
 import { useDropzone } from "react-dropzone"
 import StyledButton from "../../../../../ui/StyledButton"
 import cloudinaryAPI from "../../../../../../lib/services/axios-instances/cloudinaryAPI"
+import authAPI from "../../../../../../lib/services/axios-instances/authAPI"
+import { changeProfilePicture } from "../../../../../../lib/store/slices/profile-slice/profileSlice"
+import { useDispatch } from "react-redux"
 
 type Props = {
   firstName: string
@@ -9,6 +12,7 @@ type Props = {
 }
 
 const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
+  const dispatch = useDispatch()
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -28,7 +32,11 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
 
       try {
         const { data } = await cloudinaryAPI.post("/", formData)
-        console.log(data.secure_url)
+        await authAPI.put("/change/user-details", {
+          profilePicture: data.secure_url,
+        })
+
+        dispatch(changeProfilePicture(data.secure_url))
       } catch (error) {
         console.log(error)
       }

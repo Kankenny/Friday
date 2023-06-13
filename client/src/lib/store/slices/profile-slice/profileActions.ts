@@ -7,3 +7,10 @@ export const setUserDetailsReducer = (
 ) => {
   return { ...state, ...action.payload }
 }
+
+export const changeProfilePictureReducer = (
+  state: ProfileSliceType,
+  action: PayloadAction<string>
+) => {
+  state.profilePicture = action.payload
+}
