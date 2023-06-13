@@ -17,4 +17,5 @@ A SaaS productivity platform that allows users to post and view tasks.
 - Database ODM layer with Mongoose
 - Authentication
 - Sensitive Information Obfuscation with JWT & bcrypt
+- Image Uploads with React-Dropzone and Cloudinary
 
