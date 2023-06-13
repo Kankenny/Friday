@@ -12,4 +12,6 @@ const timelineSlice = createSlice({
   },
 })
 
+export const { setTimeline } = timelineSlice.actions
+
 export default timelineSlice.reducer

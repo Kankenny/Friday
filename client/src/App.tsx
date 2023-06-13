@@ -5,6 +5,7 @@ import { persistLogin } from "./lib/store/slices/auth-slice/authSlice"
 import { setUserDetails } from "./lib/store/slices/profile-slice/profileSlice"
 import { useTypedSelector } from "./lib/hooks/redux-hook/useTypedSelector"
 import userAPI from "./lib/services/axios-instances/userAPI"
+import { setTimeline } from "./lib/store/slices/timeline-slice/timelineSlice"
 
 // Routes
 import LandingPage from "./components/routes/unprotected-routes/landing-page/LandingPage"
@@ -28,6 +29,7 @@ import RequireAuth from "./components/routes/protected-routes/navigation-guards/
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
 import HomeLayout from "./components/routes/protected-routes/home/home-layout/HomeLayout"
+import timelineAPI from "./lib/services/axios-instances/timelineAPI"
 
 function App() {
   const dispatch = useDispatch()
@@ -45,8 +47,19 @@ function App() {
       }
     }
 
+    const fetchUserTimeline = async () => {
+      try {
+        const { data } = await timelineAPI.get(`/`)
+        dispatch(setTimeline(data.data))
+      } catch (err) {
+        console.log(err)
+        throw new Error("Failed to fetch user timeline")
+      }
+    }
+
     if (_id) {
       fetchUserDetails()
+      fetchUserTimeline()
     }
   }, [dispatch, _id])
 
