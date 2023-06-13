@@ -7,7 +7,7 @@ export interface PostType {
   creatorId: string
   creatorUsername: string
   color: string
-  category: string
+  category: "personal" | "chores" | "work" | "school" | "others"
   visibility: "personal" | "collaborators" | "public" | "private"
   upvotes: number
   downvotes: number

@@ -11,7 +11,7 @@ const Subtask = ({ subtask }: Props) => {
     <>
       <div className="flex justify-between text-center">
         <div className="border-secondary border p-2 pl-10 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center flex-grow">
-          <SubdirectoryArrowRightOutlinedIcon className="h-5 w-5" />{" "}
+          <SubdirectoryArrowRightOutlinedIcon className="h-5 w-5" />
           {subtask.title}
         </div>
         <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">

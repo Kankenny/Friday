@@ -4,6 +4,7 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined"
 import { Dispatch, SetStateAction } from "react"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import VisibilityIcon from "../icons/VisibilityIcon"
+import CategoryIcon from "../icons/CategoryIcon"
 
 type Props = {
   post: PostType
@@ -39,10 +40,13 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
         </div>
       </div>
       <div className="flex justify-between items-center pl-6">
-        <h1 className="text-sm">
-          {post.tasks.length} Tasks | {subtasksLength} Subtasks |{" "}
-          {post.comments.length} comments
-        </h1>
+        <div className="flex items-center gap-2">
+          <CategoryIcon category={post.category} />
+          <h1 className="text-sm">
+            {post.tasks.length} Tasks | {subtasksLength} Subtasks |{" "}
+            {post.comments.length} comments
+          </h1>
+        </div>
         <h1 className="font-light text-sm">By {post.creatorUsername}</h1>
       </div>
     </div>

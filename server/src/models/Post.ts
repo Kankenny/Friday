@@ -29,7 +29,7 @@ const PostSchema = new Schema(
     category: {
       type: String,
       required: false,
-      default: "personal",
+      default: "chores",
     },
     visibility: {
       type: String,
