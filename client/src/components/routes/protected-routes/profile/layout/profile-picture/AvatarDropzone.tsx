@@ -1,4 +1,4 @@
-import Avatar from "@mui/material/Avatar"
+import { Avatar } from "@mui/material"
 
 type Props = {
   firstName: string
