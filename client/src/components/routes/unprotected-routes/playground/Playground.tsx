@@ -5,7 +5,7 @@ import Accordion from "../../../ui/Accordion"
 import StyledLink from "../../../ui/StyledLink"
 import Overview from "../../../ui/Overview"
 import Logo from "../../../ui/Logo"
-import Post from "../../../ui/post/Post"
+import PostSkeleton from "../../../ui/post/skeleton/PostSkeleton"
 
 const Playground = () => {
   return (
@@ -17,8 +17,8 @@ const Playground = () => {
       </Overview>
 
       <div className="w-full space-y-4 border-b-2 border-b-black mb-10 p-5">
-        <h1 className="text-2xl font-bold">Post Component</h1>
-        <Post />
+        <h1 className="text-2xl font-bold">Post Skeleton Component</h1>
+        <PostSkeleton />
       </div>
 
       <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">

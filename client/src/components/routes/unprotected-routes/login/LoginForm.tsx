@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   loginFormSchema,
   loginFormType,
-} from "../../../../../../common/validations/loginFormValidator"
+} from "../../../../../../common/validations/auth/loginFormValidator"
 
 // Types
 type Props = {

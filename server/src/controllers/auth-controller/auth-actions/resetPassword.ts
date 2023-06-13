@@ -6,7 +6,7 @@ import bcrypt from "bcrypt"
 import UserModel from "../../../models/User"
 
 // Validators
-import { resetPasswordFormSchema } from "../../../../../common/validations/resetPasswordFormValidator"
+import { resetPasswordFormSchema } from "../../../../../common/validations/auth/resetPasswordFormValidator"
 
 export const resetPassword = async (req: Request, res: Response) => {
   // Validate body using the register form schema

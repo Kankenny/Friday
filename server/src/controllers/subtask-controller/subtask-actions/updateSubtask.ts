@@ -8,18 +8,17 @@ import TaskModel from "../../../models/Task"
 import SubtaskModel from "../../../models/Subtask"
 
 // Validators
-import updateSubtaskProgressSchema from "../../../lib/validations/subtask/updateSubtaskProgressValidator"
+import updateSubtaskSchema from "../../../lib/validations/subtask/updateSubtaskValidator"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
-export const changeSubtaskProgress = async (req: JWTRequest, res: Response) => {
+export const updateSubtask = async (req: JWTRequest, res: Response) => {
   try {
     // Validate body using the update subtask progress schema
-    updateSubtaskProgressSchema.parse(req.body)
+    const fieldsToBeUpdated = updateSubtaskSchema.parse(req.body)
 
-    // Extract progress payload from the request body and params
-    const { progress } = req.body
+    // Extract subtaskId payload from the request params
     const { subtaskId } = req.params
 
     // Extract postId and taskId from the request query
@@ -75,13 +74,16 @@ export const changeSubtaskProgress = async (req: JWTRequest, res: Response) => {
         .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
-    // Update subtask progress
-    existingSubtask.progress = progress
-    await existingSubtask.save()
+    // Update Subtask
+    const updatedSubtask = {
+      ...existingSubtask.toObject(),
+      ...fieldsToBeUpdated,
+    }
+    await TaskModel.findByIdAndUpdate(subtaskId, updatedSubtask)
 
     res.status(200).json({
-      message: "Task progress updated successfully!",
-      data: existingSubtask,
+      message: "Subtask updated successfully!",
+      data: updatedSubtask,
       ok: true,
     })
   } catch (error) {

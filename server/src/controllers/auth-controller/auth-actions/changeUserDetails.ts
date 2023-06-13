@@ -7,7 +7,7 @@ import bcrypt from "bcrypt"
 import UserModel from "../../../models/User"
 
 // Validators
-import { changeUserDetailsFormSchema } from "../../../../../common/validations/changeUserDetailsFormValidator"
+import { changeUserDetailsFormSchema } from "../../../../../common/validations/auth/changeUserDetailsFormValidator"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"

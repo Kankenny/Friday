@@ -7,18 +7,15 @@ import PostModel from "../../../models/Post"
 import TaskModel from "../../../models/Task"
 
 // Validators
-import updateTaskProgressSchema from "../../../lib/validations/task/updateTaskProgressValidator"
+import updateTaskSchema from "../../../lib/validations/task/updateTaskValidator"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
-export const changeTaskProgress = async (req: JWTRequest, res: Response) => {
+export const updateTask = async (req: JWTRequest, res: Response) => {
   try {
     // Validate body using the update task progress schema
-    updateTaskProgressSchema.parse(req.body)
-
-    // Extract progress payload from the request body
-    const { progress } = req.body
+    const fieldsToBeUpdated = updateTaskSchema.parse(req.body)
 
     // Check if post exists
     const postId = req.query.postId
@@ -71,13 +68,13 @@ export const changeTaskProgress = async (req: JWTRequest, res: Response) => {
         .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
-    // Update task progress
-    existingTask.progress = progress
-    await existingTask.save()
+    // Update task
+    const updatedTask = { ...existingTask.toObject(), ...fieldsToBeUpdated }
+    await TaskModel.findByIdAndUpdate(taskId, updatedTask)
 
     res.status(200).json({
-      message: "Task progress updated successfully!",
-      data: existingTask,
+      message: "Task updated successfully!",
+      data: updatedTask,
       ok: true,
     })
   } catch (error) {

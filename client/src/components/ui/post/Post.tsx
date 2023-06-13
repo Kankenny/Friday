@@ -3,9 +3,14 @@ import { useState } from "react"
 import ColumnHeaders from "./headers/ColumnHeaders"
 import MainHeader from "./headers/MainHeader"
 import PostActions from "./PostActions"
-import Task from "./tasks/Task"
+import Tasks from "./tasks/Tasks"
+import { PostType } from "../../../lib/types/primitive-types/PostType"
 
-const Post = () => {
+type Props = {
+  post: PostType
+}
+
+const Post = ({ post }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
@@ -15,12 +20,15 @@ const Post = () => {
         "border border-secondary hover:bg-secondary hover:text-white ease-in-out caret-transparent cursor-pointer"
       } duration-300`}
     >
-      <MainHeader setIsExpanded={setIsExpanded} isExpanded={isExpanded} />
-
+      <MainHeader
+        setIsExpanded={setIsExpanded}
+        isExpanded={isExpanded}
+        post={post}
+      />
       <div className={`border rounded-md ${!isExpanded && "hidden"}`}>
         <ColumnHeaders />
-        <Task />
-        <PostActions />
+        {post.tasks && <Tasks tasks={post.tasks} />}
+        <PostActions post={post} />
       </div>
     </div>
   )

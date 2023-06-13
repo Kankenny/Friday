@@ -3,7 +3,7 @@ import express, { Request, Response, NextFunction } from "express"
 
 // Task Controller Functions
 import {
-  changeTaskProgress,
+  updateTask,
   createTask,
   deleteTask,
   getPostTasks,
@@ -41,7 +41,7 @@ TaskRouter.put(
   "/",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
-  (req: Request, res: Response) => changeTaskProgress(req as JWTRequest, res)
+  (req: Request, res: Response) => updateTask(req as JWTRequest, res)
 )
 
 export default TaskRouter

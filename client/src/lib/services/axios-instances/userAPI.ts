@@ -5,7 +5,7 @@ const userAPI = axios.create({
     import.meta.env.VITE_BACKEND_SERVER_PORT
   }/api/user`,
   headers: {
-    Authorization: localStorage.getItem("token") || "",
+    Authorization: "Bearer " + localStorage.getItem("token") || "",
   },
 })
 

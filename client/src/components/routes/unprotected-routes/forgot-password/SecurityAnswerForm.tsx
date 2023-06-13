@@ -15,7 +15,7 @@ import { isAxiosError } from "axios"
 import {
   securityAnswerFormSchema,
   securityAnswerFormType,
-} from "../../../../../../common/validations/securityAnswerFormValidator"
+} from "../../../../../../common/validations/auth/securityAnswerFormValidator"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 // Types

@@ -15,7 +15,7 @@ import { isAxiosError } from "axios"
 import {
   resetPasswordFormSchema,
   resetPasswordFormType,
-} from "../../../../../../common/validations/resetPasswordFormValidator"
+} from "../../../../../../common/validations/auth/resetPasswordFormValidator"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 // Types

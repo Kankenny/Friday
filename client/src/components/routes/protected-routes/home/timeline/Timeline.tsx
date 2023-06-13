@@ -1,10 +1,15 @@
 import { useState } from "react"
 import StyledButton from "../../../../ui/StyledButton"
-import Post from "../../../../ui/post/Post"
 import CreatePostInput from "../home-layout/CreatePostInput"
+import TimelinePosts from "./TimelinePosts"
+import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
+import PostSkeletons from "../../../../ui/post/skeleton/PostSkeletons"
 
 const Timeline = () => {
+  const { isLoading } = useTypedSelector((state) => state.timeline)
   const [isCreating, setIsCreating] = useState(false)
+
+  const content = isLoading ? <PostSkeletons /> : <TimelinePosts />
 
   return (
     <div className="w-full space-y-10">
@@ -13,12 +18,8 @@ const Timeline = () => {
         onClick={() => setIsCreating(!isCreating)}
         twClasses={isCreating ? "hidden" : ""}
       />
-      {isCreating && <CreatePostInput />}
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
+      {content}
     </div>
   )
 }

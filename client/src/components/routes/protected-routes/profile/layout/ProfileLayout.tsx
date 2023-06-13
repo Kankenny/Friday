@@ -1,6 +1,6 @@
 // Components
 import { Outlet } from "react-router-dom"
-import ProfilePicture from "./ProfilePicture"
+import ProfilePicture from "./profile-picture/ProfilePicture"
 import UserDetails from "./UserDetails"
 
 const ProfileLayout = () => {

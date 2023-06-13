@@ -6,7 +6,12 @@ import PostModel from "../../../models/Post"
 
 export const getPosts = async (req: Request, res: Response) => {
   try {
-    const posts = await PostModel.find().populate("tasks")
+    const posts = await PostModel.find().populate({
+      path: "tasks",
+      populate: {
+        path: "subtasks",
+      },
+    })
 
     // Check validity of queried posts
     if (!posts || posts.length === 0) {

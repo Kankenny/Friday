@@ -24,10 +24,18 @@ export const getUser = async (req: Request, res: Response) => {
   }
 
   try {
-    // Check if user exists
-    const existingUser = await UserModel.findById(userId).populate(
-      "posts savedPosts upvotedPosts downvotedPosts notifications"
-    )
+    const existingUser = await UserModel.findById(userId)
+      .populate({
+        path: "posts savedPosts upvotedPosts downvotedPosts",
+        populate: {
+          path: "tasks",
+          populate: {
+            path: "subtasks",
+          },
+        },
+      })
+      .populate("notifications")
+
     if (!existingUser) {
       return res
         .status(404)

@@ -5,6 +5,7 @@ import { persistLogin } from "./lib/store/slices/auth-slice/authSlice"
 import { setUserDetails } from "./lib/store/slices/profile-slice/profileSlice"
 import { useTypedSelector } from "./lib/hooks/redux-hook/useTypedSelector"
 import userAPI from "./lib/services/axios-instances/userAPI"
+import { setTimeline } from "./lib/store/slices/timeline-slice/timelineSlice"
 
 // Routes
 import LandingPage from "./components/routes/unprotected-routes/landing-page/LandingPage"
@@ -28,6 +29,7 @@ import RequireAuth from "./components/routes/protected-routes/navigation-guards/
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
 import HomeLayout from "./components/routes/protected-routes/home/home-layout/HomeLayout"
+import timelineAPI from "./lib/services/axios-instances/timelineAPI"
 
 function App() {
   const dispatch = useDispatch()
@@ -35,18 +37,30 @@ function App() {
 
   useEffect(() => {
     dispatch(persistLogin())
-    const fetchUserDetails = async () => {
+
+    const fetchData = async () => {
       try {
-        const { data } = await userAPI.get(`/${_id}`)
-        dispatch(setUserDetails(data.data))
-      } catch (err) {
-        console.log(err)
-        throw new Error("Failed to fetch user details")
+        const userDetailsPromise = userAPI.get(`/${_id}`)
+        const userTimelinePromise = timelineAPI.get(`/`)
+
+        const [userDetailsResponse, userTimelineResponse] = await Promise.all([
+          userDetailsPromise,
+          userTimelinePromise,
+        ])
+
+        const userDetails = userDetailsResponse.data.data
+        const userTimeline = userTimelineResponse.data.data
+
+        dispatch(setUserDetails(userDetails))
+        dispatch(setTimeline(userTimeline))
+      } catch (error) {
+        console.log(error)
+        throw new Error("Failed to fetch user details or user timeline")
       }
     }
 
     if (_id) {
-      fetchUserDetails()
+      fetchData()
     }
   }, [dispatch, _id])
 

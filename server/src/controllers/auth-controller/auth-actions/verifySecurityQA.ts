@@ -6,7 +6,7 @@ import bcrypt from "bcrypt"
 import UserModel from "../../../models/User"
 
 // Validators
-import { securityAnswerFormSchema } from "../../../../../common/validations/securityAnswerFormValidator"
+import { securityAnswerFormSchema } from "../../../../../common/validations/auth/securityAnswerFormValidator"
 
 export const verifySecurityQA = async (req: Request, res: Response) => {
   // Validate body using the register form schema

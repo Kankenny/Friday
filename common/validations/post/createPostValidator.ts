@@ -1,14 +1,14 @@
 import { z } from "zod"
 
-const createPostSchema = z.object({
+export const createPostSchema = z.object({
   title: z.string().min(1).trim(),
   creatorId: z.undefined(),
   creatorUsername: z.undefined(),
   dueDate: z.date().optional(),
-  color: z.string().min(1),
-  category: z.string().min(1),
+  color: z.string().optional(),
+  category: z.string().optional(),
   visibility: z.enum(["personal", "collaborators", "private", "public"]),
   authorization: z.enum(["personal", "collaborators"]),
 })
 
-export default createPostSchema
+export type createPostType = z.infer<typeof createPostSchema>

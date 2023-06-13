@@ -1,5 +1,5 @@
 // Dependencies
-import { Request, Response } from "express"
+import { Response } from "express"
 
 // Models
 import PostModel from "../../../models/Post"
@@ -9,7 +9,7 @@ import UserModel from "../../../models/User"
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
 // Validators
-import createPostSchema from "../../../lib/validations/post/createPostValidator"
+import { createPostSchema } from "../../../../../common/validations/post/createPostValidator"
 
 export const createPost = async (req: JWTRequest, res: Response) => {
   try {

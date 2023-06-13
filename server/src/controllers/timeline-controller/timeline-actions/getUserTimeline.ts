@@ -21,23 +21,55 @@ export const getUserTimeline = async (req: JWTRequest, res: Response) => {
         .json({ message: "User not found!", data: null, ok: false })
     }
 
+    // Own user's posts
+    const ownPosts = await PostModel.find({
+      creatorId: existingUser._id,
+    }).populate({
+      path: "tasks",
+      populate: {
+        path: "subtasks",
+      },
+    })
+
     // Public posts
-    const publicPosts = await PostModel.find({ visibility: "public" })
+    const publicPosts = await PostModel.find({ visibility: "public" }).populate(
+      {
+        path: "tasks",
+        populate: {
+          path: "subtasks",
+        },
+      }
+    )
 
     // Private posts by followed users
     const following = existingUser.following
     const privatePosts = await PostModel.find({
       visibility: "private",
       creatorId: { $in: following },
+    }).populate({
+      path: "tasks",
+      populate: {
+        path: "subtasks",
+      },
     })
 
     // Authorized posts
     const authorizedPosts = await PostModel.find({
       _id: { $in: existingUser.authorizedPosts },
+    }).populate({
+      path: "tasks",
+      populate: {
+        path: "subtasks",
+      },
     })
 
     // Combine all post categories and remove duplicates using Set
-    const allPosts = [...publicPosts, ...privatePosts, ...authorizedPosts]
+    const allPosts = [
+      ...ownPosts,
+      ...publicPosts,
+      ...privatePosts,
+      ...authorizedPosts,
+    ]
     const uniquePosts = Array.from(
       new Set(allPosts.map((post) => post._id))
     ).map((postId) => allPosts.find((post) => post._id.equals(postId)))

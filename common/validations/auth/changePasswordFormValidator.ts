@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { strongPasswordRegex } from "../constants/strongPasswordRegex"
+import { strongPasswordRegex } from "../../constants/strongPasswordRegex"
 
 export const changePasswordFormSchema = z
   .object({
