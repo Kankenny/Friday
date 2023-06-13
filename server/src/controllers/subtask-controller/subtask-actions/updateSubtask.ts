@@ -13,10 +13,10 @@ import updateSubtaskProgressSchema from "../../../lib/validations/subtask/update
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
-export const changeSubtaskProgress = async (req: JWTRequest, res: Response) => {
+export const updateSubtask = async (req: JWTRequest, res: Response) => {
   try {
     // Validate body using the update subtask progress schema
-    updateSubtaskProgressSchema.parse(req.body)
+    const fieldsToBeUpdated = updateSubtaskProgressSchema.parse(req.body)
 
     // Extract progress payload from the request body and params
     const { progress } = req.body
@@ -75,12 +75,12 @@ export const changeSubtaskProgress = async (req: JWTRequest, res: Response) => {
         .json({ message: "Unauthorized request!", data: null, ok: false })
     }
 
-    // Update subtask progress
-    existingSubtask.progress = progress
-    await existingSubtask.save()
+    // Update Subtask
+    const updatedSubtask = { ...existingSubtask, ...fieldsToBeUpdated }
+    await existingSubtask.updateOne(updatedSubtask)
 
     res.status(200).json({
-      message: "Task progress updated successfully!",
+      message: "Subtask updated successfully!",
       data: existingSubtask,
       ok: true,
     })
