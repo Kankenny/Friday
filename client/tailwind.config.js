@@ -15,6 +15,7 @@ export default {
       },
       animation: {
         "slide-down": "slide-down 0.5s",
+        pulse: "pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         "slide-down": {
