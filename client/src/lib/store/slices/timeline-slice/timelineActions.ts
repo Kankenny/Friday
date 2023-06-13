@@ -9,3 +9,10 @@ export const setTimelineReducer = (
   state.posts = action.payload
   state.isLoading = false
 }
+
+export const createPostReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<PostType>
+) => {
+  state.posts = [action.payload, ...state.posts]
+}

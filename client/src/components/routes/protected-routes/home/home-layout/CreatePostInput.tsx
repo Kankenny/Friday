@@ -15,8 +15,11 @@ import { CATEGORIES } from "../../../../../lib/constants/Categories"
 import { isAxiosError } from "axios"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
 import Alert from "../../../../ui/mui/Alert"
+import { useDispatch } from "react-redux"
+import { createPost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 
 const CreatePostInput = () => {
+  const dispatch = useDispatch()
   const [error, setError] = useState("")
   const {
     register,
@@ -34,7 +37,8 @@ const CreatePostInput = () => {
   const handleCreatePost = async (formData: createPostType) => {
     try {
       const { data } = await postAPI.post("/", formData)
-      console.log(data)
+
+      dispatch(createPost(data.data))
       setError("")
     } catch (err) {
       if (isAxiosError(err)) {
