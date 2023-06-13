@@ -18,8 +18,7 @@ export const updateSubtask = async (req: JWTRequest, res: Response) => {
     // Validate body using the update subtask progress schema
     const fieldsToBeUpdated = updateSubtaskSchema.parse(req.body)
 
-    // Extract progress payload from the request body and params
-    const { progress } = req.body
+    // Extract subtaskId payload from the request params
     const { subtaskId } = req.params
 
     // Extract postId and taskId from the request query
@@ -76,12 +75,15 @@ export const updateSubtask = async (req: JWTRequest, res: Response) => {
     }
 
     // Update Subtask
-    const updatedSubtask = { ...existingSubtask, ...fieldsToBeUpdated }
-    await existingSubtask.updateOne(updatedSubtask)
+    const updatedSubtask = {
+      ...existingSubtask.toObject(),
+      ...fieldsToBeUpdated,
+    }
+    await TaskModel.findByIdAndUpdate(subtaskId, updatedSubtask)
 
     res.status(200).json({
       message: "Subtask updated successfully!",
-      data: existingSubtask,
+      data: updatedSubtask,
       ok: true,
     })
   } catch (error) {
