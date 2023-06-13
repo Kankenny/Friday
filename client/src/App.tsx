@@ -37,29 +37,30 @@ function App() {
 
   useEffect(() => {
     dispatch(persistLogin())
-    const fetchUserDetails = async () => {
-      try {
-        const { data } = await userAPI.get(`/${_id}`)
-        dispatch(setUserDetails(data.data))
-      } catch (err) {
-        console.log(err)
-        throw new Error("Failed to fetch user details")
-      }
-    }
 
-    const fetchUserTimeline = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await timelineAPI.get(`/`)
-        dispatch(setTimeline(data.data))
-      } catch (err) {
-        console.log(err)
-        throw new Error("Failed to fetch user timeline")
+        const userDetailsPromise = userAPI.get(`/${_id}`)
+        const userTimelinePromise = timelineAPI.get(`/`)
+
+        const [userDetailsResponse, userTimelineResponse] = await Promise.all([
+          userDetailsPromise,
+          userTimelinePromise,
+        ])
+
+        const userDetails = userDetailsResponse.data.data
+        const userTimeline = userTimelineResponse.data.data
+
+        dispatch(setUserDetails(userDetails))
+        dispatch(setTimeline(userTimeline))
+      } catch (error) {
+        console.log(error)
+        throw new Error("Failed to fetch user details or user timeline")
       }
     }
 
     if (_id) {
-      fetchUserDetails()
-      fetchUserTimeline()
+      fetchData()
     }
   }, [dispatch, _id])
 
