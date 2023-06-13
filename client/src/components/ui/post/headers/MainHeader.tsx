@@ -11,10 +11,12 @@ type Props = {
 }
 
 const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
-  const subtasksLength = post.tasks.reduce(
-    (total, task) => total + task.subtasks.length,
-    0
-  )
+  const subtasksLength = post.tasks
+    ? post.tasks.reduce(
+        (total, task) => total + (task.subtasks?.length || 0),
+        0
+      )
+    : 0
 
   return (
     <div className="p-2">

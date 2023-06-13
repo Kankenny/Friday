@@ -6,7 +6,7 @@ type Props = {
 }
 
 const Tasks = ({ tasks }: Props) => {
-  const content = tasks.map((task) => <Task task={task} />)
+  const content = tasks.map((task) => <Task task={task} key={task._id} />)
 
   return content
 }

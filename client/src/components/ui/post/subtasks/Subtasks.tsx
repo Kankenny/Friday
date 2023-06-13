@@ -6,7 +6,9 @@ type Props = {
 }
 
 const Subtasks = ({ subtasks }: Props) => {
-  const content = subtasks.map((subtask) => <Subtask subtask={subtask} />)
+  const content = subtasks.map((subtask) => (
+    <Subtask subtask={subtask} key={subtask._id} />
+  ))
 
   return content
 }

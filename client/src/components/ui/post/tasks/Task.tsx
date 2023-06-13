@@ -30,7 +30,9 @@ const Task = ({ task }: Props) => {
           10/01/1001
         </h1>
       </div>
-      {isExpanded && <Subtasks subtasks={task.subtasks} />}
+      {isExpanded && task.subtasks.length !== 0 && (
+        <Subtasks subtasks={task.subtasks} />
+      )}
     </>
   )
 }
