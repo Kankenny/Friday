@@ -12,7 +12,7 @@ type Props = {
 
 const Post = ({ post }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false)
-  console.log(post)
+
   return (
     <div
       className={`rounded-md shadow-md  ${
