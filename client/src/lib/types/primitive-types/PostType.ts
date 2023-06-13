@@ -8,7 +8,7 @@ export interface PostType {
   creatorUsername: string
   color: string
   category: string
-  visibility: string
+  visibility: "personal" | "collaborators" | "public" | "private"
   upvotes: number
   downvotes: number
   authorization: string
