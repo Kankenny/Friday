@@ -9,8 +9,8 @@ export const getPost = async (req: Request, res: Response) => {
   const { postId } = req.params
 
   try {
-    const existingPost = await PostModel.find({ _id: postId }).populate(
-      "tasks comments"
+    const existingPost = await PostModel.findById(postId).populate(
+      "tasks comments tasks.subtasks"
     )
 
     // Check if post exists
