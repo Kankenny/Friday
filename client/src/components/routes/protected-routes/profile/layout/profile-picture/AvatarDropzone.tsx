@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useDropzone } from "react-dropzone"
 import StyledButton from "../../../../../ui/StyledButton"
+import cloudinaryAPI from "../../../../../../lib/services/axios-instances/cloudinaryAPI"
 
 type Props = {
   firstName: string
@@ -25,21 +26,11 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
       formData.append("file", selectedFile)
       formData.append("upload_preset", "ugjfytls")
 
-      const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY_URL
-      console.log(CLOUDINARY_URL)
       try {
-        const cloudinaryResponse = await fetch(CLOUDINARY_URL, {
-          method: "POST",
-          body: formData,
-        })
-        const data = await cloudinaryResponse.json()
-
+        const { data } = await cloudinaryAPI.post("/", formData)
         console.log(data.secure_url)
       } catch (error) {
-        console.log(
-          "Error occurred while uploading image to Cloudinary:",
-          error
-        )
+        console.log(error)
       }
     }
   }
