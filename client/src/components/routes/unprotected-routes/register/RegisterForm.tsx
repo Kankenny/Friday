@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   registerFormSchema,
   registerFormType,
-} from "../../../../../../common/validations/registerFormValidator"
+} from "../../../../../../common/validations/auth/registerFormValidator"
 
 // Constant Variables
 import { QUESTIONS } from "../../../../lib/constants/SecurityQuestions"

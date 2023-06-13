@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   forgotPasswordFormSchema,
   forgotPasswordFormType,
-} from "../../../../../../common/validations/forgotPasswordFormValidator"
+} from "../../../../../../common/validations/auth/forgotPasswordFormValidator"
 
 const ForgotPasswordForm = () => {
   const navigate = useNavigate()
