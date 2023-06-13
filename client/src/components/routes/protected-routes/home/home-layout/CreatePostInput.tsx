@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Card from "../../../../ui/Card"
 import RHFInputField from "../../../../ui/rhf/RHFInputField"
 import { useForm } from "react-hook-form"
-import { useEffect, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 import {
   createPostSchema,
   createPostType,
