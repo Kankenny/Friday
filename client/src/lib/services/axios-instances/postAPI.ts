@@ -1,12 +1,12 @@
 import axios from "axios"
 
-const authAPI = axios.create({
+const postAPI = axios.create({
   baseURL: `http://localhost:${
     import.meta.env.VITE_BACKEND_SERVER_PORT
-  }/api/auth`,
+  }/api/post`,
   headers: {
     Authorization: "Bearer " + localStorage.getItem("token") || "",
   },
 })
 
-export default authAPI
+export default postAPI

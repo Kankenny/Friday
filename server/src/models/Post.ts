@@ -23,11 +23,13 @@ const PostSchema = new Schema(
     },
     color: {
       type: String,
-      required: true,
+      required: false,
+      default: "blue",
     },
     category: {
       type: String,
-      required: true,
+      required: false,
+      default: "personal",
     },
     visibility: {
       type: String,

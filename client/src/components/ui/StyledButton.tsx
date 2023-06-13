@@ -3,6 +3,7 @@ type Props = {
   buttonText: string
   intent?: "primary" | "secondary"
   twClasses?: string
+  type?: "submit" | "button"
 }
 
 const StyledButton = ({
@@ -10,6 +11,7 @@ const StyledButton = ({
   buttonText,
   intent = "primary",
   twClasses,
+  type = "button",
 }: Props) => {
   const activatedButtonClasses =
     intent === "primary"
@@ -20,6 +22,7 @@ const StyledButton = ({
     <button
       className={`w-28 rounded-xl text-center text-sm px-4 py-2 hover:scale-105 ease-in-out duration-100 ${activatedButtonClasses} ${twClasses}`}
       onClick={onClick}
+      type={type}
     >
       {buttonText}
     </button>

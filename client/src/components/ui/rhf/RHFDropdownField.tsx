@@ -25,11 +25,11 @@ const RHFDropdownField = ({
         {...rest}
         id={name}
         {...register}
-        className="p-2 py-3 block w-full px-0 mt-0 bg-main border-2 appearance-none focus:outline-none focus:ring-0 focus:border-tertiary border-gray-200 pl-5 rounded-md dark:bg-secondary text-sm"
+        className="p-2 py-3 block w-full px-0 mt-0 bg-main border-2 appearance-none focus:outline-none focus:ring-0 focus:border-tertiary border-gray-200 pl-5 rounded-md dark:bg-secondary text-sm capitalize"
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (
-          <option key={option} value={option}>
+          <option key={option} value={option} className="capitalize">
             {option}
           </option>
         ))}
