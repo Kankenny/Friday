@@ -18,7 +18,7 @@ const Timeline = () => {
         onClick={() => setIsCreating(!isCreating)}
         twClasses={isCreating ? "hidden" : ""}
       />
-      {isCreating && <CreatePostInput />}
+      {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
       {content}
     </div>
   )

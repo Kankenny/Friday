@@ -18,7 +18,11 @@ import Alert from "../../../../ui/mui/Alert"
 import { useDispatch } from "react-redux"
 import { createPost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 
-const CreatePostInput = () => {
+type Props = {
+  setIsCreating: React.Dispatch<SetStateAction<boolean>>
+}
+
+const CreatePostInput = ({ setIsCreating }: Props) => {
   const dispatch = useDispatch()
   const [error, setError] = useState("")
   const {
@@ -39,6 +43,7 @@ const CreatePostInput = () => {
       const { data } = await postAPI.post("/", formData)
 
       dispatch(createPost(data.data))
+      setIsCreating(false)
       setError("")
     } catch (err) {
       if (isAxiosError(err)) {

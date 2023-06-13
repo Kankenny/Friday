@@ -13,7 +13,7 @@ const Workspace = () => {
         onClick={() => setIsCreating(!isCreating)}
         twClasses={isCreating ? "hidden" : ""}
       />
-      {isCreating && <CreatePostInput />}
+      {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
       <WorkspacePosts />
     </div>
   )
