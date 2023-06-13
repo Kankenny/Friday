@@ -1,9 +1,10 @@
 import { PayloadAction } from "@reduxjs/toolkit"
 import { TimelineSliceType } from "../../../types/slice-types/TimelineSliceType"
+import { PostType } from "../../../types/primitive-types/PostType"
 
 export const setTimelineReducer = (
   state: TimelineSliceType,
-  action: PayloadAction<TimelineSliceType>
+  action: PayloadAction<PostType[]>
 ) => {
-  return { ...state, ...action.payload }
+  state.posts = action.payload
 }

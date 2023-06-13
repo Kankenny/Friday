@@ -1,4 +1,4 @@
-import { PostType } from "../primitive-types/postType"
+import { PostType } from "../primitive-types/PostType"
 
 export interface TimelineSliceType {
   posts: PostType[]

@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit"
-import { AuthSliceType } from "../../../types/slice-types/authSliceType"
+import { AuthSliceType } from "../../../types/slice-types/AuthSliceType"
 
 export const persistLoginReducer = (state: AuthSliceType) => {
   if (

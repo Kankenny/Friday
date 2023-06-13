@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit"
-import { ProfileSliceType } from "../../../types/slice-types/profileSliceType"
+import { ProfileSliceType } from "../../../types/slice-types/ProfileSliceType"
 
 export const setUserDetailsReducer = (
   state: ProfileSliceType,

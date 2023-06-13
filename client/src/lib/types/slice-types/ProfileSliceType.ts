@@ -1,4 +1,4 @@
-import { PostType } from "../primitive-types/postType"
+import { PostType } from "../primitive-types/PostType"
 import { NotificationType } from "../primitive-types/NotificationType"
 import { CommentType } from "../primitive-types/CommentType"
 
