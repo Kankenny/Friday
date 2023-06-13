@@ -1,6 +1,7 @@
 import Dialog from "@mui/material/Dialog"
 import StyledButton from "../../../../../ui/StyledButton"
 import { Avatar } from "@mui/material"
+import AvatarDropzone from "./AvatarDropzone"
 
 type Props = {
   firstName: string
@@ -21,9 +22,7 @@ const ChangePFPDialog = ({
         <h1 className="text-3xl font-bold text-secondary text-center">
           Change Profile Picture
         </h1>
-        <Avatar className="h-96 w-96 cursor-pointer text-6xl hover:bg-secondary hover:text-tertiary hover:opacity-70 duration-200 ease-in-out capitalize">
-          {profilePicture ? "" : firstName.charAt(0)}
-        </Avatar>
+        <AvatarDropzone firstName={firstName} profilePicture={profilePicture} />
         <StyledButton
           buttonText="Set Profile Picture"
           onClick={() => console.log("TEST")}
