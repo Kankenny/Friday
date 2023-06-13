@@ -1,11 +1,14 @@
-import { PostType } from "../../../../lib/types/primitive-types/PostType"
+import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
+import Task from "./Task"
 
 type Props = {
-  post: PostType
+  tasks: TaskType[]
 }
 
-const Tasks = ({ post }: Props) => {
-  return <div>Tasks</div>
+const Tasks = ({ tasks }: Props) => {
+  const content = tasks.map((task) => <Task task={task} />)
+
+  return content
 }
 
 export default Tasks

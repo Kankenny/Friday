@@ -12,7 +12,7 @@ type Props = {
 
 const Post = ({ post }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false)
-
+  console.log(post)
   return (
     <div
       className={`rounded-md shadow-md  ${
@@ -25,10 +25,9 @@ const Post = ({ post }: Props) => {
         isExpanded={isExpanded}
         post={post}
       />
-
       <div className={`border rounded-md ${!isExpanded && "hidden"}`}>
-        <ColumnHeaders post={post} />
-        <Tasks post={post} />
+        <ColumnHeaders />
+        <Tasks tasks={post.tasks} />
         <PostActions post={post} />
       </div>
     </div>
