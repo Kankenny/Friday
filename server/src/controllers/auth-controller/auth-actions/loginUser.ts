@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken"
 import UserModel from "../../../models/User"
 
 // Validators
-import { loginFormSchema } from "../../../../../common/validations/loginFormValidator"
+import { loginFormSchema } from "../../../../../common/validations/auth/loginFormValidator"
 
 export const loginUser = async (req: Request, res: Response) => {
   /* 
@@ -36,24 +36,20 @@ export const loginUser = async (req: Request, res: Response) => {
       username,
     })
     if (!user)
-      return res
-        .status(400)
-        .json({
-          message: "Invalid username or password!",
-          data: null,
-          ok: false,
-        })
+      return res.status(400).json({
+        message: "Invalid username or password!",
+        data: null,
+        ok: false,
+      })
 
     // Check if the password matches
     const doesPasswordMatch = await bcrypt.compare(password, user.password)
     if (!doesPasswordMatch)
-      return res
-        .status(400)
-        .json({
-          message: "Invalid username or password!",
-          data: null,
-          ok: false,
-        })
+      return res.status(400).json({
+        message: "Invalid username or password!",
+        data: null,
+        ok: false,
+      })
 
     const token = jwt.sign(
       { _idFromToken: user._id },

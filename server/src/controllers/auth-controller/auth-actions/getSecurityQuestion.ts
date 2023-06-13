@@ -5,7 +5,7 @@ import { Request, Response } from "express"
 import UserModel from "../../../models/User"
 
 // Validators
-import { forgotPasswordFormSchema } from "../../../../../common/validations/forgotPasswordFormValidator"
+import { forgotPasswordFormSchema } from "../../../../../common/validations/auth/forgotPasswordFormValidator"
 
 export const getSecurityQuestion = async (req: Request, res: Response) => {
   // Validate body using the register form schema

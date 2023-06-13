@@ -1,13 +1,12 @@
 // Dependencies
 import { Response } from "express"
-import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 
 // Models
 import UserModel from "../../../models/User"
 
 // Validators
-import { changePasswordFormSchema } from "../../../../../common/validations/changePasswordFormValidator"
+import { changePasswordFormSchema } from "../../../../../common/validations/auth/changePasswordFormValidator"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
