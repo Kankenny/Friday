@@ -12,7 +12,7 @@ export interface PostType {
   upvotes: number
   downvotes: number
   authorization: string
-  authorizedUsers: string
+  authorizedUsers: string[]
   upvotedBy: string[]
   downvotedBy: string[]
   tasks: TaskType[]
