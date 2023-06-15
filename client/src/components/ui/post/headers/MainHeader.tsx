@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from "react"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import VisibilityIcon from "../icons/VisibilityIcon"
 import CategoryIcon from "../icons/CategoryIcon"
+import { Link } from "react-router-dom"
 
 type Props = {
   post: PostType
@@ -21,7 +22,7 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
     : 0
 
   return (
-    <div className="p-2">
+    <div className="group p-2">
       <div className="flex justify-between">
         <div className="flex items-center">
           <Tooltip title="Expand Post">
@@ -47,7 +48,12 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
             {post.comments.length} comments
           </h1>
         </div>
-        <h1 className="font-light text-sm">By {post.creatorUsername}</h1>
+        <Link
+          className="font-light text-sm group-hover:underline duration-200 ease-in-out hover:text-tertiary hover:decoration-tertiary"
+          to={`/users/${post.creatorUsername}`}
+        >
+          By {post.creatorUsername}
+        </Link>
       </div>
     </div>
   )
