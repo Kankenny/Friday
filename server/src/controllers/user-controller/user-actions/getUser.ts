@@ -1,6 +1,6 @@
 // Dependencies
 import { Request, Response } from "express"
-import mongoose from "mongoose"
+import { Types } from "mongoose"
 
 // Models
 import UserModel from "../../../models/User"
@@ -8,6 +8,8 @@ import UserModel from "../../../models/User"
 export const getUser = async (req: Request, res: Response) => {
   // Extract username from request params
   const { userIdOrUsername } = req.params
+
+  console.log(userIdOrUsername)
 
   // Check if appropriate payload is attached to the body
   if (!userIdOrUsername) {
@@ -18,21 +20,24 @@ export const getUser = async (req: Request, res: Response) => {
     })
   }
 
+  let query: any
+  if (Types.ObjectId.isValid(userIdOrUsername)) {
+    query = { $or: [{ _id: userIdOrUsername }, { username: userIdOrUsername }] }
+  } else {
+    query = { username: userIdOrUsername }
+  }
+
   try {
     // Check if the user exists
-    const existingUser = await UserModel.findOne({
-      $or: [{ _id: userIdOrUsername }, { username: userIdOrUsername }],
-    })
-      .populate({
-        path: "posts savedPosts upvotedPosts downvotedPosts",
+    const existingUser = await UserModel.findOne(query).populate({
+      path: "posts savedPosts upvotedPosts downvotedPosts",
+      populate: {
+        path: "tasks",
         populate: {
-          path: "tasks",
-          populate: {
-            path: "subtasks",
-          },
+          path: "subtasks",
         },
-      })
-      .populate("notifications")
+      },
+    })
 
     if (!existingUser) {
       return res

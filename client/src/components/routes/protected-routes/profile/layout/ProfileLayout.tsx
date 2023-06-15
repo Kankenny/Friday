@@ -31,6 +31,7 @@ const ProfileLayout = () => {
         setError("")
       } catch (err) {
         if (isAxiosError(err)) {
+          console.error(err)
           setError(err.message)
         }
       }
