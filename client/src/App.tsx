@@ -87,7 +87,7 @@ function App() {
               <Route path="/app/workspace" element={<Workspace />} />
             </Route>
             <Route element={<ProfileLayout />}>
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/users/:userCredentials" element={<Profile />} />
             </Route>
           </Route>
 
