@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box"
-import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import Comments from "./Comments"
+import { PostDetailSliceType } from "../../../../lib/types/slice-types/PostDetailSliceType"
 
 type Props = {
-  post: PostType
+  post: PostDetailSliceType
   toggleDrawer: (
     openState: boolean
   ) => (event: React.KeyboardEvent | React.MouseEvent) => void
@@ -19,7 +19,7 @@ const CommentsDrawer = ({ post, toggleDrawer }: Props) => {
       <h1 className="text-3xl font-bold text-tertiary pb-5 border-b border-main mb-5">
         {post.title} — Comments
       </h1>
-      <Comments comments={post.comments} />
+      <Comments />
     </Box>
   )
 }

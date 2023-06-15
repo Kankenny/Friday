@@ -1,13 +1,24 @@
-import { CommentType } from "../../../../lib/types/primitive-types/CommentType"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
+import Comment from "./Comment"
 
-type Props = {
-  comments: CommentType[]
-}
+const Comments = () => {
+  const { comments } = useTypedSelector((state) => state.postDetail)
 
-const Comments = ({ comments }: Props) => {
-  const content = comments.map((comment) => <div key={1}>{comment.body}</div>)
-  console.log(comments)
-  return <>{content}</>
+  const content = comments.map((comment) => (
+    <Comment key={comment._id} comment={comment} />
+  ))
+
+  return (
+    <div className="space-y-5">
+      {comments.length !== 0 ? (
+        content
+      ) : (
+        <h1 className="text-1xl font-bold text-red-500">
+          No comments found...
+        </h1>
+      )}
+    </div>
+  )
 }
 
 export default Comments

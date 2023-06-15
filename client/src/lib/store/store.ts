@@ -3,6 +3,7 @@ import authReducer from "./slices/auth-slice/authSlice"
 import sameProfileReducer from "./slices/same-profile-slice/sameProfileSlice"
 import otherProfileReducer from "./slices/other-profile-slice/otherProfileSlice"
 import timelineReducer from "./slices/timeline-slice/timelineSlice"
+import postDetailReducer from "./slices/post-detail-slice/postDetailSlice"
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     sameProfile: sameProfileReducer,
     otherProfile: otherProfileReducer,
     timeline: timelineReducer,
+    postDetail: postDetailReducer,
   },
 })
 
