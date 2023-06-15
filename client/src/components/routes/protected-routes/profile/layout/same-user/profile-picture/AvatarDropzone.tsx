@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone"
 import StyledButton from "../../../../../../ui/StyledButton"
 import cloudinaryAPI from "../../../../../../../lib/services/axios-instances/cloudinaryAPI"
 import authAPI from "../../../../../../../lib/services/axios-instances/authAPI"
-import { changeProfilePicture } from "../../../../../../../lib/store/slices/profile-slice/profileSlice"
+import { changeProfilePicture } from "../../../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { useDispatch } from "react-redux"
 import { LinearProgress } from "@mui/material"
 

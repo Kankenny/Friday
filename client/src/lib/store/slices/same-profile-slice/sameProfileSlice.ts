@@ -3,7 +3,7 @@ import { ProfileSliceType } from "../../../types/slice-types/ProfileSliceType"
 import {
   changeProfilePictureReducer,
   setUserDetailsReducer,
-} from "./profileActions"
+} from "./sameProfileActions"
 
 const initialState: ProfileSliceType = {
   _id: "",
