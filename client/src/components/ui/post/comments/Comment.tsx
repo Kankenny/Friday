@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import { UserType } from "../../../../lib/types/primitive-types/UserType"
 import Avatar from "@mui/material/Avatar"
 
@@ -14,18 +15,30 @@ type Props = {
 
 const Comment = ({ comment }: Props) => {
   const formattedDate = new Date(comment.createdAt).toLocaleString()
-  const { commenterId } = comment
+  const { body, commenterId, commenterUsername } = comment
   const { firstName, profilePicture } = commenterId
+
+  const navigate = useNavigate()
+
+  const handleProfileVisit = () => {
+    navigate(`/users/${commenterUsername}`)
+  }
 
   return (
     <div className="flex gap-1">
-      <Avatar className="text-secondary capitalize" src={profilePicture}>
+      <Avatar
+        className="text-secondary capitalize mt-1 cursor-pointer"
+        src={profilePicture}
+        onClick={handleProfileVisit}
+      >
         {profilePicture ? "" : firstName.charAt(0)}
       </Avatar>
       <div>
         <div className="p-2 bg-gray-400 w-max rounded-2xl text-secondary">
-          <h1 className="font-semibold">{comment.commenterUsername}</h1>
-          <p className="font-light text-sm">{comment.body}</p>
+          <h1 className="cursor-pointer" onClick={handleProfileVisit}>
+            {commenterUsername}
+          </h1>
+          <p className="font-light text-sm">{body}</p>
         </div>
         <p className="font-extralight text-xs ml-1 mt-1">{formattedDate}</p>
       </div>
