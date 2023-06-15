@@ -6,7 +6,7 @@ import ChangePFPDialog from "./ChangePFPDialog"
 const SameUserPFP = () => {
   const [open, setOpen] = useState(false)
   const { profilePicture, firstName } = useTypedSelector(
-    (state) => state.profile
+    (state) => state.sameProfile
   )
 
   const handleOpen = () => {

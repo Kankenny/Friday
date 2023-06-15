@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 const OtherUserDetails = () => {
   const { username, email, firstName, lastName, followers, following } =
-    useTypedSelector((state) => state.profile)
+    useTypedSelector((state) => state.otherProfile)
   const navigate = useNavigate()
 
   const handleEditProfileClick = () => {

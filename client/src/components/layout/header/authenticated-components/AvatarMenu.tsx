@@ -18,7 +18,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 
 export default function MenuListComposition() {
   const { profilePicture, firstName, username } = useTypedSelector(
-    (state) => state.profile
+    (state) => state.sameProfile
   )
   const dispatch = useDispatch()
   const navigate = useNavigate()

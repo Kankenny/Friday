@@ -6,7 +6,7 @@ import ChangePFPDialog from "./PFPDialog"
 const OtherUserPFP = () => {
   const [open, setOpen] = useState(false)
   const { profilePicture, firstName } = useTypedSelector(
-    (state) => state.profile
+    (state) => state.otherProfile
   )
 
   const handleOpen = () => {
