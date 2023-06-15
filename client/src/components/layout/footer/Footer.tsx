@@ -28,7 +28,7 @@ export default Footer
 const UnauthenticatedFooter = () => {
   return (
     <nav className="flex flex-col md:flex-row gap-4 items-center">
-      <RouterLink to="/app" routerLinkText="Home" twClasses="text-lg" />
+      <RouterLink to="/" routerLinkText="Home" twClasses="text-lg" />
       <RouterLink to="/login" routerLinkText="Login" twClasses="text-lg" />
       <RouterLink
         to="/playground"
@@ -42,7 +42,7 @@ const UnauthenticatedFooter = () => {
 const AuthenticatedFooter = () => {
   return (
     <nav className="flex flex-col md:flex-row gap-4 items-center">
-      <RouterLink to="/app" routerLinkText="Home" twClasses="text-lg" />
+      <RouterLink to="/timeline" routerLinkText="Home" twClasses="text-lg" />
     </nav>
   )
 }

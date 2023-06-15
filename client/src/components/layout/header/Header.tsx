@@ -28,7 +28,7 @@ export default Header
 const UnauthenticatedHeader = () => {
   return (
     <nav className="space-x-4 hidden md:block">
-      <RouterLink to="/app" routerLinkText="Home" twClasses="text-lg" />
+      <RouterLink to="/" routerLinkText="Home" twClasses="text-lg" />
       <RouterLink to="/login" routerLinkText="Login" twClasses="text-lg" />
       <RouterLink
         to="/playground"
@@ -42,7 +42,7 @@ const UnauthenticatedHeader = () => {
 const AuthenticatedHeader = () => {
   return (
     <nav className="space-x-4 hidden md:flex md:items-center">
-      <RouterLink to="/app" routerLinkText="Home" twClasses="text-lg" />
+      <RouterLink to="/timeline" routerLinkText="Home" twClasses="text-lg" />
       <NotificationMenu options={["test"]} />
       <AvatarMenu />
     </nav>
