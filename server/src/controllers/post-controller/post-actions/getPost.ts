@@ -9,9 +9,19 @@ export const getPost = async (req: Request, res: Response) => {
   const { postId } = req.params
 
   try {
-    const existingPost = await PostModel.findById(postId).populate(
-      "tasks comments comments.creatorId tasks.subtasks"
-    )
+    const existingPost = await PostModel.findById(postId)
+      .populate({
+        path: "tasks",
+        populate: {
+          path: "subtasks",
+        },
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "commenterId",
+        },
+      })
 
     // Check if post exists
     if (!existingPost) {

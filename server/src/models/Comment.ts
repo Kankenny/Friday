@@ -11,11 +11,11 @@ const CommentSchema = new Schema(
     },
     commenterId: {
       type: ObjectId,
-      required: "User",
+      ref: "User",
     },
     commenterUsername: {
       type: String,
-      required: "User",
+      ref: "User",
     },
     postId: {
       type: ObjectId,
