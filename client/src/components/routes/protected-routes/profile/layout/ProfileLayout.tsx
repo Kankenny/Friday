@@ -27,7 +27,7 @@ const ProfileLayout = () => {
     const fetchOtherUserDetails = async () => {
       try {
         const { data } = await userAPI.get(`/${pathUsername}`)
-        dispatch(setOtherUserDetails(data))
+        dispatch(setOtherUserDetails(data.data))
         setError("")
       } catch (err) {
         if (isAxiosError(err)) {
