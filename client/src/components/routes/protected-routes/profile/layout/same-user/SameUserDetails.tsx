@@ -4,7 +4,7 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"
 import StyledButton from "../../../../../ui/StyledButton"
 import { useNavigate } from "react-router-dom"
 
-const UserDetails = () => {
+const SameUserDetails = () => {
   const { username, email, firstName, lastName, followers, following } =
     useTypedSelector((state) => state.profile)
   const navigate = useNavigate()
@@ -43,4 +43,4 @@ const UserDetails = () => {
   )
 }
 
-export default UserDetails
+export default SameUserDetails

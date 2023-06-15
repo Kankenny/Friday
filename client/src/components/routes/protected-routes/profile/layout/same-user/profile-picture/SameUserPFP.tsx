@@ -3,7 +3,7 @@ import { Avatar } from "@mui/material"
 import { useTypedSelector } from "../../../../../../../lib/hooks/redux-hook/useTypedSelector"
 import ChangePFPDialog from "./ChangePFPDialog"
 
-const ProfilePicture = () => {
+const SameUserPFP = () => {
   const [open, setOpen] = useState(false)
   const { profilePicture, firstName } = useTypedSelector(
     (state) => state.profile
@@ -36,4 +36,4 @@ const ProfilePicture = () => {
   )
 }
 
-export default ProfilePicture
+export default SameUserPFP
