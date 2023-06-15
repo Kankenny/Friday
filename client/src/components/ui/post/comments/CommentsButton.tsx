@@ -3,6 +3,9 @@ import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined"
 import { Drawer } from "@mui/material"
 import CommentsDrawer from "./CommentsDrawer"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
+import postAPI from "../../../../lib/services/axios-instances/postAPI"
+import { useDispatch } from "react-redux"
+import { setPostDetails } from "../../../../lib/store/slices/post-detail-slice/postDetailSlice"
 
 type Props = {
   post: PostType
@@ -10,6 +13,16 @@ type Props = {
 
 const CommentsButton = ({ post }: Props) => {
   const [open, setOpen] = useState(false)
+
+  const dispatch = useDispatch()
+  const getPostDetails = async () => {
+    try {
+      const { data } = await postAPI.get(`/${post._id}`)
+      dispatch(setPostDetails(data.data))
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const toggleDrawer =
     (openState: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -23,6 +36,10 @@ const CommentsButton = ({ post }: Props) => {
       }
 
       setOpen(openState)
+
+      if (openState === true) {
+        getPostDetails()
+      }
     }
 
   return (

@@ -19,7 +19,7 @@ const CommentsDrawer = ({ post, toggleDrawer }: Props) => {
       <h1 className="text-3xl font-bold text-tertiary pb-5 border-b border-main mb-5">
         {post.title} — Comments
       </h1>
-      <Comments comments={post.comments} />
+      <Comments />
     </Box>
   )
 }

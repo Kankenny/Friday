@@ -11,7 +11,7 @@ const store = configureStore({
     sameProfile: sameProfileReducer,
     otherProfile: otherProfileReducer,
     timeline: timelineReducer,
-    postDetails: postDetailReducer,
+    postDetail: postDetailReducer,
   },
 })
 
