@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Avatar } from "@mui/material"
-import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useTypedSelector"
+import { useTypedSelector } from "../../../../../../../lib/hooks/redux-hook/useTypedSelector"
 import ChangePFPDialog from "./ChangePFPDialog"
 
 const ProfilePicture = () => {

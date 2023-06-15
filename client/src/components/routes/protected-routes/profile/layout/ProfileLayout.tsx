@@ -1,7 +1,7 @@
 // Components
 import { Outlet } from "react-router-dom"
-import ProfilePicture from "./profile-picture/ProfilePicture"
-import UserDetails from "./UserDetails"
+import ProfilePicture from "./same-user/profile-picture/ProfilePicture"
+import UserDetails from "./same-user/UserDetails"
 
 const ProfileLayout = () => {
   return (

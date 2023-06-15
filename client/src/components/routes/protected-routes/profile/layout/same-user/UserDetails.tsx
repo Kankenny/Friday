@@ -1,7 +1,7 @@
-import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
-import Card from "../../../../ui/Card"
+import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useTypedSelector"
+import Card from "../../../../../ui/Card"
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"
-import StyledButton from "../../../../ui/StyledButton"
+import StyledButton from "../../../../../ui/StyledButton"
 import { useNavigate } from "react-router-dom"
 
 const UserDetails = () => {
