@@ -8,7 +8,17 @@ const Comments = () => {
     <Comment key={comment._id} comment={comment} />
   ))
 
-  return <div className="space-y-5">{content}</div>
+  return (
+    <div className="space-y-5">
+      {comments.length !== 0 ? (
+        content
+      ) : (
+        <h1 className="text-1xl font-bold text-red-500">
+          No comments found...
+        </h1>
+      )}
+    </div>
+  )
 }
 
 export default Comments
