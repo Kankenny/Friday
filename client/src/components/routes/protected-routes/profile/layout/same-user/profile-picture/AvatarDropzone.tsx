@@ -60,16 +60,16 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
           <img
             src={URL.createObjectURL(selectedFile)}
             alt="Profile Picture"
-            className="rounded-full object-cover w-full h-full"
+            className="rounded-full object-cover w-full h-full hover:opacity-50 duration-200"
           />
         ) : profilePicture ? (
           <img
             src={profilePicture}
             alt="Profile Picture"
-            className="rounded-full object-cover w-full h-full"
+            className="rounded-full object-cover w-full h-full hover:opacity-50 duration-200"
           />
         ) : (
-          <h1 className="text-9xl text-gray-400 select-none capitalize">
+          <h1 className="text-9xl text-gray-400 select-none capitalize hover:opacity-50 duration-200">
             {firstName.charAt(0)}
           </h1>
         )}
