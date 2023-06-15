@@ -83,7 +83,7 @@ function App() {
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
             <Route element={<HomeLayout />}>
-              <Route path="/app" element={<Timeline />} />
+              <Route path="/app/timeline" element={<Timeline />} />
               <Route path="/app/workspace" element={<Workspace />} />
             </Route>
             <Route element={<ProfileLayout />}>

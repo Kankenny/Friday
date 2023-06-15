@@ -7,17 +7,14 @@ import RouterLink from "../../ui/RouterLink"
 import Logo from "../../ui/Logo"
 import NotificationMenu from "./authenticated-components/NotificationIcon"
 import AvatarMenu from "./authenticated-components/AvatarMenu"
-import { useLocation } from "react-router-dom"
 
 const Header = () => {
   const { isLoggedIn } = useTypedSelector((state) => state.auth)
-  const { pathname } = useLocation()
-  const timelineOrWorkspacePath = pathname === "/app" ? "/app" : "app/workspace"
 
   return (
     <header className="bg-secondary w-full">
       <div className="container mx-auto flex justify-between items-center px-4 py-4">
-        <RouterDiv to={!isLoggedIn ? "/" : timelineOrWorkspacePath}>
+        <RouterDiv to={!isLoggedIn ? "/" : "/app/timeline"}>
           <Logo />
         </RouterDiv>
         {isLoggedIn ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
