@@ -9,6 +9,8 @@ export const getUser = async (req: Request, res: Response) => {
   // Extract username from request params
   const { userIdOrUsername } = req.params
 
+  console.log(userIdOrUsername)
+
   // Check if appropriate payload is attached to the body
   if (!userIdOrUsername) {
     return res.status(400).json({
@@ -20,7 +22,7 @@ export const getUser = async (req: Request, res: Response) => {
 
   let query: any
   if (Types.ObjectId.isValid(userIdOrUsername)) {
-    query = { _id: userIdOrUsername }
+    query = { $or: [{ _id: userIdOrUsername }, { username: userIdOrUsername }] }
   } else {
     query = { username: userIdOrUsername }
   }
