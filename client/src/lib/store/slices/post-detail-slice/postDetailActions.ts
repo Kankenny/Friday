@@ -1,9 +1,10 @@
 import { PayloadAction } from "@reduxjs/toolkit"
-import { PostType } from "../../../types/primitive-types/PostType"
+import { PostDetailSliceType } from "../../../types/slice-types/PostDetailSliceType"
 
 export const setPostDetailReducer = (
-  state: PostType,
-  action: PayloadAction<PostType[]>
+  state: PostDetailSliceType,
+  action: PayloadAction<PostDetailSliceType[]>
 ) => {
+  console.log(action.payload)
   return { ...state, ...action.payload }
 }

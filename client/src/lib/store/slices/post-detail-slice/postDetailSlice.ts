@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { PostType } from "../../../types/primitive-types/PostType"
+import { PostDetailSliceType } from "../../../types/slice-types/PostDetailSliceType"
 import { setPostDetailReducer } from "./postDetailActions"
 
-const initialState: PostType = {
+const initialState: PostDetailSliceType = {
   _id: "",
   title: "",
   creatorId: "",

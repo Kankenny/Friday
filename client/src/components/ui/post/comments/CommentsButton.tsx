@@ -18,6 +18,7 @@ const CommentsButton = ({ post }: Props) => {
   const getPostDetails = async () => {
     try {
       const { data } = await postAPI.get(`/${post._id}`)
+      console.log(data.data.comments[0].commenterId)
       dispatch(setPostDetails(data.data))
     } catch (err) {
       console.error(err)
