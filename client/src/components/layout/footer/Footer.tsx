@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer className="bg-secondary w-full p-4 space-y-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
-        {isLoggedIn ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
+        {isLoggedIn ? <AuthenticatedFooter /> : <UnauthenticatedFooter />}
         <div>
           <RouterDiv to={!isLoggedIn ? "/" : "/app/timeline"}>
             <Logo />
@@ -25,7 +25,7 @@ const Footer = () => {
 
 export default Footer
 
-const UnauthenticatedHeader = () => {
+const UnauthenticatedFooter = () => {
   return (
     <nav className="flex flex-col md:flex-row gap-4 items-center">
       <RouterLink to="/app" routerLinkText="Home" twClasses="text-lg" />
@@ -39,11 +39,10 @@ const UnauthenticatedHeader = () => {
   )
 }
 
-const AuthenticatedHeader = () => {
+const AuthenticatedFooter = () => {
   return (
     <nav className="flex flex-col md:flex-row gap-4 items-center">
       <RouterLink to="/app" routerLinkText="Home" twClasses="text-lg" />
-      <RouterLink to="/profile" routerLinkText="Profile" twClasses="text-lg" />
     </nav>
   )
 }
