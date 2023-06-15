@@ -4,4 +4,5 @@ export interface CommentType {
   commenterId: string
   commenterUsername: string
   postId: string
+  createdAt: Date
 }
