@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { Avatar } from "@mui/material"
-import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useTypedSelector"
-import ChangePFPDialog from "./ChangePFPDialog"
+import { useTypedSelector } from "../../../../../../../lib/hooks/redux-hook/useTypedSelector"
+import ChangePFPDialog from "./PFPDialog"
 
-const ProfilePicture = () => {
+const OtherUserPFP = () => {
   const [open, setOpen] = useState(false)
   const { profilePicture, firstName } = useTypedSelector(
-    (state) => state.profile
+    (state) => state.otherProfile
   )
 
   const handleOpen = () => {
@@ -36,4 +36,4 @@ const ProfilePicture = () => {
   )
 }
 
-export default ProfilePicture
+export default OtherUserPFP

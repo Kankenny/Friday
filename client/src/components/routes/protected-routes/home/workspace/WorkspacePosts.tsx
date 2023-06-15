@@ -2,7 +2,7 @@ import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSe
 import Post from "../../../../ui/post/Post"
 
 const WorkspacePosts = () => {
-  const { posts } = useTypedSelector((state) => state.profile)
+  const { posts } = useTypedSelector((state) => state.sameProfile)
 
   const content = posts.map((post) => <Post post={post} key={post._id} />)
 

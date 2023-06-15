@@ -1,17 +1,10 @@
-import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
-import Card from "../../../../ui/Card"
+import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useTypedSelector"
+import Card from "../../../../../ui/Card"
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"
-import StyledButton from "../../../../ui/StyledButton"
-import { useNavigate } from "react-router-dom"
 
-const UserDetails = () => {
+const OtherUserDetails = () => {
   const { username, email, firstName, lastName, followers, following } =
-    useTypedSelector((state) => state.profile)
-  const navigate = useNavigate()
-
-  const handleEditProfileClick = () => {
-    navigate("/settings")
-  }
+    useTypedSelector((state) => state.otherProfile)
 
   return (
     <Card twClasses="p-5 flex flex-col gap-2">
@@ -24,11 +17,6 @@ const UserDetails = () => {
           <span className="underline">{username}</span>
         </h1>
         <h1 className="font-extralight text-sm pb-5">{email}</h1>
-        <StyledButton
-          onClick={handleEditProfileClick}
-          buttonText="Edit profile"
-          twClasses="w-full hover:scale-100 hover:bg-tertiary duration-200 hover:text-secondary border-2 border-secondary hover:border-secondary"
-        />
       </div>
       <div className="space-x-2">
         <PeopleAltOutlinedIcon />
@@ -43,4 +31,4 @@ const UserDetails = () => {
   )
 }
 
-export default UserDetails
+export default OtherUserDetails

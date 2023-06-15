@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit"
 import authReducer from "./slices/auth-slice/authSlice"
-import profileReducer from "./slices/profile-slice/profileSlice"
+import sameProfileReducer from "./slices/same-profile-slice/sameProfileSlice"
+import otherProfileReducer from "./slices/other-profile-slice/otherProfileSlice"
 import timelineReducer from "./slices/timeline-slice/timelineSlice"
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    profile: profileReducer,
+    sameProfile: sameProfileReducer,
+    otherProfile: otherProfileReducer,
     timeline: timelineReducer,
   },
 })

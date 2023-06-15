@@ -1,7 +1,7 @@
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined"
-import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined"
 import { useRef } from "react"
 import { PostType } from "../../../lib/types/primitive-types/PostType"
+import CommentsButton from "./comments/CommentsButton"
 
 type Props = {
   post: PostType
@@ -25,10 +25,7 @@ const PostActions = ({ post }: Props) => {
           ref={newTaskRef}
         />
       </form>
-      <h1 className="cursor-pointer">
-        <CommentOutlinedIcon className="mr-2 opacity-100 h-5 w-5" />
-        Comments
-      </h1>
+      <CommentsButton post={post} />
     </div>
   )
 }

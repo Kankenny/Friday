@@ -7,17 +7,14 @@ import RouterLink from "../../ui/RouterLink"
 import Logo from "../../ui/Logo"
 import NotificationMenu from "./authenticated-components/NotificationIcon"
 import AvatarMenu from "./authenticated-components/AvatarMenu"
-import { useLocation } from "react-router-dom"
 
 const Header = () => {
   const { isLoggedIn } = useTypedSelector((state) => state.auth)
-  const { pathname } = useLocation()
-  const timelineOrWorkspacePath = pathname === "/app" ? "/app" : "app/workspace"
 
   return (
     <header className="bg-secondary w-full">
       <div className="container mx-auto flex justify-between items-center px-4 py-4">
-        <RouterDiv to={!isLoggedIn ? "/" : timelineOrWorkspacePath}>
+        <RouterDiv to={!isLoggedIn ? "/" : "/timeline"}>
           <Logo />
         </RouterDiv>
         {isLoggedIn ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
@@ -31,7 +28,7 @@ export default Header
 const UnauthenticatedHeader = () => {
   return (
     <nav className="space-x-4 hidden md:block">
-      <RouterLink to="/app" routerLinkText="Home" twClasses="text-lg" />
+      <RouterLink to="/" routerLinkText="Home" twClasses="text-lg" />
       <RouterLink to="/login" routerLinkText="Login" twClasses="text-lg" />
       <RouterLink
         to="/playground"
@@ -45,7 +42,7 @@ const UnauthenticatedHeader = () => {
 const AuthenticatedHeader = () => {
   return (
     <nav className="space-x-4 hidden md:flex md:items-center">
-      <RouterLink to="/app" routerLinkText="Home" twClasses="text-lg" />
+      <RouterLink to="/timeline" routerLinkText="Home" twClasses="text-lg" />
       <NotificationMenu options={["test"]} />
       <AvatarMenu />
     </nav>

@@ -17,8 +17,8 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined"
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 
 export default function MenuListComposition() {
-  const { profilePicture, firstName } = useTypedSelector(
-    (state) => state.profile
+  const { profilePicture, firstName, username } = useTypedSelector(
+    (state) => state.sameProfile
   )
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -31,7 +31,7 @@ export default function MenuListComposition() {
 
   const handleProfileClick = (e: React.MouseEvent | Event) => {
     handleClose(e)
-    navigate("/profile")
+    navigate(`/users/${username}`)
   }
 
   const handleSettingsClick = (e: React.MouseEvent | Event) => {

@@ -11,11 +11,11 @@ const NavigationTabs = () => {
   }
 
   const handleTimelineClick = () => {
-    navigate("/app")
+    navigate("/timeline")
   }
 
   const handleWorkspaceClick = () => {
-    navigate("/app/workspace")
+    navigate("/workspace")
   }
 
   return (

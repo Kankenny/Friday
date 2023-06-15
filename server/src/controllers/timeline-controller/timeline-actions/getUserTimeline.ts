@@ -24,45 +24,69 @@ export const getUserTimeline = async (req: JWTRequest, res: Response) => {
     // Own user's posts
     const ownPosts = await PostModel.find({
       creatorId: existingUser._id,
-    }).populate({
-      path: "tasks",
-      populate: {
-        path: "subtasks",
-      },
     })
-
-    // Public posts
-    const publicPosts = await PostModel.find({ visibility: "public" }).populate(
-      {
+      .populate({
         path: "tasks",
         populate: {
           path: "subtasks",
         },
-      }
-    )
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "commenterId",
+        },
+      })
+
+    // Public posts
+    const publicPosts = await PostModel.find({ visibility: "public" })
+      .populate({
+        path: "tasks",
+        populate: {
+          path: "subtasks",
+        },
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "commenterId",
+        },
+      })
 
     // Private posts by followed users
     const following = existingUser.following
     const privatePosts = await PostModel.find({
       visibility: "private",
       creatorId: { $in: following },
-    }).populate({
-      path: "tasks",
-      populate: {
-        path: "subtasks",
-      },
     })
-
+      .populate({
+        path: "tasks",
+        populate: {
+          path: "subtasks",
+        },
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "commenterId",
+        },
+      })
     // Authorized posts
     const authorizedPosts = await PostModel.find({
       _id: { $in: existingUser.authorizedPosts },
-    }).populate({
-      path: "tasks",
-      populate: {
-        path: "subtasks",
-      },
     })
-
+      .populate({
+        path: "tasks",
+        populate: {
+          path: "subtasks",
+        },
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "commenterId",
+        },
+      })
     // Combine all post categories and remove duplicates using Set
     const allPosts = [
       ...ownPosts,

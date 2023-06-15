@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { persistLogin } from "./lib/store/slices/auth-slice/authSlice"
-import { setUserDetails } from "./lib/store/slices/profile-slice/profileSlice"
+import { setUserDetails } from "./lib/store/slices/same-profile-slice/sameProfileSlice"
 import { useTypedSelector } from "./lib/hooks/redux-hook/useTypedSelector"
 import userAPI from "./lib/services/axios-instances/userAPI"
 import { setTimeline } from "./lib/store/slices/timeline-slice/timelineSlice"
@@ -83,11 +83,11 @@ function App() {
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
             <Route element={<HomeLayout />}>
-              <Route path="/app" element={<Timeline />} />
-              <Route path="/app/workspace" element={<Workspace />} />
+              <Route path="/timeline" element={<Timeline />} />
+              <Route path="/workspace" element={<Workspace />} />
             </Route>
             <Route element={<ProfileLayout />}>
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/users/:username" element={<Profile />} />
             </Route>
           </Route>
 

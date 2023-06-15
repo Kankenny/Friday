@@ -7,24 +7,22 @@ import UserModel from "../../../models/User"
 
 export const getUser = async (req: Request, res: Response) => {
   // Extract username from request params
-  const { userId } = req.params
+  const { userIdOrUsername } = req.params
 
   // Check if appropriate payload is attached to the body
-  if (!userId) {
-    return res
-      .status(400)
-      .json({ message: "userId params is required!", data: null, ok: false })
-  }
-
-  // Check if userId is a valid ObjectId
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return res
-      .status(400)
-      .json({ message: "Invalid userId!", data: null, ok: false })
+  if (!userIdOrUsername) {
+    return res.status(400).json({
+      message: "userIdOrUsername params is required!",
+      data: null,
+      ok: false,
+    })
   }
 
   try {
-    const existingUser = await UserModel.findById(userId)
+    // Check if the user exists
+    const existingUser = await UserModel.findOne({
+      $or: [{ _id: userIdOrUsername }, { username: userIdOrUsername }],
+    })
       .populate({
         path: "posts savedPosts upvotedPosts downvotedPosts",
         populate: {

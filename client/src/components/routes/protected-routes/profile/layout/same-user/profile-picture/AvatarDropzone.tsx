@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useDropzone } from "react-dropzone"
-import StyledButton from "../../../../../ui/StyledButton"
-import cloudinaryAPI from "../../../../../../lib/services/axios-instances/cloudinaryAPI"
-import authAPI from "../../../../../../lib/services/axios-instances/authAPI"
-import { changeProfilePicture } from "../../../../../../lib/store/slices/profile-slice/profileSlice"
+import StyledButton from "../../../../../../ui/StyledButton"
+import cloudinaryAPI from "../../../../../../../lib/services/axios-instances/cloudinaryAPI"
+import authAPI from "../../../../../../../lib/services/axios-instances/authAPI"
+import { changeProfilePicture } from "../../../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { useDispatch } from "react-redux"
 import { LinearProgress } from "@mui/material"
 
@@ -60,16 +60,16 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
           <img
             src={URL.createObjectURL(selectedFile)}
             alt="Profile Picture"
-            className="rounded-full object-cover w-full h-full"
+            className="rounded-full object-cover w-full h-full hover:opacity-50 duration-200"
           />
         ) : profilePicture ? (
           <img
             src={profilePicture}
             alt="Profile Picture"
-            className="rounded-full object-cover w-full h-full"
+            className="rounded-full object-cover w-full h-full hover:opacity-50 duration-200"
           />
         ) : (
-          <h1 className="text-9xl text-gray-400 select-none capitalize">
+          <h1 className="text-9xl text-gray-400 select-none capitalize hover:opacity-50 duration-200">
             {firstName.charAt(0)}
           </h1>
         )}

@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { ProfileSliceType } from "../../../types/slice-types/ProfileSliceType"
-import {
-  changeProfilePictureReducer,
-  setUserDetailsReducer,
-} from "./profileActions"
+import { setOtherUserDetailsReducer } from "./otherProfileActions"
 
 const initialState: ProfileSliceType = {
   _id: "",
@@ -24,15 +21,14 @@ const initialState: ProfileSliceType = {
   comments: [],
 }
 
-const profileSlice = createSlice({
-  name: "profile",
+const otherProfileSlice = createSlice({
+  name: "other-profile",
   initialState,
   reducers: {
-    setUserDetails: setUserDetailsReducer,
-    changeProfilePicture: changeProfilePictureReducer,
+    setOtherUserDetails: setOtherUserDetailsReducer,
   },
 })
 
-export const { setUserDetails, changeProfilePicture } = profileSlice.actions
+export const { setOtherUserDetails } = otherProfileSlice.actions
 
-export default profileSlice.reducer
+export default otherProfileSlice.reducer

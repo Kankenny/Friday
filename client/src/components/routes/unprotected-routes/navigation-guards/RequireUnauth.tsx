@@ -9,7 +9,7 @@ const RequireUnauth = () => {
   return !isLoggedIn ? (
     <Outlet />
   ) : (
-    <Navigate to="/app" state={{ from: location }} replace />
+    <Navigate to="/timeline" state={{ from: location }} replace />
   )
 }
 
