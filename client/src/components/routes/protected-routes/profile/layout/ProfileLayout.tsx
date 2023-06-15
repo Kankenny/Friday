@@ -5,8 +5,15 @@ import SameUserDetails from "./same-user/SameUserDetails"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 import OtherUserPFP from "./other-user/profile-picture/OtherUserPFP"
 import OtherUserDetails from "./other-user/OtherUserDetails"
+import { useEffect, useState } from "react"
+import { isAxiosError } from "axios"
+import userAPI from "../../../../../lib/services/axios-instances/userAPI"
+import { useDispatch } from "react-redux"
+import { setOtherUserDetails } from "../../../../../lib/store/slices/other-profile-slice/otherProfileSlice"
 
 const ProfileLayout = () => {
+  const dispatch = useDispatch()
+  const [, setError] = useState("")
   const { username: currentUsername } = useTypedSelector(
     (state) => state.sameProfile
   )
@@ -15,6 +22,24 @@ const ProfileLayout = () => {
 
   const PFP = isSameUser ? <SameUserPFP /> : <OtherUserPFP />
   const UserDetails = isSameUser ? <SameUserDetails /> : <OtherUserDetails />
+
+  useEffect(() => {
+    const fetchOtherUserDetails = async () => {
+      try {
+        const { data } = await userAPI.get(`/${pathUsername}`)
+        dispatch(setOtherUserDetails(data))
+        setError("")
+      } catch (err) {
+        if (isAxiosError(err)) {
+          setError(err.message)
+        }
+      }
+    }
+
+    if (!isSameUser) {
+      fetchOtherUserDetails()
+    }
+  }, [pathUsername, isSameUser, dispatch])
 
   return (
     <div className="flex px-10">

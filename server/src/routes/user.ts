@@ -20,7 +20,7 @@ import verifyToken from "../middlewares/verifyToken"
 const UserRoute = express.Router()
 
 // GET USER
-UserRoute.get("/:userId", getUser)
+UserRoute.get("/:userIdOrUsername", getUser)
 
 // GET USER FOLLOWING
 UserRoute.get("/:userId/following", getUserFollowing)
