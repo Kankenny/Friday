@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box"
-import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import Comments from "./Comments"
+import { PostDetailSliceType } from "../../../../lib/types/slice-types/PostDetailSliceType"
 
 type Props = {
-  post: PostType
+  post: PostDetailSliceType
   toggleDrawer: (
     openState: boolean
   ) => (event: React.KeyboardEvent | React.MouseEvent) => void
