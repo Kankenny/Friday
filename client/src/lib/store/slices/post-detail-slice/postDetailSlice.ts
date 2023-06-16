@@ -29,6 +29,6 @@ const postDetailSlice = createSlice({
   },
 })
 
-export const { setPostDetails } = postDetailSlice.actions
+export const { setPostDetails, createComment } = postDetailSlice.actions
 
 export default postDetailSlice.reducer

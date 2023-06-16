@@ -9,7 +9,7 @@ const Comments = () => {
   ))
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 overflow-y-scroll max-h-[50rem]">
       {comments.length !== 0 ? (
         content
       ) : (

@@ -3,6 +3,7 @@ import RHFTextareaField from "../../rhf/RHFTextAreaField"
 import { useForm } from "react-hook-form"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
+import { createComment } from "../../../../lib/store/slices/post-detail-slice/postDetailSlice"
 
 import createCommentSchema, {
   createCommentType,
@@ -20,6 +21,7 @@ const CommentInput = ({ postId }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
     setFocus,
   } = useForm<createCommentType>({
     resolver: zodResolver(createCommentSchema),
@@ -32,7 +34,9 @@ const CommentInput = ({ postId }: Props) => {
   const handleCreateComment = async (formData: createCommentType) => {
     try {
       const { data } = await commentAPI.post(`/?postId=${postId}`, formData)
-      dispatch()
+      data.data.newComment.commenterId = data.data.user
+      dispatch(createComment(data.data.newComment))
+      reset()
     } catch (err) {
       console.error(err)
     }

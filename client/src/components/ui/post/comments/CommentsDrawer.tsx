@@ -21,8 +21,8 @@ const CommentsDrawer = ({ post }: Props) => {
           {post.title} — Comments
         </h1>
         <Comments />
+        <CommentInput postId={post._id} />
       </div>
-      <CommentInput postId={post._id} />
     </Box>
   )
 }

@@ -11,7 +11,10 @@ export const setPostDetailReducer = (
 
 export const createCommentReducer = (
   state: PostDetailSliceType,
-  action: PayloadAction<{ comment: DetailedCommentType }>
+  action: PayloadAction<DetailedCommentType>
 ) => {
-  state.comments.push(action.payload.comment)
+  return {
+    ...state,
+    comments: [...state.comments, action.payload],
+  }
 }
