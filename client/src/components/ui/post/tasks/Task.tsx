@@ -10,6 +10,13 @@ type Props = {
 const Task = ({ task }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
+  const taskDueDate = new Date(task.dueDate)
+  const formattedDueDate = taskDueDate.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })
+
   return (
     <>
       <div className="flex justify-between text-center">
@@ -23,11 +30,11 @@ const Task = ({ task }: Props) => {
         <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
           {task.progress}
         </h1>
-        <h1 className="flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {5}
+        <h1 className="uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
+          {task.priority}
         </h1>
-        <h1 className="flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          10/01/1001
+        <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
+          {formattedDueDate}
         </h1>
       </div>
       {isExpanded && task.subtasks.length !== 0 && (

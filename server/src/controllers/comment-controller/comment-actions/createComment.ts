@@ -93,7 +93,7 @@ export const createComment = async (req: JWTRequest, res: Response) => {
 
     res.status(200).json({
       message: "Comment successfully created!",
-      data: newComment,
+      data: { newComment, user: existingCommenter },
       ok: true,
     })
   } catch (error) {
