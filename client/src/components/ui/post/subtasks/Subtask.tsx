@@ -7,6 +7,13 @@ type Props = {
 }
 
 const Subtask = ({ subtask }: Props) => {
+  const subtaskDueDate = new Date(subtask.dueDate)
+  const formattedDueDate = subtaskDueDate.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })
+
   return (
     <>
       <div className="flex justify-between text-center">
@@ -17,11 +24,11 @@ const Subtask = ({ subtask }: Props) => {
         <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
           {subtask.progress}
         </h1>
-        <h1 className="flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          5
+        <h1 className="uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
+          {subtask.priority}
         </h1>
-        <h1 className="flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          10/01/1001
+        <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
+          {formattedDueDate}
         </h1>
       </div>
       <div className="border border-secondary p-2 pl-9 text-sm">
