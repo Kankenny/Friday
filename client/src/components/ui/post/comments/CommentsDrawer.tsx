@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box"
 import Comments from "./Comments"
 import { PostDetailSliceType } from "../../../../lib/types/slice-types/PostDetailSliceType"
+import CommentInput from "./CommentInput"
 
 type Props = {
   post: PostDetailSliceType
@@ -20,6 +21,7 @@ const CommentsDrawer = ({ post, toggleDrawer }: Props) => {
         {post.title} — Comments
       </h1>
       <Comments />
+      <CommentInput />
     </Box>
   )
 }
