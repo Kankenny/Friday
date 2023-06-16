@@ -10,17 +10,18 @@ type Props = {
   ) => (event: React.KeyboardEvent | React.MouseEvent) => void
 }
 
-const CommentsDrawer = ({ post, toggleDrawer }: Props) => {
+const CommentsDrawer = ({ post }: Props) => {
   return (
     <Box
-      className="w-[30em] lg:w-[50em] p-10 min-h-screen bg-secondary text-main focus:outline-none"
-      onKeyDown={toggleDrawer(false)}
+      className="w-[30em] lg:w-[50em] p-10 pb-0 min-h-screen bg-secondary text-main focus:outline-none flex flex-col justify-between"
       role="presentation"
     >
-      <h1 className="text-3xl font-bold text-tertiary pb-5 border-b border-main mb-5">
-        {post.title} — Comments
-      </h1>
-      <Comments />
+      <div>
+        <h1 className="text-3xl font-bold text-tertiary pb-5 border-b border-main mb-5">
+          {post.title} — Comments
+        </h1>
+        <Comments />
+      </div>
       <CommentInput />
     </Box>
   )

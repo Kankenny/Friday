@@ -5,3 +5,5 @@ const createCommentSchema = z.object({
 })
 
 export default createCommentSchema
+
+export type createCommentType = z.infer<typeof createCommentSchema>
