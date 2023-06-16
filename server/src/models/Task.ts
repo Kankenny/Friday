@@ -14,6 +14,17 @@ const TaskSchema = new Schema(
       enum: ["done", "working on it", "stuck", "untouched"],
       required: true,
     },
+    priority: {
+      type: String,
+      enum: ["low", "medium", "high"],
+      required: false,
+      default: "low",
+    },
+    dueDate: {
+      type: Date,
+      required: false,
+      default: Date.now(),
+    },
     postId: {
       type: ObjectId,
       ref: "Post",
