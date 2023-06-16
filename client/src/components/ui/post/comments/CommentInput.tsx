@@ -2,13 +2,20 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import RHFTextareaField from "../../rhf/RHFTextAreaField"
 import { useForm } from "react-hook-form"
 import { useEffect } from "react"
+import { useDispatch } from "react-redux"
 
 import createCommentSchema, {
   createCommentType,
 } from "../../../../../../server/src/lib/validations/comment/createCommentValidator"
 import StyledButton from "../../StyledButton"
+import commentAPI from "../../../../lib/services/axios-instances/commentAPI"
 
-const CommentInput = () => {
+type Props = {
+  postId: string
+}
+
+const CommentInput = ({ postId }: Props) => {
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -22,8 +29,13 @@ const CommentInput = () => {
     setFocus("body")
   }, [setFocus])
 
-  const handleCreateComment = (formData: createCommentType) => {
-    console.log("TEST")
+  const handleCreateComment = async (formData: createCommentType) => {
+    try {
+      const { data } = await commentAPI.post(`/?postId=${postId}`, formData)
+      dispatch()
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (

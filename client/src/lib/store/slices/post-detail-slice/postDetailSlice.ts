@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { PostDetailSliceType } from "../../../types/slice-types/PostDetailSliceType"
-import { setPostDetailReducer } from "./postDetailActions"
+import { createCommentReducer, setPostDetailReducer } from "./postDetailActions"
 
 const initialState: PostDetailSliceType = {
   _id: "",
@@ -25,6 +25,7 @@ const postDetailSlice = createSlice({
   initialState,
   reducers: {
     setPostDetails: setPostDetailReducer,
+    createComment: createCommentReducer,
   },
 })
 

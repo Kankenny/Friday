@@ -1,5 +1,5 @@
+import { DetailedCommentType } from "../primitive-types/DetailedCommentType"
 import { TaskType } from "../primitive-types/TaskType"
-import { UserType } from "../primitive-types/UserType"
 
 export interface PostDetailSliceType {
   _id: string
@@ -16,12 +16,5 @@ export interface PostDetailSliceType {
   upvotedBy: string[]
   downvotedBy: string[]
   tasks: TaskType[]
-  comments: {
-    _id: string
-    body: string
-    commenterId: UserType
-    commenterUsername: string
-    postId: string
-    createdAt: Date
-  }[]
+  comments: DetailedCommentType[]
 }
