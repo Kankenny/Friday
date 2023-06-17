@@ -1,11 +1,11 @@
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined"
 import Tooltip from "@mui/material/Tooltip"
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined"
 import { Dispatch, SetStateAction } from "react"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import VisibilityIcon from "../icons/VisibilityIcon"
 import CategoryIcon from "../icons/CategoryIcon"
 import { Link } from "react-router-dom"
+import PostMenu from "./post-menu/PostMenu"
 
 type Props = {
   post: PostType
@@ -32,9 +32,7 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
         </div>
         <div className="flex items-center gap-1">
           <VisibilityIcon visibility={post.visibility} />
-          <Tooltip title="Post Options" className="cursor-pointer">
-            <MoreHorizOutlinedIcon />
-          </Tooltip>
+          <PostMenu />
         </div>
       </div>
       <div className="flex justify-between items-center pl-6">
