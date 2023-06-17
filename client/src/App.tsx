@@ -32,6 +32,7 @@ import HomeLayout from "./components/routes/protected-routes/home/home-layout/Ho
 // Services
 import userAPI from "./lib/services/axios-instances/userAPI"
 import timelineAPI from "./lib/services/axios-instances/timelineAPI"
+import SavedPosts from "./components/routes/protected-routes/profile/saved-posts/SavedPosts"
 
 function App() {
   const dispatch = useDispatch()
@@ -91,6 +92,10 @@ function App() {
             <Route element={<ProfileLayout />}>
               <Route path="/users/:username" element={<UserPosts />} />
               <Route path="/users/:username/posts" element={<UserPosts />} />
+              <Route
+                path="/users/:username/saved-posts"
+                element={<SavedPosts />}
+              />
             </Route>
           </Route>
 
