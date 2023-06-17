@@ -1,27 +1,40 @@
 import { useState } from "react"
 import { Tab, Tabs } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 
 const HomeNavigationTabs = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState("user posts")
-  const { username } = useTypedSelector((state) => state.sameProfile)
+  const { username: sameUserUsername } = useTypedSelector(
+    (state) => state.sameProfile
+  )
+  const { username: otherUserUsername } = useTypedSelector(
+    (state) => state.otherProfile
+  )
+  const { username: pathUsername } = useParams()
+  const isSameUser = pathUsername === sameUserUsername
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
 
   const handleUserPostsClick = () => {
-    navigate(`/users/${username}/posts`)
+    navigate(
+      `/users/${isSameUser ? sameUserUsername : otherUserUsername}/posts`
+    )
   }
 
   const handleSavedPostsClick = () => {
-    navigate(`/users/${username}/saved-posts`)
+    navigate(
+      `/users/${isSameUser ? sameUserUsername : otherUserUsername}/saved-posts`
+    )
   }
 
   const handleLikedPostsClick = () => {
-    navigate(`/users/${username}/liked-posts`)
+    navigate(
+      `/users/${isSameUser ? sameUserUsername : otherUserUsername}/liked-posts`
+    )
   }
 
   return (
