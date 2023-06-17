@@ -8,6 +8,7 @@ import MenuList from "@mui/material/MenuList"
 import Tooltip from "@mui/material/Tooltip"
 import EditIcon from "@mui/icons-material/Edit"
 import ContentCopyIcon from "@mui/icons-material/ContentCopy"
+import SaveAltIcon from "@mui/icons-material/SaveAlt"
 import DeleteIcon from "@mui/icons-material/Delete"
 import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined"
 
@@ -44,6 +45,10 @@ export default function PostMenu() {
   }
 
   const handleCopyClick = (e: React.MouseEvent | Event) => {
+    handleClose(e)
+  }
+
+  const handleSaveClick = (e: React.MouseEvent | Event) => {
     handleClose(e)
   }
 
@@ -104,6 +109,13 @@ export default function PostMenu() {
                     >
                       <EditIcon className="h-5 w-5" />
                       Edit
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleSaveClick}
+                      className="flex gap-4 items-center hover:bg-tertiary"
+                    >
+                      <SaveAltIcon className="h-5 w-5" />
+                      Save
                     </MenuItem>
                     <MenuItem
                       onClick={handleCopyClick}
