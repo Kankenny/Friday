@@ -4,7 +4,7 @@ import Post from "../../../../ui/post/Post"
 import Tooltip from "@mui/material/Tooltip"
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark"
 
-const UserPosts = () => {
+const LikedPosts = () => {
   const { username: pathUsername } = useParams()
   const {
     username: sameUserUsername,
@@ -28,8 +28,8 @@ const UserPosts = () => {
       <div className="flex items-center mb-10 gap-2">
         <h1 className="text-3xl text-tertiary font-semibold">
           {isSameUser
-            ? `Welcome back, ${sameUserFirstName}`
-            : `${otherUserFirstName}'s posts`}
+            ? "Your liked posts"
+            : `${otherUserFirstName}'s liked posts`}
         </h1>
         <Tooltip
           title="Private posts are hidden to others"
@@ -47,4 +47,4 @@ const UserPosts = () => {
   )
 }
 
-export default UserPosts
+export default LikedPosts
