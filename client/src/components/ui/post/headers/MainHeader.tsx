@@ -48,7 +48,7 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
           </div>
           <Link
             className="font-light text-sm group-hover:underline duration-200 ease-in-out hover:text-tertiary hover:decoration-tertiary"
-            to={`/users/${post.creatorUsername}`}
+            to={`/users/${post.creatorUsername}/posts`}
           >
             By {post.creatorUsername}
           </Link>

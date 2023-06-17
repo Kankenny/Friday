@@ -17,4 +17,5 @@ export interface PostDetailSliceType {
   downvotedBy: string[]
   tasks: TaskType[]
   comments: DetailedCommentType[]
+  createdAt: Date
 }

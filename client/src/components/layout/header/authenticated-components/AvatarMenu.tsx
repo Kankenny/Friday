@@ -31,7 +31,7 @@ export default function MenuListComposition() {
 
   const handleProfileClick = (e: React.MouseEvent | Event) => {
     handleClose(e)
-    navigate(`/users/${username}`)
+    navigate(`/users/${username}/posts`)
   }
 
   const handleSettingsClick = (e: React.MouseEvent | Event) => {
