@@ -10,6 +10,7 @@ import { isAxiosError } from "axios"
 import userAPI from "../../../../../lib/services/axios-instances/userAPI"
 import { useDispatch } from "react-redux"
 import { setOtherUserDetails } from "../../../../../lib/store/slices/other-profile-slice/otherProfileSlice"
+import ProfileNavigationTabs from "./ProfileNavigationTabs"
 
 const ProfileLayout = () => {
   const dispatch = useDispatch()
@@ -48,8 +49,11 @@ const ProfileLayout = () => {
         {PFP}
         {UserDetails}
       </div>
-      <div className="min-h-screen w-full flex">
-        <Outlet />
+      <div className="w-full space-y-10 py-5">
+        <ProfileNavigationTabs />
+        <div className="min-h-screen flex">
+          <Outlet />
+        </div>
       </div>
     </div>
   )
