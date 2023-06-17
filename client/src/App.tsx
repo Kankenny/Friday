@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux"
 import { persistLogin } from "./lib/store/slices/auth-slice/authSlice"
 import { setUserDetails } from "./lib/store/slices/same-profile-slice/sameProfileSlice"
 import { useTypedSelector } from "./lib/hooks/redux-hook/useTypedSelector"
-import userAPI from "./lib/services/axios-instances/userAPI"
 import { setTimeline } from "./lib/store/slices/timeline-slice/timelineSlice"
 
 // Routes
@@ -19,9 +18,11 @@ import Register from "./components/routes/unprotected-routes/register/Register"
 import ForgotPassword from "./components/routes/unprotected-routes/forgot-password/ForgotPassword"
 import SecurityAnswer from "./components/routes/unprotected-routes/forgot-password/SecurityAnswer"
 import ResetPassword from "./components/routes/unprotected-routes/forgot-password/ResetPassword"
-import Profile from "./components/routes/protected-routes/profile/Profile"
 import Timeline from "./components/routes/protected-routes/home/timeline/Timeline"
 import Workspace from "./components/routes/protected-routes/home/workspace/Workspace"
+import UserPosts from "./components/routes/protected-routes/profile/user-posts/UserPosts"
+import SavedPosts from "./components/routes/protected-routes/profile/saved-posts/SavedPosts"
+import SharedPosts from "./components/routes/protected-routes/profile/shared-posts/SharedPosts"
 
 // Container Component
 import AppContainer from "./AppContainer"
@@ -29,7 +30,11 @@ import RequireAuth from "./components/routes/protected-routes/navigation-guards/
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
 import HomeLayout from "./components/routes/protected-routes/home/home-layout/HomeLayout"
+
+// Services
+import userAPI from "./lib/services/axios-instances/userAPI"
 import timelineAPI from "./lib/services/axios-instances/timelineAPI"
+import LikedPosts from "./components/routes/protected-routes/profile/liked-posts/LikedPosts"
 
 function App() {
   const dispatch = useDispatch()
@@ -87,7 +92,20 @@ function App() {
               <Route path="/workspace" element={<Workspace />} />
             </Route>
             <Route element={<ProfileLayout />}>
-              <Route path="/users/:username" element={<Profile />} />
+              <Route path="/users/:username" element={<UserPosts />} />
+              <Route path="/users/:username/posts" element={<UserPosts />} />
+              <Route
+                path="/users/:username/saved-posts"
+                element={<SavedPosts />}
+              />
+              <Route
+                path="/users/:username/shared-posts"
+                element={<SharedPosts />}
+              />
+              <Route
+                path="/users/:username/liked-posts"
+                element={<LikedPosts />}
+              />
             </Route>
           </Route>
 

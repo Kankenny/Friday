@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { UserType } from "../../../../lib/types/primitive-types/UserType"
 import Avatar from "@mui/material/Avatar"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
 
 type Props = {
   comment: {
@@ -14,9 +15,10 @@ type Props = {
 }
 
 const Comment = ({ comment }: Props) => {
+  const { username } = useTypedSelector((state) => state.sameProfile)
   const formattedDate = new Date(comment.createdAt).toLocaleString()
   const { body, commenterId, commenterUsername } = comment
-  const { firstName, profilePicture } = commenterId
+  const { firstName, lastName, profilePicture } = commenterId
 
   const navigate = useNavigate()
 
@@ -24,8 +26,10 @@ const Comment = ({ comment }: Props) => {
     navigate(`/users/${commenterUsername}`)
   }
 
+  const isUserTheCommenter = username === commenterUsername
+
   return (
-    <div className="flex gap-1">
+    <div className={`flex gap-1 ${isUserTheCommenter && "justify-end"}`}>
       <Avatar
         className="text-secondary capitalize mt-1 cursor-pointer"
         src={profilePicture}
@@ -33,14 +37,27 @@ const Comment = ({ comment }: Props) => {
       >
         {profilePicture ? "" : firstName.charAt(0)}
       </Avatar>
-      <div>
-        <div className="p-2 bg-gray-400 w-max rounded-2xl text-secondary">
-          <h1 className="cursor-pointer" onClick={handleProfileVisit}>
-            {commenterUsername}
+      <div className={`flex flex-col ${isUserTheCommenter && "order-first"}`}>
+        <div
+          className={`p-2 bg-gray-400 max-w-sm rounded-2xl text-secondary ${
+            isUserTheCommenter && "self-end"
+          }`}
+        >
+          <h1
+            className={`cursor-pointer ${isUserTheCommenter && "text-right"}`}
+            onClick={handleProfileVisit}
+          >
+            {firstName + " " + lastName}
           </h1>
-          <p className="font-light text-sm">{body}</p>
+          <p className="font-light text-sm break-words">{body}</p>
         </div>
-        <p className="font-extralight text-xs ml-1 mt-1">{formattedDate}</p>
+        <p
+          className={`font-extralight text-xs ml-1 mt-1 ${
+            isUserTheCommenter && "text-right"
+          }`}
+        >
+          {formattedDate}
+        </p>
       </div>
     </div>
   )
