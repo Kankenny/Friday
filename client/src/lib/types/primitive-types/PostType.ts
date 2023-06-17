@@ -17,4 +17,5 @@ export interface PostType {
   downvotedBy: string[]
   tasks: TaskType[]
   comments: CommentType[]
+  createdAt: Date
 }

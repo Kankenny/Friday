@@ -66,9 +66,9 @@ export default function PostMenu({ post }: Props) {
   const handleCopyClick = async (e: React.MouseEvent | Event) => {
     try {
       const { data } = await postAPI.post(`/${post._id}/copy`)
-      dispatch(copyPost(data.data))
       setFeedbackType("success")
       setFeedbackMessage(data.message)
+      dispatch(copyPost(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
         setFeedbackType("error")
@@ -84,9 +84,9 @@ export default function PostMenu({ post }: Props) {
   const handleSaveClick = async (e: React.MouseEvent | Event) => {
     try {
       const { data } = await postAPI.put(`/${post._id}/save`)
-      dispatch(savePost(post))
       setFeedbackType("success")
       setFeedbackMessage(data.message)
+      dispatch(savePost(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
         setFeedbackType("error")
@@ -102,9 +102,9 @@ export default function PostMenu({ post }: Props) {
   const handleDeleteClick = async (e: React.MouseEvent | Event) => {
     try {
       const { data } = await postAPI.delete(`/${post._id}`)
-      dispatch(deletePost(post))
       setFeedbackType("success")
       setFeedbackMessage(data.message)
+      dispatch(deletePost(post))
     } catch (err) {
       if (isAxiosError(err)) {
         setFeedbackType("error")

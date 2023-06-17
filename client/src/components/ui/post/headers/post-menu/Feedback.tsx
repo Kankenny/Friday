@@ -22,6 +22,7 @@ export default function Feedback({
 
     setFeedbackMessage("")
   }
+  console.log(feedbackMessage)
 
   return (
     <Snackbar
