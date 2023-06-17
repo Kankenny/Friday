@@ -5,7 +5,7 @@ import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSe
 
 const HomeNavigationTabs = () => {
   const navigate = useNavigate()
-  const [value, setValue] = useState("my posts")
+  const [value, setValue] = useState("user posts")
   const { username } = useTypedSelector((state) => state.sameProfile)
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
