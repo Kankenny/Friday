@@ -21,6 +21,8 @@ import ResetPassword from "./components/routes/unprotected-routes/forgot-passwor
 import Timeline from "./components/routes/protected-routes/home/timeline/Timeline"
 import Workspace from "./components/routes/protected-routes/home/workspace/Workspace"
 import UserPosts from "./components/routes/protected-routes/profile/user-posts/UserPosts"
+import SavedPosts from "./components/routes/protected-routes/profile/saved-posts/SavedPosts"
+import SharedPosts from "./components/routes/protected-routes/profile/shared-posts/SharedPosts"
 
 // Container Component
 import AppContainer from "./AppContainer"
@@ -32,7 +34,6 @@ import HomeLayout from "./components/routes/protected-routes/home/home-layout/Ho
 // Services
 import userAPI from "./lib/services/axios-instances/userAPI"
 import timelineAPI from "./lib/services/axios-instances/timelineAPI"
-import SavedPosts from "./components/routes/protected-routes/profile/saved-posts/SavedPosts"
 
 function App() {
   const dispatch = useDispatch()
@@ -95,6 +96,10 @@ function App() {
               <Route
                 path="/users/:username/saved-posts"
                 element={<SavedPosts />}
+              />
+              <Route
+                path="/users/:username/shared-posts"
+                element={<SharedPosts />}
               />
             </Route>
           </Route>
