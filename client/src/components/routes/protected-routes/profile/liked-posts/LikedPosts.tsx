@@ -6,21 +6,18 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark"
 
 const LikedPosts = () => {
   const { username: pathUsername } = useParams()
-  const {
-    username: sameUserUsername,
-    posts: sameUserPosts,
-    firstName: sameUserFirstName,
-  } = useTypedSelector((state) => state.sameProfile)
-  const { posts: otherUserPosts, firstName: otherUserFirstName } =
+  const { username: sameUserUsername, upvotedPosts: sameUserUpvotedPosts } =
+    useTypedSelector((state) => state.sameProfile)
+  const { firstName: otherUserFirstName, upvotedPosts: otherUserUpvotedPosts } =
     useTypedSelector((state) => state.otherProfile)
   const isSameUser = pathUsername === sameUserUsername
 
-  let userPosts
+  let likedPosts
 
   if (isSameUser) {
-    userPosts = sameUserPosts
+    likedPosts = sameUserUpvotedPosts
   } else {
-    userPosts = otherUserPosts
+    likedPosts = otherUserUpvotedPosts
   }
 
   return (
@@ -39,7 +36,7 @@ const LikedPosts = () => {
         </Tooltip>
       </div>
       <ul className="space-y-10">
-        {userPosts.map((post) => (
+        {likedPosts.map((post) => (
           <Post key={post._id} post={post} />
         ))}
       </ul>
