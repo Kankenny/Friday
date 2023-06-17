@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Tab, Tabs } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 
-const NavigationTabs = () => {
+const HomeNavigationTabs = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState("timeline")
 
@@ -47,4 +47,4 @@ const NavigationTabs = () => {
   )
 }
 
-export default NavigationTabs
+export default HomeNavigationTabs

@@ -1,11 +1,11 @@
 // Components
 import { Outlet } from "react-router-dom"
-import NavigationTabs from "./NavigationTabs"
+import HomeNavigationTabs from "./HomeNavigationTabs"
 
 const HomeLayout = () => {
   return (
     <div className="p-10 space-y-5">
-      <NavigationTabs />
+      <HomeNavigationTabs />
       <div className="min-h-screen w-full flex">
         <Outlet />
       </div>
