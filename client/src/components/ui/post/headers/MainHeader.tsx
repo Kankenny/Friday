@@ -22,34 +22,39 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
     : 0
 
   return (
-    <div className="group p-2" onClick={() => setIsExpanded(!isExpanded)}>
-      <div className="flex justify-between">
-        <div className="flex items-center">
-          <Tooltip title="Expand Post">
-            <ChevronRightOutlinedIcon className="cursor-pointer" />
-          </Tooltip>
-          <h1 className="font-semibold text-lg">{post.title}</h1>
+    <div className="flex w-full items-center p-1">
+      <div
+        className="w-full group p-2"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        <div className="flex justify-between">
+          <div className="flex items-center">
+            <Tooltip title="Expand Post">
+              <ChevronRightOutlinedIcon className="cursor-pointer" />
+            </Tooltip>
+            <h1 className="font-semibold text-lg">{post.title}</h1>
+          </div>
+          <div className="flex items-center gap-1">
+            <VisibilityIcon visibility={post.visibility} />
+          </div>
         </div>
-        <div className="flex items-center gap-1">
-          <VisibilityIcon visibility={post.visibility} />
-          <PostMenu />
+        <div className="flex justify-between items-center pl-6">
+          <div className="flex items-center gap-2">
+            <CategoryIcon category={post.category} />
+            <h1 className="text-sm">
+              {post.tasks.length} Tasks | {subtasksLength} Subtasks |{" "}
+              {post.comments.length} comments
+            </h1>
+          </div>
+          <Link
+            className="font-light text-sm group-hover:underline duration-200 ease-in-out hover:text-tertiary hover:decoration-tertiary"
+            to={`/users/${post.creatorUsername}`}
+          >
+            By {post.creatorUsername}
+          </Link>
         </div>
       </div>
-      <div className="flex justify-between items-center pl-6">
-        <div className="flex items-center gap-2">
-          <CategoryIcon category={post.category} />
-          <h1 className="text-sm">
-            {post.tasks.length} Tasks | {subtasksLength} Subtasks |{" "}
-            {post.comments.length} comments
-          </h1>
-        </div>
-        <Link
-          className="font-light text-sm group-hover:underline duration-200 ease-in-out hover:text-tertiary hover:decoration-tertiary"
-          to={`/users/${post.creatorUsername}`}
-        >
-          By {post.creatorUsername}
-        </Link>
-      </div>
+      <PostMenu />
     </div>
   )
 }

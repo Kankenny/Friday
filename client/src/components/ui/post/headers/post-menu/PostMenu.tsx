@@ -9,7 +9,7 @@ import Tooltip from "@mui/material/Tooltip"
 import EditIcon from "@mui/icons-material/Edit"
 import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 import DeleteIcon from "@mui/icons-material/Delete"
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined"
+import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined"
 
 export default function PostMenu() {
   const [open, setOpen] = React.useState(false)
@@ -62,7 +62,7 @@ export default function PostMenu() {
   }, [open])
 
   return (
-    <div onClick={(e) => e.stopPropagation()}>
+    <div>
       <Tooltip
         title="Post Options"
         className="cursor-pointer"
@@ -72,7 +72,7 @@ export default function PostMenu() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleToggle}
       >
-        <MoreHorizOutlinedIcon className="rounded-full hover:bg-tertiary duration-200 ease-in-out" />
+        <MoreHorizOutlined className="rounded-full hover:bg-tertiary duration-200 ease-in-out text-md p-2 h-12 w-12" />
       </Tooltip>
       {open && (
         <Popper
@@ -100,7 +100,7 @@ export default function PostMenu() {
                   >
                     <MenuItem
                       onClick={handleEditPostClick}
-                      className="flex gap-4 items-center"
+                      className="flex gap-4 items-center hover:bg-tertiary"
                     >
                       <EditIcon className="h-5 w-5" />
                       Edit
@@ -108,14 +108,14 @@ export default function PostMenu() {
                     <MenuItem
                       onClick={handleCopyClick}
                       divider
-                      className="flex gap-4 items-center"
+                      className="flex gap-4 items-center hover:bg-tertiary"
                     >
                       <ContentCopyIcon className="h-5 w-5" />
                       Copy
                     </MenuItem>
                     <MenuItem
                       onClick={handleDeleteClick}
-                      className="flex gap-4 items-center"
+                      className="flex gap-4 items-center hover:bg-tertiary"
                     >
                       <DeleteIcon className="h-5 w-5" />
                       Delete
