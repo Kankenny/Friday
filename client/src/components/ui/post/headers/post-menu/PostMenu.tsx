@@ -16,6 +16,8 @@ import { deletePost } from "../../../../../lib/store/slices/timeline-slice/timel
 import { savePost } from "../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { PostType } from "../../../../../lib/types/primitive-types/PostType"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
+import Feedback from "./Feedback"
+import { isAxiosError } from "axios"
 
 type Props = {
   post: PostType
@@ -25,6 +27,10 @@ export default function PostMenu({ post }: Props) {
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLDivElement>(null)
+  const [feedbackMessage, setFeedbackMessage] = React.useState("")
+  const [feedbackType, setFeedbackType] = React.useState<"success" | "error">(
+    "success"
+  )
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -60,10 +66,17 @@ export default function PostMenu({ post }: Props) {
 
   const handleSaveClick = async (e: React.MouseEvent | Event) => {
     try {
-      await postAPI.put(`/${post._id}/save`)
+      const { data } = await postAPI.put(`/${post._id}/save`)
       dispatch(savePost(post))
+      setFeedbackType("success")
+      setFeedbackMessage(data.message)
     } catch (err) {
-      console.error(err)
+      if (isAxiosError(err)) {
+        setFeedbackType("error")
+        setFeedbackMessage(err.response?.data.message)
+      } else {
+        console.error(err)
+      }
     } finally {
       handleClose(e)
     }
@@ -71,10 +84,17 @@ export default function PostMenu({ post }: Props) {
 
   const handleDeleteClick = async (e: React.MouseEvent | Event) => {
     try {
-      await postAPI.delete(`/${post._id}`)
+      const { data } = await postAPI.delete(`/${post._id}`)
       dispatch(deletePost(post))
+      setFeedbackType("success")
+      setFeedbackMessage(data.message)
     } catch (err) {
-      console.error(err)
+      if (isAxiosError(err)) {
+        setFeedbackType("error")
+        setFeedbackMessage(err.response?.data.message)
+      } else {
+        console.error(err)
+      }
     } finally {
       handleClose(e)
     }
@@ -91,78 +111,85 @@ export default function PostMenu({ post }: Props) {
   }, [open])
 
   return (
-    <div>
-      <Tooltip
-        title="Post Options"
-        className="cursor-pointer"
-        ref={anchorRef}
-        aria-haspopup="true"
-        aria-controls={open ? "composition-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleToggle}
-      >
-        <MoreHorizOutlined className="rounded-full hover:bg-tertiary duration-200 ease-in-out text-md p-2 h-12 w-12" />
-      </Tooltip>
-      {open && (
-        <Popper
-          open={open}
-          anchorEl={anchorRef.current}
-          role={undefined}
-          placement="bottom-start"
-          transition
-          disablePortal
+    <>
+      <div>
+        <Tooltip
+          title="Post Options"
+          className="cursor-pointer"
+          ref={anchorRef}
+          aria-haspopup="true"
+          aria-controls={open ? "composition-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleToggle}
         >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === "bottom-start" ? "left top" : "left bottom",
-              }}
-            >
-              <Paper className="shadow-xl border border-secondary">
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList
-                    id="composition-menu"
-                    aria-labelledby="composition-button"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    <MenuItem
-                      onClick={handleEditPostClick}
-                      className="flex gap-4 items-center hover:bg-tertiary"
+          <MoreHorizOutlined className="rounded-full hover:bg-tertiary duration-200 ease-in-out text-md p-2 h-12 w-12" />
+        </Tooltip>
+        {open && (
+          <Popper
+            open={open}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            placement="bottom-start"
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom-start" ? "left top" : "left bottom",
+                }}
+              >
+                <Paper className="shadow-xl border border-secondary">
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList
+                      id="composition-menu"
+                      aria-labelledby="composition-button"
+                      onKeyDown={handleListKeyDown}
                     >
-                      <EditIcon className="h-5 w-5" />
-                      Edit
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleSaveClick}
-                      className="flex gap-4 items-center hover:bg-tertiary"
-                    >
-                      <SaveAltIcon className="h-5 w-5" />
-                      Save
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCopyClick}
-                      divider
-                      className="flex gap-4 items-center hover:bg-tertiary"
-                    >
-                      <ContentCopyIcon className="h-5 w-5" />
-                      Copy
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleDeleteClick}
-                      className="flex gap-4 items-center hover:bg-tertiary"
-                    >
-                      <DeleteIcon className="h-5 w-5" />
-                      Delete
-                    </MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      )}
-    </div>
+                      <MenuItem
+                        onClick={handleEditPostClick}
+                        className="flex gap-4 items-center hover:bg-tertiary"
+                      >
+                        <EditIcon className="h-5 w-5" />
+                        Edit
+                      </MenuItem>
+                      <MenuItem
+                        onClick={handleSaveClick}
+                        className="flex gap-4 items-center hover:bg-tertiary"
+                      >
+                        <SaveAltIcon className="h-5 w-5" />
+                        Save
+                      </MenuItem>
+                      <MenuItem
+                        onClick={handleCopyClick}
+                        divider
+                        className="flex gap-4 items-center hover:bg-tertiary"
+                      >
+                        <ContentCopyIcon className="h-5 w-5" />
+                        Copy
+                      </MenuItem>
+                      <MenuItem
+                        onClick={handleDeleteClick}
+                        className="flex gap-4 items-center hover:bg-tertiary"
+                      >
+                        <DeleteIcon className="h-5 w-5" />
+                        Delete
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        )}
+      </div>
+      <Feedback
+        feedbackMessage={feedbackMessage}
+        feedbackType={feedbackType}
+        setFeedbackMessage={setFeedbackMessage}
+      />
+    </>
   )
 }
