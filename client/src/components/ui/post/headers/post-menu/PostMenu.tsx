@@ -24,9 +24,10 @@ import { isAxiosError } from "axios"
 
 type Props = {
   post: PostType
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function PostMenu({ post }: Props) {
+export default function PostMenu({ post, setIsEditing }: Props) {
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLDivElement>(null)
@@ -60,6 +61,7 @@ export default function PostMenu({ post }: Props) {
   }
 
   const handleEditPostClick = (e: React.MouseEvent | Event) => {
+    setIsEditing(true)
     handleClose(e)
   }
 

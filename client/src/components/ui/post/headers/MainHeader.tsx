@@ -11,9 +11,15 @@ type Props = {
   post: PostType
   isExpanded: boolean
   setIsExpanded: Dispatch<SetStateAction<boolean>>
+  setIsEditing: Dispatch<SetStateAction<boolean>>
 }
 
-const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
+const MainHeader = ({
+  post,
+  setIsExpanded,
+  setIsEditing,
+  isExpanded,
+}: Props) => {
   const subtasksLength = post.tasks
     ? post.tasks.reduce(
         (total, task) => total + (task.subtasks?.length || 0),
@@ -54,7 +60,7 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
           </Link>
         </div>
       </div>
-      <PostMenu post={post} />
+      <PostMenu post={post} setIsEditing={setIsEditing} />
     </div>
   )
 }
