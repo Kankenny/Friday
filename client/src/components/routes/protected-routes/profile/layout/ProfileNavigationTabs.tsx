@@ -54,14 +54,17 @@ const HomeNavigationTabs = () => {
         }`}
         onClick={handleUserPostsClick}
       />
-      <Tab
-        value="saved posts"
-        label="Saved Posts"
-        className={`font-semibold text-md ${
-          value === "saved posts" ? "text-tertiary" : "text-secondary"
-        }`}
-        onClick={handleSavedPostsClick}
-      />
+      {isSameUser && (
+        <Tab
+          value="saved posts"
+          label="Saved Posts"
+          className={`font-semibold text-md ${
+            value === "saved posts" ? "text-tertiary" : "text-secondary"
+          }`}
+          onClick={handleSavedPostsClick}
+        />
+      )}
+      (
       <Tab
         value="liked posts"
         label="Liked Posts"
@@ -70,6 +73,7 @@ const HomeNavigationTabs = () => {
         }`}
         onClick={handleLikedPostsClick}
       />
+      )
     </Tabs>
   )
 }
