@@ -3,6 +3,7 @@ import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSe
 import Post from "../../../../ui/post/Post"
 import Tooltip from "@mui/material/Tooltip"
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark"
+import Alert from "../../../../ui/mui/Alert"
 
 const LikedPosts = () => {
   const { username: pathUsername } = useParams()
@@ -29,17 +30,28 @@ const LikedPosts = () => {
             : `${otherUserFirstName}'s liked posts`}
         </h1>
         <Tooltip
-          title="Private posts are hidden to others"
+          title="Liked posts are visible to the public"
           className="cursor-pointer bg-tertiary rounded-full p-1 text-secondary hover:bg-secondary hover:text-tertiary duration-200"
         >
           <QuestionMarkIcon className="w-5 h-5" />
         </Tooltip>
       </div>
-      <ul className="space-y-10">
-        {likedPosts.map((post) => (
-          <Post key={post._id} post={post} />
-        ))}
-      </ul>
+      {likedPosts.length !== 0 ? (
+        <ul className="space-y-10">
+          {likedPosts.map((post) => (
+            <Post key={post._id} post={post} />
+          ))}
+        </ul>
+      ) : (
+        <Alert
+          severity="error"
+          message={
+            isSameUser
+              ? "You have not liked any posts"
+              : `${otherUserFirstName} has not yet liked any posts`
+          }
+        />
+      )}
     </div>
   )
 }
