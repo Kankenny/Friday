@@ -54,7 +54,7 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
           </Link>
         </div>
       </div>
-      <PostMenu />
+      <PostMenu post={post} />
     </div>
   )
 }

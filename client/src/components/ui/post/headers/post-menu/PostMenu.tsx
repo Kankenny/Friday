@@ -11,8 +11,17 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 import SaveAltIcon from "@mui/icons-material/SaveAlt"
 import DeleteIcon from "@mui/icons-material/Delete"
 import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined"
+import { useDispatch } from "react-redux"
+import { deletePost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
+import { PostType } from "../../../../../lib/types/primitive-types/PostType"
+import postAPI from "../../../../../lib/services/axios-instances/postAPI"
 
-export default function PostMenu() {
+type Props = {
+  post: PostType
+}
+
+export default function PostMenu({ post }: Props) {
+  const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLDivElement>(null)
 
@@ -52,8 +61,15 @@ export default function PostMenu() {
     handleClose(e)
   }
 
-  const handleDeleteClick = (e: React.MouseEvent | Event) => {
-    handleClose(e)
+  const handleDeleteClick = async (e: React.MouseEvent | Event) => {
+    try {
+      await postAPI.delete(`/${post._id}`)
+      dispatch(deletePost(post))
+    } catch (err) {
+      console.error(err)
+    } finally {
+      handleClose(e)
+    }
   }
 
   // return focus to the button when we transitioned from !open -> open

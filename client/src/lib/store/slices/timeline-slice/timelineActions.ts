@@ -16,3 +16,13 @@ export const createPostReducer = (
 ) => {
   state.posts = [action.payload, ...state.posts]
 }
+
+export const deletePostReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<PostType>
+) => {
+  const filteredPosts = state.posts.filter(
+    (post) => post._id !== action.payload._id
+  )
+  state.posts = filteredPosts
+}
