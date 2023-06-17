@@ -22,14 +22,11 @@ const MainHeader = ({ post, setIsExpanded, isExpanded }: Props) => {
     : 0
 
   return (
-    <div className="group p-2">
+    <div className="group p-2" onClick={() => setIsExpanded(!isExpanded)}>
       <div className="flex justify-between">
         <div className="flex items-center">
           <Tooltip title="Expand Post">
-            <ChevronRightOutlinedIcon
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="cursor-pointer"
-            />
+            <ChevronRightOutlinedIcon className="cursor-pointer" />
           </Tooltip>
           <h1 className="font-semibold text-lg">{post.title}</h1>
         </div>
