@@ -13,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined"
 import { useDispatch } from "react-redux"
 import { deletePost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
+import { savePost } from "../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { PostType } from "../../../../../lib/types/primitive-types/PostType"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
 
@@ -57,8 +58,15 @@ export default function PostMenu({ post }: Props) {
     handleClose(e)
   }
 
-  const handleSaveClick = (e: React.MouseEvent | Event) => {
-    handleClose(e)
+  const handleSaveClick = async (e: React.MouseEvent | Event) => {
+    try {
+      await postAPI.put(`/${post._id}`)
+      dispatch(savePost(post))
+    } catch (err) {
+      console.error(err)
+    } finally {
+      handleClose(e)
+    }
   }
 
   const handleDeleteClick = async (e: React.MouseEvent | Event) => {

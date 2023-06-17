@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { ProfileSliceType } from "../../../types/slice-types/ProfileSliceType"
 import {
   changeProfilePictureReducer,
+  savePostReducer,
   setUserDetailsReducer,
 } from "./sameProfileActions"
 
@@ -30,9 +31,11 @@ const sameProfileSlice = createSlice({
   reducers: {
     setUserDetails: setUserDetailsReducer,
     changeProfilePicture: changeProfilePictureReducer,
+    savePost: savePostReducer,
   },
 })
 
-export const { setUserDetails, changeProfilePicture } = sameProfileSlice.actions
+export const { setUserDetails, changeProfilePicture, savePost } =
+  sameProfileSlice.actions
 
 export default sameProfileSlice.reducer
