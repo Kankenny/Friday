@@ -60,7 +60,7 @@ export default function PostMenu({ post }: Props) {
 
   const handleSaveClick = async (e: React.MouseEvent | Event) => {
     try {
-      await postAPI.put(`/${post._id}`)
+      await postAPI.put(`/${post._id}/save`)
       dispatch(savePost(post))
     } catch (err) {
       console.error(err)

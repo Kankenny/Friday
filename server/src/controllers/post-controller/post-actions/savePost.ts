@@ -42,6 +42,18 @@ export const savePost = async (req: JWTRequest, res: Response) => {
       })
     }
 
+    // Check if the user has already saved the post
+    const isAlreadySaved = existingUser.savedPosts.some((post) =>
+      post._id.equals(existingPost._id)
+    )
+    if (isAlreadySaved) {
+      return res.status(400).json({
+        message: "This post has already been saved!",
+        data: null,
+        ok: false,
+      })
+    }
+
     // Save post
     existingUser.savedPosts.push(existingPost._id)
     await existingUser.save()
