@@ -31,6 +31,12 @@ const HomeNavigationTabs = () => {
     )
   }
 
+  const handleSharedPostsClick = () => {
+    navigate(
+      `/users/${isSameUser ? sameUserUsername : otherUserUsername}/shared-posts`
+    )
+  }
+
   const handleLikedPostsClick = () => {
     navigate(
       `/users/${isSameUser ? sameUserUsername : otherUserUsername}/liked-posts`
@@ -62,6 +68,19 @@ const HomeNavigationTabs = () => {
             value === "saved posts" ? "text-tertiary" : "text-secondary"
           }`}
           onClick={handleSavedPostsClick}
+        />
+      )}
+      // appending the tab below to the one above doesn't work as MUI's
+      implementation of the Tabs component doesn't accept the ReactNode
+      (children) prop
+      {isSameUser && (
+        <Tab
+          value="shared posts"
+          label="Shared Posts"
+          className={`font-semibold text-md ${
+            value === "shared posts" ? "text-tertiary" : "text-secondary"
+          }`}
+          onClick={handleSharedPostsClick}
         />
       )}
       (
