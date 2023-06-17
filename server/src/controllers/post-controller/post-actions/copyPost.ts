@@ -91,7 +91,7 @@ export const copyPost = async (req: JWTRequest, res: Response) => {
 
     return res.status(200).json({
       message: "Post successfully copied!",
-      data: null,
+      data: newPost,
       ok: true,
     })
   } catch (error) {

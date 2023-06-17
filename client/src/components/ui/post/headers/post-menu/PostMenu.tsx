@@ -66,7 +66,7 @@ export default function PostMenu({ post }: Props) {
   const handleCopyClick = async (e: React.MouseEvent | Event) => {
     try {
       const { data } = await postAPI.post(`/${post._id}/copy`)
-      dispatch(copyPost(post))
+      dispatch(copyPost(data.data))
       setFeedbackType("success")
       setFeedbackMessage(data.message)
     } catch (err) {
