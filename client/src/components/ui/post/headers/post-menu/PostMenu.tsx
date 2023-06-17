@@ -13,7 +13,10 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined"
 import { useDispatch } from "react-redux"
 import { deletePost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
-import { savePost } from "../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
+import {
+  copyPost,
+  savePost,
+} from "../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { PostType } from "../../../../../lib/types/primitive-types/PostType"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
 import Feedback from "./Feedback"
@@ -60,8 +63,22 @@ export default function PostMenu({ post }: Props) {
     handleClose(e)
   }
 
-  const handleCopyClick = (e: React.MouseEvent | Event) => {
-    handleClose(e)
+  const handleCopyClick = async (e: React.MouseEvent | Event) => {
+    try {
+      const { data } = await postAPI.post(`/${post._id}/copy`)
+      dispatch(copyPost(post))
+      setFeedbackType("success")
+      setFeedbackMessage(data.message)
+    } catch (err) {
+      if (isAxiosError(err)) {
+        setFeedbackType("error")
+        setFeedbackMessage(err.response?.data.message)
+      } else {
+        console.error(err)
+      }
+    } finally {
+      handleClose(e)
+    }
   }
 
   const handleSaveClick = async (e: React.MouseEvent | Event) => {
