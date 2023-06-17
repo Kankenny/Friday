@@ -5,19 +5,19 @@ import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSe
 
 const HomeNavigationTabs = () => {
   const navigate = useNavigate()
-  const [value, setValue] = useState("timeline")
+  const [value, setValue] = useState("my posts")
   const { username } = useTypedSelector((state) => state.sameProfile)
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
 
-  const handleMyPostsClick = () => {
-    navigate(`/users/${username}/my-posts`)
+  const handleUserPostsClick = () => {
+    navigate(`/users/${username}/posts`)
   }
 
-  const handleSharedPostsClick = () => {
-    navigate(`/users/${username}/shared-posts`)
+  const handleSavedPostsClick = () => {
+    navigate(`/users/${username}/saved-posts`)
   }
 
   const handleLikedPostsClick = () => {
@@ -34,20 +34,20 @@ const HomeNavigationTabs = () => {
       className="border-b"
     >
       <Tab
-        value="my posts"
-        label="My Posts"
+        value="user posts"
+        label="User Posts"
         className={`font-semibold text-md ${
-          value === "my posts" ? "text-tertiary" : "text-secondary"
+          value === "user posts" ? "text-tertiary" : "text-secondary"
         }`}
-        onClick={handleMyPostsClick}
+        onClick={handleUserPostsClick}
       />
       <Tab
-        value="shared with me"
-        label="Shared with Me"
+        value="saved posts"
+        label="Saved Posts"
         className={`font-semibold text-md ${
-          value === "shared with me" ? "text-tertiary" : "text-secondary"
+          value === "saved posts" ? "text-tertiary" : "text-secondary"
         }`}
-        onClick={handleSharedPostsClick}
+        onClick={handleSavedPostsClick}
       />
       <Tab
         value="liked posts"

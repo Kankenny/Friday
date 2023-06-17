@@ -30,6 +30,7 @@ import RequireUnauth from "./components/routes/unprotected-routes/navigation-gua
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
 import HomeLayout from "./components/routes/protected-routes/home/home-layout/HomeLayout"
 import timelineAPI from "./lib/services/axios-instances/timelineAPI"
+import UserPosts from "./components/routes/protected-routes/profile/user-posts/UserPosts"
 
 function App() {
   const dispatch = useDispatch()
@@ -88,6 +89,7 @@ function App() {
             </Route>
             <Route element={<ProfileLayout />}>
               <Route path="/users/:username" element={<Profile />} />
+              <Route path="/users/:username/posts" element={<UserPosts />} />
             </Route>
           </Route>
 
