@@ -129,7 +129,7 @@ const Task = ({ post, task }: Props) => {
         </h1>
       </div>
       {isExpanded && task.subtasks.length !== 0 && (
-        <Subtasks subtasks={task.subtasks} />
+        <Subtasks subtasks={task.subtasks} post={post} task={task} />
       )}
       {isExpanded && (
         <div className="border border-secondary p-2 pl-9 text-sm">
