@@ -12,7 +12,10 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt"
 import DeleteIcon from "@mui/icons-material/Delete"
 import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined"
 import { useDispatch } from "react-redux"
-import { deletePost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
+import {
+  createPost,
+  deletePost,
+} from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 import {
   copyPost,
   savePost,
@@ -69,6 +72,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
         setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
       )
       dispatch(copyPost(data.data))
+      dispatch(createPost(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
         dispatch(
