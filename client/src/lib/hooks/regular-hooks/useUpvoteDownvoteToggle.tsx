@@ -4,27 +4,35 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp"
 import ThumbDownIcon from "@mui/icons-material/ThumbDown"
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt"
 import postAPI from "../../services/axios-instances/postAPI"
+import { PostType } from "../../types/primitive-types/PostType"
+import { useDispatch } from "react-redux"
+import { updatePost } from "../../store/slices/timeline-slice/timelineSlice"
 
 type Props = {
-  postId: string
+  post: PostType
   isAlreadyLiked: boolean
   isAlreadyDisliked: boolean
 }
 
 const useUpvoteDownvoteToggle = ({
-  postId,
+  post,
   isAlreadyLiked,
   isAlreadyDisliked,
 }: Props) => {
+  const dispatch = useDispatch()
   const [isLiked, setIsLiked] = useState(isAlreadyLiked)
   const [isDisliked, setIsDisliked] = useState(isAlreadyDisliked)
 
   const handleLike = async () => {
     try {
       if (!isAlreadyLiked) {
-        await postAPI.put(`/${postId}/upvote`)
+        await postAPI.put(`/${post._id}/upvote`)
+        const updatedPost = { ...post, upvotes: post.upvotes + 1 }
+        dispatch(updatePost(updatedPost))
       } else {
-        await postAPI.put(`/${postId}/revert`)
+        await postAPI.put(`/${post._id}/revert`)
+        const updatedPost = { ...post, upvotes: post.upvotes - 1 }
+        dispatch(updatePost(updatedPost))
       }
       setIsLiked(!isLiked)
       setIsDisliked(false)
@@ -36,9 +44,13 @@ const useUpvoteDownvoteToggle = ({
   const handleDislike = async () => {
     try {
       if (!isAlreadyDisliked) {
-        await postAPI.put(`/${postId}/downvote`)
+        await postAPI.put(`/${post._id}/downvote`)
+        const updatedPost = { ...post, downvotes: post.downvotes + 1 }
+        dispatch(updatePost(updatedPost))
       } else {
-        await postAPI.put(`/${postId}/revert`)
+        await postAPI.put(`/${post._id}/revert`)
+        const updatedPost = { ...post, downvotes: post.downvotes - 1 }
+        dispatch(updatePost(updatedPost))
       }
       setIsLiked(false)
       setIsDisliked(!isDisliked)
