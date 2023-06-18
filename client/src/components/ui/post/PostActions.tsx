@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined"
 import { PostType } from "../../../lib/types/primitive-types/PostType"
 import CommentsButton from "./comments/CommentsButton"
@@ -19,7 +20,12 @@ type Props = {
 
 const PostActions = ({ post }: Props) => {
   const dispatch = useDispatch()
-  const { register, handleSubmit, reset } = useForm<createTaskType>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<createTaskType>({
     resolver: zodResolver(createTaskSchema),
   })
 
@@ -45,13 +51,26 @@ const PostActions = ({ post }: Props) => {
     }
   }
 
+  useEffect(() => {
+    if (errors.title?.message && !isSubmitSuccessful) {
+      dispatch(
+        setFeedback({
+          feedbackMessage: errors.title?.message,
+          feedbackType: "error",
+        })
+      )
+    }
+  }, [errors.title?.message, isSubmitSuccessful, dispatch])
+
   return (
     <div className="flex justify-between border border-secondary rounded-b-md text-sm p-2">
       <form
         className="flex items-center"
         onSubmit={handleSubmit(handleNewTaskSubmit)}
       >
-        <AddOutlinedIcon className="h-5 w-5 opacity-50" />
+        <button type="submit">
+          <AddOutlinedIcon className="h-5 w-5 opacity-50" />
+        </button>
         <input
           type="text"
           placeholder="Add Task"

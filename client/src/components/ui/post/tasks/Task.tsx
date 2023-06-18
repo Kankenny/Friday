@@ -39,6 +39,10 @@ const Task = ({ post, task }: Props) => {
     register: registerNewSubtask,
     handleSubmit: handleSubmitNewSubtask,
     reset: resetNewSubtaskForm,
+    formState: {
+      errors: newSubtaskErrors,
+      isSubmitSuccessful: isNewSubtaskSubmittedSuccessful,
+    },
   } = useForm<createSubtaskType>({
     resolver: zodResolver(createSubtaskSchema),
   })
@@ -48,6 +52,10 @@ const Task = ({ post, task }: Props) => {
     handleSubmit: handleSubmitUpdateTask,
     setFocus: setFocusUpdateTask,
     reset: resetUpdateTask,
+    formState: {
+      errors: updateTaskErrors,
+      isSubmitSuccessful: isUpdateSubmitSuccessful,
+    },
   } = useForm<updateTaskType>({
     resolver: zodResolver(updateTaskSchema),
   })
@@ -98,6 +106,31 @@ const Task = ({ post, task }: Props) => {
       setFocusUpdateTask("title")
     }
   }, [isEditing, setFocusUpdateTask])
+
+  useEffect(() => {
+    if (updateTaskErrors.title?.message && !isUpdateSubmitSuccessful) {
+      dispatch(
+        setFeedback({
+          feedbackMessage: updateTaskErrors.title?.message,
+          feedbackType: "error",
+        })
+      )
+    }
+    if (newSubtaskErrors.title?.message && !isNewSubtaskSubmittedSuccessful) {
+      dispatch(
+        setFeedback({
+          feedbackMessage: newSubtaskErrors.title?.message,
+          feedbackType: "error",
+        })
+      )
+    }
+  }, [
+    updateTaskErrors.title?.message,
+    isUpdateSubmitSuccessful,
+    newSubtaskErrors.title?.message,
+    isNewSubtaskSubmittedSuccessful,
+    dispatch,
+  ])
 
   const taskDueDate = new Date(task.dueDate)
   const formattedDueDate = taskDueDate.toLocaleString("en-US", {
@@ -153,7 +186,9 @@ const Task = ({ post, task }: Props) => {
             className="flex items-center"
             onSubmit={handleSubmitNewSubtask(handleNewSubtaskSubmit)}
           >
-            <AddOutlinedIcon className="h-5 w-5 opacity-50" />
+            <button type="submit">
+              <AddOutlinedIcon className="h-5 w-5 opacity-50" />
+            </button>
             <input
               type="text"
               placeholder="Add Subtask"
