@@ -10,6 +10,8 @@ import {
 import taskAPI from "../../../lib/services/axios-instances/taskAPI"
 import { useDispatch } from "react-redux"
 import { createTask } from "../../../lib/store/slices/timeline-slice/timelineSlice"
+import { setFeedback } from "../../../lib/store/slices/feedback-slice/feedbackSlice"
+import { isAxiosError } from "axios"
 
 type Props = {
   post: PostType
@@ -25,9 +27,21 @@ const PostActions = ({ post }: Props) => {
     try {
       const { data } = await taskAPI.post(`/?postId=${post._id}`, formData)
       dispatch(createTask({ task: data.data, post }))
+      dispatch(
+        setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
+      )
       reset()
     } catch (err) {
-      console.error(err)
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
     }
   }
 
@@ -41,7 +55,7 @@ const PostActions = ({ post }: Props) => {
         <input
           type="text"
           placeholder="Add Task"
-          className="h-full outline-none"
+          className="h-full px-2 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
           {...register("title")}
         />
       </form>

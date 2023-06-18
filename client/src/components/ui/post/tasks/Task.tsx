@@ -22,6 +22,8 @@ import {
 } from "../../../../../../common/validations/task/updateTaskValidator"
 import ClickAwayListener from "@mui/material/ClickAwayListener"
 import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
+import { isAxiosError } from "axios"
+import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
 
 type Props = {
   post: PostType
@@ -71,8 +73,22 @@ const Task = ({ post, task }: Props) => {
         formData
       )
       dispatch(createSubtask({ post, task, subtask: data.data }))
+      dispatch(
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
+      )
       resetNewSubtaskForm()
     } catch (err) {
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      }
       console.error(err)
     }
   }
@@ -111,7 +127,7 @@ const Task = ({ post, task }: Props) => {
                 <input
                   type="text"
                   placeholder={task.title}
-                  className="h-full px-2 py-1 outline-none text-secondary rounded-md"
+                  className="h-full px-2 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
                   {...registerUpdateTask("title")}
                 />
               </form>
