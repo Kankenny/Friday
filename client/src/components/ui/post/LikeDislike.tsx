@@ -1,11 +1,12 @@
-import React from "react"
-import useLikeDislikeToggle from "../../../lib/hooks/regular-hooks/useLikeDislikeToggle"
+import useLikeDislikeToggle from "../../../lib/hooks/regular-hooks/useUpvoteDownvoteToggle"
 
 const LikeDislike = () => {
+  const { UpvoteIcon, DownvoteIcon } = useLikeDislikeToggle()
+
   return (
     <div className="flex gap-2">
-      <ThumbUpOffAltIcon className="cursor-pointer" />
-      <ThumbDownOffAltIcon className="cursor-pointer" />
+      <UpvoteIcon />
+      <DownvoteIcon />
     </div>
   )
 }

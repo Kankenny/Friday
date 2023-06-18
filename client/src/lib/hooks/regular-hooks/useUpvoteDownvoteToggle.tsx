@@ -18,7 +18,7 @@ const useUpvoteDownvoteToggle = () => {
     setIsDisliked(!isDisliked)
   }
 
-  const UpvotedIcon = () => {
+  const UpvoteIcon = () => {
     if (isLiked) {
       return <ThumbUpIcon onClick={handleLike} />
     } else {
@@ -34,7 +34,7 @@ const useUpvoteDownvoteToggle = () => {
     }
   }
 
-  return { UpvotedIcon, DownvoteIcon }
+  return { UpvoteIcon, DownvoteIcon }
 }
 
 export default useUpvoteDownvoteToggle

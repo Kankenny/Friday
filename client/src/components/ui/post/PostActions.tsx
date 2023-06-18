@@ -13,10 +13,7 @@ import { useDispatch } from "react-redux"
 import { createTask } from "../../../lib/store/slices/timeline-slice/timelineSlice"
 import { setFeedback } from "../../../lib/store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt"
-import ThumbUpIcon from "@mui/icons-material/ThumbUp"
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt"
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt"
+import LikeDislike from "./LikeDislike"
 
 type Props = {
   post: PostType
@@ -85,10 +82,7 @@ const PostActions = ({ post }: Props) => {
       <div className="flex gap-2">
         <CommentsButton post={post} />
         <h1>|</h1>
-        <div className="flex gap-2">
-          <ThumbUpOffAltIcon className="cursor-pointer" />
-          <ThumbDownOffAltIcon className="cursor-pointer" />
-        </div>
+        <LikeDislike />
       </div>
     </div>
   )
