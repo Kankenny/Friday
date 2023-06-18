@@ -7,6 +7,8 @@ import postAPI from "../../services/axios-instances/postAPI"
 import { PostType } from "../../types/primitive-types/PostType"
 import { useDispatch } from "react-redux"
 import { updatePost } from "../../store/slices/timeline-slice/timelineSlice"
+import { setFeedback } from "../../store/slices/feedback-slice/feedbackSlice"
+import { isAxiosError } from "axios"
 
 type Props = {
   post: PostType
@@ -26,36 +28,78 @@ const useUpvoteDownvoteToggle = ({
   const handleLike = async () => {
     try {
       if (!isAlreadyLiked) {
-        await postAPI.put(`/${post._id}/upvote`)
+        const { data } = await postAPI.put(`/${post._id}/upvote`)
         const updatedPost = { ...post, upvotes: post.upvotes + 1 }
         dispatch(updatePost(updatedPost))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
       } else {
-        await postAPI.put(`/${post._id}/revert`)
+        const { data } = await postAPI.put(`/${post._id}/revert`)
         const updatedPost = { ...post, upvotes: post.upvotes - 1 }
         dispatch(updatePost(updatedPost))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
       }
       setIsLiked(!isLiked)
       setIsDisliked(false)
     } catch (err) {
-      console.error(err)
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
     }
   }
 
   const handleDislike = async () => {
     try {
       if (!isAlreadyDisliked) {
-        await postAPI.put(`/${post._id}/downvote`)
+        const { data } = await postAPI.put(`/${post._id}/downvote`)
         const updatedPost = { ...post, downvotes: post.downvotes + 1 }
         dispatch(updatePost(updatedPost))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
       } else {
-        await postAPI.put(`/${post._id}/revert`)
+        const { data } = await postAPI.put(`/${post._id}/revert`)
         const updatedPost = { ...post, downvotes: post.downvotes - 1 }
         dispatch(updatePost(updatedPost))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
       }
       setIsLiked(false)
       setIsDisliked(!isDisliked)
     } catch (err) {
-      console.error(err)
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
     }
   }
 
