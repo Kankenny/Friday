@@ -8,7 +8,7 @@ import TaskModel from "../../../models/Task"
 import SubtaskModel from "../../../models/Subtask"
 
 // Validators
-import updateSubtaskSchema from "../../../lib/validations/subtask/updateSubtaskValidator"
+import { updateSubtaskSchema } from "../../../../../common/validations/subtask/updateSubtaskValidator"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
