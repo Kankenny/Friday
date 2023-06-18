@@ -22,7 +22,7 @@ SubtaskRouter.get("/getTaskSubtasks", getTaskSubtasks)
 
 // CREATE SUBTASK
 SubtaskRouter.post(
-  "/createSubtask",
+  "/",
   (req: Request, res: Response, next: NextFunction) =>
     verifyToken(req as JWTRequest, res, next),
   (req: Request, res: Response) => createSubtask(req as JWTRequest, res)
