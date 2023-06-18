@@ -4,7 +4,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp"
 import ThumbDownIcon from "@mui/icons-material/ThumbDown"
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt"
 
-const useLikeDislikeToggle = () => {
+const useUpvoteDownvoteToggle = () => {
   const [isLiked, setIsLiked] = useState(false)
   const [isDisliked, setIsDisliked] = useState(false)
 
@@ -18,7 +18,7 @@ const useLikeDislikeToggle = () => {
     setIsDisliked(!isDisliked)
   }
 
-  const LikeIcon = () => {
+  const UpvotedIcon = () => {
     if (isLiked) {
       return <ThumbUpIcon onClick={handleLike} />
     } else {
@@ -26,7 +26,7 @@ const useLikeDislikeToggle = () => {
     }
   }
 
-  const DislikeIcon = () => {
+  const DownvoteIcon = () => {
     if (isDisliked) {
       return <ThumbDownIcon onClick={handleDislike} />
     } else {
@@ -34,7 +34,7 @@ const useLikeDislikeToggle = () => {
     }
   }
 
-  return { LikeIcon, DislikeIcon }
+  return { UpvotedIcon, DownvoteIcon }
 }
 
-export default useLikeDislikeToggle
+export default useUpvoteDownvoteToggle
