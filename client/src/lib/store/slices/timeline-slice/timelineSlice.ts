@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import {
+  createTaskReducer,
   deletePostReducer,
   setTimelineReducer,
   updatePostReducer,
@@ -17,10 +18,11 @@ const timelineSlice = createSlice({
     createPost: createPostReducer,
     deletePost: deletePostReducer,
     updatePost: updatePostReducer,
+    createTask: createTaskReducer,
   },
 })
 
-export const { setTimeline, createPost, deletePost, updatePost } =
+export const { setTimeline, createPost, deletePost, updatePost, createTask } =
   timelineSlice.actions
 
 export default timelineSlice.reducer

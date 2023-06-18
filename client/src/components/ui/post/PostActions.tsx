@@ -8,18 +8,23 @@ import {
   createTaskType,
 } from "../../../../../common/validations/task/createTaskValidator"
 import taskAPI from "../../../lib/services/axios-instances/taskAPI"
+import { useDispatch } from "react-redux"
+import { createTask } from "../../../lib/store/slices/timeline-slice/timelineSlice"
 
 type Props = {
   post: PostType
 }
 
 const PostActions = ({ post }: Props) => {
-  const { register, handleSubmit } = useForm<createTaskType>({
+  const dispatch = useDispatch()
+  const { register, handleSubmit, reset } = useForm<createTaskType>({
     resolver: zodResolver(createTaskSchema),
   })
   const handleNewTaskSubmit = async (formData: createTaskType) => {
     try {
       const { data } = await taskAPI.post(`/?postId=${post._id}`, formData)
+      dispatch(createTask({ task: data.data, post }))
+      reset()
     } catch (err) {
       console.error(err)
     }

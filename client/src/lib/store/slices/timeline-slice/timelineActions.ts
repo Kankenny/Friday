@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit"
 import { TimelineSliceType } from "../../../types/slice-types/TimelineSliceType"
 import { PostType } from "../../../types/primitive-types/PostType"
+import { TaskType } from "../../../types/primitive-types/TaskType"
 
 export const setTimelineReducer = (
   state: TimelineSliceType,
@@ -38,5 +39,20 @@ export const updatePostReducer = (
 
   if (postIndex !== -1) {
     state.posts[postIndex] = updatedPost
+  }
+}
+
+export const createTaskReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<{ task: TaskType; post: PostType }>
+) => {
+  const { task, post } = action.payload
+  const updatedTasks = [...post.tasks, task]
+  return {
+    ...state,
+    // Update the post with the updated tasks
+    posts: state.posts.map((p) =>
+      p._id === post._id ? { ...p, tasks: updatedTasks } : p
+    ),
   }
 }
