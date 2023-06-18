@@ -5,6 +5,7 @@ import MainHeader from "./headers/MainHeader"
 import PostActions from "./PostActions"
 import Tasks from "./tasks/Tasks"
 import { PostType } from "../../../lib/types/primitive-types/PostType"
+import EditPostForm from "./headers/post-menu/EditPostForm"
 
 type Props = {
   post: PostType
@@ -36,7 +37,7 @@ const Post = ({ post }: Props) => {
           </div>
         </div>
       ) : (
-        <div>T</div>
+        <EditPostForm setIsEditing={setIsEditing} post={post} />
       )}
     </>
   )

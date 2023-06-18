@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const updatePostSchema = z.object({
+export const updatePostSchema = z.object({
   title: z.string().trim().optional(),
   creatorId: z.undefined(),
   creatorUsername: z.undefined(),
@@ -20,4 +20,4 @@ const updatePostSchema = z.object({
   comments: z.undefined(),
 })
 
-export default updatePostSchema
+export type updatePostType = z.infer<typeof updatePostSchema>
