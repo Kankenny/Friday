@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Card from "../../../../ui/Card"
 import RHFInputField from "../../../../ui/rhf/RHFInputField"
 import { useForm } from "react-hook-form"
-import { SetStateAction, useEffect, useState } from "react"
+import { SetStateAction, useEffect } from "react"
 import {
   updatePostSchema,
   updatePostType,
@@ -14,10 +14,10 @@ import { AUTHORIZATIONS } from "../../../../../lib/constants/Authorizations"
 import { CATEGORIES } from "../../../../../lib/constants/Categories"
 import { isAxiosError } from "axios"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
-import Alert from "../../../../ui/mui/Alert"
 import { useDispatch } from "react-redux"
 import { PostType } from "../../../../../lib/types/primitive-types/PostType"
 import { updatePost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
+import { setFeedback } from "../../../../../lib/store/slices/feedback-slice/feedbackSlice"
 
 type Props = {
   post: PostType
@@ -26,7 +26,6 @@ type Props = {
 
 const EditPostForm = ({ post, setIsEditing }: Props) => {
   const dispatch = useDispatch()
-  const [error, setError] = useState("")
   const {
     register,
     handleSubmit,
@@ -56,11 +55,20 @@ const EditPostForm = ({ post, setIsEditing }: Props) => {
     try {
       const { data } = await postAPI.put(`/${post._id}`, formData)
       dispatch(updatePost(data.data))
+      dispatch(
+        setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
+      )
       setIsEditing(false)
-      setError("")
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(err.response?.data.message)
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
       }
     }
   }
@@ -101,7 +109,6 @@ const EditPostForm = ({ post, setIsEditing }: Props) => {
         </div>
         <StyledButton buttonText="Edit" type="submit" />
       </form>
-      {error && <Alert severity="error" message={error} />}
     </Card>
   )
 }

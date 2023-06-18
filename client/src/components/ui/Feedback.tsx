@@ -1,17 +1,15 @@
 import * as React from "react"
 import Snackbar from "@mui/material/Snackbar"
+import { useDispatch } from "react-redux"
+import { useTypedSelector } from "../../lib/hooks/redux-hook/useTypedSelector"
+import { setFeedback } from "../../lib/store/slices/feedback-slice/feedbackSlice"
 
-type Props = {
-  feedbackMessage: string
-  feedbackType: "success" | "error"
-  setFeedbackMessage: React.Dispatch<React.SetStateAction<string>>
-}
+export default function Feedback() {
+  const dispatch = useDispatch()
+  const { feedbackMessage, feedbackType } = useTypedSelector(
+    (state) => state.feedback
+  )
 
-export default function Feedback({
-  feedbackMessage,
-  feedbackType,
-  setFeedbackMessage,
-}: Props) {
   const handleClose = (
     _event: React.SyntheticEvent | Event,
     reason?: string
@@ -20,7 +18,7 @@ export default function Feedback({
       return
     }
 
-    setFeedbackMessage("")
+    dispatch(setFeedback({ feedbackMessage: "", feedbackType: "success" }))
   }
 
   return (

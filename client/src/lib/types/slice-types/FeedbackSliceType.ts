@@ -1,4 +1,4 @@
 export interface FeedbackSliceType {
   feedbackMessage: string
-  feedbackType: "success" | "error"
+  feedbackType: "success" | "error" | undefined
 }

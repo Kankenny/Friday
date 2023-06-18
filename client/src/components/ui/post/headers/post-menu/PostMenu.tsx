@@ -19,7 +19,8 @@ import {
 } from "../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { PostType } from "../../../../../lib/types/primitive-types/PostType"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
-import Feedback from "./Feedback"
+import { setFeedback } from "../../../../../lib/store/slices/feedback-slice/feedbackSlice"
+
 import { isAxiosError } from "axios"
 
 type Props = {
@@ -31,10 +32,6 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLDivElement>(null)
-  const [feedbackMessage, setFeedbackMessage] = React.useState("")
-  const [feedbackType, setFeedbackType] = React.useState<"success" | "error">(
-    "success"
-  )
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -68,13 +65,18 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   const handleCopyClick = async (e: React.MouseEvent | Event) => {
     try {
       const { data } = await postAPI.post(`/${post._id}/copy`)
-      setFeedbackType("success")
-      setFeedbackMessage(data.message)
+      dispatch(
+        setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
+      )
       dispatch(copyPost(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
-        setFeedbackType("error")
-        setFeedbackMessage(err.response?.data.message)
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
       } else {
         console.error(err)
       }
@@ -86,13 +88,18 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   const handleSaveClick = async (e: React.MouseEvent | Event) => {
     try {
       const { data } = await postAPI.put(`/${post._id}/save`)
-      setFeedbackType("success")
-      setFeedbackMessage(data.message)
+      dispatch(
+        setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
+      )
       dispatch(savePost(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
-        setFeedbackType("error")
-        setFeedbackMessage(err.response?.data.message)
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
       } else {
         console.error(err)
       }
@@ -104,13 +111,18 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   const handleDeleteClick = async (e: React.MouseEvent | Event) => {
     try {
       const { data } = await postAPI.delete(`/${post._id}`)
-      setFeedbackType("success")
-      setFeedbackMessage(data.message)
+      dispatch(
+        setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
+      )
       dispatch(deletePost(post))
     } catch (err) {
       if (isAxiosError(err)) {
-        setFeedbackType("error")
-        setFeedbackMessage(err.response?.data.message)
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
       } else {
         console.error(err)
       }
@@ -204,11 +216,6 @@ export default function PostMenu({ post, setIsEditing }: Props) {
           </Popper>
         )}
       </div>
-      <Feedback
-        feedbackMessage={feedbackMessage}
-        feedbackType={feedbackType}
-        setFeedbackMessage={setFeedbackMessage}
-      />
     </>
   )
 }
