@@ -3,13 +3,21 @@ import { useState } from "react"
 import Subtasks from "../subtasks/Subtasks"
 import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined"
+import { useDispatch } from "react-redux"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 type Props = {
   task: TaskType
 }
 
 const Task = ({ task }: Props) => {
+  const dispatch = useDispatch()
   const [isExpanded, setIsExpanded] = useState(false)
+
+  const { register, handleSubmit, reset } = useForm<createSubtaskType>({
+    resolver: zodResolver(createSubtaskSchema),
+  })
 
   const taskDueDate = new Date(task.dueDate)
   const formattedDueDate = taskDueDate.toLocaleString("en-US", {
