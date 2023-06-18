@@ -3,19 +3,48 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt"
 import ThumbUpIcon from "@mui/icons-material/ThumbUp"
 import ThumbDownIcon from "@mui/icons-material/ThumbDown"
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt"
+import postAPI from "../../services/axios-instances/postAPI"
 
-const useUpvoteDownvoteToggle = () => {
-  const [isLiked, setIsLiked] = useState(false)
-  const [isDisliked, setIsDisliked] = useState(false)
+type Props = {
+  postId: string
+  isAlreadyLiked: boolean
+  isAlreadyDisliked: boolean
+}
 
-  const handleLike = () => {
-    setIsLiked(!isLiked)
-    setIsDisliked(false)
+const useUpvoteDownvoteToggle = ({
+  postId,
+  isAlreadyLiked,
+  isAlreadyDisliked,
+}: Props) => {
+  const [isLiked, setIsLiked] = useState(isAlreadyLiked)
+  const [isDisliked, setIsDisliked] = useState(isAlreadyDisliked)
+
+  const handleLike = async () => {
+    try {
+      if (!isAlreadyLiked) {
+        await postAPI.put(`/${postId}/upvote`)
+      } else {
+        await postAPI.put(`/${postId}/revert`)
+      }
+      setIsLiked(!isLiked)
+      setIsDisliked(false)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
-  const handleDislike = () => {
-    setIsLiked(false)
-    setIsDisliked(!isDisliked)
+  const handleDislike = async () => {
+    try {
+      if (!isAlreadyDisliked) {
+        await postAPI.put(`/${postId}/downvote`)
+      } else {
+        await postAPI.put(`/${postId}/revert`)
+      }
+      setIsLiked(false)
+      setIsDisliked(!isDisliked)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const UpvoteIcon = () => {

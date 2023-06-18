@@ -82,7 +82,7 @@ const PostActions = ({ post }: Props) => {
       <div className="flex gap-2">
         <CommentsButton post={post} />
         <h1>|</h1>
-        <LikeDislike />
+        <LikeDislike post={post} />
       </div>
     </div>
   )
