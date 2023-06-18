@@ -26,3 +26,17 @@ export const deletePostReducer = (
   )
   state.posts = filteredPosts
 }
+
+export const updatePostReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<PostType>
+) => {
+  const updatedPost = action.payload
+  const postIndex = state.posts.findIndex(
+    (post) => post._id === updatedPost._id
+  )
+
+  if (postIndex !== -1) {
+    state.posts[postIndex] = updatedPost
+  }
+}

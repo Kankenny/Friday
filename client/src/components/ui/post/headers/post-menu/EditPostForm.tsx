@@ -4,9 +4,9 @@ import RHFInputField from "../../../../ui/rhf/RHFInputField"
 import { useForm } from "react-hook-form"
 import { SetStateAction, useEffect, useState } from "react"
 import {
-  createPostSchema,
-  createPostType,
-} from "../../../../../../../common/validations/post/createPostValidator"
+  updatePostSchema,
+  updatePostType,
+} from "../../../../../../../common/validations/post/updatePostValidator"
 import StyledButton from "../../../../ui/StyledButton"
 import RHFDropdownField from "../../../../ui/rhf/RHFDropdownField"
 import { VISIBILITIES } from "../../../../../lib/constants/Visibilities"
@@ -16,15 +16,15 @@ import { isAxiosError } from "axios"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
 import Alert from "../../../../ui/mui/Alert"
 import { useDispatch } from "react-redux"
-import { createPost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 import { PostType } from "../../../../../lib/types/primitive-types/PostType"
+import { updatePost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 
 type Props = {
   post: PostType
   setIsEditing: React.Dispatch<SetStateAction<boolean>>
 }
 
-const EditPostF = ({ post, setIsEditing }: Props) => {
+const EditPostForm = ({ post, setIsEditing }: Props) => {
   const dispatch = useDispatch()
   const [error, setError] = useState("")
   const {
@@ -32,19 +32,30 @@ const EditPostF = ({ post, setIsEditing }: Props) => {
     handleSubmit,
     formState: { errors },
     setFocus,
-  } = useForm<createPostType>({
-    resolver: zodResolver(createPostSchema),
+    setValue,
+  } = useForm<updatePostType>({
+    resolver: zodResolver(updatePostSchema),
   })
 
   useEffect(() => {
+    setValue("title", post.title)
+    setValue("visibility", post.visibility)
+    setValue("authorization", post.authorization)
+    setValue("category", post.category)
     setFocus("title")
-  }, [setFocus])
+  }, [
+    setValue,
+    setFocus,
+    post.title,
+    post.visibility,
+    post.authorization,
+    post.category,
+  ])
 
-  const handleCreatePost = async (formData: createPostType) => {
+  const handleUpdatePost = async (formData: updatePostType) => {
     try {
-      const { data } = await postAPI.post("/", formData)
-
-      dispatch(createPost(data.data))
+      const { data } = await postAPI.put(`/${post._id}`, formData)
+      dispatch(updatePost(data.data))
       setIsEditing(false)
       setError("")
     } catch (err) {
@@ -56,7 +67,7 @@ const EditPostF = ({ post, setIsEditing }: Props) => {
 
   return (
     <Card twClasses="p-5 border border-secondary">
-      <form onSubmit={handleSubmit(handleCreatePost)}>
+      <form onSubmit={handleSubmit(handleUpdatePost)}>
         <RHFInputField
           label="Title"
           register={register("title")}
@@ -88,15 +99,11 @@ const EditPostF = ({ post, setIsEditing }: Props) => {
             error={errors.category?.message}
           />
         </div>
-        <StyledButton
-          buttonText="Submit"
-          type="submit"
-          onClick={handleSubmit(handleCreatePost)}
-        />
+        <StyledButton buttonText="Edit" type="submit" />
       </form>
       {error && <Alert severity="error" message={error} />}
     </Card>
   )
 }
 
-export default EditPostF
+export default EditPostForm
