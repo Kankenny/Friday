@@ -91,3 +91,45 @@ export const createSubtaskReducer = (
     }
   }
 }
+
+export const updateTaskReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<{
+    post: PostType
+    task: TaskType
+  }>
+) => {
+  const { post, task } = action.payload
+
+  // Find the index of the task in the post's tasks array
+  const taskIndex = post.tasks.findIndex((t) => t._id === task._id)
+
+  // If the task is found, update it in the state
+  if (taskIndex !== -1) {
+    const updatedPost = {
+      ...post,
+      tasks: [
+        ...post.tasks.slice(0, taskIndex),
+        task,
+        ...post.tasks.slice(taskIndex + 1),
+      ],
+    }
+
+    // Find the index of the post in the state's posts array
+    const postIndex = state.posts.findIndex((p) => p._id === post._id)
+
+    // If the post is found, update it in the state
+    if (postIndex !== -1) {
+      return {
+        ...state,
+        posts: [
+          ...state.posts.slice(0, postIndex),
+          updatedPost,
+          ...state.posts.slice(postIndex + 1),
+        ],
+      }
+    }
+  }
+
+  return state
+}

@@ -12,7 +12,10 @@ import {
 } from "../../../../../../common/validations/subtask/createSubTaskValidator"
 import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
-import { createSubtask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import {
+  createSubtask,
+  updateTask,
+} from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 import {
   updateTaskSchema,
   updateTaskType,
@@ -42,6 +45,7 @@ const Task = ({ post, task }: Props) => {
     register: registerUpdateTask,
     handleSubmit: handleSubmitUpdateTask,
     setFocus: setFocusUpdateTask,
+    reset: resetUpdateTask,
   } = useForm<updateTaskType>({
     resolver: zodResolver(updateTaskSchema),
   })
@@ -52,6 +56,9 @@ const Task = ({ post, task }: Props) => {
         `/?postId=${post._id}&taskId=${task._id}`,
         formData
       )
+      dispatch(updateTask({ post, task: data.data }))
+      setIsEditing(false)
+      resetUpdateTask()
     } catch (err) {
       console.error(err)
     }
