@@ -9,7 +9,7 @@ const Accordion = ({ title, children }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const openAccordionClasses =
-    isOpen && "hover:text-tertiary duration-300 ease-in-out"
+    isOpen && "hover:text-tertiary duration-200 ease-in-out"
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen)
