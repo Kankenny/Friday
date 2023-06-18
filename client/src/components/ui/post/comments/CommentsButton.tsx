@@ -5,10 +5,10 @@ import CommentsDrawer from "./CommentsDrawer"
 import postAPI from "../../../../lib/services/axios-instances/postAPI"
 import { useDispatch } from "react-redux"
 import { setPostDetails } from "../../../../lib/store/slices/post-detail-slice/postDetailSlice"
-import { PostDetailSliceType } from "../../../../lib/types/slice-types/PostDetailSliceType"
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
 
 type Props = {
-  post: PostDetailSliceType
+  post: PostType
 }
 
 const CommentsButton = ({ post }: Props) => {
