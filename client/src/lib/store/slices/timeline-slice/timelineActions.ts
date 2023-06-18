@@ -94,10 +94,7 @@ export const createSubtaskReducer = (
 
 export const updateTaskReducer = (
   state: TimelineSliceType,
-  action: PayloadAction<{
-    post: PostType
-    task: TaskType
-  }>
+  action: PayloadAction<{ post: PostType; task: TaskType }>
 ) => {
   const { post, task } = action.payload
 
@@ -106,13 +103,15 @@ export const updateTaskReducer = (
 
   // If the task is found, update it in the state
   if (taskIndex !== -1) {
+    const existingSubtasks = post.tasks[taskIndex].subtasks
+    const updatedTask = {
+      ...task,
+      subtasks: existingSubtasks, // Retain the existing subtasks
+    }
+
     const updatedPost = {
       ...post,
-      tasks: [
-        ...post.tasks.slice(0, taskIndex),
-        task,
-        ...post.tasks.slice(taskIndex + 1),
-      ],
+      tasks: post.tasks.map((t) => (t._id === task._id ? updatedTask : t)),
     }
 
     // Find the index of the post in the state's posts array
