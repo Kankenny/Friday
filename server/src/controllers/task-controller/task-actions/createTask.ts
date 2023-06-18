@@ -72,7 +72,7 @@ export const createTask = async (req: JWTRequest, res: Response) => {
 
     res
       .status(200)
-      .json({ message: "Tasks successfully created!", data: newTask, ok: true })
+      .json({ message: "Task successfully created!", data: newTask, ok: true })
   } catch (error) {
     console.error(error)
     return res.status(500).json({

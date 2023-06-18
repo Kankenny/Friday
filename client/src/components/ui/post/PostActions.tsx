@@ -7,7 +7,7 @@ import {
   createTaskSchema,
   createTaskType,
 } from "../../../../../common/validations/task/createTaskValidator"
-import { isAxiosError } from "axios"
+import taskAPI from "../../../lib/services/axios-instances/taskAPI"
 
 type Props = {
   post: PostType
@@ -19,6 +19,7 @@ const PostActions = ({ post }: Props) => {
   })
   const handleNewTaskSubmit = async (formData: createTaskType) => {
     try {
+      const { data } = await taskAPI.post(`/?postId=${post._id}`, formData)
     } catch (err) {
       console.error(err)
     }
