@@ -79,7 +79,7 @@ export const updateSubtask = async (req: JWTRequest, res: Response) => {
       ...existingSubtask.toObject(),
       ...fieldsToBeUpdated,
     }
-    await TaskModel.findByIdAndUpdate(subtaskId, updatedSubtask)
+    await SubtaskModel.findByIdAndUpdate(subtaskId, updatedSubtask)
 
     res.status(200).json({
       message: "Subtask updated successfully!",

@@ -11,6 +11,8 @@ import {
   updateSubtaskType,
 } from "../../../../../../common/validations/subtask/updateSubtaskValidator"
 import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
+import { useDispatch } from "react-redux"
+import { updateSubtask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 
 type Props = {
   post: PostType
@@ -19,6 +21,7 @@ type Props = {
 }
 
 const Subtask = ({ post, task, subtask }: Props) => {
+  const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
 
   const { register, handleSubmit, reset, setFocus } =
@@ -33,6 +36,8 @@ const Subtask = ({ post, task, subtask }: Props) => {
         `/${subtask._id}?postId=${post._id}&taskId=${task._id}`,
         formData
       )
+      dispatch(updateSubtask({ post, task, subtask: data.data }))
+      setIsEditing(false)
       console.log(data)
       reset()
     } catch (err) {
