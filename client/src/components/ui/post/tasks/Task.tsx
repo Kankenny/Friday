@@ -99,7 +99,12 @@ const Task = ({ post, task }: Props) => {
           />
 
           {!isEditing ? (
-            <h1 onClick={() => setIsEditing(true)}>{task.title}</h1>
+            <h1
+              onClick={() => setIsEditing(true)}
+              className="min-w-[5em] h-full"
+            >
+              {task.title}
+            </h1>
           ) : (
             <ClickAwayListener onClickAway={() => setIsEditing(false)}>
               <form onSubmit={handleSubmitUpdateTask(handleUpdateTask)}>
