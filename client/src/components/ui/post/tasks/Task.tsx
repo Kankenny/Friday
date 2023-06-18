@@ -2,6 +2,7 @@ import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined"
 import { useState } from "react"
 import Subtasks from "../subtasks/Subtasks"
 import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined"
 
 type Props = {
   task: TaskType
@@ -39,6 +40,18 @@ const Task = ({ task }: Props) => {
       </div>
       {isExpanded && task.subtasks.length !== 0 && (
         <Subtasks subtasks={task.subtasks} />
+      )}
+      {isExpanded && (
+        <div className="border border-secondary p-2 pl-9 text-sm">
+          <div className="flex items-center">
+            <AddOutlinedIcon className="h-5 w-5 opacity-50" />
+            <input
+              type="text"
+              placeholder="Add Subtask"
+              className="h-full outline-none"
+            />
+          </div>
+        </div>
       )}
     </>
   )
