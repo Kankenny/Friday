@@ -32,7 +32,7 @@ const Post = ({ post }: Props) => {
           />
           <div className={`border rounded-md ${!isExpanded && "hidden"}`}>
             <ColumnHeaders />
-            {post.tasks && <Tasks tasks={post.tasks} />}
+            {post.tasks && <Tasks tasks={post.tasks} post={post} />}
             <PostActions post={post} />
           </div>
         </div>

@@ -20,6 +20,7 @@ const PostActions = ({ post }: Props) => {
   const { register, handleSubmit, reset } = useForm<createTaskType>({
     resolver: zodResolver(createTaskSchema),
   })
+
   const handleNewTaskSubmit = async (formData: createTaskType) => {
     try {
       const { data } = await taskAPI.post(`/?postId=${post._id}`, formData)
