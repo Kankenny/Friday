@@ -2,6 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit"
 import { TimelineSliceType } from "../../../types/slice-types/TimelineSliceType"
 import { PostType } from "../../../types/primitive-types/PostType"
 import { TaskType } from "../../../types/primitive-types/TaskType"
+import { SubtaskType } from "../../../types/primitive-types/SubtaskType"
 
 export const setTimelineReducer = (
   state: TimelineSliceType,
@@ -54,5 +55,39 @@ export const createTaskReducer = (
     posts: state.posts.map((p) =>
       p._id === post._id ? { ...p, tasks: updatedTasks } : p
     ),
+  }
+}
+
+export const createSubtaskReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<{
+    post: PostType
+    subtask: SubtaskType
+    task: TaskType
+  }>
+) => {
+  const { post, subtask, task } = action.payload
+
+  // Find the task in the post
+  const targetTaskIndex = post.tasks.findIndex((t) => t._id === task._id)
+
+  if (targetTaskIndex !== -1) {
+    // Create a new copy of the subtasks array with the new subtask added
+    const updatedSubtasks = [...task.subtasks, subtask]
+
+    // Create a new copy of the tasks array with the updated subtasks
+    const updatedTasks = [...post.tasks]
+    updatedTasks[targetTaskIndex] = {
+      ...task,
+      subtasks: updatedSubtasks,
+    }
+
+    // Update the task with the updated task
+    return {
+      ...state,
+      posts: state.posts.map((p) =>
+        p._id === post._id ? { ...p, tasks: updatedTasks } : p
+      ),
+    }
   }
 }
