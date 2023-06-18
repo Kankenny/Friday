@@ -1,12 +1,55 @@
 import SubdirectoryArrowRightOutlinedIcon from "@mui/icons-material/SubdirectoryArrowRightOutlined"
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined"
 import { SubtaskType } from "../../../../lib/types/primitive-types/SubtaskType"
+import { useState, useEffect } from "react"
+import ClickAwayListener from "@mui/material/ClickAwayListener"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
+import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
+import {
+  updateSubtaskSchema,
+  updateSubtaskType,
+} from "../../../../../../common/validations/subtask/updateSubtaskValidator"
+import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
+import { useDispatch } from "react-redux"
+import { updateSubtask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 
 type Props = {
+  post: PostType
+  task: TaskType
   subtask: SubtaskType
 }
 
-const Subtask = ({ subtask }: Props) => {
+const Subtask = ({ post, task, subtask }: Props) => {
+  const dispatch = useDispatch()
+  const [isEditing, setIsEditing] = useState(false)
+
+  const { register, handleSubmit, reset, setFocus } =
+    useForm<updateSubtaskType>({
+      resolver: zodResolver(updateSubtaskSchema),
+    })
+
+  const handleUpdateSubtask = async (formData: updateSubtaskType) => {
+    try {
+      console.log(formData)
+      const { data } = await subtaskAPI.put(
+        `/${subtask._id}?postId=${post._id}&taskId=${task._id}`,
+        formData
+      )
+      dispatch(updateSubtask({ post, task, subtask: data.data }))
+      setIsEditing(false)
+      reset()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  useEffect(() => {
+    if (isEditing) {
+      setFocus("title")
+    }
+  }, [isEditing, setFocus])
+
   const subtaskDueDate = new Date(subtask.dueDate)
   const formattedDueDate = subtaskDueDate.toLocaleString("en-US", {
     month: "long",
@@ -15,33 +58,36 @@ const Subtask = ({ subtask }: Props) => {
   })
 
   return (
-    <>
-      <div className="flex justify-between text-center">
-        <div className="border-secondary border p-2 pl-10 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center flex-grow">
-          <SubdirectoryArrowRightOutlinedIcon className="h-5 w-5" />
-          {subtask.title}
-        </div>
-        <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {subtask.progress}
-        </h1>
-        <h1 className="uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {subtask.priority}
-        </h1>
-        <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {formattedDueDate}
-        </h1>
+    <div className="flex justify-between text-center">
+      <div className="border-secondary border p-2 pl-10 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center flex-grow">
+        <SubdirectoryArrowRightOutlinedIcon className="h-5 w-5" />
+        {!isEditing ? (
+          <h1 onClick={() => setIsEditing(true)} className="min-w-[5em] h-full">
+            {subtask.title}
+          </h1>
+        ) : (
+          <ClickAwayListener onClickAway={() => setIsEditing(false)}>
+            <form onSubmit={handleSubmit(handleUpdateSubtask)}>
+              <input
+                type="text"
+                placeholder={subtask.title}
+                className="h-full px-2 py-1 outline-none text-secondary rounded-md"
+                {...register("title")}
+              />
+            </form>
+          </ClickAwayListener>
+        )}
       </div>
-      <div className="border border-secondary p-2 pl-9 text-sm">
-        <div className="flex items-center">
-          <AddOutlinedIcon className="h-5 w-5 opacity-50" />
-          <input
-            type="text"
-            placeholder="Add Subtask"
-            className="h-full outline-none"
-          />
-        </div>
-      </div>
-    </>
+      <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
+        {subtask.progress}
+      </h1>
+      <h1 className="uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
+        {subtask.priority}
+      </h1>
+      <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
+        {formattedDueDate}
+      </h1>
+    </div>
   )
 }
 

@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { setTimelineReducer } from "./timelineActions"
+import {
+  createSubtaskReducer,
+  createTaskReducer,
+  deletePostReducer,
+  setTimelineReducer,
+  updatePostReducer,
+  updateSubtaskReducer,
+  updateTaskReducer,
+} from "./timelineActions"
 import { createPostReducer } from "./timelineActions"
 import { TimelineSliceType } from "../../../types/slice-types/TimelineSliceType"
 
@@ -11,9 +19,24 @@ const timelineSlice = createSlice({
   reducers: {
     setTimeline: setTimelineReducer,
     createPost: createPostReducer,
+    deletePost: deletePostReducer,
+    updatePost: updatePostReducer,
+    createTask: createTaskReducer,
+    createSubtask: createSubtaskReducer,
+    updateTask: updateTaskReducer,
+    updateSubtask: updateSubtaskReducer,
   },
 })
 
-export const { setTimeline, createPost } = timelineSlice.actions
+export const {
+  setTimeline,
+  createPost,
+  deletePost,
+  updatePost,
+  createTask,
+  createSubtask,
+  updateTask,
+  updateSubtask,
+} = timelineSlice.actions
 
 export default timelineSlice.reducer

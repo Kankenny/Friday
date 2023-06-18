@@ -9,7 +9,7 @@ import UserModel from "../../../models/User"
 import JWTRequest from "../../../lib/types/JWTRequestType"
 
 // Validators
-import updatePostSchema from "../../../lib/validations/post/updatePostValidator"
+import { updatePostSchema } from "../../../../../common/validations/post/updatePostValidator"
 
 export const updatePost = async (req: JWTRequest, res: Response) => {
   try {

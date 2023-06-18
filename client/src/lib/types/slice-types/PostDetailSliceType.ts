@@ -11,10 +11,11 @@ export interface PostDetailSliceType {
   visibility: "personal" | "collaborators" | "public" | "private"
   upvotes: number
   downvotes: number
-  authorization: string
+  authorization: "personal" | "collaborators" | undefined
   authorizedUsers: string[]
   upvotedBy: string[]
   downvotedBy: string[]
   tasks: TaskType[]
   comments: DetailedCommentType[]
+  createdAt: Date
 }

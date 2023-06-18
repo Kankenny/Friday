@@ -20,7 +20,10 @@ const UserPosts = () => {
   if (isSameUser) {
     userPosts = sameUserPosts
   } else {
-    userPosts = otherUserPosts
+    const filteredPosts = otherUserPosts.filter(
+      (post) => post.visibility !== "personal"
+    )
+    userPosts = filteredPosts
   }
 
   return (
@@ -32,7 +35,7 @@ const UserPosts = () => {
             : `${otherUserFirstName}'s posts`}
         </h1>
         <Tooltip
-          title="Private posts are hidden to others"
+          title="Personal posts are hidden to every other user and private posts are only visible to users who follow you"
           className="cursor-pointer bg-tertiary rounded-full p-1 text-secondary hover:bg-secondary hover:text-tertiary duration-200"
         >
           <QuestionMarkIcon className="w-5 h-5" />

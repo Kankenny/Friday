@@ -8,7 +8,7 @@ import TaskModel from "../../../models/Task"
 import SubtaskModel from "../../../models/Subtask"
 
 // Validators
-import updateSubtaskSchema from "../../../lib/validations/subtask/updateSubtaskValidator"
+import { updateSubtaskSchema } from "../../../../../common/validations/subtask/updateSubtaskValidator"
 
 // Types
 import JWTRequest from "../../../lib/types/JWTRequestType"
@@ -79,7 +79,7 @@ export const updateSubtask = async (req: JWTRequest, res: Response) => {
       ...existingSubtask.toObject(),
       ...fieldsToBeUpdated,
     }
-    await TaskModel.findByIdAndUpdate(subtaskId, updatedSubtask)
+    await SubtaskModel.findByIdAndUpdate(subtaskId, updatedSubtask)
 
     res.status(200).json({
       message: "Subtask updated successfully!",

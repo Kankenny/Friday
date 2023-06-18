@@ -18,7 +18,10 @@ const LikedPosts = () => {
   if (isSameUser) {
     likedPosts = sameUserUpvotedPosts
   } else {
-    likedPosts = otherUserUpvotedPosts
+    const filteredPosts = otherUserUpvotedPosts.filter(
+      (post) => post.visibility !== "personal"
+    )
+    likedPosts = filteredPosts
   }
 
   return (
