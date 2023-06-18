@@ -38,7 +38,6 @@ const Subtask = ({ post, task, subtask }: Props) => {
       )
       dispatch(updateSubtask({ post, task, subtask: data.data }))
       setIsEditing(false)
-      console.log(data)
       reset()
     } catch (err) {
       console.error(err)
