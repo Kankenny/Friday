@@ -1,12 +1,18 @@
 import { z } from "zod"
 
 export const updatePostSchema = z.object({
-  title: z.string().trim().optional(),
+  title: z
+    .string()
+    .min(5, { message: "Title must be 5 characters or more!" })
+    .trim()
+    .optional(),
   creatorId: z.undefined(),
   creatorUsername: z.undefined(),
   dueDate: z.date().optional(),
   color: z.string().optional(),
-  category: z.string().optional(),
+  category: z
+    .enum(["personal", "chores", "work", "school", "others"])
+    .optional(),
   visibility: z
     .enum(["personal", "collaborators", "private", "public"])
     .optional(),
