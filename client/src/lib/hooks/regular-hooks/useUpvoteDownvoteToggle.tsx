@@ -20,17 +20,37 @@ const useUpvoteDownvoteToggle = () => {
 
   const UpvoteIcon = () => {
     if (isLiked) {
-      return <ThumbUpIcon onClick={handleLike} />
+      return (
+        <ThumbUpIcon
+          onClick={handleLike}
+          className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
+        />
+      )
     } else {
-      return <ThumbUpOffAltIcon onClick={handleLike} />
+      return (
+        <ThumbUpOffAltIcon
+          onClick={handleLike}
+          className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
+        />
+      )
     }
   }
 
   const DownvoteIcon = () => {
     if (isDisliked) {
-      return <ThumbDownIcon onClick={handleDislike} />
+      return (
+        <ThumbDownIcon
+          onClick={handleDislike}
+          className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
+        />
+      )
     } else {
-      return <ThumbDownOffAltIcon onClick={handleDislike} />
+      return (
+        <ThumbDownOffAltIcon
+          onClick={handleDislike}
+          className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
+        />
+      )
     }
   }
 
