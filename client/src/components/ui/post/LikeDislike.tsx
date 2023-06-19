@@ -18,7 +18,7 @@ const LikeDislike = ({ post }: Props) => {
   })
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3">
       <UpvoteIcon />
       <DownvoteIcon />
     </div>
