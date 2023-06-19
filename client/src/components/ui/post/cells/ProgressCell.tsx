@@ -15,15 +15,18 @@ import {
   updateSubtask,
   updateTask,
 } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
+import { SubtaskType } from "../../../../lib/types/primitive-types/SubtaskType"
 
 type Props = {
   post: PostType
   task: TaskType
+  subtask?: SubtaskType
   progress: "done" | "working on it" | "stuck" | "untouched"
   isTaskCell: boolean
 }
 
-const ProgressCell = ({ post, task, progress, isTaskCell }: Props) => {
+const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
   const dispatch = useDispatch()
   const [currProgress, setCurrProgress] = React.useState(progress)
   const [open, setOpen] = React.useState(false)
@@ -50,8 +53,8 @@ const ProgressCell = ({ post, task, progress, isTaskCell }: Props) => {
           })
         )
       } else {
-        const { data } = await taskAPI.put(
-          `/?postId=${post._id}&taskId=${task._id}`,
+        const { data } = await subtaskAPI.put(
+          `/${subtask?._id}?postId=${post._id}&taskId=${task._id}`,
           {
             progress: newProgress,
           }
