@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux"
 import { updatePost } from "../../store/slices/timeline-slice/timelineSlice"
 import { setFeedback } from "../../store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
+import debounce from "lodash/debounce"
 
 type Props = {
   post: PostType
@@ -121,18 +122,22 @@ const useUpvoteDownvoteToggle = ({
     }
   }
 
+  // Debounced request handlers
+  const debouncedLike = debounce(handleLike, 300)
+  const debouncedDislike = debounce(handleDislike, 300)
+
   const UpvoteIcon = () => {
     if (isLiked) {
       return (
         <ThumbUpIcon
-          onClick={handleLike}
+          onClick={debouncedLike}
           className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
         />
       )
     } else {
       return (
         <ThumbUpOffAltIcon
-          onClick={handleLike}
+          onClick={debouncedLike}
           className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
         />
       )
@@ -143,14 +148,14 @@ const useUpvoteDownvoteToggle = ({
     if (isDisliked) {
       return (
         <ThumbDownIcon
-          onClick={handleDislike}
+          onClick={debouncedDislike}
           className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
         />
       )
     } else {
       return (
         <ThumbDownOffAltIcon
-          onClick={handleDislike}
+          onClick={debouncedDislike}
           className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
         />
       )
