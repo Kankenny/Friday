@@ -182,3 +182,17 @@ export const updateSubtaskReducer = (
 
   return state
 }
+
+export const deleteTaskReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<{ post: PostType; task: TaskType }>
+) => {
+  const { post, task } = action.payload
+  const taskIndex = post.tasks.findIndex((t) => t._id === task._id)
+
+  if (taskIndex !== -1) {
+    post.tasks.splice(taskIndex, 1)
+  }
+
+  return state
+}

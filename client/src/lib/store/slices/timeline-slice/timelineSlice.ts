@@ -3,6 +3,7 @@ import {
   createSubtaskReducer,
   createTaskReducer,
   deletePostReducer,
+  deleteTaskReducer,
   setTimelineReducer,
   updatePostReducer,
   updateSubtaskReducer,
@@ -25,6 +26,7 @@ const timelineSlice = createSlice({
     createSubtask: createSubtaskReducer,
     updateTask: updateTaskReducer,
     updateSubtask: updateSubtaskReducer,
+    deleteTask: deleteTaskReducer,
   },
 })
 
