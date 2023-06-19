@@ -36,7 +36,11 @@ const MainHeader = ({
         <div className="flex justify-between">
           <div className="flex items-center">
             <Tooltip title="Expand Post">
-              <ChevronRightOutlinedIcon className="cursor-pointer" />
+              <ChevronRightOutlinedIcon
+                className={`transform transition duration-200 ease-in-out ${
+                  isExpanded ? "rotate-90" : "rotate-0"
+                }`}
+              />
             </Tooltip>
             <h1 className="font-semibold text-lg">{post.title}</h1>
           </div>
