@@ -1,4 +1,3 @@
-import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined"
 import { useState, useEffect } from "react"
 import Subtasks from "../subtasks/Subtasks"
 import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
@@ -12,21 +11,13 @@ import {
 } from "../../../../../../common/validations/subtask/createSubTaskValidator"
 import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
-import {
-  createSubtask,
-  updateTask,
-} from "../../../../lib/store/slices/timeline-slice/timelineSlice"
-import {
-  updateTaskSchema,
-  updateTaskType,
-} from "../../../../../../common/validations/task/updateTaskValidator"
-import ClickAwayListener from "@mui/material/ClickAwayListener"
-import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
+import { createSubtask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 import { isAxiosError } from "axios"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
 import ProgressCell from "../cells/ProgressCell"
 import PriorityCell from "../cells/PriorityCell"
 import DueDateCell from "../cells/DueDateCell"
+import TaskCell from "../cells/TaskCell"
 
 type Props = {
   post: PostType
@@ -35,7 +26,6 @@ type Props = {
 
 const Task = ({ post, task }: Props) => {
   const dispatch = useDispatch()
-  const [isEditing, setIsEditing] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
   const {
@@ -49,33 +39,6 @@ const Task = ({ post, task }: Props) => {
   } = useForm<createSubtaskType>({
     resolver: zodResolver(createSubtaskSchema),
   })
-
-  const {
-    register: registerUpdateTask,
-    handleSubmit: handleSubmitUpdateTask,
-    setFocus: setFocusUpdateTask,
-    reset: resetUpdateTask,
-    formState: {
-      errors: updateTaskErrors,
-      isSubmitSuccessful: isUpdateSubmitSuccessful,
-    },
-  } = useForm<updateTaskType>({
-    resolver: zodResolver(updateTaskSchema),
-  })
-
-  const handleUpdateTask = async (formData: updateTaskType) => {
-    try {
-      const { data } = await taskAPI.put(
-        `/?postId=${post._id}&taskId=${task._id}`,
-        formData
-      )
-      dispatch(updateTask({ post, task: data.data }))
-      setIsEditing(false)
-      resetUpdateTask()
-    } catch (err) {
-      console.error(err)
-    }
-  }
 
   const handleNewSubtaskSubmit = async (formData: createSubtaskType) => {
     try {
@@ -105,20 +68,6 @@ const Task = ({ post, task }: Props) => {
   }
 
   useEffect(() => {
-    if (isEditing) {
-      setFocusUpdateTask("title")
-    }
-  }, [isEditing, setFocusUpdateTask])
-
-  useEffect(() => {
-    if (updateTaskErrors.title?.message && !isUpdateSubmitSuccessful) {
-      dispatch(
-        setFeedback({
-          feedbackMessage: updateTaskErrors.title?.message,
-          feedbackType: "error",
-        })
-      )
-    }
     if (newSubtaskErrors.title?.message && !isNewSubtaskSubmittedSuccessful) {
       dispatch(
         setFeedback({
@@ -128,8 +77,6 @@ const Task = ({ post, task }: Props) => {
       )
     }
   }, [
-    updateTaskErrors.title?.message,
-    isUpdateSubmitSuccessful,
     newSubtaskErrors.title?.message,
     isNewSubtaskSubmittedSuccessful,
     dispatch,
@@ -141,35 +88,16 @@ const Task = ({ post, task }: Props) => {
     day: "numeric",
     year: "numeric",
   })
-
+  console.log(isExpanded)
   return (
     <>
       <div className="flex justify-between text-center">
-        <div className="flex-grow max-w-[50%] border border-secondary p-2 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center">
-          <ChevronRightOutlinedIcon
-            onClick={() => setIsExpanded(!isExpanded)}
-          />
-
-          {!isEditing ? (
-            <h1
-              onClick={() => setIsEditing(true)}
-              className="min-w-[5em] h-full "
-            >
-              {task.title}
-            </h1>
-          ) : (
-            <ClickAwayListener onClickAway={() => setIsEditing(false)}>
-              <form onSubmit={handleSubmitUpdateTask(handleUpdateTask)}>
-                <input
-                  type="text"
-                  placeholder={task.title}
-                  className="bg-transparent h-full px-4 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out hover:text-main"
-                  {...registerUpdateTask("title")}
-                />
-              </form>
-            </ClickAwayListener>
-          )}
-        </div>
+        <TaskCell
+          post={post}
+          task={task}
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}
+        />
         <ProgressCell
           progress={task.progress}
           post={post}
