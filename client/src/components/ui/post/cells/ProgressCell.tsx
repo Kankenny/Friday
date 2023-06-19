@@ -80,14 +80,14 @@ const ProgressCell = ({ progress }: Props) => {
                 placement === "bottom-start" ? "left top" : "left bottom",
             }}
           >
-            <Paper className="bg-blue-50">
+            <Paper className="bg-blue-50 border border-secondary rounded-md">
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
                   id="composition-menu"
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
-                  className="py-0"
+                  className="py-0 rounded-md"
                 >
                   <MenuItem
                     onClick={handleClose}

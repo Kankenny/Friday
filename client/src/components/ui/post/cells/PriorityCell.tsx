@@ -49,9 +49,9 @@ const PriorityCell = ({ priority }: Props) => {
   }, [open])
 
   const priorityColor = {
-    low: "bg-[#FFDADA] hover:bg-[#FFB3B3]",
-    medium: "bg-[#FF8E8E] hover:bg-[#FF5F5F]",
-    high: "bg-[#FF3838] hover:bg-[#FF1A1A]",
+    low: "bg-[#FFDADA] hover:bg-[#FFB3B3] focus:bg-[#FFDADA]",
+    medium: "bg-[#FF8E8E] hover:bg-[#FF5F5F] focus:bg-[#FF8E8E]",
+    high: "bg-[#FF3838] hover:bg-[#FF1A1A] focus:bg-[#FF3838]",
   }
 
   return (
@@ -86,22 +86,23 @@ const PriorityCell = ({ priority }: Props) => {
                   id="composition-menu"
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
+                  className="py-0"
                 >
                   <MenuItem
                     onClick={handleClose}
-                    className="flex justify-center"
+                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["low"]}`}
                   >
                     Low
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
-                    className="flex justify-center"
+                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["medium"]}`}
                   >
-                    Medium
+                    Med
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
-                    className="flex justify-center"
+                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["high"]}`}
                   >
                     High
                   </MenuItem>
