@@ -79,7 +79,7 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
             <input
               type="text"
               placeholder={subtask.title}
-              className="bg-transparent h-full px-2 py-1 outline-none text-secondary rounded-md hover:text-main"
+              className="bg-transparent h-full px-2 outline-none text-secondary rounded-md hover:text-main hover:outline-tertiary"
               {...register("title")}
             />
           </form>

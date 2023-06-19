@@ -95,7 +95,7 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
             <input
               type="text"
               placeholder={task.title}
-              className="bg-transparent h-full px-4 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out hover:text-main"
+              className="bg-transparent h-full px-4 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out hover:text-main hover:outline-tertiary"
               {...register("title")}
             />
           </form>
