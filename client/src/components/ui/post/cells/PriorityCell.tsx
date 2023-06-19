@@ -8,6 +8,15 @@ import MenuList from "@mui/material/MenuList"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
 import { SubtaskType } from "../../../../lib/types/primitive-types/SubtaskType"
+import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
+import { useDispatch } from "react-redux"
+import {
+  updateSubtask,
+  updateTask,
+} from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
+import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import { isAxiosError } from "axios"
 
 type Props = {
   post: PostType
@@ -18,6 +27,8 @@ type Props = {
 }
 
 const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
+  const dispatch = useDispatch()
+  const [currPriority, setCurrPriority] = React.useState(priority)
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLHeadingElement>(null)
 
@@ -25,13 +36,13 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
     setOpen((prevOpen) => !prevOpen)
   }
 
-  const handleUpdateProgress = async (newProgress: Props["progress"]) => {
+  const handleUpdatePiority = async (newPriority: Props["priority"]) => {
     try {
       if (isTaskCell) {
         const { data } = await taskAPI.put(
           `/?postId=${post._id}&taskId=${task._id}`,
           {
-            progress: newProgress,
+            priority: newPriority,
           }
         )
         dispatch(updateTask({ post, task: data.data }))
@@ -45,7 +56,7 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
         const { data } = await subtaskAPI.put(
           `/${subtask?._id}?postId=${post._id}&taskId=${task._id}`,
           {
-            progress: newProgress,
+            priority: newPriority,
           }
         )
         dispatch(updateSubtask({ post, task, subtask: data.data }))
@@ -68,7 +79,7 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
         console.error(err)
       }
     }
-    setCurrProgress(newProgress)
+    setCurrPriority(newPriority)
     setOpen(false)
   }
 
@@ -113,9 +124,9 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
       <h1
         ref={anchorRef}
         onClick={handleToggle}
-        className={`uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${priorityColor[priority]}`}
+        className={`uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${priorityColor[currPriority]}`}
       >
-        {priority}
+        {currPriority}
       </h1>
       <Popper
         open={open}
@@ -143,19 +154,19 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
                   className="py-0"
                 >
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={() => handleUpdatePiority("low")}
                     className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["low"]}`}
                   >
                     Low
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={() => handleUpdatePiority("medium")}
                     className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["medium"]}`}
                   >
                     Med
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={() => handleUpdatePiority("high")}
                     className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["high"]}`}
                   >
                     High
