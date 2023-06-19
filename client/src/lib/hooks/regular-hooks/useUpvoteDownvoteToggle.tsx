@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux"
 import { updatePost } from "../../store/slices/timeline-slice/timelineSlice"
 import { setFeedback } from "../../store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
-import debounce from "lodash/debounce"
 
 type Props = {
   post: PostType
@@ -25,9 +24,11 @@ const useUpvoteDownvoteToggle = ({
   const dispatch = useDispatch()
   const [isLiked, setIsLiked] = useState(isAlreadyLiked)
   const [isDisliked, setIsDisliked] = useState(isAlreadyDisliked)
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
   const handleLike = async () => {
     try {
+      setIsButtonDisabled(true) // Disable the button
       if (!isLiked) {
         const { data } = await postAPI.put(`/${post._id}/upvote`)
         dispatch(
@@ -71,11 +72,16 @@ const useUpvoteDownvoteToggle = ({
       } else {
         console.error(err)
       }
+    } finally {
+      setTimeout(() => {
+        setIsButtonDisabled(false)
+      }, 2000)
     }
   }
 
   const handleDislike = async () => {
     try {
+      setIsButtonDisabled(true) // Disable the button
       if (!isDisliked) {
         const { data } = await postAPI.put(`/${post._id}/downvote`)
         dispatch(
@@ -119,26 +125,34 @@ const useUpvoteDownvoteToggle = ({
       } else {
         console.error(err)
       }
+    } finally {
+      setTimeout(() => {
+        setIsButtonDisabled(false)
+      }, 2000)
     }
   }
-
-  // Debounced request handlers
-  const debouncedLike = debounce(handleLike, 300)
-  const debouncedDislike = debounce(handleDislike, 300)
 
   const UpvoteIcon = () => {
     if (isLiked) {
       return (
         <ThumbUpIcon
-          onClick={debouncedLike}
-          className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
+          onClick={handleLike}
+          className={`cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110 ${
+            isButtonDisabled
+              ? "opacity-50 pointer-events-none cursor-not-allowed"
+              : ""
+          }`}
         />
       )
     } else {
       return (
         <ThumbUpOffAltIcon
-          onClick={debouncedLike}
-          className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
+          onClick={handleLike}
+          className={`cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110 ${
+            isButtonDisabled
+              ? "opacity-50 pointer-events-none cursor-not-allowed"
+              : ""
+          }`}
         />
       )
     }
@@ -148,15 +162,23 @@ const useUpvoteDownvoteToggle = ({
     if (isDisliked) {
       return (
         <ThumbDownIcon
-          onClick={debouncedDislike}
-          className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
+          onClick={handleDislike}
+          className={`cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110 ${
+            isButtonDisabled
+              ? "opacity-50 pointer-events-none cursor-not-allowed"
+              : ""
+          }`}
         />
       )
     } else {
       return (
         <ThumbDownOffAltIcon
-          onClick={debouncedDislike}
-          className="cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110"
+          onClick={handleDislike}
+          className={`cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110 ${
+            isButtonDisabled
+              ? "opacity-50 pointer-events-none cursor-not-allowed"
+              : ""
+          }`}
         />
       )
     }
