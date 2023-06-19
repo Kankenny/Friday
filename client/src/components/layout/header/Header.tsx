@@ -43,8 +43,8 @@ const Header = () => {
           {isLoggedIn ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
         </div>
       </header>
-      // Placeholder element
-      <div className="h-10"></div>
+      {/* Placeholder element */}
+      <div className="h-14"></div>
     </>
   )
 }

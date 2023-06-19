@@ -44,18 +44,22 @@ const ProfileLayout = () => {
   }, [pathUsername, isSameUser, dispatch])
 
   return (
-    <div className="flex px-10">
-      <div className="min-h-screen w-[20.2em] max-w-[20.2em] min-w-[20.2em] flex-col mr-5 p-5 space-y-5">
-        {PFP}
-        {UserDetails}
-      </div>
-      <div className="w-full space-y-10 py-5">
-        <ProfileNavigationTabs />
-        <div className="min-h-screen flex">
-          <Outlet />
+    <>
+      {/*  Placeholder element */}
+      <div className="h-10"></div>
+      <div className="flex px-10">
+        <div className="min-h-screen w-[20.2em] max-w-[20.2em] min-w-[20.2em] flex-col mr-5 p-5 space-y-5">
+          {PFP}
+          {UserDetails}
+        </div>
+        <div className="w-full space-y-10 py-5">
+          <ProfileNavigationTabs />
+          <div className="min-h-screen flex">
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
