@@ -75,7 +75,7 @@ const PostActions = ({ post }: Props) => {
         <input
           type="text"
           placeholder="Add Task"
-          className="h-full px-2 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
+          className="px-2 bg-transparent h-full outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
           {...register("title")}
         />
       </form>

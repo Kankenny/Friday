@@ -24,6 +24,9 @@ import ClickAwayListener from "@mui/material/ClickAwayListener"
 import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
 import { isAxiosError } from "axios"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import ProgressCell from "../cells/ProgressCell"
+import PriorityCell from "../cells/PriorityCell"
+import DueDateCell from "../cells/DueDateCell"
 
 type Props = {
   post: PostType
@@ -150,7 +153,7 @@ const Task = ({ post, task }: Props) => {
           {!isEditing ? (
             <h1
               onClick={() => setIsEditing(true)}
-              className="min-w-[5em] h-full"
+              className="min-w-[5em] h-full "
             >
               {task.title}
             </h1>
@@ -160,22 +163,16 @@ const Task = ({ post, task }: Props) => {
                 <input
                   type="text"
                   placeholder={task.title}
-                  className="h-full px-2 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
+                  className="bg-transparent h-full px-4 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out hover:text-main"
                   {...registerUpdateTask("title")}
                 />
               </form>
             </ClickAwayListener>
           )}
         </div>
-        <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {task.progress}
-        </h1>
-        <h1 className="uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {task.priority}
-        </h1>
-        <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {formattedDueDate}
-        </h1>
+        <ProgressCell progress={task.progress} />
+        <PriorityCell priority={task.priority} />
+        <DueDateCell formattedDueDate={formattedDueDate} />
       </div>
       {isExpanded && task.subtasks.length !== 0 && (
         <Subtasks subtasks={task.subtasks} post={post} task={task} />
@@ -192,7 +189,7 @@ const Task = ({ post, task }: Props) => {
             <input
               type="text"
               placeholder="Add Subtask"
-              className="h-full outline-none"
+              className="bg-transparent px-2 h-full outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
               {...registerNewSubtask("title")}
             />
           </form>
