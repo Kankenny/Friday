@@ -23,13 +23,10 @@ const NewSubtaskInput = ({ post, task }: Props) => {
   const dispatch = useDispatch()
 
   const {
-    register: registerNewSubtask,
-    handleSubmit: handleSubmitNewSubtask,
-    reset: resetNewSubtaskForm,
-    formState: {
-      errors: newSubtaskErrors,
-      isSubmitSuccessful: isNewSubtaskSubmittedSuccessful,
-    },
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = useForm<createSubtaskType>({
     resolver: zodResolver(createSubtaskSchema),
   })
@@ -47,7 +44,7 @@ const NewSubtaskInput = ({ post, task }: Props) => {
           feedbackType: "success",
         })
       )
-      resetNewSubtaskForm()
+      reset()
     } catch (err) {
       if (isAxiosError(err)) {
         dispatch(
@@ -56,31 +53,28 @@ const NewSubtaskInput = ({ post, task }: Props) => {
             feedbackType: "error",
           })
         )
+      } else {
+        console.error(err)
       }
-      console.error(err)
     }
   }
 
   useEffect(() => {
-    if (newSubtaskErrors.title?.message && !isNewSubtaskSubmittedSuccessful) {
+    if (errors.title?.message && !isSubmitSuccessful) {
       dispatch(
         setFeedback({
-          feedbackMessage: newSubtaskErrors.title?.message,
+          feedbackMessage: errors.title?.message,
           feedbackType: "error",
         })
       )
     }
-  }, [
-    newSubtaskErrors.title?.message,
-    isNewSubtaskSubmittedSuccessful,
-    dispatch,
-  ])
+  }, [errors.title?.message, isSubmitSuccessful, dispatch])
 
   return (
     <div className="border border-secondary p-2 pl-9 text-sm">
       <form
         className="flex items-center"
-        onSubmit={handleSubmitNewSubtask(handleNewSubtaskSubmit)}
+        onSubmit={handleSubmit(handleNewSubtaskSubmit)}
       >
         <button type="submit">
           <AddOutlinedIcon className="h-5 w-5 opacity-50" />
@@ -89,7 +83,7 @@ const NewSubtaskInput = ({ post, task }: Props) => {
           type="text"
           placeholder="Add Subtask"
           className="bg-transparent px-2 h-full outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
-          {...registerNewSubtask("title")}
+          {...register("title")}
         />
       </form>
     </div>

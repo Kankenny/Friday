@@ -31,7 +31,6 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
 
   const handleUpdateSubtask = async (formData: updateSubtaskType) => {
     try {
-      console.log(formData)
       const { data } = await subtaskAPI.put(
         `/${subtask._id}?postId=${post._id}&taskId=${task._id}`,
         formData

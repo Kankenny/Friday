@@ -22,7 +22,7 @@ const Task = ({ post, task }: Props) => {
     day: "numeric",
     year: "numeric",
   })
-  console.log(isExpanded)
+
   return (
     <>
       <div className="flex justify-between text-center">
