@@ -29,7 +29,7 @@ const Comment = ({ comment }: Props) => {
   const isUserTheCommenter = username === commenterUsername
 
   return (
-    <div className={`flex gap-1 ${isUserTheCommenter && "justify-end"}`}>
+    <div className={`flex gap-2 ${isUserTheCommenter && "justify-end"}`}>
       <Avatar
         className="text-secondary capitalize mt-1 cursor-pointer"
         src={profilePicture}

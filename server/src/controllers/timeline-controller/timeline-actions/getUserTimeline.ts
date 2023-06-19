@@ -70,9 +70,12 @@ export const getUserTimeline = async (req: JWTRequest, res: Response) => {
       ...privatePosts,
       ...authorizedPosts,
     ]
-    const uniquePosts = Array.from(
-      new Set(allPosts.map((post) => post._id))
-    ).map((postId) => allPosts.find((post) => post._id.equals(postId)))
+    // Remove duplicates based on the _id field
+    const uniquePostsMap = new Map()
+    allPosts.forEach((post) => {
+      uniquePostsMap.set(post._id.toString(), post)
+    })
+    const uniquePosts = Array.from(uniquePostsMap.values())
 
     // Randomize the order of the unique posts
     const randomizedPosts = uniquePosts.sort(() => Math.random() - 0.5)

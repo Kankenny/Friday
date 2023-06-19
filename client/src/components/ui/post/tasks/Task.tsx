@@ -22,6 +22,11 @@ import {
 } from "../../../../../../common/validations/task/updateTaskValidator"
 import ClickAwayListener from "@mui/material/ClickAwayListener"
 import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
+import { isAxiosError } from "axios"
+import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import ProgressCell from "../cells/ProgressCell"
+import PriorityCell from "../cells/PriorityCell"
+import DueDateCell from "../cells/DueDateCell"
 
 type Props = {
   post: PostType
@@ -37,6 +42,10 @@ const Task = ({ post, task }: Props) => {
     register: registerNewSubtask,
     handleSubmit: handleSubmitNewSubtask,
     reset: resetNewSubtaskForm,
+    formState: {
+      errors: newSubtaskErrors,
+      isSubmitSuccessful: isNewSubtaskSubmittedSuccessful,
+    },
   } = useForm<createSubtaskType>({
     resolver: zodResolver(createSubtaskSchema),
   })
@@ -46,6 +55,10 @@ const Task = ({ post, task }: Props) => {
     handleSubmit: handleSubmitUpdateTask,
     setFocus: setFocusUpdateTask,
     reset: resetUpdateTask,
+    formState: {
+      errors: updateTaskErrors,
+      isSubmitSuccessful: isUpdateSubmitSuccessful,
+    },
   } = useForm<updateTaskType>({
     resolver: zodResolver(updateTaskSchema),
   })
@@ -71,8 +84,22 @@ const Task = ({ post, task }: Props) => {
         formData
       )
       dispatch(createSubtask({ post, task, subtask: data.data }))
+      dispatch(
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
+      )
       resetNewSubtaskForm()
     } catch (err) {
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      }
       console.error(err)
     }
   }
@@ -82,6 +109,31 @@ const Task = ({ post, task }: Props) => {
       setFocusUpdateTask("title")
     }
   }, [isEditing, setFocusUpdateTask])
+
+  useEffect(() => {
+    if (updateTaskErrors.title?.message && !isUpdateSubmitSuccessful) {
+      dispatch(
+        setFeedback({
+          feedbackMessage: updateTaskErrors.title?.message,
+          feedbackType: "error",
+        })
+      )
+    }
+    if (newSubtaskErrors.title?.message && !isNewSubtaskSubmittedSuccessful) {
+      dispatch(
+        setFeedback({
+          feedbackMessage: newSubtaskErrors.title?.message,
+          feedbackType: "error",
+        })
+      )
+    }
+  }, [
+    updateTaskErrors.title?.message,
+    isUpdateSubmitSuccessful,
+    newSubtaskErrors.title?.message,
+    isNewSubtaskSubmittedSuccessful,
+    dispatch,
+  ])
 
   const taskDueDate = new Date(task.dueDate)
   const formattedDueDate = taskDueDate.toLocaleString("en-US", {
@@ -101,7 +153,7 @@ const Task = ({ post, task }: Props) => {
           {!isEditing ? (
             <h1
               onClick={() => setIsEditing(true)}
-              className="min-w-[5em] h-full"
+              className="min-w-[5em] h-full "
             >
               {task.title}
             </h1>
@@ -111,22 +163,16 @@ const Task = ({ post, task }: Props) => {
                 <input
                   type="text"
                   placeholder={task.title}
-                  className="h-full px-2 py-1 outline-none text-secondary rounded-md"
+                  className="bg-transparent h-full px-4 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out hover:text-main"
                   {...registerUpdateTask("title")}
                 />
               </form>
             </ClickAwayListener>
           )}
         </div>
-        <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {task.progress}
-        </h1>
-        <h1 className="uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {task.priority}
-        </h1>
-        <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-          {formattedDueDate}
-        </h1>
+        <ProgressCell progress={task.progress} />
+        <PriorityCell priority={task.priority} />
+        <DueDateCell formattedDueDate={formattedDueDate} />
       </div>
       {isExpanded && task.subtasks.length !== 0 && (
         <Subtasks subtasks={task.subtasks} post={post} task={task} />
@@ -137,11 +183,13 @@ const Task = ({ post, task }: Props) => {
             className="flex items-center"
             onSubmit={handleSubmitNewSubtask(handleNewSubtaskSubmit)}
           >
-            <AddOutlinedIcon className="h-5 w-5 opacity-50" />
+            <button type="submit">
+              <AddOutlinedIcon className="h-5 w-5 opacity-50" />
+            </button>
             <input
               type="text"
               placeholder="Add Subtask"
-              className="h-full outline-none"
+              className="bg-transparent px-2 h-full outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
               {...registerNewSubtask("title")}
             />
           </form>

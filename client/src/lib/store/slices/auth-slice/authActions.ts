@@ -29,6 +29,7 @@ export const loginReducer = (
 
 export const logoutReducer = (state: AuthSliceType) => {
   localStorage.removeItem("token")
+  localStorage.removeItem("_id")
   state.token = null
   state._id = null
   state.isLoggedIn = false

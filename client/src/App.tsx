@@ -38,7 +38,7 @@ import LikedPosts from "./components/routes/protected-routes/profile/liked-posts
 
 function App() {
   const dispatch = useDispatch()
-  const { _id } = useTypedSelector((state) => state.auth)
+  const { _id, token } = useTypedSelector((state) => state.auth)
 
   useEffect(() => {
     dispatch(persistLogin())
@@ -64,10 +64,10 @@ function App() {
       }
     }
 
-    if (_id) {
+    if (_id && token) {
       fetchData()
     }
-  }, [dispatch, _id])
+  }, [dispatch, _id, token])
 
   return (
     <AppContainer>

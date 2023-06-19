@@ -52,7 +52,12 @@ export const updatePost = async (req: JWTRequest, res: Response) => {
       postId,
       { $set: { ...fieldsToBeUpdated } },
       { new: true }
-    )
+    ).populate({
+      path: "tasks",
+      populate: {
+        path: "subtasks",
+      },
+    })
 
     return res.status(200).json({
       message: "Post successfully updated!",

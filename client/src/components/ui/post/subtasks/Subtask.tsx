@@ -13,6 +13,9 @@ import {
 import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
 import { useDispatch } from "react-redux"
 import { updateSubtask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import ProgressCell from "../cells/ProgressCell"
+import PriorityCell from "../cells/PriorityCell"
+import DueDateCell from "../cells/DueDateCell"
 
 type Props = {
   post: PostType
@@ -71,22 +74,16 @@ const Subtask = ({ post, task, subtask }: Props) => {
               <input
                 type="text"
                 placeholder={subtask.title}
-                className="h-full px-2 py-1 outline-none text-secondary rounded-md"
+                className="bg-transparent h-full px-2 py-1 outline-none text-secondary rounded-md hover:text-main"
                 {...register("title")}
               />
             </form>
           </ClickAwayListener>
         )}
       </div>
-      <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-        {subtask.progress}
-      </h1>
-      <h1 className="uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-        {subtask.priority}
-      </h1>
-      <h1 className="uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:bg-secondary hover:text-main duration-200">
-        {formattedDueDate}
-      </h1>
+      <ProgressCell progress={subtask.progress} />
+      <PriorityCell priority={subtask.priority} />
+      <DueDateCell formattedDueDate={formattedDueDate} />
     </div>
   )
 }
