@@ -3,6 +3,8 @@ import {
   createSubtaskReducer,
   createTaskReducer,
   deletePostReducer,
+  deleteSubtaskReducer,
+  deleteTaskReducer,
   setTimelineReducer,
   updatePostReducer,
   updateSubtaskReducer,
@@ -25,6 +27,8 @@ const timelineSlice = createSlice({
     createSubtask: createSubtaskReducer,
     updateTask: updateTaskReducer,
     updateSubtask: updateSubtaskReducer,
+    deleteTask: deleteTaskReducer,
+    deleteSubtask: deleteSubtaskReducer,
   },
 })
 
@@ -37,6 +41,8 @@ export const {
   createSubtask,
   updateTask,
   updateSubtask,
+  deleteTask,
+  deleteSubtask,
 } = timelineSlice.actions
 
 export default timelineSlice.reducer

@@ -5,17 +5,82 @@ import Paper from "@mui/material/Paper"
 import Popper from "@mui/material/Popper"
 import MenuItem from "@mui/material/MenuItem"
 import MenuList from "@mui/material/MenuList"
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
+import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
+import { SubtaskType } from "../../../../lib/types/primitive-types/SubtaskType"
+import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
+import { useDispatch } from "react-redux"
+import {
+  updateSubtask,
+  updateTask,
+} from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
+import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import { isAxiosError } from "axios"
 
 type Props = {
+  post: PostType
+  task: TaskType
+  subtask?: SubtaskType
   priority: "low" | "medium" | "high"
+  isTaskCell: boolean
 }
 
-const PriorityCell = ({ priority }: Props) => {
+const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
+  const dispatch = useDispatch()
+  const [currPriority, setCurrPriority] = React.useState(priority)
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLHeadingElement>(null)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
+  }
+
+  const handleUpdatePiority = async (newPriority: Props["priority"]) => {
+    try {
+      if (isTaskCell) {
+        const { data } = await taskAPI.put(
+          `/?postId=${post._id}&taskId=${task._id}`,
+          {
+            priority: newPriority,
+          }
+        )
+        dispatch(updateTask({ post, task: data.data }))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
+      } else {
+        const { data } = await subtaskAPI.put(
+          `/${subtask?._id}?postId=${post._id}&taskId=${task._id}`,
+          {
+            priority: newPriority,
+          }
+        )
+        dispatch(updateSubtask({ post, task, subtask: data.data }))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
+      }
+    } catch (err) {
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
+    }
+    setCurrPriority(newPriority)
+    setOpen(false)
   }
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
@@ -49,9 +114,9 @@ const PriorityCell = ({ priority }: Props) => {
   }, [open])
 
   const priorityColor = {
-    low: "bg-[#FFDADA] hover:bg-[#FFB3B3]",
-    medium: "bg-[#FF8E8E] hover:bg-[#FF5F5F]",
-    high: "bg-[#FF3838] hover:bg-[#FF1A1A]",
+    low: "bg-[#FFDADA] hover:bg-[#FFB3B3] focus:bg-[#FFDADA]",
+    medium: "bg-[#FF8E8E] hover:bg-[#FF5F5F] focus:bg-[#FF8E8E]",
+    high: "bg-[#FF3838] hover:bg-[#FF1A1A] focus:bg-[#FF3838]",
   }
 
   return (
@@ -59,15 +124,15 @@ const PriorityCell = ({ priority }: Props) => {
       <h1
         ref={anchorRef}
         onClick={handleToggle}
-        className={`uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${priorityColor[priority]}`}
+        className={`uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${priorityColor[currPriority]}`}
       >
-        {priority}
+        {currPriority === "medium" ? "MED" : currPriority}
       </h1>
       <Popper
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
-        placement="bottom-start"
+        placement="bottom"
         transition
         disablePortal
       >
@@ -76,32 +141,33 @@ const PriorityCell = ({ priority }: Props) => {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === "bottom-start" ? "left top" : "left bottom",
+                placement === "bottom" ? "left top" : "left bottom",
             }}
           >
-            <Paper className="bg-blue-50">
+            <Paper className="bg-blue-50 border border-secondary">
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
                   id="composition-menu"
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
+                  className="py-0"
                 >
                   <MenuItem
-                    onClick={handleClose}
-                    className="flex justify-center"
+                    onClick={() => handleUpdatePiority("low")}
+                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["low"]}`}
                   >
                     Low
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
-                    className="flex justify-center"
+                    onClick={() => handleUpdatePiority("medium")}
+                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["medium"]}`}
                   >
-                    Medium
+                    Med
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
-                    className="flex justify-center"
+                    onClick={() => handleUpdatePiority("high")}
+                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["high"]}`}
                   >
                     High
                   </MenuItem>

@@ -157,7 +157,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
           aria-expanded={open ? "true" : undefined}
           onClick={handleToggle}
         >
-          <MoreHorizOutlined className="rounded-full hover:bg-tertiary duration-200 ease-in-out text-md p-2 h-12 w-12" />
+          <MoreHorizOutlined className="rounded-full hover:bg-tertiary duration-200 ease-in-out text-md p-2 h-8 w-8" />
         </Tooltip>
         {open && (
           <Popper
@@ -176,7 +176,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                     placement === "bottom-start" ? "left top" : "left bottom",
                 }}
               >
-                <Paper className="shadow-xl border border-secondary">
+                <Paper className="bg-blue-50 border border-secondary">
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       id="composition-menu"

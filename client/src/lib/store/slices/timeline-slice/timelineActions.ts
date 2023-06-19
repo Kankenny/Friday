@@ -182,3 +182,90 @@ export const updateSubtaskReducer = (
 
   return state
 }
+
+export const deleteTaskReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<{ post: PostType; task: TaskType }>
+) => {
+  const { post, task } = action.payload
+  const postIndex = state.posts.findIndex((p) => p._id === post._id)
+  const taskIndex = post.tasks.findIndex((t) => t._id === task._id)
+
+  if (taskIndex !== -1 && postIndex !== -1) {
+    const updatedTasks = [
+      ...post.tasks.slice(0, taskIndex),
+      ...post.tasks.slice(taskIndex + 1),
+    ]
+
+    const updatedState = {
+      ...state,
+      posts: [
+        ...state.posts.slice(0, postIndex),
+        {
+          ...state.posts[postIndex],
+          tasks: updatedTasks,
+        },
+        ...state.posts.slice(postIndex + 1),
+      ],
+    }
+
+    return updatedState
+  }
+
+  return state
+}
+
+export const deleteSubtaskReducer = (
+  state: TimelineSliceType,
+  action: PayloadAction<{
+    post: PostType
+    task: TaskType
+    subtask: SubtaskType
+  }>
+) => {
+  const { post, task, subtask } = action.payload
+  const postIndex = state.posts.findIndex((p) => p._id === post._id)
+  const taskIndex = post.tasks.findIndex((t) => t._id === task._id)
+  const subtaskIndex = task.subtasks.findIndex((s) => s._id === subtask._id)
+
+  if (subtaskIndex !== -1 && taskIndex !== -1 && postIndex !== -1) {
+    // Get the reference to the existing subtasks array
+    const subtasks = state.posts[postIndex].tasks[taskIndex].subtasks
+
+    // Create a new subtasks array without the deleted subtask
+    const updatedSubtasks = [
+      ...subtasks.slice(0, subtaskIndex),
+      ...subtasks.slice(subtaskIndex + 1),
+    ]
+
+    // Create a new tasks array with the updated subtasks array
+    const updatedTasks = [
+      ...post.tasks.slice(0, taskIndex),
+      {
+        ...task,
+        subtasks: updatedSubtasks,
+      },
+      ...post.tasks.slice(taskIndex + 1),
+    ]
+
+    // Create a new posts array with the updated tasks array
+    const updatedPosts = [
+      ...state.posts.slice(0, postIndex),
+      {
+        ...post,
+        tasks: updatedTasks,
+      },
+      ...state.posts.slice(postIndex + 1),
+    ]
+
+    // Create a new state object with the updated posts array
+    const updatedState: TimelineSliceType = {
+      ...state,
+      posts: updatedPosts,
+    }
+
+    return updatedState
+  }
+
+  return state
+}

@@ -12,7 +12,7 @@ const RHFInputField = ({ label, register, error, twClasses }: Props) => {
     <div className={`${twClasses} relative`}>
       <input
         type="text"
-        className="peer h-10 w-full rounded-sm border-b-2 border-gray-300 bg-transparent py-2  placeholder-transparent focus:border-tertiary focus:outline-none"
+        className="peer h-10 w-full rounded-sm border-b-2 border-secondary bg-transparent py-2  placeholder-transparent focus:border-tertiary focus:outline-none caret-tertiary"
         placeholder=""
         id={register.name}
         {...register}
