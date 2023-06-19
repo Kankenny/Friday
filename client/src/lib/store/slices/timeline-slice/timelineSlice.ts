@@ -39,6 +39,7 @@ export const {
   createSubtask,
   updateTask,
   updateSubtask,
+  deleteTask,
 } = timelineSlice.actions
 
 export default timelineSlice.reducer

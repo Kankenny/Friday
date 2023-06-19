@@ -188,10 +188,28 @@ export const deleteTaskReducer = (
   action: PayloadAction<{ post: PostType; task: TaskType }>
 ) => {
   const { post, task } = action.payload
+  const postIndex = state.posts.findIndex((p) => p._id === post._id)
   const taskIndex = post.tasks.findIndex((t) => t._id === task._id)
 
-  if (taskIndex !== -1) {
-    post.tasks.splice(taskIndex, 1)
+  if (taskIndex !== -1 && postIndex !== -1) {
+    const updatedTasks = [
+      ...post.tasks.slice(0, taskIndex),
+      ...post.tasks.slice(taskIndex + 1),
+    ]
+
+    const updatedState = {
+      ...state,
+      posts: [
+        ...state.posts.slice(0, postIndex),
+        {
+          ...state.posts[postIndex],
+          tasks: updatedTasks,
+        },
+        ...state.posts.slice(postIndex + 1),
+      ],
+    }
+
+    return updatedState
   }
 
   return state

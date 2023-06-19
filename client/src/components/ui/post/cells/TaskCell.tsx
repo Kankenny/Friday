@@ -5,7 +5,10 @@ import { useDispatch } from "react-redux"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
-import { updateTask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import {
+  deleteTask,
+  updateTask,
+} from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 import {
   updateTaskSchema,
   updateTaskType,
@@ -65,6 +68,32 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
     }
   }
 
+  const handleDeleteTask = async () => {
+    try {
+      const { data } = await taskAPI.delete(`/?taskId=${task._id}`)
+      dispatch(deleteTask({ post, task }))
+      dispatch(
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
+      )
+      setIsEditing(false)
+      reset()
+    } catch (err) {
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
+    }
+  }
+
   useEffect(() => {
     if (isEditing) {
       setFocus("title")
@@ -91,7 +120,10 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
           <h1 onClick={() => setIsEditing(true)} className="h-full ">
             {task.title}
           </h1>
-          <ClearIcon className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out" />
+          <ClearIcon
+            onClick={handleDeleteTask}
+            className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out"
+          />
         </div>
       ) : (
         <ClickAwayListener onClickAway={() => setIsEditing(false)}>
