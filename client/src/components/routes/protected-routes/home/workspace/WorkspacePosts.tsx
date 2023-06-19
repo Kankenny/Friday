@@ -2,9 +2,12 @@ import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSe
 import Post from "../../../../ui/post/Post"
 
 const WorkspacePosts = () => {
-  const { posts } = useTypedSelector((state) => state.sameProfile)
+  const { posts } = useTypedSelector((state) => state.timeline)
+  const { _id } = useTypedSelector((state) => state.auth)
 
-  const content = posts.map((post) => (
+  const currAuthUserPosts = posts.filter((post) => post.creatorId === _id)
+
+  const content = currAuthUserPosts.map((post) => (
     <Post post={post} key={post._id + post.createdAt} />
   ))
 
