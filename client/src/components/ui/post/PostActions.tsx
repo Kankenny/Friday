@@ -14,12 +14,14 @@ import { createTask } from "../../../lib/store/slices/timeline-slice/timelineSli
 import { setFeedback } from "../../../lib/store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
 import LikeDislike from "./LikeDislike"
+import { useTypedSelector } from "../../../lib/hooks/redux-hook/useTypedSelector"
 
 type Props = {
   post: PostType
 }
 
 const PostActions = ({ post }: Props) => {
+  const { comments } = useTypedSelector((state) => state.postDetail)
   const dispatch = useDispatch()
   const {
     register,
@@ -81,7 +83,7 @@ const PostActions = ({ post }: Props) => {
       </form>
       <div className="flex items-center gap-10 select-none">
         <div className="flex items-center gap-2">
-          <h1 className="text-gray-600">{post.comments.length} comments</h1>
+          <h1 className="text-gray-600">{comments.length} comments</h1>
           <p>—</p>
           <CommentsButton post={post} />
         </div>
