@@ -27,7 +27,7 @@ const useUpvoteDownvoteToggle = ({
 
   const handleLike = async () => {
     try {
-      if (!isAlreadyLiked) {
+      if (!isLiked) {
         const { data } = await postAPI.put(`/${post._id}/upvote`)
         const updatedPost = { ...post, upvotes: post.upvotes + 1 }
         dispatch(updatePost(updatedPost))
@@ -66,7 +66,7 @@ const useUpvoteDownvoteToggle = ({
 
   const handleDislike = async () => {
     try {
-      if (!isAlreadyDisliked) {
+      if (!isDisliked) {
         const { data } = await postAPI.put(`/${post._id}/downvote`)
         const updatedPost = { ...post, downvotes: post.downvotes + 1 }
         dispatch(updatePost(updatedPost))
