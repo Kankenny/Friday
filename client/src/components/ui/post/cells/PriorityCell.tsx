@@ -5,8 +5,12 @@ import Paper from "@mui/material/Paper"
 import Popper from "@mui/material/Popper"
 import MenuItem from "@mui/material/MenuItem"
 import MenuList from "@mui/material/MenuList"
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
+import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
 
 type Props = {
+  post: PostType
+  task: TaskType
   priority: "low" | "medium" | "high"
 }
 

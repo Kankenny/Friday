@@ -5,17 +5,57 @@ import Paper from "@mui/material/Paper"
 import Popper from "@mui/material/Popper"
 import MenuItem from "@mui/material/MenuItem"
 import MenuList from "@mui/material/MenuList"
+import { isAxiosError } from "axios"
+import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
+import { useDispatch } from "react-redux"
+import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
+import { updateTask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 
 type Props = {
+  post: PostType
+  task: TaskType
   progress: "done" | "working on it" | "stuck" | "untouched"
 }
 
-const ProgressCell = ({ progress }: Props) => {
+const ProgressCell = ({ post, task, progress }: Props) => {
+  const dispatch = useDispatch()
+  const [currProgress, setCurrProgress] = React.useState(progress)
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLHeadingElement>(null)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
+  }
+
+  const handleUpdateProgress = async (newProgress: Props["progress"]) => {
+    try {
+      const { data } = await taskAPI.put(
+        `/?postId=${post._id}&taskId=${task._id}`,
+        { progress: newProgress }
+      )
+      dispatch(updateTask(data.data))
+      dispatch(
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
+      )
+    } catch (err) {
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
+    }
+    setCurrProgress(newProgress)
+    setOpen(false)
   }
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
@@ -60,9 +100,9 @@ const ProgressCell = ({ progress }: Props) => {
       <h1
         ref={anchorRef}
         onClick={handleToggle}
-        className={`uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${progressColor[progress]}`}
+        className={`uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${progressColor[currProgress]}`}
       >
-        {progress}
+        {currProgress}
       </h1>
       <Popper
         open={open}
@@ -90,25 +130,25 @@ const ProgressCell = ({ progress }: Props) => {
                   className="py-0 rounded-md"
                 >
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={() => handleUpdateProgress("done")}
                     className={`flex justify-center uppercase text-sm text-secondary ${progressColor["done"]}`}
                   >
                     Done
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={() => handleUpdateProgress("working on it")}
                     className={`flex justify-center uppercase text-sm text-secondary ${progressColor["working on it"]}`}
                   >
                     Working on it
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={() => handleUpdateProgress("stuck")}
                     className={`flex justify-center uppercase text-sm text-secondary ${progressColor["stuck"]}`}
                   >
                     Stuck
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={() => handleUpdateProgress("untouched")}
                     className={`flex justify-center uppercase text-sm text-secondary ${progressColor["untouched"]}`}
                   >
                     Untouched

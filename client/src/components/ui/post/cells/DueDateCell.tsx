@@ -1,4 +1,9 @@
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
+import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
+
 type Props = {
+  post: PostType
+  task: TaskType
   formattedDueDate: string
 }
 
