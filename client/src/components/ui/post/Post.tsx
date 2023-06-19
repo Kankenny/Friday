@@ -22,9 +22,9 @@ const Post = ({ post }: Props) => {
       {!isEditing ? (
         <div>
           <div
-            className={`rounded-md shadow-md  ${
+            className={`rounded-md shadow-md cursor-pointer ${
               !isExpanded &&
-              "border border-secondary hover:bg-secondary hover:text-white ease-in-out caret-transparent cursor-pointer"
+              "border border-secondary hover:bg-secondary hover:text-white ease-in-out caret-transparent "
             } duration-300`}
           >
             <MainHeader
