@@ -15,7 +15,7 @@ A SaaS productivity platform that allows users to post and view tasks.
 - UI Components Library using MUI
 - Styling with Tailwind CSS
 - Database ODM layer with Mongoose
-- Authentication
+- Authentication & authorization
 - Sensitive Information Obfuscation with JWT & bcrypt
 - Image Uploads with React-Dropzone and Cloudinary
 
