@@ -13,6 +13,8 @@ import {
 import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
 import { useDispatch } from "react-redux"
 import { updateSubtask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import { isAxiosError } from "axios"
 
 type Props = {
   post: PostType
@@ -36,10 +38,25 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
         formData
       )
       dispatch(updateSubtask({ post, task, subtask: data.data }))
+      dispatch(
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
+      )
       setIsEditing(false)
       reset()
     } catch (err) {
-      console.error(err)
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "success",
+          })
+        )
+      } else {
+        console.error(err)
+      }
     }
   }
 
