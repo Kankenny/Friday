@@ -170,12 +170,23 @@ const Task = ({ post, task }: Props) => {
             </ClickAwayListener>
           )}
         </div>
-        <ProgressCell progress={task.progress} post={post} task={task} />
-        <PriorityCell priority={task.priority} post={post} task={task} />
+        <ProgressCell
+          progress={task.progress}
+          post={post}
+          task={task}
+          isTaskCell={true}
+        />
+        <PriorityCell
+          priority={task.priority}
+          post={post}
+          task={task}
+          isTaskCell={true}
+        />
         <DueDateCell
           formattedDueDate={formattedDueDate}
           post={post}
           task={task}
+          isTaskCell={true}
         />
       </div>
       {isExpanded && task.subtasks.length !== 0 && (

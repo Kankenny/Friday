@@ -11,15 +11,19 @@ import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import { useDispatch } from "react-redux"
 import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
-import { updateTask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import {
+  updateSubtask,
+  updateTask,
+} from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 
 type Props = {
   post: PostType
   task: TaskType
   progress: "done" | "working on it" | "stuck" | "untouched"
+  isTaskCell: boolean
 }
 
-const ProgressCell = ({ post, task, progress }: Props) => {
+const ProgressCell = ({ post, task, progress, isTaskCell }: Props) => {
   const dispatch = useDispatch()
   const [currProgress, setCurrProgress] = React.useState(progress)
   const [open, setOpen] = React.useState(false)
@@ -31,19 +35,35 @@ const ProgressCell = ({ post, task, progress }: Props) => {
 
   const handleUpdateProgress = async (newProgress: Props["progress"]) => {
     try {
-      console.log(post)
-      const { data } = await taskAPI.put(
-        `/?postId=${post._id}&taskId=${task._id}`,
-        { progress: newProgress }
-      )
-      console.log(data.data)
-      dispatch(updateTask({ post, task: data.data }))
-      dispatch(
-        setFeedback({
-          feedbackMessage: data.message,
-          feedbackType: "success",
-        })
-      )
+      if (isTaskCell) {
+        const { data } = await taskAPI.put(
+          `/?postId=${post._id}&taskId=${task._id}`,
+          {
+            progress: newProgress,
+          }
+        )
+        dispatch(updateTask({ post, task: data.data }))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
+      } else {
+        const { data } = await taskAPI.put(
+          `/?postId=${post._id}&taskId=${task._id}`,
+          {
+            progress: newProgress,
+          }
+        )
+        dispatch(updateSubtask({ post, task, subtask: data.data }))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
+      }
     } catch (err) {
       if (isAxiosError(err)) {
         dispatch(

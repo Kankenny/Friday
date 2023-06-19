@@ -5,6 +5,7 @@ type Props = {
   post: PostType
   task: TaskType
   formattedDueDate: string
+  isTaskCell: boolean
 }
 
 const DueDateCell = ({ formattedDueDate }: Props) => {

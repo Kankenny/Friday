@@ -12,6 +12,7 @@ type Props = {
   post: PostType
   task: TaskType
   priority: "low" | "medium" | "high"
+  isTaskCell: boolean
 }
 
 const PriorityCell = ({ priority }: Props) => {
