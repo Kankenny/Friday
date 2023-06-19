@@ -7,20 +7,69 @@ import MenuItem from "@mui/material/MenuItem"
 import MenuList from "@mui/material/MenuList"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
+import { SubtaskType } from "../../../../lib/types/primitive-types/SubtaskType"
 
 type Props = {
   post: PostType
   task: TaskType
+  subtask?: SubtaskType
   priority: "low" | "medium" | "high"
   isTaskCell: boolean
 }
 
-const PriorityCell = ({ priority }: Props) => {
+const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLHeadingElement>(null)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
+  }
+
+  const handleUpdateProgress = async (newProgress: Props["progress"]) => {
+    try {
+      if (isTaskCell) {
+        const { data } = await taskAPI.put(
+          `/?postId=${post._id}&taskId=${task._id}`,
+          {
+            progress: newProgress,
+          }
+        )
+        dispatch(updateTask({ post, task: data.data }))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
+      } else {
+        const { data } = await subtaskAPI.put(
+          `/${subtask?._id}?postId=${post._id}&taskId=${task._id}`,
+          {
+            progress: newProgress,
+          }
+        )
+        dispatch(updateSubtask({ post, task, subtask: data.data }))
+        dispatch(
+          setFeedback({
+            feedbackMessage: data.message,
+            feedbackType: "success",
+          })
+        )
+      }
+    } catch (err) {
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
+    }
+    setCurrProgress(newProgress)
+    setOpen(false)
   }
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
