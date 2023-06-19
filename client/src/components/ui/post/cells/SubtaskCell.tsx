@@ -12,7 +12,10 @@ import {
 } from "../../../../../../common/validations/subtask/updateSubtaskValidator"
 import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
 import { useDispatch } from "react-redux"
-import { updateSubtask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
+import {
+  deleteSubtask,
+  updateSubtask,
+} from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
 import ClearIcon from "@mui/icons-material/Clear"
@@ -61,6 +64,32 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
     }
   }
 
+  const handleDeleteSubtask = async () => {
+    try {
+      const { data } = await subtaskAPI.delete(
+        `/${subtask._id}?postId=${post._id}&taskId=${task._id}`
+      )
+      dispatch(deleteSubtask({ post, task, subtask }))
+      dispatch(
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
+      )
+    } catch (err) {
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
+    }
+  }
+
   useEffect(() => {
     if (isEditing) {
       setFocus("title")
@@ -75,7 +104,10 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
           <h1 onClick={() => setIsEditing(true)} className="min-w-[5em] h-full">
             {subtask.title}
           </h1>
-          <ClearIcon className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out" />
+          <ClearIcon
+            onClick={handleDeleteSubtask}
+            className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out"
+          />
         </div>
       ) : (
         <ClickAwayListener onClickAway={() => setIsEditing(false)}>

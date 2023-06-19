@@ -78,8 +78,6 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
           feedbackType: "success",
         })
       )
-      setIsEditing(false)
-      reset()
     } catch (err) {
       if (isAxiosError(err)) {
         dispatch(
