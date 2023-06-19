@@ -125,7 +125,7 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
       <h1
         ref={anchorRef}
         onClick={handleToggle}
-        className={`uppercase flex-grow max-w-[25%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${progressColor[currProgress]}`}
+        className={`uppercase flex-grow w-[25%] max-w-[25%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${progressColor[currProgress]}`}
       >
         {currProgress}
       </h1>

@@ -110,7 +110,7 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
   }, [errors.title?.message, isSubmitSuccessful, dispatch])
 
   return (
-    <div className="flex-grow max-w-[45%] border border-secondary p-2 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center">
+    <div className="flex-grow w-[45%] max-w-[45%] border border-secondary p-2 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center">
       <ChevronRightOutlinedIcon onClick={() => setIsExpanded(!isExpanded)} />
 
       {!isEditing ? (
