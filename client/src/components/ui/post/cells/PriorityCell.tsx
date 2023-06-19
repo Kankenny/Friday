@@ -126,7 +126,7 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
         onClick={handleToggle}
         className={`uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${priorityColor[currPriority]}`}
       >
-        {currPriority}
+        {currPriority === "medium" ? "MED" : currPriority}
       </h1>
       <Popper
         open={open}

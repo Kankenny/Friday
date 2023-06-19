@@ -14,6 +14,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener"
 import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
+import ClearIcon from "@mui/icons-material/Clear"
 
 type Props = {
   post: PostType
@@ -82,13 +83,16 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
   }, [errors.title?.message, isSubmitSuccessful, dispatch])
 
   return (
-    <div className="flex-grow max-w-[50%] border border-secondary p-2 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center">
+    <div className="flex-grow max-w-[45%] border border-secondary p-2 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center">
       <ChevronRightOutlinedIcon onClick={() => setIsExpanded(!isExpanded)} />
 
       {!isEditing ? (
-        <h1 onClick={() => setIsEditing(true)} className="min-w-[5em] h-full ">
-          {task.title}
-        </h1>
+        <div className="flex justify-between items-center w-full">
+          <h1 onClick={() => setIsEditing(true)} className="h-full ">
+            {task.title}
+          </h1>
+          <ClearIcon className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out" />
+        </div>
       ) : (
         <ClickAwayListener onClickAway={() => setIsEditing(false)}>
           <form onSubmit={handleSubmit(handleUpdateTask)}>

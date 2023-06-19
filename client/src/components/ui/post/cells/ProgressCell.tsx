@@ -125,7 +125,7 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
       <h1
         ref={anchorRef}
         onClick={handleToggle}
-        className={`uppercase flex-grow max-w-[20%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${progressColor[currProgress]}`}
+        className={`uppercase flex-grow max-w-[25%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${progressColor[currProgress]}`}
       >
         {currProgress}
       </h1>
@@ -156,27 +156,27 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
                 >
                   <MenuItem
                     onClick={() => handleUpdateProgress("done")}
-                    className={`flex justify-center uppercase text-sm text-secondary ${progressColor["done"]}`}
+                    className={`flex justify-center uppercase text-sm ${progressColor["done"]}`}
                   >
-                    Done
+                    <h1>Done</h1>
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleUpdateProgress("working on it")}
-                    className={`flex justify-center uppercase text-sm text-secondary ${progressColor["working on it"]}`}
+                    className={`flex justify-center uppercase text-sm ${progressColor["working on it"]}`}
                   >
-                    Working on it
+                    <h1>Working on it</h1>
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleUpdateProgress("stuck")}
-                    className={`flex justify-center uppercase text-sm text-secondary ${progressColor["stuck"]}`}
+                    className={`flex justify-center uppercase text-sm ${progressColor["stuck"]}`}
                   >
-                    Stuck
+                    <h1>Stuck</h1>
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleUpdateProgress("untouched")}
-                    className={`flex justify-center uppercase text-sm text-secondary ${progressColor["untouched"]}`}
+                    className={`flex justify-center uppercase text-sm ${progressColor["untouched"]}`}
                   >
-                    Untouched
+                    <h1>Untouched</h1>
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>
