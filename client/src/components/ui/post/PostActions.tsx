@@ -79,8 +79,12 @@ const PostActions = ({ post }: Props) => {
           {...register("title")}
         />
       </form>
-      <div className="flex gap-10 select-none">
-        <CommentsButton post={post} />
+      <div className="flex items-center gap-10 select-none">
+        <div className="flex items-center gap-2">
+          <h1 className="text-gray-600">{post.comments.length} comments</h1>
+          <p>—</p>
+          <CommentsButton post={post} />
+        </div>
         <h1>|</h1>
         <LikeDislike post={post} />
       </div>
