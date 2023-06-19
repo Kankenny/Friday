@@ -31,11 +31,13 @@ const ProgressCell = ({ post, task, progress }: Props) => {
 
   const handleUpdateProgress = async (newProgress: Props["progress"]) => {
     try {
+      console.log(post)
       const { data } = await taskAPI.put(
         `/?postId=${post._id}&taskId=${task._id}`,
         { progress: newProgress }
       )
-      dispatch(updateTask(data.data))
+      console.log(data.data)
+      dispatch(updateTask({ post, task: data.data }))
       dispatch(
         setFeedback({
           feedbackMessage: data.message,
