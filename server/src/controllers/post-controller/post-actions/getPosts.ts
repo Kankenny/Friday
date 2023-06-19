@@ -4,14 +4,16 @@ import { Request, Response } from "express"
 // Models
 import PostModel from "../../../models/Post"
 
-export const getPosts = async (req: Request, res: Response) => {
+export const getPosts = async (_req: Request, res: Response) => {
   try {
-    const posts = await PostModel.find().populate({
-      path: "tasks comments",
-      populate: {
-        path: "subtasks",
-      },
-    })
+    const posts = await PostModel.find()
+      .populate({
+        path: "tasks comments",
+        populate: {
+          path: "subtasks",
+        },
+      })
+      .populate("comments")
 
     // Check validity of queried posts
     if (!posts || posts.length === 0) {
