@@ -1,11 +1,15 @@
-import React from "react";
+import React from "react"
 
 type Props = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 const Body = ({ children }: Props) => {
-  return <main className="min-h-screen bg-main flex flex-col">{children}</main>;
-};
+  return (
+    <main className="min-h-screen flex flex-col container mx-auto">
+      {children}
+    </main>
+  )
+}
 
-export default Body;
+export default Body
