@@ -13,6 +13,7 @@ import {
 import ClickAwayListener from "@mui/material/ClickAwayListener"
 import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import { isAxiosError } from "axios"
 
 type Props = {
   post: PostType
@@ -41,10 +42,25 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
         formData
       )
       dispatch(updateTask({ post, task: data.data }))
+      dispatch(
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
+      )
       setIsEditing(false)
       reset()
     } catch (err) {
-      console.error(err)
+      if (isAxiosError(err)) {
+        dispatch(
+          setFeedback({
+            feedbackMessage: err.response?.data.message,
+            feedbackType: "error",
+          })
+        )
+      } else {
+        console.error(err)
+      }
     }
   }
 
