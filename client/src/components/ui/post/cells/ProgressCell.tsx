@@ -49,10 +49,10 @@ const ProgressCell = ({ progress }: Props) => {
   }, [open])
 
   const progressColor = {
-    done: "bg-[#499548] hover:bg-[#366136]",
-    "working on it": "bg-[#eab308] hover:bg-[#c79505]",
-    stuck: "bg-[#ef4444] hover:bg-[#be2d2d]",
-    untouched: "bg-gray-300 hover:bg-gray-400",
+    done: "bg-[#499548] hover:bg-[#366136] focus:bg-[#499548]",
+    "working on it": "bg-[#eab308] hover:bg-[#c79505] focus:bg-[#eab308]",
+    stuck: "bg-[#ef4444] hover:bg-[#be2d2d] focus:bg-[#ef4444]",
+    untouched: "bg-gray-300 hover:bg-gray-400 focus:bg-gray-300",
   }
 
   return (
@@ -87,28 +87,29 @@ const ProgressCell = ({ progress }: Props) => {
                   id="composition-menu"
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
+                  className="py-0"
                 >
                   <MenuItem
                     onClick={handleClose}
-                    className="flex justify-center"
+                    className={`flex justify-center uppercase text-sm text-secondary ${progressColor["done"]}`}
                   >
                     Done
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
-                    className="flex justify-center"
+                    className={`flex justify-center uppercase text-sm text-secondary ${progressColor["working on it"]}`}
                   >
                     Working on it
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
-                    className="flex justify-center"
+                    className={`flex justify-center uppercase text-sm text-secondary ${progressColor["stuck"]}`}
                   >
                     Stuck
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
-                    className="flex justify-center"
+                    className={`flex justify-center uppercase text-sm text-secondary ${progressColor["untouched"]}`}
                   >
                     Untouched
                   </MenuItem>
