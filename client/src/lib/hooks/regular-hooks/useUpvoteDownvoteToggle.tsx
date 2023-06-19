@@ -29,14 +29,23 @@ const useUpvoteDownvoteToggle = ({
     try {
       if (!isLiked) {
         const { data } = await postAPI.put(`/${post._id}/upvote`)
-        const updatedPost = { ...post, upvotes: post.upvotes + 1 }
-        dispatch(updatePost(updatedPost))
         dispatch(
           setFeedback({
             feedbackMessage: data.message,
             feedbackType: "success",
           })
         )
+        if (isDisliked) {
+          const updatedPost = {
+            ...post,
+            downvotes: post.downvotes - 1,
+            upvotes: post.upvotes + 1,
+          }
+          dispatch(updatePost(updatedPost))
+        } else {
+          const updatedPost = { ...post, upvotes: post.upvotes + 1 }
+          dispatch(updatePost(updatedPost))
+        }
       } else {
         const { data } = await postAPI.put(`/${post._id}/revert`)
         const updatedPost = { ...post, upvotes: post.upvotes - 1 }
@@ -68,14 +77,23 @@ const useUpvoteDownvoteToggle = ({
     try {
       if (!isDisliked) {
         const { data } = await postAPI.put(`/${post._id}/downvote`)
-        const updatedPost = { ...post, downvotes: post.downvotes + 1 }
-        dispatch(updatePost(updatedPost))
         dispatch(
           setFeedback({
             feedbackMessage: data.message,
             feedbackType: "success",
           })
         )
+        if (isLiked) {
+          const updatedPost = {
+            ...post,
+            upvotes: post.upvotes - 1,
+            downvotes: post.downvotes + 1,
+          }
+          dispatch(updatePost(updatedPost))
+        } else {
+          const updatedPost = { ...post, downvotes: post.downvotes + 1 }
+          dispatch(updatePost(updatedPost))
+        }
       } else {
         const { data } = await postAPI.put(`/${post._id}/revert`)
         const updatedPost = { ...post, downvotes: post.downvotes - 1 }
