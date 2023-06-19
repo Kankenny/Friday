@@ -144,7 +144,7 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
                 placement === "bottom" ? "left top" : "left bottom",
             }}
           >
-            <Paper className="bg-blue-50">
+            <Paper className="bg-blue-50 border border-secondary">
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
