@@ -176,7 +176,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                     placement === "bottom-start" ? "left top" : "left bottom",
                 }}
               >
-                <Paper className="shadow-xl border border-secondary">
+                <Paper className="bg-blue-50 border border-secondary">
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       id="composition-menu"
