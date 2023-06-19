@@ -118,26 +118,27 @@ export default function MenuListComposition() {
                   className=""
                 >
                   <MenuItem
-                    onClick={(e) => handleProfileClick(e)}
+                    onClick={handleProfileClick}
                     divider
                     className="flex gap-2 items-center"
                   >
                     <AccountCircleOutlinedIcon />
-                    Profile
+                    <h1>Profile</h1>
                   </MenuItem>
                   <MenuItem
-                    onClick={(e) => handleSettingsClick(e)}
+                    onClick={handleSettingsClick}
                     className="flex gap-2 items-center"
                   >
                     <SettingsOutlinedIcon />
-                    Settings
+                    <h1>Settings</h1>
                   </MenuItem>
+
                   <MenuItem
-                    onClick={(e) => handleLogoutClick(e)}
+                    onClick={handleLogoutClick}
                     className="flex gap-2 items-center"
                   >
                     <LogoutOutlinedIcon />
-                    Logout
+                    <h1>Logout</h1>
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>
