@@ -19,7 +19,7 @@ const Comments = () => {
 
   return (
     <div
-      className="space-y-5 overflow-y-scroll max-h-[50rem]"
+      className="space-y-5 overflow-y-auto max-h-[50rem] px-3"
       ref={containerRef}
     >
       {comments.length !== 0 ? (

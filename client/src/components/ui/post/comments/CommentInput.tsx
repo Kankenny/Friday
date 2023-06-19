@@ -10,6 +10,7 @@ import createCommentSchema, {
 } from "../../../../../../server/src/lib/validations/comment/createCommentValidator"
 import StyledButton from "../../StyledButton"
 import commentAPI from "../../../../lib/services/axios-instances/commentAPI"
+import RHFInputField from "../../rhf/RHFInputField"
 
 type Props = {
   postId: string
@@ -44,11 +45,11 @@ const CommentInput = ({ postId }: Props) => {
 
   return (
     <form className="my-10" onSubmit={handleSubmit(handleCreateComment)}>
-      <RHFTextareaField
+      <RHFInputField
         label="Write a comment..."
         register={register("body")}
         error={errors.body?.message}
-        twClasses="text-white"
+        twClasses="text-main"
       />
       <StyledButton
         buttonText="Submit Comment"
