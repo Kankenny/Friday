@@ -132,7 +132,7 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
-        placement="bottom-start"
+        placement="bottom"
         transition
         disablePortal
       >
@@ -141,7 +141,7 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === "bottom-start" ? "left top" : "left bottom",
+                placement === "bottom" ? "left top" : "left bottom",
             }}
           >
             <Paper className="bg-blue-50">

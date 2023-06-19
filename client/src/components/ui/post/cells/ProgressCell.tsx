@@ -133,7 +133,7 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
-        placement="bottom-start"
+        placement="bottom"
         transition
         disablePortal
       >
@@ -142,7 +142,7 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === "bottom-start" ? "left top" : "left bottom",
+                placement === "bottom" ? "left top" : "left bottom",
             }}
           >
             <Paper className="bg-blue-50 border border-secondary rounded-md">
