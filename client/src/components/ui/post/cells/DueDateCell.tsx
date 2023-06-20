@@ -20,7 +20,10 @@ const DueDateCell = ({
 }: Props) => {
   return (
     <h1 className="uppercase flex-grow max-w-[20%] border border-secondary text-sm cursor-pointer hover:bg-secondary  duration-200 bg-tertiary">
-      <DatePicker callbackFn={() => console.log("TEST")} />
+      <DatePicker
+        callbackFn={() => console.log("TEST")}
+        formattedDueDate={formattedDueDate}
+      />
     </h1>
   )
 }

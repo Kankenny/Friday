@@ -8,6 +8,7 @@ import {
   DateValidationError,
   FieldSection,
 } from "@mui/x-date-pickers/models"
+import { PickerChangeHandlerContext } from "@mui/x-date-pickers/internals/hooks/usePicker/usePickerValue.types"
 
 interface ButtonFieldProps
   extends UseDateFieldProps<Dayjs>,
@@ -52,6 +53,14 @@ interface ButtonDatePickerProps extends DatePickerProps<Dayjs> {
 function ButtonDatePicker(props: ButtonDatePickerProps) {
   const [open, setOpen] = React.useState(false)
 
+  const handleChange = (
+    newValue: Dayjs | null,
+    context: PickerChangeHandlerContext<DateValidationError>
+  ) => {
+    props.onChange?.(newValue, context)
+    props.callbackFn()
+  }
+
   return (
     <DatePicker
       slots={{ field: ButtonField, ...props.slots }}
@@ -73,7 +82,7 @@ function ButtonDatePicker(props: ButtonDatePickerProps) {
       onOpen={() => setOpen(true)}
       minDate={dayjs("2010-10-28")}
       maxDate={dayjs("2090-10-28")}
-      onChange={() => props.callbackFn()}
+      onChange={(newValue, context) => handleChange(newValue, context)}
       showDaysOutsideCurrentMonth
       disableHighlightToday
     />
@@ -82,12 +91,13 @@ function ButtonDatePicker(props: ButtonDatePickerProps) {
 
 export default function PickerWithButtonField({
   callbackFn,
+  formattedDueDate,
 }: {
   callbackFn: () => void
+  formattedDueDate: string
 }) {
-  const anotherDate = Date.now()
-  const todaysDate = dayjs(anotherDate)
-  const [value, setValue] = React.useState<Dayjs | null>(todaysDate)
+  const dayjsDate = dayjs(formattedDueDate)
+  const [value, setValue] = React.useState<Dayjs | null>(dayjsDate)
 
   return (
     <ButtonDatePicker
