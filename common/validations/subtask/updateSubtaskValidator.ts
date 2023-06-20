@@ -7,7 +7,7 @@ export const updateSubtaskSchema = z.object({
     .optional(),
   progress: z.enum(["done", "working on it", "stuck", "untouched"]).optional(),
   priority: z.enum(["low", "medium", "high"]).optional(),
-  dueDate: z.date().optional(),
+  dueDate: z.coerce.date().optional(),
 })
 
 export type updateSubtaskType = z.infer<typeof updateSubtaskSchema>
