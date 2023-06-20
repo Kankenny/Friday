@@ -32,13 +32,13 @@ function ButtonField(props: ButtonFieldProps) {
 
   return (
     <Button
-      variant="outlined"
+      variant="text"
       id={id}
       disabled={disabled}
       ref={ref}
       aria-label={ariaLabel}
       onClick={() => setOpen?.((prev) => !prev)}
-      className="text-3xl font-bold bg-green-500 hover:bg-green-900"
+      className="text-xl text-tertiary font-sans"
     >
       {label ?? "Pick a date"}
     </Button>
