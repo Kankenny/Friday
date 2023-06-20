@@ -111,7 +111,12 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
 
   return (
     <div className="flex-grow w-[45%] max-w-[45%] border border-secondary p-2 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center">
-      <ChevronRightOutlinedIcon onClick={() => setIsExpanded(!isExpanded)} />
+      <ChevronRightOutlinedIcon
+        onClick={() => setIsExpanded(!isExpanded)}
+        className={`transform transition duration-200 ease-in-out ${
+          isExpanded ? "rotate-90" : "rotate-0"
+        }`}
+      />
 
       {!isEditing ? (
         <div className="flex justify-between items-center w-full">
