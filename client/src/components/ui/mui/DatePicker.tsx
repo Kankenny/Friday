@@ -47,7 +47,7 @@ function ButtonField(props: ButtonFieldProps) {
 }
 
 interface ButtonDatePickerProps extends DatePickerProps<Dayjs> {
-  callbackFn: () => void
+  callbackFn: (selectedDate: Date | null) => void
 }
 
 function ButtonDatePicker(props: ButtonDatePickerProps) {
@@ -58,7 +58,8 @@ function ButtonDatePicker(props: ButtonDatePickerProps) {
     context: PickerChangeHandlerContext<DateValidationError>
   ) => {
     props.onChange?.(newValue, context)
-    props.callbackFn()
+    const selectedDate = newValue ? newValue.toDate() : null
+    props.callbackFn(selectedDate)
   }
 
   return (
@@ -93,7 +94,7 @@ export default function PickerWithButtonField({
   callbackFn,
   formattedDueDate,
 }: {
-  callbackFn: () => void
+  callbackFn: (selectedDate: Date | null) => void
   formattedDueDate: string
 }) {
   const dayjsDate = dayjs(formattedDueDate)
