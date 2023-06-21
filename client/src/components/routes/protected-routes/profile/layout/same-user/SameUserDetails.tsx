@@ -14,7 +14,7 @@ const SameUserDetails = () => {
   }
 
   return (
-    <Card twClasses="p-5 flex flex-col gap-2">
+    <Card twClasses="p-5 flex flex-col gap-2 w-full">
       <div className="pb-5 border-b border-secondary">
         <h1 className="font-bold text-xl">
           {firstName} {lastName}
