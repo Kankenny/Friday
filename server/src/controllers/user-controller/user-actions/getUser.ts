@@ -27,15 +27,17 @@ export const getUser = async (req: Request, res: Response) => {
 
   try {
     // Check if the user exists
-    const existingUser = await UserModel.findOne(query).populate({
-      path: "posts savedPosts upvotedPosts downvotedPosts",
-      populate: {
-        path: "tasks",
+    const existingUser = await UserModel.findOne(query)
+      .populate({
+        path: "posts savedPosts upvotedPosts downvotedPosts",
         populate: {
-          path: "subtasks",
+          path: "tasks",
+          populate: {
+            path: "subtasks",
+          },
         },
-      },
-    })
+      })
+      .populate("followers following blocked")
 
     if (!existingUser) {
       return res
