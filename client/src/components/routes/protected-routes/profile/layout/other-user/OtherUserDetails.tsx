@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useTypedSelector"
 import Card from "../../../../../ui/Card"
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"
@@ -20,12 +21,16 @@ const OtherUserDetails = () => {
       </div>
       <div className="space-x-2">
         <PeopleAltOutlinedIcon />
-        <span>
-          <b>{followers.length}</b> followers
-        </span>
-        <span>
-          <b>{following.length}</b> following
-        </span>
+        <Link to={`/users/${username}/followers`}>
+          <span className="hover:text-tertiary hover:underline duration-200 ease-in-out">
+            {followers.length} followers
+          </span>
+        </Link>
+        <Link to={`/users/${username}/following`}>
+          <span className="hover:text-tertiary hover:underline duration-200 ease-in-out">
+            {following.length} following
+          </span>
+        </Link>
       </div>
     </Card>
   )

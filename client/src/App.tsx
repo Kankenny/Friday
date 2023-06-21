@@ -35,6 +35,7 @@ import HomeLayout from "./components/routes/protected-routes/home/home-layout/Ho
 import userAPI from "./lib/services/axios-instances/userAPI"
 import timelineAPI from "./lib/services/axios-instances/timelineAPI"
 import LikedPosts from "./components/routes/protected-routes/profile/liked-posts/LikedPosts"
+import Followers from "./components/routes/protected-routes/profile/followers/Followers"
 
 function App() {
   const dispatch = useDispatch()
@@ -105,6 +106,10 @@ function App() {
               <Route
                 path="/users/:username/liked-posts"
                 element={<LikedPosts />}
+              />
+              <Route
+                path="/users/:username/followers"
+                element={<Followers />}
               />
             </Route>
           </Route>
