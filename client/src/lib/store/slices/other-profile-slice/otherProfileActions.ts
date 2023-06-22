@@ -16,5 +16,5 @@ export const followedUserReducer = (
 }
 
 export const unfollowedUserReducer = (state: ProfileSliceType) => {
-  state.followers = state.followers.slice(0)
+  state.followers = state.followers.slice(1)
 }
