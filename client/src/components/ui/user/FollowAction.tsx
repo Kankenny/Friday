@@ -10,8 +10,8 @@ import {
   unfollowUser,
 } from "../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import {
-  followedUser,
-  unfollowedUser,
+  increaseUserFollower,
+  decreaseUserFollower,
 } from "../../../lib/store/slices/other-profile-slice/otherProfileSlice"
 
 type Props = {
@@ -35,7 +35,6 @@ const FollowAction = ({ user }: Props) => {
   const handleFollowOrUnfollowClick = async () => {
     try {
       const action = isAlreadyFollowed ? "unfollow" : "follow"
-      console.log(action)
       const { data } = await userAPI.put(`/${currentId}/${action}/${user._id}`)
       dispatch(
         setFeedback({
@@ -45,10 +44,10 @@ const FollowAction = ({ user }: Props) => {
       )
       if (isAlreadyFollowed) {
         dispatch(unfollowUser(user))
-        dispatch(unfollowedUser())
+        dispatch(decreaseUserFollower())
       } else {
-        dispatch(followedUser(user))
         dispatch(followUser(user))
+        dispatch(increaseUserFollower(user))
       }
     } catch (err) {
       if (isAxiosError(err)) {
