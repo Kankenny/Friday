@@ -5,7 +5,7 @@ const WorkspacePosts = () => {
   const { posts } = useTypedSelector((state) => state.timeline)
   const { _id } = useTypedSelector((state) => state.auth)
 
-  const currAuthUserPosts = posts.filter((post) => post.creatorId === _id)
+  const currAuthUserPosts = posts.filter((post) => post.creatorId._id === _id)
 
   const content = currAuthUserPosts.map((post) => (
     <Post post={post} key={post._id + post.createdAt} />
