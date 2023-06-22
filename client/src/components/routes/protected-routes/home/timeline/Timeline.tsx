@@ -12,26 +12,19 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import RHFInputField from "../../../../ui/rhf/RHFInputField"
 import { useDispatch } from "react-redux"
-import {
-  clearQuery,
-  queryTimeline,
-} from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
+import { queryTimeline } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 
 const Timeline = () => {
-  const { handleSubmit, register, setValue } = useForm<searchFormType>({
+  const { handleSubmit, register } = useForm<searchFormType>({
     resolver: zodResolver(searchFormSchema),
   })
-  const { isLoading, didQuery } = useTypedSelector((state) => state.timeline)
+  const { isLoading } = useTypedSelector((state) => state.timeline)
   const [isCreating, setIsCreating] = useState(false)
 
   const dispatch = useDispatch()
   const handleSearchSubmit = (formData: searchFormType) => {
-    if (didQuery) {
-      dispatch(clearQuery())
-      setValue("query", "")
-    } else {
-      dispatch(queryTimeline(formData.query))
-    }
+    console.log(formData)
+    dispatch(queryTimeline(formData.query))
   }
 
   const content = isLoading ? <PostSkeletons /> : <TimelinePosts />
@@ -43,19 +36,11 @@ const Timeline = () => {
           buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
           onClick={() => setIsCreating(!isCreating)}
         />
-        <form
-          onSubmit={handleSubmit(handleSearchSubmit)}
-          className="flex gap-2 items-center"
-        >
+        <form onSubmit={handleSubmit(handleSearchSubmit)}>
           <RHFInputField
             register={register("query")}
             label="Search"
             twClasses="w-36"
-          />
-          <StyledButton
-            buttonText={didQuery ? "Clear" : "Search"}
-            type="submit"
-            intent="secondary"
           />
         </form>
       </div>

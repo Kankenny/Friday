@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
 import {
-  clearQueryReducer,
   createSubtaskReducer,
   createTaskReducer,
   deletePostReducer,
@@ -28,7 +27,6 @@ const timelineSlice = createSlice({
   reducers: {
     setTimeline: setTimelineReducer,
     queryTimeline: queryTimelineReducer,
-    clearQuery: clearQueryReducer,
     createPost: createPostReducer,
     deletePost: deletePostReducer,
     updatePost: updatePostReducer,
@@ -44,7 +42,6 @@ const timelineSlice = createSlice({
 export const {
   setTimeline,
   queryTimeline,
-  clearQuery,
   createPost,
   deletePost,
   updatePost,

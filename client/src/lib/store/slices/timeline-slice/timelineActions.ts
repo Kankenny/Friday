@@ -17,6 +17,11 @@ export const queryTimelineReducer = (
   action: PayloadAction<string>
 ) => {
   const query = action.payload
+  if (query.length === 0) {
+    state.didQuery = false
+    return
+  }
+
   const filteredPosts = state.posts.filter(
     (post) =>
       post.title.toLowerCase().includes(query) ||
@@ -25,12 +30,7 @@ export const queryTimelineReducer = (
   )
 
   state.queriedPosts = filteredPosts
-  state.didQuery = query.length > 0
-}
-
-export const clearQueryReducer = (state: TimelineSliceType) => {
-  state.queriedPosts = []
-  state.didQuery = false
+  state.didQuery = true
 }
 
 export const createPostReducer = (
