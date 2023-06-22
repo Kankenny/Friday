@@ -138,16 +138,20 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
             : "You are unauthorized to edit this post"
         }
       >
-        <button
-          ref={anchorRef}
-          onClick={handleToggle}
-          className={`uppercase flex-grow w-[25%] max-w-[25%] border border-secondary p-2 text-sm hover:text-secondary duration-200 ${
-            progressColor[currProgress]
-          } ${isCurrUserAuthorized ? "cursor-pointer" : "cursor-not-allowed"}`}
-          disabled={!isCurrUserAuthorized}
-        >
-          {currProgress}
-        </button>
+        <span className="w-[25%]">
+          <button
+            ref={anchorRef}
+            onClick={handleToggle}
+            className={`w-full h-full uppercase border border-secondary p-2 text-sm hover:text-secondary duration-200 ${
+              progressColor[currProgress]
+            } ${
+              isCurrUserAuthorized ? "cursor-pointer" : "cursor-not-allowed"
+            }`}
+            disabled={!isCurrUserAuthorized}
+          >
+            {currProgress}
+          </button>
+        </span>
       </Tooltip>
       <Popper
         open={open}

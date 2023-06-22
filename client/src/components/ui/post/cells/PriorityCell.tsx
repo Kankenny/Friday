@@ -137,16 +137,20 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
             : "You are unauthorized to edit this post"
         }
       >
-        <button
-          ref={anchorRef}
-          onClick={handleToggle}
-          className={`uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm hover:text-secondary duration-200 ${
-            priorityColor[currPriority]
-          } ${isCurrUserAuthorized ? "cursor-pointer" : "cursor-not-allowed"}`}
-          disabled={!isCurrUserAuthorized}
-        >
-          {currPriority === "medium" ? "MED" : currPriority}
-        </button>
+        <span className="w-[10%]">
+          <button
+            ref={anchorRef}
+            onClick={handleToggle}
+            disabled={!isCurrUserAuthorized}
+            className={`w-full h-full uppercase flex-grow border border-secondary p-2 text-sm hover:text-secondary duration-200 ${
+              priorityColor[currPriority]
+            } ${
+              isCurrUserAuthorized ? "cursor-pointer" : "cursor-not-allowed"
+            }`}
+          >
+            {currPriority === "medium" ? "MED" : currPriority}
+          </button>
+        </span>
       </Tooltip>
       <Popper
         open={open}

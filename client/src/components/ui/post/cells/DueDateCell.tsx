@@ -91,7 +91,7 @@ const DueDateCell = ({
           : "You are unauthorized to edit this post"
       }
     >
-      <button
+      <div
         className={`uppercase flex-grow max-w-[20%] border border-secondary text-sm  duration-200 bg-tertiary ${
           isCurrUserAuthorized
             ? "hover:bg-secondary cursor-pointer"
@@ -103,7 +103,7 @@ const DueDateCell = ({
           formattedDueDate={formattedDueDate}
           isAuthorized={isCurrUserAuthorized}
         />
-      </button>
+      </div>
     </Tooltip>
   )
 }
