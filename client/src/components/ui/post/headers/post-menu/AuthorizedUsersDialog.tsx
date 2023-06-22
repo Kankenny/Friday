@@ -64,7 +64,7 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
     .map((user) => (
       <li
         key={user._id}
-        className="flex items-center justify-between px-2 pb-2 mb-2 border-b border-secondary"
+        className="flex items-center justify-between p-2 md:p-4 pb-2 mb-2 border-b border-secondary"
       >
         <div className="flex items-center gap-2">
           <Avatar
@@ -87,7 +87,6 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
 
   const handleAuthorizeOrDeauthorize = async (user: UserType) => {
     try {
-      console.log("TEST")
       const action = "authorize"
       const { data } = await postAPI.put(`/${post._id}/${action}/${user._id}`)
       dispatch(
@@ -109,7 +108,6 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
       }
     }
   }
-  console.log(authorizedUsers)
 
   const currentAuthUsers =
     authorizedUsers.length !== 0 ? (
@@ -124,9 +122,9 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
     )
 
   return !isLoading ? (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} className="mx-auto">
       <div className="p-16 gap-5 flex flex-col bg-blue-50">
-        <div className="text-3xl font-bold text-secondary text-center w-full">
+        <div className="text-3xl font-bold text-secondary text-center">
           <h1>Authorized Users</h1>
           <p className="text-sm font-light">
             Manage who has collaboration access to this post
@@ -134,11 +132,11 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
         </div>
         {currentAuthUsers}
 
-        <div className="border border-secondary rounded-md space-y-2">
+        <div className="border border-secondary rounded-md">
           <h1 className="font-bold text-tertiary text-xl bg-secondary p-2">
             Add users here
           </h1>
-          <ul className="py-2 space-y-2 overscroll-y-auto"> {filteredUsers}</ul>
+          <ul className="space-y-2 overscroll-y-auto"> {filteredUsers}</ul>
           <form
             onSubmit={handleSubmit(() => console.log("TEST"))}
             className="p-2"
