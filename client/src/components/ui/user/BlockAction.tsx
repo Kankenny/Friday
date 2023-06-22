@@ -6,8 +6,8 @@ import { setFeedback } from "../../../lib/store/slices/feedback-slice/feedbackSl
 import StyledButton from "../StyledButton"
 import { UserType } from "../../../lib/types/primitive-types/UserType"
 import {
-  followUser,
-  unfollowUser,
+  blockUser,
+  unblockUser,
 } from "../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { ProfileSliceType } from "../../../lib/types/slice-types/ProfileSliceType"
 
@@ -38,9 +38,9 @@ const BlockAction = ({ user }: Props) => {
         })
       )
       if (isAlreadyBlocked) {
-        dispatch(unfollowUser(user))
+        dispatch(unblockUser(user))
       } else {
-        dispatch(followUser(user))
+        dispatch(blockUser(user))
       }
     } catch (err) {
       if (isAxiosError(err)) {
