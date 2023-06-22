@@ -21,7 +21,9 @@ type Props = {
 }
 
 const PostActions = ({ post }: Props) => {
-  const { comments } = useTypedSelector((state) => state.postDetail)
+  const { comments: dynamicSizedComments } = useTypedSelector(
+    (state) => state.postDetail
+  )
   const dispatch = useDispatch()
   const {
     register,
@@ -83,7 +85,12 @@ const PostActions = ({ post }: Props) => {
       </form>
       <div className="flex items-center gap-10 select-none">
         <div className="flex items-center gap-2">
-          <h1 className="text-gray-600">{comments.length} comments</h1>
+          <h1 className="text-gray-600">
+            {dynamicSizedComments.length !== 0
+              ? dynamicSizedComments.length
+              : post.comments.length}{" "}
+            comments
+          </h1>
           <p>—</p>
           <CommentsButton post={post} />
         </div>
