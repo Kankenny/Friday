@@ -37,3 +37,14 @@ export const followOtherUserReducer = (
 ) => {
   state.following.push(action.payload)
 }
+
+export const unfollowOtherUserReducer = (
+  state: ProfileSliceType,
+  action: PayloadAction<UserType>
+) => {
+  const following = state.following
+  const filteredFollowing = following.filter(
+    (user) => user._id !== action.payload._id
+  )
+  state.following = filteredFollowing
+}

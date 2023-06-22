@@ -6,6 +6,7 @@ import {
   followOtherUserReducer,
   savePostReducer,
   setUserDetailsReducer,
+  unfollowOtherUserReducer,
 } from "./sameProfileActions"
 
 const initialState: ProfileSliceType = {
@@ -36,6 +37,7 @@ const sameProfileSlice = createSlice({
     savePost: savePostReducer,
     copyPost: copyPostReducer,
     followUser: followOtherUserReducer,
+    unfollowUser: unfollowOtherUserReducer,
   },
 })
 
@@ -45,6 +47,7 @@ export const {
   savePost,
   copyPost,
   followUser,
+  unfollowUser,
 } = sameProfileSlice.actions
 
 export default sameProfileSlice.reducer
