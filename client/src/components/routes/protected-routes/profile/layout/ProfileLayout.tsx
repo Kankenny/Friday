@@ -61,11 +61,9 @@ const ProfileLayout = () => {
           {PFP}
           {UserDetails}
         </div>
-        <div className="w-full space-y-10 py-5">
+        <div className="w-full space-y-10 p-5">
           {NavigationTabs}
-          <div className="min-h-screen flex">
-            <Outlet />
-          </div>
+          <Outlet />
         </div>
       </div>
     </>
