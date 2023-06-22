@@ -4,8 +4,18 @@ import CreatePostInput from "../home-layout/CreatePostInput"
 import TimelinePosts from "./TimelinePosts"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 import PostSkeletons from "../../../../ui/post/skeleton/PostSkeletons"
+import RHFInputField from "../../../../ui/rhf/RHFInputField"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  searchFormSchema,
+  searchFormType,
+} from "../../../../../lib/validations/searchValidator"
 
 const Timeline = () => {
+  const { register } = useForm<searchFormType>({
+    resolver: zodResolver(searchFormSchema),
+  })
   const { isLoading } = useTypedSelector((state) => state.timeline)
   const [isCreating, setIsCreating] = useState(false)
 
@@ -13,12 +23,12 @@ const Timeline = () => {
 
   return (
     <div className="w-full space-y-10">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <StyledButton
           buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
           onClick={() => setIsCreating(!isCreating)}
         />
-        <input className="bg-red-500" />
+        <RHFInputField register={register("query")} label="Search" />
       </div>
       {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
       {content}
