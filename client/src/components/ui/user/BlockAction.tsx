@@ -10,6 +10,7 @@ import {
   unblockUser,
 } from "../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { ProfileSliceType } from "../../../lib/types/slice-types/ProfileSliceType"
+import { decreaseUserFollower } from "../../../lib/store/slices/other-profile-slice/otherProfileSlice"
 
 type Props = {
   user: UserType | ProfileSliceType
@@ -19,6 +20,7 @@ const BlockAction = ({ user }: Props) => {
   const {
     _id: currentId,
     username: currentUsername,
+    following: currFollowing,
     blocked: currBlocked,
   } = useTypedSelector((state) => state.sameProfile)
   const isSameUser = currentUsername === user.username
@@ -41,6 +43,10 @@ const BlockAction = ({ user }: Props) => {
         dispatch(unblockUser(user))
       } else {
         dispatch(blockUser(user))
+
+        if (currFollowing.some((f) => f._id === user._id)) {
+          dispatch(decreaseUserFollower())
+        }
       }
     } catch (err) {
       if (isAxiosError(err)) {
