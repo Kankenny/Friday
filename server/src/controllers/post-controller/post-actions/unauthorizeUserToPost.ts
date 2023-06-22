@@ -91,7 +91,7 @@ export const unauthorizeUserToPost = async (req: JWTRequest, res: Response) => {
 
     return res.status(200).json({
       message: "User successfully unauthorized!",
-      data: null,
+      data: existingDeauthorizee,
       ok: true,
     })
   } catch (error) {

@@ -80,7 +80,7 @@ export const authorizeUserToPost = async (req: JWTRequest, res: Response) => {
 
     return res.status(200).json({
       message: "User successfully authorized!",
-      data: null,
+      data: existingAuthorizee,
       ok: true,
     })
   } catch (error) {
