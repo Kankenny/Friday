@@ -18,6 +18,7 @@ const initialState: PostDetailSliceType = {
   downvotedBy: [],
   tasks: [],
   comments: [],
+  createdAt: new Date(),
 }
 
 const postDetailSlice = createSlice({

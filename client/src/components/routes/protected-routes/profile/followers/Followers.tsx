@@ -11,7 +11,7 @@ const Followers = () => {
   )
   const { username: pathUsername } = useParams()
   const isSameUser = currentUsername === pathUsername
-
+  console.log(otherFollowers)
   const followers = isSameUser ? currentFollowers : otherFollowers
 
   return followers.length !== 0 ? (
