@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { PostDetailSliceType } from "../../../types/slice-types/PostDetailSliceType"
 import { createCommentReducer, setPostDetailReducer } from "./postDetailActions"
 
+// DONT ADD THE MISSING PROPERTY. IT WILL CAUSE SOME NONE SERIALIZABLE REDUX ERR
 const initialState: PostDetailSliceType = {
   _id: "",
   title: "",
@@ -18,7 +19,6 @@ const initialState: PostDetailSliceType = {
   downvotedBy: [],
   tasks: [],
   comments: [],
-  createdAt: new Date(),
 }
 
 const postDetailSlice = createSlice({
