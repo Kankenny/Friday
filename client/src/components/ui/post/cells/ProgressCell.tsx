@@ -17,6 +17,8 @@ import {
 } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
 import { SubtaskType } from "../../../../lib/types/primitive-types/SubtaskType"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
+import { Tooltip } from "@mui/material"
 
 type Props = {
   post: PostType
@@ -27,10 +29,11 @@ type Props = {
 }
 
 const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
+  const { _id: authUserId } = useTypedSelector((state) => state.sameProfile)
   const dispatch = useDispatch()
   const [currProgress, setCurrProgress] = React.useState(progress)
   const [open, setOpen] = React.useState(false)
-  const anchorRef = React.useRef<HTMLHeadingElement>(null)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -113,6 +116,12 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
     prevOpen.current = open
   }, [open])
 
+  const isCurrUserAuthorized =
+    post.authorization === "public" ||
+    (post.authorization === "private" &&
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
+
   const progressColor = {
     done: "bg-[#499548] hover:bg-[#366136] focus:bg-[#499548]",
     "working on it": "bg-[#eab308] hover:bg-[#c79505] focus:bg-[#eab308]",
@@ -122,13 +131,28 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
 
   return (
     <>
-      <h1
-        ref={anchorRef}
-        onClick={handleToggle}
-        className={`uppercase flex-grow w-[25%] max-w-[25%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${progressColor[currProgress]}`}
+      <Tooltip
+        title={
+          isCurrUserAuthorized
+            ? "Edit progress"
+            : "You are unauthorized to edit this post"
+        }
       >
-        {currProgress}
-      </h1>
+        <span className="w-[25%]">
+          <button
+            ref={anchorRef}
+            onClick={handleToggle}
+            className={`w-full h-full uppercase border border-secondary p-2 text-sm hover:text-secondary duration-200 ${
+              progressColor[currProgress]
+            } ${
+              isCurrUserAuthorized ? "cursor-pointer" : "cursor-not-allowed"
+            }`}
+            disabled={!isCurrUserAuthorized}
+          >
+            {currProgress}
+          </button>
+        </span>
+      </Tooltip>
       <Popper
         open={open}
         anchorEl={anchorRef.current}

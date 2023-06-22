@@ -5,6 +5,7 @@ import {
   deletePostReducer,
   deleteSubtaskReducer,
   deleteTaskReducer,
+  queryTimelineReducer,
   setTimelineReducer,
   updatePostReducer,
   updateSubtaskReducer,
@@ -13,13 +14,19 @@ import {
 import { createPostReducer } from "./timelineActions"
 import { TimelineSliceType } from "../../../types/slice-types/TimelineSliceType"
 
-const initialState: TimelineSliceType = { posts: [], isLoading: true }
+const initialState: TimelineSliceType = {
+  posts: [],
+  isLoading: true,
+  queriedPosts: [],
+  didQuery: false,
+}
 
 const timelineSlice = createSlice({
   name: "timeline",
   initialState,
   reducers: {
     setTimeline: setTimelineReducer,
+    queryTimeline: queryTimelineReducer,
     createPost: createPostReducer,
     deletePost: deletePostReducer,
     updatePost: updatePostReducer,
@@ -34,6 +41,7 @@ const timelineSlice = createSlice({
 
 export const {
   setTimeline,
+  queryTimeline,
   createPost,
   deletePost,
   updatePost,

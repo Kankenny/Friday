@@ -93,9 +93,11 @@ function ButtonDatePicker(props: ButtonDatePickerProps) {
 export default function PickerWithButtonField({
   callbackFn,
   formattedDueDate,
+  isAuthorized,
 }: {
   callbackFn: (selectedDate: Date | null) => void
   formattedDueDate: string
+  isAuthorized?: boolean
 }) {
   const dayjsDate = dayjs(formattedDueDate)
   const [value, setValue] = React.useState<Dayjs | null>(dayjsDate)
@@ -106,6 +108,7 @@ export default function PickerWithButtonField({
       value={value}
       onChange={(newValue) => setValue(newValue)}
       callbackFn={callbackFn}
+      disabled={!isAuthorized}
     />
   )
 }

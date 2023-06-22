@@ -17,6 +17,8 @@ import {
 import subtaskAPI from "../../../../lib/services/axios-instances/subtaskAPI"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
+import { Tooltip } from "@mui/material"
 
 type Props = {
   post: PostType
@@ -27,10 +29,11 @@ type Props = {
 }
 
 const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
+  const { _id: authUserId } = useTypedSelector((state) => state.sameProfile)
   const dispatch = useDispatch()
   const [currPriority, setCurrPriority] = React.useState(priority)
   const [open, setOpen] = React.useState(false)
-  const anchorRef = React.useRef<HTMLHeadingElement>(null)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -113,6 +116,12 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
     prevOpen.current = open
   }, [open])
 
+  const isCurrUserAuthorized =
+    post.authorization === "public" ||
+    (post.authorization === "private" &&
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
+
   const priorityColor = {
     low: "bg-[#FFDADA] hover:bg-[#FFB3B3] focus:bg-[#FFDADA]",
     medium: "bg-[#FF8E8E] hover:bg-[#FF5F5F] focus:bg-[#FF8E8E]",
@@ -121,13 +130,28 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
 
   return (
     <>
-      <h1
-        ref={anchorRef}
-        onClick={handleToggle}
-        className={`uppercase flex-grow max-w-[10%] border border-secondary p-2 text-sm cursor-pointer hover:text-secondary duration-200 ${priorityColor[currPriority]}`}
+      <Tooltip
+        title={
+          isCurrUserAuthorized
+            ? "Edit priority"
+            : "You are unauthorized to edit this post"
+        }
       >
-        {currPriority === "medium" ? "MED" : currPriority}
-      </h1>
+        <span className="w-[10%]">
+          <button
+            ref={anchorRef}
+            onClick={handleToggle}
+            disabled={!isCurrUserAuthorized}
+            className={`w-full h-full uppercase flex-grow border border-secondary p-2 text-sm hover:text-secondary duration-200 ${
+              priorityColor[currPriority]
+            } ${
+              isCurrUserAuthorized ? "cursor-pointer" : "cursor-not-allowed"
+            }`}
+          >
+            {currPriority === "medium" ? "MED" : currPriority}
+          </button>
+        </span>
+      </Tooltip>
       <Popper
         open={open}
         anchorEl={anchorRef.current}

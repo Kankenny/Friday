@@ -1,5 +1,6 @@
 import { DetailedCommentType } from "../primitive-types/DetailedCommentType"
 import { TaskType } from "../primitive-types/TaskType"
+import { UserType } from "../primitive-types/UserType"
 
 export interface PostDetailSliceType {
   _id: string
@@ -11,10 +12,10 @@ export interface PostDetailSliceType {
   visibility: "personal" | "collaborators" | "public" | "private"
   upvotes: number
   downvotes: number
-  authorization: "personal" | "collaborators" | undefined
-  authorizedUsers: string[]
-  upvotedBy: string[]
-  downvotedBy: string[]
+  authorization: "personal" | "collaborators" | "public" | "private"
+  authorizedUsers: UserType[]
+  upvotedBy: UserType[]
+  downvotedBy: UserType[]
   tasks: TaskType[]
   comments: DetailedCommentType[]
   createdAt: Date

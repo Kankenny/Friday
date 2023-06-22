@@ -1,1 +1,1 @@
-export const AUTHORIZATIONS = ["personal", "collaborators"]
+export const AUTHORIZATIONS = ["personal", "collaborators", "private", "public"]

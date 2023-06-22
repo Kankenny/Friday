@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { PostDetailSliceType } from "../../../types/slice-types/PostDetailSliceType"
-import { createCommentReducer, setPostDetailReducer } from "./postDetailActions"
+import {
+  authorizeUserReducer,
+  createCommentReducer,
+  deauthorizeUserReducer,
+  setPostDetailReducer,
+} from "./postDetailActions"
 
 // DONT ADD THE MISSING PROPERTY. IT WILL CAUSE SOME NONE SERIALIZABLE REDUX ERR
 const initialState: PostDetailSliceType = {
@@ -27,9 +32,12 @@ const postDetailSlice = createSlice({
   reducers: {
     setPostDetails: setPostDetailReducer,
     createComment: createCommentReducer,
+    authorizeUser: authorizeUserReducer,
+    deauthorizeUser: deauthorizeUserReducer,
   },
 })
 
-export const { setPostDetails, createComment } = postDetailSlice.actions
+export const { setPostDetails, createComment, authorizeUser, deauthorizeUser } =
+  postDetailSlice.actions
 
 export default postDetailSlice.reducer

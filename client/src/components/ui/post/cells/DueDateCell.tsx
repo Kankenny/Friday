@@ -11,6 +11,8 @@ import {
 } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
+import { Tooltip } from "@mui/material"
 
 type Props = {
   post: PostType
@@ -27,6 +29,7 @@ const DueDateCell = ({
   formattedDueDate,
   isTaskCell,
 }: Props) => {
+  const { _id: authUserId } = useTypedSelector((state) => state.sameProfile)
   const dispatch = useDispatch()
 
   const handleUpdatePiority = async (selectedDate: Date | null) => {
@@ -74,13 +77,34 @@ const DueDateCell = ({
     }
   }
 
+  const isCurrUserAuthorized =
+    post.authorization === "public" ||
+    (post.authorization === "private" &&
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
+
   return (
-    <h1 className="uppercase flex-grow max-w-[20%] border border-secondary text-sm cursor-pointer hover:bg-secondary  duration-200 bg-tertiary">
-      <DatePicker
-        callbackFn={handleUpdatePiority}
-        formattedDueDate={formattedDueDate}
-      />
-    </h1>
+    <Tooltip
+      title={
+        isCurrUserAuthorized
+          ? "Edit due date"
+          : "You are unauthorized to edit this post"
+      }
+    >
+      <div
+        className={`uppercase flex-grow max-w-[20%] border border-secondary text-sm  duration-200 bg-tertiary ${
+          isCurrUserAuthorized
+            ? "hover:bg-secondary cursor-pointer"
+            : "cursor-not-allowed"
+        }`}
+      >
+        <DatePicker
+          callbackFn={handleUpdatePiority}
+          formattedDueDate={formattedDueDate}
+          isAuthorized={isCurrUserAuthorized}
+        />
+      </div>
+    </Tooltip>
   )
 }
 

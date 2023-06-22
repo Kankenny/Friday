@@ -62,7 +62,11 @@ const BlockAction = ({ user }: Props) => {
   }
 
   return !isSameUser ? (
-    <StyledButton buttonText={buttonText} onClick={handleBlockOrUnblockClick} />
+    <StyledButton
+      buttonText={buttonText}
+      onClick={handleBlockOrUnblockClick}
+      intent="secondary"
+    />
   ) : null
 }
 

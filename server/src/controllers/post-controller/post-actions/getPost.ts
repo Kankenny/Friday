@@ -22,6 +22,7 @@ export const getPost = async (req: Request, res: Response) => {
           path: "commenterId",
         },
       })
+      .populate("authorizedUsers")
 
     // Check if post exists
     if (!existingPost) {
