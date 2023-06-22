@@ -6,8 +6,11 @@ import FollowAction from "../../../../../ui/user/FollowAction"
 import BlockAction from "../../../../../ui/user/BlockAction"
 
 const OtherUserDetails = () => {
+  const { blocked } = useTypedSelector((state) => state.sameProfile)
   const user = useTypedSelector((state) => state.otherProfile)
   const { username, email, firstName, lastName, followers, following } = user
+
+  const isBlocked = blocked.includes(user)
 
   return (
     <Card twClasses="p-5 flex flex-col gap-2 w-full">
@@ -34,9 +37,13 @@ const OtherUserDetails = () => {
           </span>
         </Link>
       </div>
-      <div className="space-x-2">
-        <FollowAction user={user} />
-        <BlockAction user={user} />
+      <div className="flex gap-2">
+        <div className={isBlocked ? "cursor-not-allowed opacity-50" : ""}>
+          <FollowAction user={user} />
+        </div>
+        <div>
+          <BlockAction user={user} />
+        </div>
       </div>
     </Card>
   )
