@@ -54,6 +54,12 @@ export const blockOtherUserReducer = (
   action: PayloadAction<UserType>
 ) => {
   state.blocked.push(action.payload)
+
+  // Remove blocked user from being potentially followed
+  const filteredFollowing = state.following.filter(
+    (user) => user._id !== action.payload._id
+  )
+  state.following = filteredFollowing
 }
 
 export const unblockOtherUserReducer = (
