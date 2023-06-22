@@ -18,7 +18,9 @@ export const updatePostSchema = z.object({
     .optional(),
   upvotes: z.undefined(),
   downvotes: z.undefined(),
-  authorization: z.enum(["personal", "collaborators"]).optional(),
+  authorization: z
+    .enum(["personal", "collaborators", "private", "public"])
+    .optional(),
   authorizedUsers: z.undefined(),
   upvotedBy: z.undefined(),
   downvotedBy: z.undefined(),

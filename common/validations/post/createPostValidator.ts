@@ -11,7 +11,7 @@ export const createPostSchema = z.object({
   color: z.string().optional(),
   category: z.enum(["personal", "chores", "work", "school", "others"]),
   visibility: z.enum(["personal", "collaborators", "private", "public"]),
-  authorization: z.enum(["personal", "collaborators"]),
+  authorization: z.enum(["personal", "collaborators", "private", "public"]),
 })
 
 export type createPostType = z.infer<typeof createPostSchema>
