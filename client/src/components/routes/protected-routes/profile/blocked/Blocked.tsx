@@ -18,7 +18,7 @@ const Blocked = () => {
   return blockedUsers.length !== 0 ? (
     <ul className="w-full">
       {blockedUsers.map((user) => (
-        <UserCard user={user} />
+        <UserCard user={user} toFollow={false} />
       ))}
     </ul>
   ) : (

@@ -3,12 +3,14 @@ import Avatar from "@mui/material/Avatar"
 import Card from "../Card"
 import { UserType } from "../../../lib/types/primitive-types/UserType"
 import FollowAction from "./FollowAction"
+import BlockAction from "./BlockAction"
 
 type Props = {
   user: UserType
+  toFollow?: boolean
 }
 
-const UserCard = ({ user }: Props) => {
+const UserCard = ({ user, toFollow = true }: Props) => {
   const { firstName, lastName, profilePicture, username } = user
 
   return (
@@ -30,7 +32,7 @@ const UserCard = ({ user }: Props) => {
           <p className="text-xs font-light text-gray-600">@ {username}</p>
         </div>
       </Link>
-      <FollowAction user={user} />
+      {toFollow ? <FollowAction user={user} /> : <BlockAction user={user} />}
     </Card>
   )
 }
