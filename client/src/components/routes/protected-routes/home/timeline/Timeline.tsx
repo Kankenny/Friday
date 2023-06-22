@@ -13,10 +13,13 @@ const Timeline = () => {
 
   return (
     <div className="w-full space-y-10">
-      <StyledButton
-        buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
-        onClick={() => setIsCreating(!isCreating)}
-      />
+      <div className="flex justify-between">
+        <StyledButton
+          buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
+          onClick={() => setIsCreating(!isCreating)}
+        />
+        <input className="bg-red-500" />
+      </div>
       {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
       {content}
     </div>

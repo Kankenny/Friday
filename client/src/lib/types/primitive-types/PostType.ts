@@ -1,5 +1,6 @@
 import { CommentType } from "./CommentType"
 import { TaskType } from "./TaskType"
+import { UserType } from "./UserType"
 
 export interface PostType {
   _id: string
@@ -12,9 +13,9 @@ export interface PostType {
   upvotes: number
   downvotes: number
   authorization: "personal" | "collaborators" | "public" | "private"
-  authorizedUsers: string[]
-  upvotedBy: string[]
-  downvotedBy: string[]
+  authorizedUsers: UserType[]
+  upvotedBy: UserType[]
+  downvotedBy: UserType[]
   tasks: TaskType[]
   comments: CommentType[]
   createdAt: Date
