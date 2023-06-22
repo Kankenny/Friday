@@ -9,10 +9,13 @@ import {
   followUser,
   unfollowUser,
 } from "../../../lib/store/slices/same-profile-slice/sameProfileSlice"
-import { ProfileSliceType } from "../../../lib/types/slice-types/ProfileSliceType"
+import {
+  followedUser,
+  unfollowedUser,
+} from "../../../lib/store/slices/other-profile-slice/otherProfileSlice"
 
 type Props = {
-  user: UserType | ProfileSliceType
+  user: UserType
 }
 
 const FollowAction = ({ user }: Props) => {
@@ -23,13 +26,16 @@ const FollowAction = ({ user }: Props) => {
   } = useTypedSelector((state) => state.sameProfile)
   const isSameUser = currentUsername === user.username
 
-  const isAlreadyFollowed = currFollowing.includes(user)
+  const isAlreadyFollowed = currFollowing.some(
+    (following) => following._id === user._id
+  )
   const buttonText = isAlreadyFollowed ? "Following" : "Follow"
 
   const dispatch = useDispatch()
   const handleFollowOrUnfollowClick = async () => {
     try {
       const action = isAlreadyFollowed ? "unfollow" : "follow"
+      console.log(action)
       const { data } = await userAPI.put(`/${currentId}/${action}/${user._id}`)
       dispatch(
         setFeedback({
@@ -39,7 +45,9 @@ const FollowAction = ({ user }: Props) => {
       )
       if (isAlreadyFollowed) {
         dispatch(unfollowUser(user))
+        dispatch(unfollowedUser())
       } else {
+        dispatch(followedUser(user))
         dispatch(followUser(user))
       }
     } catch (err) {
