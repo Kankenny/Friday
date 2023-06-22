@@ -4,27 +4,11 @@ import CreatePostInput from "../home-layout/CreatePostInput"
 import TimelinePosts from "./TimelinePosts"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 import PostSkeletons from "../../../../ui/post/skeleton/PostSkeletons"
-import { useForm } from "react-hook-form"
-import {
-  searchFormSchema,
-  searchFormType,
-} from "../../../../../lib/validations/searchValidator"
-import { zodResolver } from "@hookform/resolvers/zod"
-import RHFInputField from "../../../../ui/rhf/RHFInputField"
-import { useDispatch } from "react-redux"
-import { queryTimeline } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
+import SearchInput from "../home-layout/SearchInput"
 
 const Timeline = () => {
-  const { handleSubmit, register } = useForm<searchFormType>({
-    resolver: zodResolver(searchFormSchema),
-  })
   const { isLoading } = useTypedSelector((state) => state.timeline)
   const [isCreating, setIsCreating] = useState(false)
-
-  const dispatch = useDispatch()
-  const handleSearchSubmit = (formData: searchFormType) => {
-    dispatch(queryTimeline(formData.query))
-  }
 
   const content = isLoading ? <PostSkeletons /> : <TimelinePosts />
 
@@ -35,13 +19,9 @@ const Timeline = () => {
           buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
           onClick={() => setIsCreating(!isCreating)}
         />
-        <form onSubmit={handleSubmit(handleSearchSubmit)}>
-          <RHFInputField
-            register={register("query")}
-            label="Search"
-            twClasses="w-36"
-          />
-        </form>
+        <div className="flex items-center gap-2">
+          <SearchInput />
+        </div>
       </div>
       {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
       {content}
