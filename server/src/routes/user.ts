@@ -19,6 +19,9 @@ import verifyToken from "../middlewares/verifyToken"
 // Router
 const UserRoute = express.Router()
 
+// GET ALL USERS
+UserRoute.get("/", getUser)
+
 // GET USER
 UserRoute.get("/:userIdOrUsername", getUser)
 
