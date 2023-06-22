@@ -11,7 +11,7 @@ export interface PostDetailSliceType {
   visibility: "personal" | "collaborators" | "public" | "private"
   upvotes: number
   downvotes: number
-  authorization: "personal" | "collaborators" | undefined
+  authorization: "personal" | "collaborators" | "public" | "private"
   authorizedUsers: string[]
   upvotedBy: string[]
   downvotedBy: string[]
