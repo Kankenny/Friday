@@ -2,6 +2,7 @@ import { UserType } from "../../../../../lib/types/primitive-types/UserType"
 import Card from "../../../../ui/Card"
 import Avatar from "@mui/material/Avatar"
 import FollowerAction from "./FollowerAction"
+import { Link } from "react-router-dom"
 
 type Props = {
   follower: UserType
@@ -12,7 +13,10 @@ const Follower = ({ follower }: Props) => {
 
   return (
     <Card twClasses="flex items-center justify-between border border-secondary bg-blue-200 shadow-md p-2 md:p-4">
-      <div className="group flex items-center gap-2 md:gap-4">
+      <Link
+        to={`/users/${username}/posts`}
+        className="group flex items-center gap-2 md:gap-4"
+      >
         <Avatar
           className="text-secondary capitalize cursor-pointer"
           src={profilePicture}
@@ -25,7 +29,7 @@ const Follower = ({ follower }: Props) => {
           </h1>
           <p className="text-xs font-light text-gray-600">@ {username}</p>
         </div>
-      </div>
+      </Link>
       <FollowerAction follower={follower} />
     </Card>
   )
