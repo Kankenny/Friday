@@ -3,6 +3,7 @@ import { ProfileSliceType } from "../../../types/slice-types/ProfileSliceType"
 import {
   followedUserReducer,
   setOtherUserDetailsReducer,
+  unfollowedUserReducer,
 } from "./otherProfileActions"
 
 const initialState: ProfileSliceType = {
@@ -30,9 +31,11 @@ const otherProfileSlice = createSlice({
   reducers: {
     setOtherUserDetails: setOtherUserDetailsReducer,
     followedUser: followedUserReducer,
+    unfollowedUser: unfollowedUserReducer,
   },
 })
 
-export const { setOtherUserDetails } = otherProfileSlice.actions
+export const { setOtherUserDetails, followedUser, unfollowedUser } =
+  otherProfileSlice.actions
 
 export default otherProfileSlice.reducer
