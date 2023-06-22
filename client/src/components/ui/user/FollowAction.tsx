@@ -14,17 +14,17 @@ const FollowAction = ({ user }: Props) => {
   const {
     _id: currentId,
     username: currentUsername,
-    followers: currUsers,
+    following: currFollowing,
   } = useTypedSelector((state) => state.sameProfile)
   const isSameUser = currentUsername === user.username
 
-  const isFollowedBack = currUsers.includes(user)
-  const buttonText = isFollowedBack ? "Following" : "Follow"
+  const isAlreadyFollowed = currFollowing.includes(user)
+  const buttonText = isAlreadyFollowed ? "Following" : "Follow"
 
   const dispatch = useDispatch()
   const handleFollowOrUnfollowClick = async () => {
     try {
-      const action = isFollowedBack ? "unfollow" : "follow"
+      const action = isAlreadyFollowed ? "unfollow" : "follow"
       const { data } = await userAPI.put(`/${currentId}/${action}/${user._id}`)
       dispatch(
         setFeedback({
