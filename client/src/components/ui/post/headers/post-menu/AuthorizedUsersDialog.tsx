@@ -1,5 +1,4 @@
 import Dialog from "@mui/material/Dialog"
-import { PostType } from "../../../../../lib/types/primitive-types/PostType"
 import UserCard from "../../../user/UserCard"
 import Alert from "../../../mui/Alert"
 import {
@@ -20,19 +19,22 @@ import { Avatar } from "@mui/material"
 import StyledButton from "../../../StyledButton"
 import { UserType } from "../../../../../lib/types/primitive-types/UserType"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
+import { authorizeUser } from "../../../../../lib/store/slices/post-detail-slice/postDetailSlice"
 
 type Props = {
-  post: PostType
   open: boolean
   onClose: () => void
 }
 
-const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
+const AuthorizedUsersDialog = ({ open, onClose }: Props) => {
   const { _id } = useTypedSelector((state) => state.sameProfile)
   const { users: allUsers, isLoading } = useTypedSelector(
     (state) => state.users
   )
-  const authorizedUsers = post.authorizedUsers
+  const { _id: postId, authorizedUsers } = useTypedSelector(
+    (state) => state.postDetail
+  )
+
   const { handleSubmit, register } = useForm<searchFormType>({
     resolver: zodResolver(searchFormSchema),
   })
@@ -57,6 +59,24 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
       }
     }
     fetchAllUsers()
+
+    const fetchPostDetail = async () => {
+      try {
+        const { data } = await userAPI.get("/")
+        dispatch(setUsers(data.data))
+      } catch (err) {
+        if (isAxiosError(err)) {
+          dispatch(
+            setFeedback({
+              feedbackMessage: err.response?.data.message,
+              feedbackType: "error",
+            })
+          )
+        } else {
+          console.error(err)
+        }
+      }
+    }
   }, [dispatch])
 
   const filteredUsers = allUsers
@@ -88,13 +108,14 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
   const handleAuthorizeOrDeauthorize = async (user: UserType) => {
     try {
       const action = "authorize"
-      const { data } = await postAPI.put(`/${post._id}/${action}/${user._id}`)
+      const { data } = await postAPI.put(`/${postId}/${action}/${user._id}`)
       dispatch(
         setFeedback({
           feedbackMessage: data.message,
           feedbackType: "success",
         })
       )
+      dispatch(authorizeUser(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
         dispatch(

@@ -72,8 +72,8 @@ const PostActions = ({ post }: Props) => {
   const isCurrUserAuthorized =
     post.authorization === "public" ||
     (post.authorization === "private" &&
-      post.authorizedUsers.includes(authUserId)) ||
-    post.creatorId === authUserId
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
 
   return (
     <div className="flex justify-between border border-secondary rounded-b-md text-sm p-2">

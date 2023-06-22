@@ -27,7 +27,7 @@ export const authorizeUserReducer = (
   state.authorizedUsers.push(action.payload)
 }
 
-export const unauthorizeUserReducer = (
+export const deauthorizeUserReducer = (
   state: PostDetailSliceType,
   action: PayloadAction<UserType>
 ) => {
