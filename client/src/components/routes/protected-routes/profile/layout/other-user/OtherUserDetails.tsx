@@ -38,7 +38,7 @@ const OtherUserDetails = () => {
         </Link>
       </div>
       <div className="flex gap-2 mx-auto">
-        {isBlocked && (
+        {!isBlocked && (
           <div>
             <FollowAction user={user} />
           </div>
