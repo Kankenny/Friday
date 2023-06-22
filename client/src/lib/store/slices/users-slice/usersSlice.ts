@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { UsersSliceType } from "../../../types/slice-types/UserSliceType"
+import { setUsersReducer } from "./usersActions"
 
 const initialState: UsersSliceType = {
   isLoading: false,
@@ -9,9 +10,11 @@ const initialState: UsersSliceType = {
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    setUsers: setUsersReducer,
+  },
 })
 
-export const {} = usersSlice.actions
+export const { setUsers } = usersSlice.actions
 
 export default usersSlice.reducer

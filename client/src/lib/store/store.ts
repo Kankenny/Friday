@@ -5,6 +5,7 @@ import otherProfileReducer from "./slices/other-profile-slice/otherProfileSlice"
 import timelineReducer from "./slices/timeline-slice/timelineSlice"
 import postDetailReducer from "./slices/post-detail-slice/postDetailSlice"
 import feedbackReducer from "./slices/feedback-slice/feedbackSlice"
+import usersReducer from "./slices/users-slice/usersSlice"
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     timeline: timelineReducer,
     postDetail: postDetailReducer,
     feedback: feedbackReducer,
+    users: usersReducer,
   },
 })
 
