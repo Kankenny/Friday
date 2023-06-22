@@ -19,7 +19,10 @@ import { Avatar } from "@mui/material"
 import StyledButton from "../../../StyledButton"
 import { UserType } from "../../../../../lib/types/primitive-types/UserType"
 import postAPI from "../../../../../lib/services/axios-instances/postAPI"
-import { authorizeUser } from "../../../../../lib/store/slices/post-detail-slice/postDetailSlice"
+import {
+  authorizeUser,
+  deauthorizeUser,
+} from "../../../../../lib/store/slices/post-detail-slice/postDetailSlice"
 
 type Props = {
   open: boolean
@@ -59,63 +62,58 @@ const AuthorizedUsersDialog = ({ open, onClose }: Props) => {
       }
     }
     fetchAllUsers()
-
-    const fetchPostDetail = async () => {
-      try {
-        const { data } = await userAPI.get("/")
-        dispatch(setUsers(data.data))
-      } catch (err) {
-        if (isAxiosError(err)) {
-          dispatch(
-            setFeedback({
-              feedbackMessage: err.response?.data.message,
-              feedbackType: "error",
-            })
-          )
-        } else {
-          console.error(err)
-        }
-      }
-    }
-  }, [dispatch])
+  }, [dispatch, postId])
 
   const filteredUsers = allUsers
     .filter((user) => user._id !== _id)
-    .map((user) => (
-      <li
-        key={user._id}
-        className="flex items-center justify-between p-2 md:p-4 pb-2 mb-2 border-b border-secondary"
-      >
-        <div className="flex items-center gap-2">
-          <Avatar
-            className="text-secondary capitalize"
-            src={user.profilePicture}
-          >
-            {user.profilePicture ? "" : user.firstName.charAt(0)}
-          </Avatar>
-          <h1>
-            {user.firstName} {user.lastName}
-          </h1>
-        </div>
-        <StyledButton
-          buttonText="Authorize"
-          intent="secondary"
-          onClick={() => handleAuthorizeOrDeauthorize(user)}
-        />
-      </li>
-    ))
+    .map((user) => {
+      const isAlreadyAuthorized = authorizedUsers.some(
+        (authUser) => authUser._id === user._id
+      )
+
+      return (
+        <li
+          key={user._id}
+          className="flex items-center justify-between p-2 md:p-4 pb-2 mb-2 border-b border-secondary"
+        >
+          <div className="flex items-center gap-2">
+            <Avatar
+              className="text-secondary capitalize"
+              src={user.profilePicture}
+            >
+              {user.profilePicture ? "" : user.firstName.charAt(0)}
+            </Avatar>
+            <h1>
+              {user.firstName} {user.lastName}
+            </h1>
+          </div>
+          <StyledButton
+            buttonText={isAlreadyAuthorized ? "Deauthorize" : "Authorize"}
+            intent="secondary"
+            onClick={() => handleAuthorizeOrDeauthorize(user)}
+          />
+        </li>
+      )
+    })
 
   const handleAuthorizeOrDeauthorize = async (user: UserType) => {
     try {
-      const action = "authorize"
+      const isAlreadyAuthorized = authorizedUsers.some(
+        (authUser) => authUser._id === user._id
+      )
+      const action = !isAlreadyAuthorized ? "authorize" : "unauthorize"
       const { data } = await postAPI.put(`/${postId}/${action}/${user._id}`)
+      if (!isAlreadyAuthorized) {
+        dispatch(authorizeUser(data.data))
+      } else {
+        dispatch(deauthorizeUser(data.data))
+      }
       dispatch(
         setFeedback({
           feedbackMessage: data.message,
           feedbackType: "success",
         })
       )
-      dispatch(authorizeUser(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
         dispatch(

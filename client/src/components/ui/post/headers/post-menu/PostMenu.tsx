@@ -28,6 +28,7 @@ import { isAxiosError } from "axios"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 import PeopleIcon from "@mui/icons-material/People"
 import AuthorizedUsersDialog from "./AuthorizedUsersDialog"
+import { setPostDetails } from "../../../../../lib/store/slices/post-detail-slice/postDetailSlice"
 
 type Props = {
   post: PostType
@@ -71,9 +72,16 @@ export default function PostMenu({ post, setIsEditing }: Props) {
     }
   }
 
-  const handleUsersClick = (e: React.MouseEvent | Event) => {
-    setIsAuthUsersDialogOpen(true)
-    handleClose(e)
+  const handleUsersClick = async (e: React.MouseEvent | Event) => {
+    try {
+      const { data } = await postAPI.get(`/${post._id}`)
+      setIsAuthUsersDialogOpen(true)
+      dispatch(setPostDetails(data.data))
+    } catch (err) {
+      console.error(err)
+    } finally {
+      handleClose(e)
+    }
   }
 
   const handleEditPostClick = (e: React.MouseEvent | Event) => {
@@ -86,7 +94,10 @@ export default function PostMenu({ post, setIsEditing }: Props) {
       const { data } = await postAPI.post(`/${post._id}/copy`)
       dispatch(createPost(data.data))
       dispatch(
-        setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
       )
       dispatch(copyPostToProfile(data.data))
     } catch (err) {
@@ -109,7 +120,10 @@ export default function PostMenu({ post, setIsEditing }: Props) {
     try {
       const { data } = await postAPI.put(`/${post._id}/save`)
       dispatch(
-        setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
       )
       dispatch(savePost(data.data))
     } catch (err) {
@@ -132,7 +146,10 @@ export default function PostMenu({ post, setIsEditing }: Props) {
     try {
       const { data } = await postAPI.delete(`/${post._id}`)
       dispatch(
-        setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
+        setFeedback({
+          feedbackMessage: data.message,
+          feedbackType: "success",
+        })
       )
       dispatch(deletePost(post))
     } catch (err) {
@@ -258,7 +275,6 @@ export default function PostMenu({ post, setIsEditing }: Props) {
       <AuthorizedUsersDialog
         open={isAuthUsersDialogOpen}
         onClose={handleCloseDialog}
-        post={post}
       />
     </>
   )
