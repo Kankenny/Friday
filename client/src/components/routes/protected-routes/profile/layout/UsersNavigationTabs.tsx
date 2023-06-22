@@ -31,6 +31,12 @@ const UsersNavigationTabs = () => {
     )
   }
 
+  const handleBlockedClick = () => {
+    navigate(
+      `/users/${isSameUser ? sameUserUsername : otherUserUsername}/blocked`
+    )
+  }
+
   return (
     <Tabs
       value={value}
@@ -56,6 +62,16 @@ const UsersNavigationTabs = () => {
         }`}
         onClick={handleFollowingClick}
       />
+      {isSameUser && (
+        <Tab
+          value="blocked"
+          label="blocked"
+          className={`font-semibold text-md ${
+            value === "blocked" ? "text-tertiary" : "text-secondary"
+          }`}
+          onClick={handleBlockedClick}
+        />
+      )}
     </Tabs>
   )
 }
