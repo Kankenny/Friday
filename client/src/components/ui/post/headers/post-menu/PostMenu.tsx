@@ -25,6 +25,7 @@ import postAPI from "../../../../../lib/services/axios-instances/postAPI"
 import { setFeedback } from "../../../../../lib/store/slices/feedback-slice/feedbackSlice"
 
 import { isAxiosError } from "axios"
+import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 
 type Props = {
   post: PostType
@@ -32,6 +33,7 @@ type Props = {
 }
 
 export default function PostMenu({ post, setIsEditing }: Props) {
+  const { _id: authUserId } = useTypedSelector((state) => state.sameProfile)
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLDivElement>(null)
@@ -145,6 +147,12 @@ export default function PostMenu({ post, setIsEditing }: Props) {
     prevOpen.current = open
   }, [open])
 
+  const isCurrUserAuthorized =
+    post.authorization === "public" ||
+    (post.authorization === "private" &&
+      post.authorizedUsers.includes(authUserId)) ||
+    post.creatorId === authUserId
+
   return (
     <>
       <div>
@@ -183,13 +191,15 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                       aria-labelledby="composition-button"
                       onKeyDown={handleListKeyDown}
                     >
-                      <MenuItem
-                        onClick={handleEditPostClick}
-                        className="flex gap-4 items-center hover:bg-tertiary"
-                      >
-                        <EditIcon className="h-5 w-5" />
-                        Edit
-                      </MenuItem>
+                      {isCurrUserAuthorized && (
+                        <MenuItem
+                          onClick={handleEditPostClick}
+                          className="flex gap-4 items-center hover:bg-tertiary"
+                        >
+                          <EditIcon className="h-5 w-5" />
+                          Edit
+                        </MenuItem>
+                      )}
                       <MenuItem
                         onClick={handleSaveClick}
                         className="flex gap-4 items-center hover:bg-tertiary"
@@ -205,13 +215,15 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                         <ContentCopyIcon className="h-5 w-5" />
                         Copy
                       </MenuItem>
-                      <MenuItem
-                        onClick={handleDeleteClick}
-                        className="flex gap-4 items-center hover:bg-tertiary"
-                      >
-                        <DeleteIcon className="h-5 w-5" />
-                        Delete
-                      </MenuItem>
+                      {isCurrUserAuthorized && (
+                        <MenuItem
+                          onClick={handleDeleteClick}
+                          className="flex gap-4 items-center hover:bg-tertiary"
+                        >
+                          <DeleteIcon className="h-5 w-5" />
+                          Delete
+                        </MenuItem>
+                      )}
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
