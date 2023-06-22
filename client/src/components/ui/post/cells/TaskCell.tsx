@@ -19,6 +19,7 @@ import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbac
 import { isAxiosError } from "axios"
 import ClearIcon from "@mui/icons-material/Clear"
 import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
+import { Tooltip } from "@mui/material"
 
 type Props = {
   post: PostType
@@ -127,15 +128,23 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
       />
 
       {!isEditing || !isCurrUserAuthorized ? (
-        <div className="flex justify-between items-center w-full">
-          <h1 onClick={() => setIsEditing(true)} className="h-full ">
-            {task.title}
-          </h1>
-          <ClearIcon
-            onClick={handleDeleteTask}
-            className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out"
-          />
-        </div>
+        <Tooltip
+          title={
+            isCurrUserAuthorized
+              ? "Edit this Task"
+              : "You are unauthorized to edit this task"
+          }
+        >
+          <div className="flex justify-between items-center w-full">
+            <h1 onClick={() => setIsEditing(true)} className="h-full ">
+              {task.title}
+            </h1>
+            <ClearIcon
+              onClick={handleDeleteTask}
+              className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out"
+            />
+          </div>
+        </Tooltip>
       ) : (
         <ClickAwayListener onClickAway={() => setIsEditing(false)}>
           <form onSubmit={handleSubmit(handleUpdateTask)}>

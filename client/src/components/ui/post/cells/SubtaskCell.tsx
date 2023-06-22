@@ -20,6 +20,7 @@ import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbac
 import { isAxiosError } from "axios"
 import ClearIcon from "@mui/icons-material/Clear"
 import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
+import { Tooltip } from "@mui/material"
 
 type Props = {
   post: PostType
@@ -108,15 +109,26 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
     <div className="border-secondary border p-2 pl-10 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center flex-grow">
       <SubdirectoryArrowRightOutlinedIcon className="h-5 w-5" />
       {!isEditing || !isCurrUserAuthorized ? (
-        <div className="flex justify-between items-center w-full">
-          <h1 onClick={() => setIsEditing(true)} className="min-w-[5em] h-full">
-            {subtask.title}
-          </h1>
-          <ClearIcon
-            onClick={handleDeleteSubtask}
-            className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out"
-          />
-        </div>
+        <Tooltip
+          title={
+            isCurrUserAuthorized
+              ? "Edit this Subtask"
+              : "You are unauthorized to edit this subtask"
+          }
+        >
+          <div className="flex justify-between items-center w-full">
+            <h1
+              onClick={() => setIsEditing(true)}
+              className="min-w-[5em] h-full"
+            >
+              {subtask.title}
+            </h1>
+            <ClearIcon
+              onClick={handleDeleteSubtask}
+              className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out"
+            />
+          </div>
+        </Tooltip>
       ) : (
         <ClickAwayListener onClickAway={() => setIsEditing(false)}>
           <form onSubmit={handleSubmit(handleUpdateSubtask)}>
