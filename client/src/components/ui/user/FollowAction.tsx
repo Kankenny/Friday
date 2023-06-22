@@ -5,6 +5,10 @@ import userAPI from "../../../lib/services/axios-instances/userAPI"
 import { setFeedback } from "../../../lib/store/slices/feedback-slice/feedbackSlice"
 import StyledButton from "../StyledButton"
 import { UserType } from "../../../lib/types/primitive-types/UserType"
+import {
+  followUser,
+  unfollowUser,
+} from "../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 
 type Props = {
   user: UserType
@@ -32,6 +36,11 @@ const FollowAction = ({ user }: Props) => {
           feedbackType: "success",
         })
       )
+      if (isAlreadyFollowed) {
+        dispatch(unfollowUser(user))
+      } else {
+        dispatch(followUser(user))
+      }
     } catch (err) {
       if (isAxiosError(err)) {
         dispatch(
