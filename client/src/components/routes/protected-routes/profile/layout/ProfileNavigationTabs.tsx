@@ -47,7 +47,7 @@ const HomeNavigationTabs = () => {
   const leafPath = pathname.split("/")[pathname.split("/").length - 1]
   useEffect(() => {
     if (leafPath === "posts") setValue("user posts")
-    else setValue("liked posts")
+    else if (leafPath === "liked-posts") setValue("liked posts")
   }, [leafPath])
 
   return (

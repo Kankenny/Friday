@@ -17,6 +17,7 @@ import postAPI from "../../../../../lib/services/axios-instances/postAPI"
 import Alert from "../../../../ui/mui/Alert"
 import { useDispatch } from "react-redux"
 import { createPost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
+import CancelIcon from "@mui/icons-material/Cancel"
 
 type Props = {
   setIsCreating: React.Dispatch<SetStateAction<boolean>>
@@ -53,7 +54,11 @@ const CreatePostInput = ({ setIsCreating }: Props) => {
   }
 
   return (
-    <Card twClasses="p-5 border border-secondary">
+    <Card twClasses="relative p-5 border border-secondary space-y-2">
+      <CancelIcon
+        className="absolute right-2 top-2 text-red-500 cursor-pointer select-none"
+        onClick={() => setIsCreating(false)}
+      />
       <form onSubmit={handleSubmit(handleCreatePost)}>
         <RHFInputField
           label="Title"
