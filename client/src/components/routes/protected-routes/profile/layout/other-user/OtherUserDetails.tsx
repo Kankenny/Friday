@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useTypedSelector"
 import Card from "../../../../../ui/Card"
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"
@@ -11,6 +11,9 @@ const OtherUserDetails = () => {
   const { username, email, firstName, lastName, followers, following } = user
 
   const isBlocked = blocked.includes(user)
+  const { pathname } = useLocation()
+  const isInFollowersPath =
+    pathname.includes("followers") || pathname.includes("following")
 
   return (
     <Card twClasses="p-5 flex flex-col gap-2 w-full">
@@ -37,16 +40,18 @@ const OtherUserDetails = () => {
           </span>
         </Link>
       </div>
-      <div className="flex gap-2 mx-auto">
-        {!isBlocked && (
+      {!isInFollowersPath && (
+        <div className="flex gap-2 mx-auto">
+          {!isBlocked && (
+            <div>
+              <FollowAction user={user} />
+            </div>
+          )}
           <div>
-            <FollowAction user={user} />
+            <BlockAction user={user} />
           </div>
-        )}
-        <div>
-          <BlockAction user={user} />
         </div>
-      </div>
+      )}
     </Card>
   )
 }
