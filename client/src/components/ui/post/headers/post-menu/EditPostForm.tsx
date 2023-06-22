@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux"
 import { PostType } from "../../../../../lib/types/primitive-types/PostType"
 import { updatePost } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 import { setFeedback } from "../../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import CancelIcon from "@mui/icons-material/Cancel"
 
 type Props = {
   post: PostType
@@ -74,7 +75,11 @@ const EditPostForm = ({ post, setIsEditing }: Props) => {
   }
 
   return (
-    <Card twClasses="p-5 border border-secondary">
+    <Card twClasses="relative p-5 border border-secondary space-y-2">
+      <CancelIcon
+        className="absolute right-2 top-2 text-red-500 cursor-pointer select-none"
+        onClick={() => setIsEditing(false)}
+      />
       <form onSubmit={handleSubmit(handleUpdatePost)}>
         <RHFInputField
           label="Title"
