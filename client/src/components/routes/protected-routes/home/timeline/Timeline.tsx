@@ -11,6 +11,8 @@ import {
 } from "../../../../../lib/validations/searchValidator"
 import { zodResolver } from "@hookform/resolvers/zod"
 import RHFInputField from "../../../../ui/rhf/RHFInputField"
+import { useDispatch } from "react-redux"
+import { queryTimeline } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 
 const Timeline = () => {
   const { handleSubmit, register } = useForm<searchFormType>({
@@ -19,7 +21,10 @@ const Timeline = () => {
   const { isLoading } = useTypedSelector((state) => state.timeline)
   const [isCreating, setIsCreating] = useState(false)
 
-  const handleSearchSubmit = (formData: searchFormType) => {}
+  const dispatch = useDispatch()
+  const handleSearchSubmit = (formData: searchFormType) => {
+    dispatch(queryTimeline(formData.query))
+  }
 
   const content = isLoading ? <PostSkeletons /> : <TimelinePosts />
 

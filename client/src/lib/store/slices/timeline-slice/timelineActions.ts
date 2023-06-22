@@ -23,8 +23,14 @@ export const queryTimelineReducer = (
 
   return {
     ...state,
-    posts: filteredPosts,
+    queriedPosts: filteredPosts,
+    didQuery: true,
   }
+}
+
+export const clearQueryReducer = (state: TimelineSliceType) => {
+  state.queriedPosts = []
+  state.didQuery = false
 }
 
 export const createPostReducer = (
