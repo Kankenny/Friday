@@ -17,7 +17,7 @@ import {
   deletePost,
 } from "../../../../../lib/store/slices/timeline-slice/timelineSlice"
 import {
-  copyPost,
+  copyPostToProfile,
   savePost,
 } from "../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { PostType } from "../../../../../lib/types/primitive-types/PostType"
@@ -71,7 +71,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
       dispatch(
         setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
       )
-      dispatch(copyPost(data.data))
+      dispatch(copyPostToProfile(data.data))
       dispatch(createPost(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
