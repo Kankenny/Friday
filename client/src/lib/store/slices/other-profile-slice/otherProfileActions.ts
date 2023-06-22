@@ -7,3 +7,10 @@ export const setOtherUserDetailsReducer = (
 ) => {
   return { ...state, ...action.payload }
 }
+
+export const followedUserReducer = (
+  state: ProfileSliceType,
+  action: PayloadAction<ProfileSliceType>
+) => {
+  state.followers.push(action.payload)
+}
