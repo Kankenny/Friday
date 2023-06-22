@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { ProfileSliceType } from "../../../types/slice-types/ProfileSliceType"
 import {
+  blockOtherUserReducer,
   changeProfilePictureReducer,
   copyPostReducer,
   followOtherUserReducer,
@@ -38,6 +39,7 @@ const sameProfileSlice = createSlice({
     copyPost: copyPostReducer,
     followUser: followOtherUserReducer,
     unfollowUser: unfollowOtherUserReducer,
+    blockUser: blockOtherUserReducer,
   },
 })
 
@@ -48,6 +50,7 @@ export const {
   copyPost,
   followUser,
   unfollowUser,
+  blockUser,
 } = sameProfileSlice.actions
 
 export default sameProfileSlice.reducer

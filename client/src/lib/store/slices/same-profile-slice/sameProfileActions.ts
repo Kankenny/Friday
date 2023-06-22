@@ -48,3 +48,10 @@ export const unfollowOtherUserReducer = (
   )
   state.following = filteredFollowing
 }
+
+export const blockOtherUserReducer = (
+  state: ProfileSliceType,
+  action: PayloadAction<UserType>
+) => {
+  state.blocked.push(action.payload)
+}
