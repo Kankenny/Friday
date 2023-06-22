@@ -77,9 +77,9 @@ const HomeNavigationTabs = () => {
           onClick={handleSavedPostsClick}
         />
       )}
-      // appending the tab below to the one above doesn't work as MUI's
+      {/* appending the tab below to the one above doesn't work as MUI's
       implementation of the Tabs component doesn't accept the ReactNode
-      (children) prop
+      (children) prop */}
       {isSameUser && (
         <Tab
           value="shared posts"
