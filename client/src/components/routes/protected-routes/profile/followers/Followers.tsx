@@ -11,7 +11,16 @@ const Followers = () => {
   const isSameUser = currentUsername === pathUsername
 
   const followers = isSameUser ? currentFollowers : otherFollowers
-  return <div>{followers}</div>
+
+  return (
+    <ul>
+      {followers.map((follower) => (
+        <div>
+          {follower.firstName} {follower.lastName}
+        </div>
+      ))}
+    </ul>
+  )
 }
 
 export default Followers
