@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit"
 import { PostDetailSliceType } from "../../../types/slice-types/PostDetailSliceType"
 import { DetailedCommentType } from "../../../types/primitive-types/DetailedCommentType"
+import { UserType } from "../../../types/primitive-types/UserType"
 
 export const setPostDetailReducer = (
   state: PostDetailSliceType,
@@ -17,4 +18,11 @@ export const createCommentReducer = (
     ...state,
     comments: [...state.comments, action.payload],
   }
+}
+
+export const authorizeUserReducer = (
+  state: PostDetailSliceType,
+  action: PayloadAction<UserType>
+) => {
+  state.authorizedUsers.push(action.payload)
 }
