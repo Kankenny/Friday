@@ -150,8 +150,8 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   const isCurrUserAuthorized =
     post.authorization === "public" ||
     (post.authorization === "private" &&
-      post.authorizedUsers.includes(authUserId)) ||
-    post.creatorId === authUserId
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
 
   return (
     <>

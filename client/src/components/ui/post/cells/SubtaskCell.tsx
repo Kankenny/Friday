@@ -102,8 +102,8 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
   const isCurrUserAuthorized =
     post.authorization === "public" ||
     (post.authorization === "private" &&
-      post.authorizedUsers.includes(authUserId)) ||
-    post.creatorId === authUserId
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
 
   return (
     <div className="border-secondary border p-2 pl-10 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center flex-grow">

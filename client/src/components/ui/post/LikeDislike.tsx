@@ -8,8 +8,10 @@ type Props = {
 
 const LikeDislike = ({ post }: Props) => {
   const { _id } = useTypedSelector((state) => state.auth)
-  const isAlreadyLiked = post.upvotedBy.includes(_id ?? "")
-  const isAlreadyDisliked = post.downvotedBy.includes(_id ?? "")
+  const isAlreadyLiked = post.upvotedBy.some((user) => user._id === _id ?? "")
+  const isAlreadyDisliked = post.downvotedBy.some(
+    (user) => user._id === _id ?? ""
+  )
 
   const { UpvoteIcon, DownvoteIcon } = useLikeDislikeToggle({
     post,

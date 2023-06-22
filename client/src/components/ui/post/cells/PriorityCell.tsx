@@ -119,8 +119,8 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
   const isCurrUserAuthorized =
     post.authorization === "public" ||
     (post.authorization === "private" &&
-      post.authorizedUsers.includes(authUserId)) ||
-    post.creatorId === authUserId
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
 
   const priorityColor = {
     low: "bg-[#FFDADA] hover:bg-[#FFB3B3] focus:bg-[#FFDADA]",

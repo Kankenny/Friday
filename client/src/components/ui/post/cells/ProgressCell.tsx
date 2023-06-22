@@ -119,8 +119,8 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
   const isCurrUserAuthorized =
     post.authorization === "public" ||
     (post.authorization === "private" &&
-      post.authorizedUsers.includes(authUserId)) ||
-    post.creatorId === authUserId
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
 
   const progressColor = {
     done: "bg-[#499548] hover:bg-[#366136] focus:bg-[#499548]",
