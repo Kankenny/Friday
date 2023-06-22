@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
-import Follower from "./Follower"
 import Alert from "../../../../ui/mui/Alert"
+import UserCard from "../../../../ui/user/UserCard"
 
 const Followers = () => {
   const { username: currentUsername, followers: currentFollowers } =
@@ -17,7 +17,7 @@ const Followers = () => {
   return followers.length !== 0 ? (
     <ul className="w-full">
       {followers.map((follower) => (
-        <Follower follower={follower} />
+        <UserCard user={follower} />
       ))}
     </ul>
   ) : (
