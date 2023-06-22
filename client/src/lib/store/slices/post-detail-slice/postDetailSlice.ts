@@ -3,6 +3,7 @@ import { PostDetailSliceType } from "../../../types/slice-types/PostDetailSliceT
 import {
   authorizeUserReducer,
   createCommentReducer,
+  deauthorizeUserReducer,
   setPostDetailReducer,
 } from "./postDetailActions"
 
@@ -32,10 +33,11 @@ const postDetailSlice = createSlice({
     setPostDetails: setPostDetailReducer,
     createComment: createCommentReducer,
     authorizeUser: authorizeUserReducer,
+    deauthorizeUser: deauthorizeUserReducer,
   },
 })
 
-export const { setPostDetails, createComment, authorizeUser } =
+export const { setPostDetails, createComment, authorizeUser, deauthorizeUser } =
   postDetailSlice.actions
 
 export default postDetailSlice.reducer

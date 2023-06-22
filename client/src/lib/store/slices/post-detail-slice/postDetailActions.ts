@@ -26,3 +26,13 @@ export const authorizeUserReducer = (
 ) => {
   state.authorizedUsers.push(action.payload)
 }
+
+export const unauthorizeUserReducer = (
+  state: PostDetailSliceType,
+  action: PayloadAction<UserType>
+) => {
+  const filteredAuthUsers = state.authorizedUsers.filter(
+    (user) => user._id !== action.payload._id
+  )
+  state.authorizedUsers = filteredAuthUsers
+}
