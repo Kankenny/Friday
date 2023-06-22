@@ -18,6 +18,7 @@ import taskAPI from "../../../../lib/services/axios-instances/taskAPI"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
 import { isAxiosError } from "axios"
 import ClearIcon from "@mui/icons-material/Clear"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
 
 type Props = {
   post: PostType
@@ -26,6 +27,7 @@ type Props = {
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
 }
 const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
+  const { _id: authUserId } = useTypedSelector((state) => state.sameProfile)
   const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
 
@@ -109,6 +111,12 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
     }
   }, [errors.title?.message, isSubmitSuccessful, dispatch])
 
+  const isCurrUserAuthorized =
+    post.authorization === "public" ||
+    (post.authorization === "private" &&
+      post.authorizedUsers.includes(authUserId)) ||
+    post.creatorId === authUserId
+
   return (
     <div className="flex-grow w-[45%] max-w-[45%] border border-secondary p-2 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center">
       <ChevronRightOutlinedIcon
@@ -118,7 +126,7 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
         }`}
       />
 
-      {!isEditing ? (
+      {!isEditing || !isCurrUserAuthorized ? (
         <div className="flex justify-between items-center w-full">
           <h1 onClick={() => setIsEditing(true)} className="h-full ">
             {task.title}
