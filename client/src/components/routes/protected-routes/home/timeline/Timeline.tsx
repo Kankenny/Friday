@@ -19,9 +19,7 @@ const Timeline = () => {
           buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
           onClick={() => setIsCreating(!isCreating)}
         />
-        <div className="flex items-center gap-2">
-          <SearchInput />
-        </div>
+        <SearchInput />
       </div>
       {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
       {content}

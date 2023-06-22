@@ -26,6 +26,7 @@ import { setFeedback } from "../../../../../lib/store/slices/feedback-slice/feed
 
 import { isAxiosError } from "axios"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
+import PeopleIcon from "@mui/icons-material/People"
 
 type Props = {
   post: PostType
@@ -37,6 +38,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLDivElement>(null)
+  const isPostOwner = authUserId === post.creatorId._id
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -60,6 +62,10 @@ export default function PostMenu({ post, setIsEditing }: Props) {
     } else if (event.key === "Escape") {
       setOpen(false)
     }
+  }
+
+  const handleUsersClick = (e: React.MouseEvent | Event) => {
+    handleClose(e)
   }
 
   const handleEditPostClick = (e: React.MouseEvent | Event) => {
@@ -191,6 +197,15 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                       aria-labelledby="composition-button"
                       onKeyDown={handleListKeyDown}
                     >
+                      {isPostOwner && (
+                        <MenuItem
+                          onClick={handleUsersClick}
+                          className="flex gap-4 items-center hover:bg-tertiary"
+                        >
+                          <PeopleIcon className="h-5 w-5" />
+                          Users
+                        </MenuItem>
+                      )}
                       {isCurrUserAuthorized && (
                         <MenuItem
                           onClick={handleEditPostClick}
