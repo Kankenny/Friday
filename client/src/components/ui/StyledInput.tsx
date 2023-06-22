@@ -2,26 +2,27 @@ type Props = {
   name: string
   type?: "text" | "email" | "password"
   placeholder: string
+  twClasses?: string
 }
 
 const StyledInput = ({
   name,
   type = "text",
   placeholder = "",
+  twClasses,
   ...rest
 }: Props) => {
   return (
-    <div className="relative z-0 mb-8">
+    <div className={`${twClasses} relative`}>
       <input
-        {...rest}
-        id={name}
         type={type}
-        placeholder=""
-        className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-secondary border-gray-200"
+        className="peer h-10 w-full rounded-sm border-b-2 border-secondary bg-transparent py-2  placeholder-transparent focus:border-tertiary focus:outline-none caret-tertiary"
+        placeholder={placeholder}
+        {...rest}
       />
       <label
         htmlFor={name}
-        className="absolute duration-200 ease-in-out top-3 -z-1 origin-0 text-secondary"
+        className="absolute -top-3.5 left-0  text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-gray-600"
       >
         {placeholder}
       </label>

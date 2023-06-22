@@ -11,11 +11,10 @@ import {
   searchFormSchema,
   searchFormType,
 } from "../../../../../lib/validations/searchValidator"
+import StyledInput from "../../../../ui/StyledInput"
 
 const Timeline = () => {
-  const { register } = useForm<searchFormType>({
-    resolver: zodResolver(searchFormSchema),
-  })
+  const [searchQuery, setSearchQuery] = useState("")
   const { isLoading } = useTypedSelector((state) => state.timeline)
   const [isCreating, setIsCreating] = useState(false)
 
@@ -28,7 +27,7 @@ const Timeline = () => {
           buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
           onClick={() => setIsCreating(!isCreating)}
         />
-        <RHFInputField register={register("query")} label="Search" />
+        <StyledInput name="Search" placeholder="Search" type="text" />
       </div>
       {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
       {content}
