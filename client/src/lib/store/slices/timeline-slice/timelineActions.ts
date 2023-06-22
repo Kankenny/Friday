@@ -30,7 +30,7 @@ export const queryTimelineReducer = (
   )
 
   state.queriedPosts = filteredPosts
-  state.didQuery = true
+  state.didQuery = query.length > 0
 }
 
 export const createPostReducer = (
