@@ -23,6 +23,10 @@ import Workspace from "./components/routes/protected-routes/home/workspace/Works
 import UserPosts from "./components/routes/protected-routes/profile/user-posts/UserPosts"
 import SavedPosts from "./components/routes/protected-routes/profile/saved-posts/SavedPosts"
 import SharedPosts from "./components/routes/protected-routes/profile/shared-posts/SharedPosts"
+import LikedPosts from "./components/routes/protected-routes/profile/liked-posts/LikedPosts"
+import Followers from "./components/routes/protected-routes/profile/followers/Followers"
+import Following from "./components/routes/protected-routes/profile/following/Following"
+import Blocked from "./components/routes/protected-routes/profile/blocked/Blocked"
 
 // Container Component
 import AppContainer from "./AppContainer"
@@ -30,14 +34,11 @@ import RequireAuth from "./components/routes/protected-routes/navigation-guards/
 import RequireUnauth from "./components/routes/unprotected-routes/navigation-guards/RequireUnauth"
 import ProfileLayout from "./components/routes/protected-routes/profile/layout/ProfileLayout"
 import HomeLayout from "./components/routes/protected-routes/home/home-layout/HomeLayout"
+import RequireSameUser from "./components/routes/protected-routes/navigation-guards/RequireSameUser"
 
 // Services
 import userAPI from "./lib/services/axios-instances/userAPI"
 import timelineAPI from "./lib/services/axios-instances/timelineAPI"
-import LikedPosts from "./components/routes/protected-routes/profile/liked-posts/LikedPosts"
-import Followers from "./components/routes/protected-routes/profile/followers/Followers"
-import Following from "./components/routes/protected-routes/profile/following/Following"
-import Blocked from "./components/routes/protected-routes/profile/blocked/Blocked"
 
 function App() {
   const dispatch = useDispatch()
@@ -117,7 +118,9 @@ function App() {
                 path="/users/:username/following"
                 element={<Following />}
               />
-              <Route path="/users/:username/blocked" element={<Blocked />} />
+              <Route element={<RequireSameUser />}>
+                <Route path="/users/:username/blocked" element={<Blocked />} />
+              </Route>
             </Route>
           </Route>
 
