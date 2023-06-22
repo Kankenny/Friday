@@ -27,6 +27,7 @@ import { setFeedback } from "../../../../../lib/store/slices/feedback-slice/feed
 import { isAxiosError } from "axios"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 import PeopleIcon from "@mui/icons-material/People"
+import AuthorizedUsersDialog from "./AuthorizedUsersDialog"
 
 type Props = {
   post: PostType
@@ -39,6 +40,12 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLDivElement>(null)
   const isPostOwner = authUserId === post.creatorId._id
+  const [isAuthUsersDialogOpen, setIsAuthUsersDialogOpen] =
+    React.useState(false)
+
+  const handleCloseDialog = () => {
+    setIsAuthUsersDialogOpen(false)
+  }
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -65,6 +72,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   }
 
   const handleUsersClick = (e: React.MouseEvent | Event) => {
+    setIsAuthUsersDialogOpen(true)
     handleClose(e)
   }
 
@@ -247,6 +255,11 @@ export default function PostMenu({ post, setIsEditing }: Props) {
           </Popper>
         )}
       </div>
+      <AuthorizedUsersDialog
+        open={isAuthUsersDialogOpen}
+        onClose={handleCloseDialog}
+        post={post}
+      />
     </>
   )
 }
