@@ -33,6 +33,7 @@ export const getUserTimeline = async (req: JWTRequest, res: Response) => {
           path: "subtasks",
         },
       })
+      .populate("authorizedUsers")
       .populate({
         path: "creatorId",
         match: { _id: { $nin: blockedUserIds } },
@@ -46,6 +47,7 @@ export const getUserTimeline = async (req: JWTRequest, res: Response) => {
           path: "subtasks",
         },
       })
+      .populate("authorizedUsers")
       .populate({
         path: "creatorId",
         match: { _id: { $nin: blockedUserIds } },
@@ -63,6 +65,7 @@ export const getUserTimeline = async (req: JWTRequest, res: Response) => {
           path: "subtasks",
         },
       })
+      .populate("authorizedUsers")
       .populate({
         path: "creatorId",
         match: { _id: { $nin: blockedUserIds } },
@@ -78,6 +81,7 @@ export const getUserTimeline = async (req: JWTRequest, res: Response) => {
           path: "subtasks",
         },
       })
+      .populate("authorizedUsers")
       .populate({
         path: "creatorId",
         match: { _id: { $nin: blockedUserIds } },
