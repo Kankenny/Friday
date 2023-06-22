@@ -7,7 +7,6 @@ export const setPostDetailReducer = (
   state: PostDetailSliceType,
   action: PayloadAction<PostDetailSliceType[]>
 ) => {
-  console.log(action.payload)
   return { ...state, ...action.payload }
 }
 
