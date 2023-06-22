@@ -89,6 +89,14 @@ export const copyPost = async (req: JWTRequest, res: Response) => {
     existingUser.posts.push(newPost._id)
     await existingUser.save()
 
+    // Populate the tasks and subtasks of the existingPost
+    await newPost.populate({
+      path: "tasks",
+      populate: {
+        path: "subtasks",
+      },
+    })
+
     return res.status(200).json({
       message: "Post successfully copied!",
       data: newPost,

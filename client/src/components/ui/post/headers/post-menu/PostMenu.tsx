@@ -68,11 +68,11 @@ export default function PostMenu({ post, setIsEditing }: Props) {
   const handleCopyClick = async (e: React.MouseEvent | Event) => {
     try {
       const { data } = await postAPI.post(`/${post._id}/copy`)
+      dispatch(createPost(data.data))
       dispatch(
         setFeedback({ feedbackMessage: data.message, feedbackType: "success" })
       )
       dispatch(copyPostToProfile(data.data))
-      dispatch(createPost(data.data))
     } catch (err) {
       if (isAxiosError(err)) {
         dispatch(
@@ -176,7 +176,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                     placement === "bottom-start" ? "left top" : "left bottom",
                 }}
               >
-                <Paper className="bg-blue-50 border border-secondary">
+                <Paper className="bg-blue-50 border border-secondary ">
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       id="composition-menu"

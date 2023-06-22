@@ -17,7 +17,7 @@ export const savePostReducer = (
   state.savedPosts.push(action.payload)
 }
 
-export const copyPostReducer = (
+export const copyPostToProfileReducer = (
   state: ProfileSliceType,
   action: PayloadAction<PostType>
 ) => {
