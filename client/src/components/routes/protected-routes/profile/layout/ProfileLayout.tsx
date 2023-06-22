@@ -1,5 +1,5 @@
 // Components
-import { Outlet, useParams } from "react-router-dom"
+import { Outlet, useLocation, useParams } from "react-router-dom"
 import SameUserPFP from "./same-user/profile-picture/SameUserPFP"
 import SameUserDetails from "./same-user/SameUserDetails"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
@@ -11,6 +11,7 @@ import userAPI from "../../../../../lib/services/axios-instances/userAPI"
 import { useDispatch } from "react-redux"
 import { setOtherUserDetails } from "../../../../../lib/store/slices/other-profile-slice/otherProfileSlice"
 import ProfileNavigationTabs from "./ProfileNavigationTabs"
+import UsersNavigationTabs from "./UsersNavigationTabs"
 
 const ProfileLayout = () => {
   const dispatch = useDispatch()
@@ -23,6 +24,14 @@ const ProfileLayout = () => {
 
   const PFP = isSameUser ? <SameUserPFP /> : <OtherUserPFP />
   const UserDetails = isSameUser ? <SameUserDetails /> : <OtherUserDetails />
+
+  const { pathname } = useLocation()
+  const NavigationTabs =
+    pathname.includes("followers") || pathname.includes("following") ? (
+      <UsersNavigationTabs />
+    ) : (
+      <ProfileNavigationTabs />
+    )
 
   useEffect(() => {
     const fetchOtherUserDetails = async () => {
@@ -53,7 +62,7 @@ const ProfileLayout = () => {
           {UserDetails}
         </div>
         <div className="w-full space-y-10 py-5">
-          <ProfileNavigationTabs />
+          {NavigationTabs}
           <div className="min-h-screen flex">
             <Outlet />
           </div>
