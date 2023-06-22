@@ -3,6 +3,7 @@ import { ProfileSliceType } from "../../../types/slice-types/ProfileSliceType"
 import {
   changeProfilePictureReducer,
   copyPostReducer,
+  followOtherUserReducer,
   savePostReducer,
   setUserDetailsReducer,
 } from "./sameProfileActions"
@@ -34,10 +35,16 @@ const sameProfileSlice = createSlice({
     changeProfilePicture: changeProfilePictureReducer,
     savePost: savePostReducer,
     copyPost: copyPostReducer,
+    followUser: followOtherUserReducer,
   },
 })
 
-export const { setUserDetails, changeProfilePicture, savePost, copyPost } =
-  sameProfileSlice.actions
+export const {
+  setUserDetails,
+  changeProfilePicture,
+  savePost,
+  copyPost,
+  followUser,
+} = sameProfileSlice.actions
 
 export default sameProfileSlice.reducer

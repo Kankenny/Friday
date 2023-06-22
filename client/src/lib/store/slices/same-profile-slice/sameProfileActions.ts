@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit"
 import { ProfileSliceType } from "../../../types/slice-types/ProfileSliceType"
 import { PostType } from "../../../types/primitive-types/PostType"
+import { UserType } from "../../../types/primitive-types/UserType"
 
 export const setUserDetailsReducer = (
   state: ProfileSliceType,
@@ -28,4 +29,11 @@ export const changeProfilePictureReducer = (
   action: PayloadAction<string>
 ) => {
   state.profilePicture = action.payload
+}
+
+export const followOtherUserReducer = (
+  state: ProfileSliceType,
+  action: PayloadAction<UserType>
+) => {
+  state.following.push(action.payload)
 }
