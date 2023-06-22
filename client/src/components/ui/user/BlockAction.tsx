@@ -9,11 +9,10 @@ import {
   blockUser,
   unblockUser,
 } from "../../../lib/store/slices/same-profile-slice/sameProfileSlice"
-import { ProfileSliceType } from "../../../lib/types/slice-types/ProfileSliceType"
 import { decreaseUserFollower } from "../../../lib/store/slices/other-profile-slice/otherProfileSlice"
 
 type Props = {
-  user: UserType | ProfileSliceType
+  user: UserType
 }
 
 const BlockAction = ({ user }: Props) => {
@@ -25,7 +24,9 @@ const BlockAction = ({ user }: Props) => {
   } = useTypedSelector((state) => state.sameProfile)
   const isSameUser = currentUsername === user.username
 
-  const isAlreadyBlocked = currBlocked.includes(user)
+  const isAlreadyBlocked = currBlocked.some(
+    (blockedUser) => blockedUser._id === user._id
+  )
   const buttonText = isAlreadyBlocked ? "Blocked" : "Block"
 
   const dispatch = useDispatch()
