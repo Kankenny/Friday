@@ -1,13 +1,6 @@
 import Dialog from "@mui/material/Dialog"
 import UserCard from "../../../user/UserCard"
 import Alert from "../../../mui/Alert"
-import {
-  searchFormSchema,
-  searchFormType,
-} from "../../../../../lib/validations/searchValidator"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import RHFInputField from "../../../rhf/RHFInputField"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { setUsers } from "../../../../../lib/store/slices/users-slice/usersSlice"
@@ -37,10 +30,6 @@ const AuthorizedUsersDialog = ({ open, onClose }: Props) => {
   const { _id: postId, authorizedUsers } = useTypedSelector(
     (state) => state.postDetail
   )
-
-  const { handleSubmit, register } = useForm<searchFormType>({
-    resolver: zodResolver(searchFormSchema),
-  })
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -156,12 +145,6 @@ const AuthorizedUsersDialog = ({ open, onClose }: Props) => {
             Add users here
           </h1>
           <ul className="space-y-2 overscroll-y-auto"> {filteredUsers}</ul>
-          <form
-            onSubmit={handleSubmit(() => console.log("TEST"))}
-            className="p-2"
-          >
-            <RHFInputField register={register("query")} label="Search" />
-          </form>
         </div>
       </div>
     </Dialog>
