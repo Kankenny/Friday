@@ -14,9 +14,8 @@ const Timeline = () => {
   return (
     <div className="w-full space-y-10">
       <StyledButton
-        buttonText="New Post"
+        buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
         onClick={() => setIsCreating(!isCreating)}
-        twClasses={isCreating ? "hidden" : ""}
       />
       {isCreating && <CreatePostInput setIsCreating={setIsCreating} />}
       {content}
