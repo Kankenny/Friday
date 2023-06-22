@@ -37,10 +37,12 @@ const OtherUserDetails = () => {
           </span>
         </Link>
       </div>
-      <div className="flex gap-2">
-        <div className={isBlocked ? "cursor-not-allowed opacity-50" : ""}>
-          <FollowAction user={user} />
-        </div>
+      <div className="flex gap-2 mx-auto">
+        {isBlocked && (
+          <div>
+            <FollowAction user={user} />
+          </div>
+        )}
         <div>
           <BlockAction user={user} />
         </div>
