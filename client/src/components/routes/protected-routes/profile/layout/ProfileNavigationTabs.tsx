@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Tab, Tabs } from "@mui/material"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 
 const HomeNavigationTabs = () => {
@@ -42,6 +42,13 @@ const HomeNavigationTabs = () => {
       `/users/${isSameUser ? sameUserUsername : otherUserUsername}/liked-posts`
     )
   }
+
+  const { pathname } = useLocation()
+  const leafPath = pathname.split("/")[pathname.split("/").length - 1]
+  useEffect(() => {
+    if (leafPath === "posts") setValue("user posts")
+    else setValue("liked posts")
+  }, [leafPath])
 
   return (
     <Tabs

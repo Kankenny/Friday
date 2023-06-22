@@ -1,5 +1,5 @@
 // Components
-import { Outlet, useParams } from "react-router-dom"
+import { Outlet, useLocation, useParams } from "react-router-dom"
 import SameUserPFP from "./same-user/profile-picture/SameUserPFP"
 import SameUserDetails from "./same-user/SameUserDetails"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
@@ -11,6 +11,7 @@ import userAPI from "../../../../../lib/services/axios-instances/userAPI"
 import { useDispatch } from "react-redux"
 import { setOtherUserDetails } from "../../../../../lib/store/slices/other-profile-slice/otherProfileSlice"
 import ProfileNavigationTabs from "./ProfileNavigationTabs"
+import UsersNavigationTabs from "./UsersNavigationTabs"
 
 const ProfileLayout = () => {
   const dispatch = useDispatch()
@@ -23,6 +24,16 @@ const ProfileLayout = () => {
 
   const PFP = isSameUser ? <SameUserPFP /> : <OtherUserPFP />
   const UserDetails = isSameUser ? <SameUserDetails /> : <OtherUserDetails />
+
+  const { pathname } = useLocation()
+  const NavigationTabs =
+    pathname.includes("followers") ||
+    pathname.includes("following") ||
+    pathname.includes("blocked") ? (
+      <UsersNavigationTabs />
+    ) : (
+      <ProfileNavigationTabs />
+    )
 
   useEffect(() => {
     const fetchOtherUserDetails = async () => {
@@ -47,16 +58,14 @@ const ProfileLayout = () => {
     <>
       {/*  Placeholder element */}
       <div className="h-10"></div>
-      <div className="flex">
-        <div className="min-h-screen w-[20.2em] max-w-[20.2em] min-w-[20.2em] flex-col mr-5 p-5 space-y-5">
+      <div className="flex flex-col md:flex-row">
+        <div className="md:min-h-screen w-full md:w-[20.2em] md:max-w-[20.2em] min-w-[20.2em] flex-col mr-5 p-5 space-y-5">
           {PFP}
           {UserDetails}
         </div>
-        <div className="w-full space-y-10 py-5">
-          <ProfileNavigationTabs />
-          <div className="min-h-screen flex">
-            <Outlet />
-          </div>
+        <div className="w-full space-y-10 p-5">
+          {NavigationTabs}
+          <Outlet />
         </div>
       </div>
     </>

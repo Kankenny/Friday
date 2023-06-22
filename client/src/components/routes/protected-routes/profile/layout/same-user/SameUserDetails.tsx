@@ -2,7 +2,7 @@ import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useType
 import Card from "../../../../../ui/Card"
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"
 import StyledButton from "../../../../../ui/StyledButton"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const SameUserDetails = () => {
   const { username, email, firstName, lastName, followers, following } =
@@ -14,7 +14,7 @@ const SameUserDetails = () => {
   }
 
   return (
-    <Card twClasses="p-5 flex flex-col gap-2">
+    <Card twClasses="p-5 flex flex-col gap-5 w-full">
       <div className="pb-5 border-b border-secondary">
         <h1 className="font-bold text-xl">
           {firstName} {lastName}
@@ -32,12 +32,16 @@ const SameUserDetails = () => {
       </div>
       <div className="space-x-2">
         <PeopleAltOutlinedIcon />
-        <span>
-          <b>{followers.length}</b> followers
-        </span>
-        <span>
-          <b>{following.length}</b> following
-        </span>
+        <Link to={`/users/${username}/followers`}>
+          <span className="hover:text-tertiary hover:underline duration-200 ease-in-out">
+            {followers.length} followers
+          </span>
+        </Link>
+        <Link to={`/users/${username}/following`}>
+          <span className="hover:text-tertiary hover:underline duration-200 ease-in-out">
+            {following.length} following
+          </span>
+        </Link>
       </div>
     </Card>
   )

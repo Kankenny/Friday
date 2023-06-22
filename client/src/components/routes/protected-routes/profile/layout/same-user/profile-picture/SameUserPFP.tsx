@@ -20,7 +20,7 @@ const SameUserPFP = () => {
   return (
     <>
       <Avatar
-        className="h-64 w-64 cursor-pointer text-6xl hover:bg-secondary hover:text-tertiary hover:opacity-70 duration-200 ease-in-out capitalize border-2 border-secondary"
+        className="mx-auto h-64 w-64 cursor-pointer text-6xl hover:bg-secondary hover:text-tertiary hover:opacity-70 duration-200 ease-in-out capitalize border-2 border-secondary"
         src={profilePicture}
         onClick={handleOpen}
       >

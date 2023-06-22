@@ -9,9 +9,9 @@ export interface UserType {
   profilePicture: string | undefined
   email: string
   username: string
-  following: string[]
-  followers: string[]
-  blocked: string[]
+  following: UserType[]
+  followers: UserType[]
+  blocked: UserType[]
   posts: PostType[]
   upvotedPosts: PostType[]
   downvotedPosts: PostType[]

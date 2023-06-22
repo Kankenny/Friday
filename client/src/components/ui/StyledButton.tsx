@@ -16,7 +16,7 @@ const StyledButton = ({
   const activatedButtonClasses =
     intent === "primary"
       ? "bg-secondary text-main"
-      : "bg-main text-secondary border-2 border-secondary"
+      : "text-secondary border-2 border-secondary"
 
   return (
     <button

@@ -6,6 +6,7 @@ import StyledLink from "../../../ui/StyledLink"
 import Overview from "../../../ui/Overview"
 import Logo from "../../../ui/Logo"
 import PostSkeleton from "../../../ui/post/skeleton/PostSkeleton"
+import DatePicker from "../../../ui/mui/DatePicker"
 
 const Playground = () => {
   return (
@@ -15,6 +16,13 @@ const Playground = () => {
           This playground route is for dev purposes only
         </h1>
       </Overview>
+
+      <div className="w-full space-y-4 border-b-2 border-b-black mb-10 p-5">
+        <h1 className="text-2xl font-bold">
+          TW CSS Skinned MUI Date Picker Component
+        </h1>
+        <DatePicker />
+      </div>
 
       <div className="w-full space-y-4 border-b-2 border-b-black mb-10 p-5">
         <h1 className="text-2xl font-bold">Post Skeleton Component</h1>

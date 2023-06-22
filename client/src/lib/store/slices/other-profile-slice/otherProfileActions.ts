@@ -7,3 +7,16 @@ export const setOtherUserDetailsReducer = (
 ) => {
   return { ...state, ...action.payload }
 }
+
+export const increaseUserFollowersReducer = (
+  state: ProfileSliceType,
+  action: PayloadAction<ProfileSliceType>
+) => {
+  state.followers.push(action.payload)
+}
+
+export const decreaseUserFollowersReducer = (state: ProfileSliceType) => {
+  // hacky way to reduce number of followers
+  // note: we only use this to display the NUMBER of followers of the other user
+  state.followers = state.followers.slice(1)
+}

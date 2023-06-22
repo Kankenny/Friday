@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express"
 
 // Auth Controller Functions
 import {
+  getAllUsers,
   getUser,
   getUserBlocked,
   getUserFollowers,
@@ -18,6 +19,9 @@ import verifyToken from "../middlewares/verifyToken"
 
 // Router
 const UserRoute = express.Router()
+
+// GET ALL USERS
+UserRoute.get("/", getAllUsers)
 
 // GET USER
 UserRoute.get("/:userIdOrUsername", getUser)
