@@ -7,6 +7,7 @@ import {
   followOtherUserReducer,
   savePostReducer,
   setUserDetailsReducer,
+  unblockOtherUserReducer,
   unfollowOtherUserReducer,
 } from "./sameProfileActions"
 
@@ -40,6 +41,7 @@ const sameProfileSlice = createSlice({
     followUser: followOtherUserReducer,
     unfollowUser: unfollowOtherUserReducer,
     blockUser: blockOtherUserReducer,
+    unblockUser: unblockOtherUserReducer,
   },
 })
 
@@ -51,6 +53,7 @@ export const {
   followUser,
   unfollowUser,
   blockUser,
+  unblockUser,
 } = sameProfileSlice.actions
 
 export default sameProfileSlice.reducer

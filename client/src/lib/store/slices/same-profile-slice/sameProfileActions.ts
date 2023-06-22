@@ -55,3 +55,14 @@ export const blockOtherUserReducer = (
 ) => {
   state.blocked.push(action.payload)
 }
+
+export const unblockOtherUserReducer = (
+  state: ProfileSliceType,
+  action: PayloadAction<UserType>
+) => {
+  const blocked = state.blocked
+  const filteredBlocked = blocked.filter(
+    (user) => user._id !== action.payload._id
+  )
+  state.blocked = filteredBlocked
+}
