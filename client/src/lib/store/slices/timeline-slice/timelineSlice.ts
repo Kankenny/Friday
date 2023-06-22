@@ -5,6 +5,7 @@ import {
   deletePostReducer,
   deleteSubtaskReducer,
   deleteTaskReducer,
+  queryTimelineReducer,
   setTimelineReducer,
   updatePostReducer,
   updateSubtaskReducer,
@@ -20,6 +21,7 @@ const timelineSlice = createSlice({
   initialState,
   reducers: {
     setTimeline: setTimelineReducer,
+    queryTimeline: queryTimelineReducer,
     createPost: createPostReducer,
     deletePost: deletePostReducer,
     updatePost: updatePostReducer,
@@ -34,6 +36,7 @@ const timelineSlice = createSlice({
 
 export const {
   setTimeline,
+  queryTimeline,
   createPost,
   deletePost,
   updatePost,
