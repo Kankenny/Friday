@@ -34,7 +34,7 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <div className="p-16 gap-5 flex flex-col">
+      <div className="p-16 gap-5 flex flex-col bg-blue-50">
         <div className="text-3xl font-bold text-secondary text-center w-full">
           <h1>Authorized Users</h1>
           <p className="text-sm font-light">
@@ -43,9 +43,15 @@ const AuthorizedUsersDialog = ({ post, open, onClose }: Props) => {
         </div>
         {content}
 
-        <div className="border border-secondary p-2 space-y-2">
-          <h1 className="font-bold text-tertiary text-xl">Add users here</h1>
-          <form onSubmit={handleSubmit(() => console.log("TEST"))}>
+        <div className="border border-secondary rounded-md space-y-2">
+          <h1 className="font-bold text-tertiary text-xl bg-secondary p-2">
+            Add users here
+          </h1>
+
+          <form
+            onSubmit={handleSubmit(() => console.log("TEST"))}
+            className="p-2"
+          >
             <RHFInputField register={register("query")} label="Search" />
           </form>
         </div>
