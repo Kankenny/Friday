@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Tab, Tabs } from "@mui/material"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 
 const UsersNavigationTabs = () => {
@@ -36,6 +36,12 @@ const UsersNavigationTabs = () => {
       `/users/${isSameUser ? sameUserUsername : otherUserUsername}/blocked`
     )
   }
+
+  const { pathname } = useLocation()
+  useEffect(() => {
+    if (pathname.includes("followers")) setValue("followers")
+    else if (pathname.includes("following")) setValue("following")
+  }, [pathname])
 
   return (
     <Tabs
