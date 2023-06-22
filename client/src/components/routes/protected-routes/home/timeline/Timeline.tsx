@@ -23,7 +23,6 @@ const Timeline = () => {
 
   const dispatch = useDispatch()
   const handleSearchSubmit = (formData: searchFormType) => {
-    console.log(formData)
     dispatch(queryTimeline(formData.query))
   }
 
