@@ -4,28 +4,31 @@ import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSe
 import Alert from "../../../../ui/mui/Alert"
 import UserCard from "../../../../ui/user/UserCard"
 
-const Following = () => {
-  const { username: currentUsername, following: currentFollowing } =
+const Blocked = () => {
+  const { username: currentUsername, blocked: currentBlocked } =
     useTypedSelector((state) => state.sameProfile)
-  const { following: otherFollowing } = useTypedSelector(
+  const { blocked: otherBlocked } = useTypedSelector(
     (state) => state.otherProfile
   )
   const { username: pathUsername } = useParams()
   const isSameUser = currentUsername === pathUsername
 
-  const followedUsers = isSameUser ? currentFollowing : otherFollowing
+  const blockedUsers = isSameUser ? currentBlocked : otherBlocked
 
-  return followedUsers.length !== 0 ? (
+  return blockedUsers.length !== 0 ? (
     <ul className="w-full">
-      {followedUsers.map((user) => (
+      {blockedUsers.map((user) => (
         <UserCard user={user} />
       ))}
     </ul>
   ) : (
     <div className="w-full">
-      <Alert message="User does not follow any other users" severity="error" />
+      <Alert
+        message="You don't have any other blocked users"
+        severity="success"
+      />
     </div>
   )
 }
 
-export default Following
+export default Blocked

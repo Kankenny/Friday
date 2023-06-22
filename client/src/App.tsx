@@ -37,6 +37,7 @@ import timelineAPI from "./lib/services/axios-instances/timelineAPI"
 import LikedPosts from "./components/routes/protected-routes/profile/liked-posts/LikedPosts"
 import Followers from "./components/routes/protected-routes/profile/followers/Followers"
 import Following from "./components/routes/protected-routes/profile/following/Following"
+import Blocked from "./components/routes/protected-routes/profile/blocked/Blocked"
 
 function App() {
   const dispatch = useDispatch()
@@ -116,6 +117,7 @@ function App() {
                 path="/users/:username/following"
                 element={<Following />}
               />
+              <Route path="/users/:username/blocked" element={<Blocked />} />
             </Route>
           </Route>
 

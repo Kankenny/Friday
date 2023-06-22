@@ -27,7 +27,9 @@ const ProfileLayout = () => {
 
   const { pathname } = useLocation()
   const NavigationTabs =
-    pathname.includes("followers") || pathname.includes("following") ? (
+    pathname.includes("followers") ||
+    pathname.includes("following") ||
+    pathname.includes("blocked") ? (
       <UsersNavigationTabs />
     ) : (
       <ProfileNavigationTabs />
