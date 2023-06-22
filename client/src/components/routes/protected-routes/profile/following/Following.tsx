@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useTypedSelector } from "../../../../../lib/hooks/redux-hook/useTypedSelector"
 // import Followed from "./Followed"
 import Alert from "../../../../ui/mui/Alert"
+import Followed from "./Followed"
 
 const Following = () => {
   const { username: currentUsername, following: currentFollowing } =
@@ -12,13 +13,13 @@ const Following = () => {
   const { username: pathUsername } = useParams()
   const isSameUser = currentUsername === pathUsername
 
-  const followed = isSameUser ? currentFollowing : otherFollowing
+  const followedUsers = isSameUser ? currentFollowing : otherFollowing
 
-  return followed.length !== 0 ? (
+  return followedUsers.length !== 0 ? (
     <ul className="w-full">
-      {/* {following.map((follower) => (
-        <Follower follower={follower} />
-      ))} */}
+      {followedUsers.map((user) => (
+        <Followed followed={user} />
+      ))}
     </ul>
   ) : (
     <div className="w-full">
