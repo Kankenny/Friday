@@ -21,10 +21,11 @@ export const queryTimelineReducer = (
     post.title.toLowerCase().includes(query)
   )
 
-  return {
-    ...state,
-    queriedPosts: filteredPosts,
-    didQuery: true,
+  state.queriedPosts = filteredPosts
+  if (query.length === 0) {
+    state.didQuery = false
+  } else {
+    state.didQuery = true
   }
 }
 
