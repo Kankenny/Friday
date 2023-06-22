@@ -9,9 +9,10 @@ import {
   followUser,
   unfollowUser,
 } from "../../../lib/store/slices/same-profile-slice/sameProfileSlice"
+import { ProfileSliceType } from "../../../lib/types/slice-types/ProfileSliceType"
 
 type Props = {
-  user: UserType
+  user: UserType | ProfileSliceType
 }
 
 const FollowAction = ({ user }: Props) => {

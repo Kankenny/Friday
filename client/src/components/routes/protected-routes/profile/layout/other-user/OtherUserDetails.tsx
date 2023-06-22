@@ -2,10 +2,11 @@ import { Link } from "react-router-dom"
 import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useTypedSelector"
 import Card from "../../../../../ui/Card"
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"
+import FollowAction from "../../../../../ui/user/FollowAction"
 
 const OtherUserDetails = () => {
-  const { username, email, firstName, lastName, followers, following } =
-    useTypedSelector((state) => state.otherProfile)
+  const user = useTypedSelector((state) => state.otherProfile)
+  const { username, email, firstName, lastName, followers, following } = user
 
   return (
     <Card twClasses="p-5 flex flex-col gap-2 w-full">
@@ -31,6 +32,9 @@ const OtherUserDetails = () => {
             {following.length} following
           </span>
         </Link>
+      </div>
+      <div className="mx-auto">
+        <FollowAction user={user} />
       </div>
     </Card>
   )
