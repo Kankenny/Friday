@@ -24,7 +24,7 @@ const BlockAction = ({ user }: Props) => {
   const isSameUser = currentUsername === user.username
 
   const isAlreadyBlocked = currBlocked.includes(user)
-  const buttonText = isAlreadyBlocked ? "Blocked" : "block"
+  const buttonText = isAlreadyBlocked ? "Blocked" : "Block"
 
   const dispatch = useDispatch()
   const handleBlockOrUnblockClick = async () => {

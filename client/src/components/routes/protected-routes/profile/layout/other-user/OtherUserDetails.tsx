@@ -3,6 +3,7 @@ import { useTypedSelector } from "../../../../../../lib/hooks/redux-hook/useType
 import Card from "../../../../../ui/Card"
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"
 import FollowAction from "../../../../../ui/user/FollowAction"
+import BlockAction from "../../../../../ui/user/BlockAction"
 
 const OtherUserDetails = () => {
   const user = useTypedSelector((state) => state.otherProfile)
@@ -33,8 +34,9 @@ const OtherUserDetails = () => {
           </span>
         </Link>
       </div>
-      <div className="mx-auto">
+      <div className="space-x-2">
         <FollowAction user={user} />
+        <BlockAction user={user} />
       </div>
     </Card>
   )
