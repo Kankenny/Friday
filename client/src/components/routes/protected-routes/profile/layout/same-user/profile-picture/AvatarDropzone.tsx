@@ -25,9 +25,15 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
       setSelectedFile(acceptedFiles[0])
     },
   })
+  console.log(profilePicture)
 
   const handleSubmit = async () => {
     setIsLoading(true)
+    const isOverwritingProfilePicture = Boolean(profilePicture)
+    if (isOverwritingProfilePicture) {
+      const pfpPublicId = profilePicture
+    }
+
     if (selectedFile) {
       const formData = new FormData()
       formData.append("file", selectedFile)
