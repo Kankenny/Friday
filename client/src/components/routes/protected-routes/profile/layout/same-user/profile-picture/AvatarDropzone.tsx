@@ -27,7 +27,6 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
   })
 
   const handleSubmit = async () => {
-    setIsLoading(true)
     if (selectedFile) {
       const formData = new FormData()
       formData.append("file", selectedFile)
