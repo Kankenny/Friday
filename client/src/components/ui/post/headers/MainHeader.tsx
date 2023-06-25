@@ -28,7 +28,7 @@ const MainHeader = ({
     : 0
 
   return (
-    <div className="flex w-full items-center p-1">
+    <div className="flex w-full items-center p-1 pt-0">
       <div
         className="w-full group p-2"
         onClick={() => setIsExpanded(!isExpanded)}

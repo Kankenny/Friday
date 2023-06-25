@@ -24,7 +24,7 @@ const PostSchema = new Schema(
     color: {
       type: String,
       required: false,
-      default: "blue",
+      default: "#9900ef",
     },
     category: {
       type: String,
