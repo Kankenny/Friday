@@ -27,7 +27,7 @@ const Post = ({ post }: Props) => {
               "border border-secondary hover:bg-secondary hover:text-white ease-in-out caret-transparent "
             } duration-300`}
           >
-            <div className="bg-red-500 h-3 rounded-t-sm"></div>
+            <div className="bg-red-500 h-2 rounded-t-sm"></div>
             <MainHeader
               setIsExpanded={setIsExpanded}
               setIsEditing={setIsEditing}
