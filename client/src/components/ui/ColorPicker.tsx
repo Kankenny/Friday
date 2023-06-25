@@ -2,8 +2,12 @@
 import { TwitterPicker } from "react-color"
 import { useState } from "react"
 
-const ColorPicker = () => {
-  const [color, setColor] = useState("fff")
+type Props = {
+  initialColor: string
+}
+
+const ColorPicker = ({ initialColor }: Props) => {
+  const [color, setColor] = useState(initialColor)
 
   const handleColorChange = (color: any) => {
     setColor(color)

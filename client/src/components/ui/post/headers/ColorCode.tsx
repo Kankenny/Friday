@@ -2,7 +2,11 @@ import ColorPicker from "../../ColorPicker"
 import { useState, useRef } from "react"
 import Popper from "@mui/material/Popper"
 
-const ColorCode = () => {
+type Props = {
+  color: string
+}
+
+const ColorCode = ({ color }: Props) => {
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
 
@@ -13,7 +17,7 @@ const ColorCode = () => {
       ref={anchorRef}
     >
       <Popper open={open} anchorEl={anchorRef.current}>
-        <ColorPicker />
+        <ColorPicker initialColor={color} />
       </Popper>
     </div>
   )

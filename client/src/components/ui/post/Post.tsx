@@ -28,7 +28,7 @@ const Post = ({ post }: Props) => {
               "border border-secondary hover:bg-secondary hover:text-white ease-in-out caret-transparent "
             } duration-300`}
           >
-            <ColorCode />
+            <ColorCode color={post.color} />
             <MainHeader
               setIsExpanded={setIsExpanded}
               setIsEditing={setIsEditing}
