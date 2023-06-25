@@ -6,7 +6,6 @@ import authAPI from "../../../../../../../lib/services/axios-instances/authAPI"
 import { changeProfilePicture } from "../../../../../../../lib/store/slices/same-profile-slice/sameProfileSlice"
 import { useDispatch } from "react-redux"
 import { LinearProgress } from "@mui/material"
-import { getPFPPublicId } from "../../../../../../../lib/util/util"
 
 type Props = {
   firstName: string
@@ -28,14 +27,6 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
   })
 
   const handleSubmit = async () => {
-    if (profilePicture) {
-      const pfpPublicId = getPFPPublicId(profilePicture)
-      const { data } = await cloudinaryAPI.delete("", {
-        data: { public_id: pfpPublicId },
-      })
-      console.log(data)
-    }
-
     if (selectedFile) {
       const formData = new FormData()
       formData.append("file", selectedFile)
