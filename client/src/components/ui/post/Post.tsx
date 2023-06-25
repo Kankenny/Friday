@@ -7,6 +7,7 @@ import Tasks from "./tasks/Tasks"
 import { PostType } from "../../../lib/types/primitive-types/PostType"
 import EditPostForm from "./headers/post-menu/EditPostForm"
 import { calculateRating } from "../../../lib/util/util"
+import ColorCode from "./headers/ColorCode"
 
 type Props = {
   post: PostType
@@ -27,7 +28,7 @@ const Post = ({ post }: Props) => {
               "border border-secondary hover:bg-secondary hover:text-white ease-in-out caret-transparent "
             } duration-300`}
           >
-            <div className="bg-red-500 h-2 rounded-t-sm"></div>
+            <ColorCode />
             <MainHeader
               setIsExpanded={setIsExpanded}
               setIsEditing={setIsEditing}
