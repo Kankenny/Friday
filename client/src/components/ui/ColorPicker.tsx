@@ -4,18 +4,21 @@ import { useState } from "react"
 import { isAxiosError } from "axios"
 import { useDispatch } from "react-redux"
 import { setFeedback } from "../../lib/store/slices/feedback-slice/feedbackSlice"
+import { ClickAwayListener } from "@mui/material"
 import postAPI from "../../lib/services/axios-instances/postAPI"
 
 type Props = {
   initialColor: string
   postId: string
   handleParentColorChange: (color: any) => void
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ColorPicker = ({
   initialColor,
   postId,
   handleParentColorChange,
+  setOpen,
 }: Props) => {
   const [color, setColor] = useState(initialColor)
   const dispatch = useDispatch()
@@ -46,7 +49,11 @@ const ColorPicker = ({
     }
   }
 
-  return <TwitterPicker onChange={handleColorChange} color={color} />
+  return (
+    <ClickAwayListener onClickAway={() => setOpen(false)}>
+      <TwitterPicker onChange={handleColorChange} color={color} />
+    </ClickAwayListener>
+  )
 }
 
 export default ColorPicker

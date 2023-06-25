@@ -28,6 +28,7 @@ const ColorCode = ({ initialColor, postId }: Props) => {
           initialColor={initialColor}
           postId={postId}
           handleParentColorChange={handleColorChange}
+          setOpen={setOpen}
         />
       </Popper>
     </div>
