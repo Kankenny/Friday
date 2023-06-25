@@ -13,6 +13,7 @@ import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import { createSubtask } from "../../../../lib/store/slices/timeline-slice/timelineSlice"
 import { isAxiosError } from "axios"
 import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
 
 type Props = {
   post: PostType
@@ -20,6 +21,7 @@ type Props = {
 }
 
 const NewSubtaskInput = ({ post, task }: Props) => {
+  const { _id: authUserId } = useTypedSelector((state) => state.sameProfile)
   const dispatch = useDispatch()
 
   const {
@@ -70,6 +72,12 @@ const NewSubtaskInput = ({ post, task }: Props) => {
     }
   }, [errors.title?.message, isSubmitSuccessful, dispatch])
 
+  const isCurrUserAuthorized =
+    post.authorization === "public" ||
+    (post.authorization === "private" &&
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
+
   return (
     <div className="border border-secondary p-2 pl-9 text-sm">
       <form
@@ -82,8 +90,11 @@ const NewSubtaskInput = ({ post, task }: Props) => {
         <input
           type="text"
           placeholder="Add Subtask"
-          className="bg-transparent px-2 h-full outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out"
+          className={`bg-transparent px-2 h-full outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out ${
+            !isCurrUserAuthorized && "cursor-not-allowed"
+          }`}
           {...register("title")}
+          readOnly={!isCurrUserAuthorized}
         />
       </form>
     </div>

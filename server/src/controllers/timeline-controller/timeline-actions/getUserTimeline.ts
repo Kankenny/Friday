@@ -101,12 +101,9 @@ export const getUserTimeline = async (req: JWTRequest, res: Response) => {
     })
     const uniquePosts = Array.from(uniquePostsMap.values())
 
-    // Randomize the order of the unique posts
-    const randomizedPosts = uniquePosts.sort(() => Math.random() - 0.5)
-
     res.status(200).json({
       message: "User timeline successfully fetched!",
-      data: randomizedPosts,
+      data: uniquePosts,
       ok: true,
     })
   } catch (error) {

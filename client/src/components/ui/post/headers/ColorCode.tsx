@@ -1,13 +1,19 @@
 import ColorPicker from "../../ColorPicker"
 import { useState, useRef } from "react"
 import Popper from "@mui/material/Popper"
+import { useTypedSelector } from "../../../../lib/hooks/redux-hook/useTypedSelector"
+import { PostType } from "../../../../lib/types/primitive-types/PostType"
+import { useDispatch } from "react-redux"
+import { setFeedback } from "../../../../lib/store/slices/feedback-slice/feedbackSlice"
 
 type Props = {
   initialColor: string
-  postId: string
+  post: PostType
 }
 
-const ColorCode = ({ initialColor, postId }: Props) => {
+const ColorCode = ({ initialColor, post }: Props) => {
+  const dispatch = useDispatch()
+  const { _id: authUserId } = useTypedSelector((state) => state.sameProfile)
   const [color, setColor] = useState(initialColor)
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
@@ -16,17 +22,37 @@ const ColorCode = ({ initialColor, postId }: Props) => {
     setColor(color)
   }
 
+  const isCurrUserAuthorized =
+    post.authorization === "public" ||
+    (post.authorization === "private" &&
+      post.authorizedUsers.some((user) => user._id === authUserId)) ||
+    post.creatorId._id === authUserId
+
+  const handleOpenColorPicker = () => {
+    if (!isCurrUserAuthorized) {
+      dispatch(
+        setFeedback({
+          feedbackMessage: "Unauthorized Request, You cannot update this post!",
+          feedbackType: "error",
+        })
+      )
+      return
+    }
+
+    setOpen(!open)
+  }
+
   return (
     <div
       style={{ backgroundColor: color }}
       className={`h-2 rounded-t-sm`}
-      onClick={() => setOpen(!open)}
+      onClick={handleOpenColorPicker}
       ref={anchorRef}
     >
       <Popper open={open} anchorEl={anchorRef.current}>
         <ColorPicker
           initialColor={initialColor}
-          postId={postId}
+          postId={post._id}
           handleParentColorChange={handleColorChange}
           setOpen={setOpen}
         />
