@@ -4,7 +4,7 @@ const PostSkeleton = () => {
       <div className="space-y-1">
         <div
           className="p-2 rounded-md shadow-md
-          border border-secondary cursor-not-allowed h-[5.1rem] space-y-2 caret-transparent"
+          border border-secondary cursor-not-allowed h-[5.2rem] space-y-2 caret-transparent"
         >
           <div className="flex justify-between">
             <div className="w-1/3 h-5 bg-gray-300 rounded-md animate-pulse"></div>
