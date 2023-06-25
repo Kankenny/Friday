@@ -3,21 +3,31 @@ import { useState, useRef } from "react"
 import Popper from "@mui/material/Popper"
 
 type Props = {
-  color: string
+  initialColor: string
+  postId: string
 }
 
-const ColorCode = ({ color }: Props) => {
+const ColorCode = ({ initialColor, postId }: Props) => {
+  const [color, setColor] = useState(initialColor)
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
 
+  const handleColorChange = (color: string) => {
+    setColor(color)
+  }
+
   return (
     <div
-      className="bg-red-500 h-2 rounded-t-sm"
+      className={`bg-[${color}] h-2 rounded-t-sm`}
       onClick={() => setOpen(!open)}
       ref={anchorRef}
     >
       <Popper open={open} anchorEl={anchorRef.current}>
-        <ColorPicker initialColor={color} />
+        <ColorPicker
+          initialColor={initialColor}
+          postId={postId}
+          handleParentColorChange={handleColorChange}
+        />
       </Popper>
     </div>
   )
