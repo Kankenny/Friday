@@ -18,7 +18,8 @@ const ColorCode = ({ initialColor, postId }: Props) => {
 
   return (
     <div
-      className={`bg-[${color}] h-2 rounded-t-sm`}
+      style={{ backgroundColor: color }}
+      className={`h-2 rounded-t-sm`}
       onClick={() => setOpen(!open)}
       ref={anchorRef}
     >
