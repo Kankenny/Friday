@@ -142,7 +142,7 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
             ref={anchorRef}
             onClick={handleToggle}
             disabled={!isCurrUserAuthorized}
-            className={`w-full h-full uppercase flex-grow border border-secondary p-2 text-sm hover:text-secondary duration-200 ${
+            className={`border-secondary hover:text-secondary h-full w-full flex-grow border p-2 text-sm uppercase duration-200 ${
               priorityColor[currPriority]
             } ${
               isCurrUserAuthorized ? "cursor-pointer" : "cursor-not-allowed"
@@ -168,7 +168,7 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
                 placement === "bottom" ? "left top" : "left bottom",
             }}
           >
-            <Paper className="bg-blue-50 border border-secondary">
+            <Paper className="border-secondary border bg-blue-50">
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
@@ -179,19 +179,19 @@ const PriorityCell = ({ post, task, subtask, priority, isTaskCell }: Props) => {
                 >
                   <MenuItem
                     onClick={() => handleUpdatePiority("low")}
-                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["low"]}`}
+                    className={`text-secondary flex justify-center text-sm uppercase ${priorityColor["low"]}`}
                   >
                     Low
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleUpdatePiority("medium")}
-                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["medium"]}`}
+                    className={`text-secondary flex justify-center text-sm uppercase ${priorityColor["medium"]}`}
                   >
                     Med
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleUpdatePiority("high")}
-                    className={`flex justify-center uppercase text-sm text-secondary ${priorityColor["high"]}`}
+                    className={`text-secondary flex justify-center text-sm uppercase ${priorityColor["high"]}`}
                   >
                     High
                   </MenuItem>

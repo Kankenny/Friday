@@ -8,7 +8,7 @@ type Props = {
 
 const AppContainer = ({ children }: Props) => {
   return (
-    <div className="bg-blue-50 text-black tracking-tight overflow-x-hidden dark:bg-black dark:text-primary duration-700 ease-in-out">
+    <div className="dark:text-primary overflow-x-hidden bg-blue-50 tracking-tight text-black duration-700 ease-in-out dark:bg-black">
       {children}
       <FixedScrollToTop />
       <Feedback />

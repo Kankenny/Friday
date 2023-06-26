@@ -30,7 +30,7 @@ const MainHeader = ({
   return (
     <div className="flex w-full items-center p-1 pt-0">
       <div
-        className="w-full group p-2"
+        className="group w-full p-2"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex justify-between">
@@ -42,22 +42,22 @@ const MainHeader = ({
                 }`}
               />
             </Tooltip>
-            <h1 className="font-semibold text-lg">{post.title}</h1>
+            <h1 className="text-lg font-semibold">{post.title}</h1>
           </div>
           <div className="flex items-center gap-1">
             <VisibilityIcon visibility={post.visibility} />
           </div>
         </div>
-        <div className="flex justify-between items-center pl-6">
+        <div className="flex items-center justify-between pl-6">
           <div className="flex items-center gap-2">
             <CategoryIcon category={post.category} />
-            <h1 className="font-light text-sm">
+            <h1 className="text-sm font-light">
               {post.tasks.length} Tasks | {subtasksLength} Subtasks |{" "}
               {post.comments.length} comments
             </h1>
           </div>
           <Link
-            className="font-light text-sm underline duration-200 ease-in-out hover:text-tertiary hover:decoration-tertiary"
+            className="hover:text-tertiary hover:decoration-tertiary text-sm font-light underline duration-200 ease-in-out"
             to={`/users/${post.creatorUsername}/posts`}
           >
             By {post.creatorUsername}

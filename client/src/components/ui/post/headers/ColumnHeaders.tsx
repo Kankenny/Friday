@@ -1,16 +1,16 @@
 const ColumnHeaders = () => {
   return (
-    <div className="flex justify-between text-center font-semibold ">
-      <h1 className="flex-grow max-w-[45%] bg-secondary text-tertiary border border-secondary border-r-tertiary p-2 rounded-tl-md text-sm">
+    <div className="flex justify-between text-center font-semibold">
+      <h1 className="bg-secondary text-tertiary border-secondary border-r-tertiary max-w-[45%] flex-grow rounded-tl-md border p-2 text-sm">
         Task
       </h1>
-      <h1 className="flex-grow max-w-[25%] bg-secondary text-tertiary border border-secondary border-x-tertiary p-2 text-sm">
+      <h1 className="bg-secondary text-tertiary border-secondary border-x-tertiary max-w-[25%] flex-grow border p-2 text-sm">
         Progress
       </h1>
-      <h1 className="flex-grow max-w-[10%] bg-secondary text-tertiary border border-secondary border-x-tertiary p-2 text-sm">
+      <h1 className="bg-secondary text-tertiary border-secondary border-x-tertiary max-w-[10%] flex-grow border p-2 text-sm">
         Priority
       </h1>
-      <h1 className="flex-grow max-w-[20%] bg-secondary text-tertiary border border-secondary border-l-tertiary p-2 rounded-tr-md text-sm">
+      <h1 className="bg-secondary text-tertiary border-secondary border-l-tertiary max-w-[20%] flex-grow rounded-tr-md border p-2 text-sm">
         Due Date
       </h1>
     </div>

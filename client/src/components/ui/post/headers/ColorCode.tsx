@@ -45,7 +45,7 @@ const ColorCode = ({ initialColor, post }: Props) => {
   return (
     <div
       style={{ backgroundColor: color }}
-      className={`h-2 rounded-t-sm`}
+      className="h-2 rounded-t-sm"
       onClick={handleOpenColorPicker}
       ref={anchorRef}
     >

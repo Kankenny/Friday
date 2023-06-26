@@ -7,7 +7,7 @@ type Props = {
 
 const Overview = ({ children, twClasses }: Props) => {
   return (
-    <div className={`flex flex-col text-center text-secondary ${twClasses}`}>
+    <div className={`text-secondary flex flex-col text-center ${twClasses}`}>
       {children}
     </div>
   )

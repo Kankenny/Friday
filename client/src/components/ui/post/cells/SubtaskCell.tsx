@@ -106,7 +106,7 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
     post.creatorId._id === authUserId
 
   return (
-    <div className="border-secondary border p-2 pl-10 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center flex-grow">
+    <div className="border-secondary hover:bg-secondary hover:text-main flex flex-grow cursor-pointer items-center border p-2 pl-10 text-left text-sm duration-200">
       <SubdirectoryArrowRightOutlinedIcon className="h-5 w-5" />
       {!isEditing || !isCurrUserAuthorized ? (
         <Tooltip
@@ -116,16 +116,16 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
               : "You are unauthorized to edit this subtask"
           }
         >
-          <div className="flex justify-between items-center w-full">
+          <div className="flex w-full items-center justify-between">
             <h1
               onClick={() => setIsEditing(true)}
-              className="min-w-[5em] h-full"
+              className="h-full min-w-[5em]"
             >
               {subtask.title}
             </h1>
             <ClearIcon
               onClick={handleDeleteSubtask}
-              className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out"
+              className="rounded-full p-1 transition duration-200 ease-in-out hover:bg-red-500"
             />
           </div>
         </Tooltip>
@@ -135,7 +135,7 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
             <input
               type="text"
               placeholder={subtask.title}
-              className="bg-transparent h-full px-2 outline-none text-secondary rounded-md hover:text-main hover:outline-tertiary"
+              className="text-secondary hover:text-main hover:outline-tertiary h-full rounded-md bg-transparent px-2 outline-none"
               {...register("title")}
             />
           </form>

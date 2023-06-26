@@ -9,7 +9,7 @@ type Props = {
 const RouterDiv = ({ children, to }: Props) => {
   return (
     <Link to={to}>
-      <div className="text-main font-bold text-lg">{children}</div>
+      <div className="text-main text-lg font-bold">{children}</div>
     </Link>
   )
 }

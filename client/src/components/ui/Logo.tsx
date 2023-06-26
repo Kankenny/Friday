@@ -43,7 +43,7 @@ const Logo = () => {
         />
       </svg>
       <h1
-        className={`text-2xl font-extrabold tracking-wide hover:text-tertiary duration-200 ${
+        className={`hover:text-tertiary text-2xl font-extrabold tracking-wide duration-200 ${
           isLoggedIn && "text-tertiary"
         }`}
       >
