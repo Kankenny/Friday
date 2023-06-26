@@ -67,10 +67,10 @@ const RegisterForm = () => {
         className="flex flex-col gap-5 space-y-5"
         onSubmit={handleSubmit(registerUserHandler)}
       >
-        <div className="flex flex-col gap-5 pb-10 border-b-2 border-b-secondary">
+        <div className="border-b-secondary flex flex-col gap-5 border-b-2 pb-10">
           <div className="flex items-center gap-5">
-            <Person2OutlinedIcon className="rounded-full bg-tertiary p-2 text-primary h-10 w-auto" />
-            <h1 className="font-semibold text-lg">
+            <Person2OutlinedIcon className="bg-tertiary text-primary h-10 w-auto rounded-full p-2" />
+            <h1 className="text-lg font-semibold">
               Let's Get To Know You Better
             </h1>
           </div>
@@ -99,8 +99,8 @@ const RegisterForm = () => {
         </div>
         <div className="flex flex-col gap-5">
           <div className="flex items-center gap-5">
-            <SecurityOutlinedIcon className="rounded-full bg-tertiary p-2 text-primary h-10 w-auto" />
-            <h1 className="font-semibold text-lg">Protect Your Account</h1>
+            <SecurityOutlinedIcon className="bg-tertiary text-primary h-10 w-auto rounded-full p-2" />
+            <h1 className="text-lg font-semibold">Protect Your Account</h1>
           </div>
 
           <div className="flex">
@@ -121,7 +121,7 @@ const RegisterForm = () => {
             />
             <ConfirmPasswordTooltip />
           </div>
-          <div className="flex gap-5 items-center">
+          <div className="flex items-center gap-5">
             <RHFDropdownField
               name="Security Question"
               id="Security Question"
@@ -140,7 +140,7 @@ const RegisterForm = () => {
         </div>
         <RegisterButton />
       </form>
-      <div className="text-center  w-full flex flex-col p-2 md:flex-row space-x-0 md:space-x-3 justify-center mx-auto text-sm">
+      <div className="mx-auto  flex w-full flex-col justify-center space-x-0 p-2 text-center text-sm md:flex-row md:space-x-3">
         <h1>Already have an account?</h1>
         <RouterLink
           routerLinkText="Login here"
@@ -158,7 +158,7 @@ export default RegisterForm
 const RegisterButton = () => {
   return (
     <button
-      className={`p-4 text-secondary bg-tertiary rounded-lg duration-200 hover:bg-black hover:text-main hover:text-primary ease-in-out font-semibold text-md`}
+      className={`text-secondary bg-tertiary hover:text-main hover:text-primary text-md rounded-lg p-4 font-semibold duration-200 ease-in-out hover:bg-black`}
       type="submit"
     >
       Register

@@ -10,7 +10,7 @@ const FixedScrollToTop = () => {
 
   return (
     <div
-      className="z-20 bg-tertiary bottom-5 right-5 fixed p-4 rounded-full cursor-pointer border-2 border-secondary hover:scale-110 duration-200 ease-in-out opacity-50 hover:opacity-100 backdrop-blur-sm"
+      className="bg-tertiary border-secondary fixed bottom-5 right-5 z-20 cursor-pointer rounded-full border-2 p-4 opacity-50 backdrop-blur-sm duration-200 ease-in-out hover:scale-110 hover:opacity-100"
       onClick={scrollToTopHandler}
     >
       <VerticalAlignTopIcon />

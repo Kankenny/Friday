@@ -119,7 +119,7 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
     post.creatorId._id === authUserId
 
   return (
-    <div className="flex-grow w-[45%] max-w-[45%] border border-secondary p-2 text-sm text-left cursor-pointer hover:bg-secondary hover:text-main duration-200 flex items-center">
+    <div className="border-secondary hover:bg-secondary hover:text-main flex w-[45%] max-w-[45%] flex-grow cursor-pointer items-center border p-2 text-left text-sm duration-200">
       <ChevronRightOutlinedIcon
         onClick={() => setIsExpanded(!isExpanded)}
         className={`transform transition duration-200 ease-in-out ${
@@ -135,13 +135,13 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
               : "You are unauthorized to edit this task"
           }
         >
-          <div className="flex justify-between items-center w-full">
+          <div className="flex w-full items-center justify-between">
             <h1 onClick={() => setIsEditing(true)} className="h-full ">
               {task.title}
             </h1>
             <ClearIcon
               onClick={handleDeleteTask}
-              className="rounded-full hover:bg-red-500 p-1 transition duration-200 ease-in-out"
+              className="rounded-full p-1 transition duration-200 ease-in-out hover:bg-red-500"
             />
           </div>
         </Tooltip>
@@ -151,7 +151,7 @@ const TaskCell = ({ post, task, isExpanded, setIsExpanded }: Props) => {
             <input
               type="text"
               placeholder={task.title}
-              className="bg-transparent h-full px-4 outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out hover:text-main hover:outline-tertiary"
+              className="text-secondary hover:border-secondary hover:text-main hover:outline-tertiary h-full rounded-md bg-transparent px-4 outline-none duration-200 ease-in-out hover:border"
               {...register("title")}
             />
           </form>

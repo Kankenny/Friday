@@ -196,7 +196,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
           aria-expanded={open ? "true" : undefined}
           onClick={handleToggle}
         >
-          <MoreHorizOutlined className="rounded-full hover:bg-tertiary duration-200 ease-in-out text-md p-2 h-8 w-8" />
+          <MoreHorizOutlined className="hover:bg-tertiary text-md h-8 w-8 rounded-full p-2 duration-200 ease-in-out" />
         </Tooltip>
         {open && (
           <Popper
@@ -215,7 +215,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                     placement === "bottom-start" ? "left top" : "left bottom",
                 }}
               >
-                <Paper className="bg-blue-50 border border-secondary ">
+                <Paper className="border-secondary border bg-blue-50 ">
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       id="composition-menu"
@@ -225,7 +225,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                       {isPostOwner && (
                         <MenuItem
                           onClick={handleUsersClick}
-                          className="flex gap-4 items-center hover:bg-tertiary"
+                          className="hover:bg-tertiary flex items-center gap-4"
                         >
                           <PeopleIcon className="h-5 w-5" />
                           Users
@@ -234,7 +234,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                       {isCurrUserAuthorized && (
                         <MenuItem
                           onClick={handleEditPostClick}
-                          className="flex gap-4 items-center hover:bg-tertiary"
+                          className="hover:bg-tertiary flex items-center gap-4"
                         >
                           <EditIcon className="h-5 w-5" />
                           Edit
@@ -242,7 +242,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                       )}
                       <MenuItem
                         onClick={handleSaveClick}
-                        className="flex gap-4 items-center hover:bg-tertiary"
+                        className="hover:bg-tertiary flex items-center gap-4"
                       >
                         <SaveAltIcon className="h-5 w-5" />
                         Save
@@ -250,7 +250,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                       <MenuItem
                         onClick={handleCopyClick}
                         divider
-                        className="flex gap-4 items-center hover:bg-tertiary"
+                        className="hover:bg-tertiary flex items-center gap-4"
                       >
                         <ContentCopyIcon className="h-5 w-5" />
                         Copy
@@ -258,7 +258,7 @@ export default function PostMenu({ post, setIsEditing }: Props) {
                       {isCurrUserAuthorized && (
                         <MenuItem
                           onClick={handleDeleteClick}
-                          className="flex gap-4 items-center hover:bg-tertiary"
+                          className="hover:bg-tertiary flex items-center gap-4"
                         >
                           <DeleteIcon className="h-5 w-5" />
                           Delete

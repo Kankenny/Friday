@@ -45,7 +45,7 @@ const CommentsButton = ({ post }: Props) => {
   return (
     <div>
       <h1 className="cursor-pointer" onClick={toggleDrawer(true)}>
-        <CommentOutlinedIcon className="mr-2 opacity-100 h-5 w-5" />
+        <CommentOutlinedIcon className="mr-2 h-5 w-5 opacity-100" />
         Comments
       </h1>
       <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>

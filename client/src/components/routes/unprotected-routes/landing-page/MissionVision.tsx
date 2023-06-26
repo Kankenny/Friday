@@ -8,19 +8,19 @@ const vision =
 
 const MissionVision = () => {
   return (
-    <div className="mx-auto space-y-20 bg-secondary p-20">
+    <div className="bg-secondary mx-auto space-y-20 p-20">
       <Card twClasses="container mx-auto bg-secondary text-white">
-        <div className="flex flex-col md:flex-row items-center gap-10">
-          <h1 className="text-5xl font-bold text-tertiary h-full">
+        <div className="flex flex-col items-center gap-10 md:flex-row">
+          <h1 className="text-tertiary h-full text-5xl font-bold">
             Our Mission
           </h1>
-          <p className="text-xl leading-9 indent-14 text-justify">{mission}</p>
+          <p className="text-justify indent-14 text-xl leading-9">{mission}</p>
         </div>
       </Card>
       <Card twClasses="container mx-auto bg-secondary text-white">
-        <div className="flex flex-col-reverse md:flex-row items-center gap-10">
-          <p className="text-xl leading-9 indent-14 text-justify">{vision}</p>
-          <h1 className="text-5xl font-bold text-tertiary h-full">
+        <div className="flex flex-col-reverse items-center gap-10 md:flex-row">
+          <p className="text-justify indent-14 text-xl leading-9">{vision}</p>
+          <h1 className="text-tertiary h-full text-5xl font-bold">
             Our Vision
           </h1>
         </div>

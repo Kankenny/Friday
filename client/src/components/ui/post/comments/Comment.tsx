@@ -31,7 +31,7 @@ const Comment = ({ comment }: Props) => {
   return (
     <div className={`flex gap-2 ${isUserTheCommenter && "justify-end"}`}>
       <Avatar
-        className="text-secondary capitalize mt-1 cursor-pointer"
+        className="text-secondary mt-1 cursor-pointer capitalize"
         src={profilePicture}
         onClick={handleProfileVisit}
       >
@@ -39,7 +39,7 @@ const Comment = ({ comment }: Props) => {
       </Avatar>
       <div className={`flex flex-col ${isUserTheCommenter && "order-first"}`}>
         <div
-          className={`p-2 bg-gray-400 max-w-sm rounded-2xl text-secondary ${
+          className={`text-secondary max-w-sm rounded-2xl bg-gray-400 p-2 ${
             isUserTheCommenter && "self-end"
           }`}
         >
@@ -49,10 +49,10 @@ const Comment = ({ comment }: Props) => {
           >
             {firstName + " " + lastName}
           </h1>
-          <p className="font-light text-sm break-words">{body}</p>
+          <p className="break-words text-sm font-light">{body}</p>
         </div>
         <p
-          className={`font-extralight text-xs ml-1 mt-1 ${
+          className={`ml-1 mt-1 text-xs font-extralight ${
             isUserTheCommenter && "text-right"
           }`}
         >

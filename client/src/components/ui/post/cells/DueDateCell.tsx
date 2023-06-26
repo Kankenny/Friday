@@ -92,7 +92,7 @@ const DueDateCell = ({
       }
     >
       <div
-        className={`uppercase flex-grow max-w-[20%] border border-secondary text-sm  duration-200 bg-tertiary ${
+        className={`border-secondary bg-tertiary max-w-[20%] flex-grow border text-sm  uppercase duration-200 ${
           isCurrUserAuthorized
             ? "hover:bg-secondary cursor-pointer"
             : "cursor-not-allowed"

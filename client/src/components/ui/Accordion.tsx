@@ -17,16 +17,16 @@ const Accordion = ({ title, children }: Props) => {
 
   return (
     <div
-      className={`group bg-secondary text-main border border-secondary border-opacity-30 rounded-md overflow-hidden p-2 ${openAccordionClasses}`}
+      className={`bg-secondary text-main border-secondary group overflow-hidden rounded-md border border-opacity-30 p-2 ${openAccordionClasses}`}
     >
       <div
-        className="px-4 py-3 flex justify-between items-center cursor-pointer"
+        className="flex cursor-pointer items-center justify-between px-4 py-3"
         onClick={toggleAccordion}
       >
         <h2 className="text-lg font-extrabold">{title}</h2>
         <svg
           className={`${
-            isOpen ? "transform rotate-180 duration-300" : ""
+            isOpen ? "rotate-180 transform duration-300" : ""
           } h-7 w-7`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"

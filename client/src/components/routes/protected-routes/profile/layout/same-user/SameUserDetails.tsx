@@ -15,15 +15,15 @@ const SameUserDetails = () => {
 
   return (
     <Card twClasses="p-5 flex flex-col gap-5 w-full">
-      <div className="pb-5 border-b border-secondary">
-        <h1 className="font-bold text-xl">
+      <div className="border-secondary border-b pb-5">
+        <h1 className="text-xl font-bold">
           {firstName} {lastName}
         </h1>
         <h1 className="flex items-center gap-1">
           <span className="text-xs">@</span>
           <span className="underline">{username}</span>
         </h1>
-        <h1 className="font-extralight text-sm pb-5">{email}</h1>
+        <h1 className="pb-5 text-sm font-extralight">{email}</h1>
         {/* <StyledButton
           onClick={handleEditProfileClick}
           buttonText="Edit profile"
@@ -33,12 +33,12 @@ const SameUserDetails = () => {
       <div className="space-x-2">
         <PeopleAltOutlinedIcon />
         <Link to={`/users/${username}/followers`}>
-          <span className="hover:text-tertiary hover:underline duration-200 ease-in-out">
+          <span className="hover:text-tertiary duration-200 ease-in-out hover:underline">
             {followers.length} followers
           </span>
         </Link>
         <Link to={`/users/${username}/following`}>
-          <span className="hover:text-tertiary hover:underline duration-200 ease-in-out">
+          <span className="hover:text-tertiary duration-200 ease-in-out hover:underline">
             {following.length} following
           </span>
         </Link>

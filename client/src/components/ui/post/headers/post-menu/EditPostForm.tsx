@@ -77,7 +77,7 @@ const EditPostForm = ({ post, setIsEditing }: Props) => {
   return (
     <Card twClasses="relative p-5 border border-secondary space-y-2">
       <CancelIcon
-        className="absolute right-2 top-2 text-red-500 cursor-pointer select-none"
+        className="absolute right-2 top-2 cursor-pointer select-none text-red-500"
         onClick={() => setIsEditing(false)}
       />
       <form onSubmit={handleSubmit(handleUpdatePost)}>

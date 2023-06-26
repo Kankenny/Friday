@@ -4,9 +4,9 @@ import HomeNavigationTabs from "./HomeNavigationTabs"
 
 const HomeLayout = () => {
   return (
-    <div className="p-10 space-y-5">
+    <div className="space-y-5 p-10">
       <HomeNavigationTabs />
-      <div className="min-h-screen w-full flex">
+      <div className="flex min-h-screen w-full">
         <Outlet />
       </div>
     </div>

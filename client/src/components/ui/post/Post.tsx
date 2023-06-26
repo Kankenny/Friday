@@ -23,9 +23,9 @@ const Post = ({ post }: Props) => {
       {!isEditing ? (
         <div>
           <div
-            className={`rounded-md shadow-md cursor-pointer ${
+            className={`cursor-pointer rounded-md shadow-md ${
               !isExpanded &&
-              "border border-secondary hover:bg-secondary hover:text-white ease-in-out caret-transparent "
+              "border-secondary hover:bg-secondary border caret-transparent ease-in-out hover:text-white "
             } duration-300`}
           >
             <ColorCode initialColor={post.color} post={post} />
@@ -35,13 +35,13 @@ const Post = ({ post }: Props) => {
               isExpanded={isExpanded}
               post={post}
             />
-            <div className={`border rounded-md ${!isExpanded && "hidden"}`}>
+            <div className={`rounded-md border ${!isExpanded && "hidden"}`}>
               <ColumnHeaders />
               {post.tasks && <Tasks tasks={post.tasks} post={post} />}
               <PostActions post={post} />
             </div>
           </div>
-          <div className="text-xs flex justify-between px-2 py-0.5 text-gray-500">
+          <div className="flex justify-between px-2 py-0.5 text-xs text-gray-500">
             <p>{formattedDate}</p>
             <div className="flex gap-2">
               <h1 className="text-secondary">

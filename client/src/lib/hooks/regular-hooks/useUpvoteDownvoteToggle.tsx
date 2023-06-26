@@ -137,9 +137,9 @@ const useUpvoteDownvoteToggle = ({
       return (
         <ThumbUpIcon
           onClick={handleLike}
-          className={`cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110 ${
+          className={`hover:text-tertiary cursor-pointer duration-200 ease-in-out hover:scale-110 ${
             isButtonDisabled
-              ? "opacity-50 pointer-events-none cursor-not-allowed"
+              ? "pointer-events-none cursor-not-allowed opacity-50"
               : ""
           }`}
         />
@@ -148,9 +148,9 @@ const useUpvoteDownvoteToggle = ({
       return (
         <ThumbUpOffAltIcon
           onClick={handleLike}
-          className={`cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110 ${
+          className={`hover:text-tertiary cursor-pointer duration-200 ease-in-out hover:scale-110 ${
             isButtonDisabled
-              ? "opacity-50 pointer-events-none cursor-not-allowed"
+              ? "pointer-events-none cursor-not-allowed opacity-50"
               : ""
           }`}
         />
@@ -163,9 +163,9 @@ const useUpvoteDownvoteToggle = ({
       return (
         <ThumbDownIcon
           onClick={handleDislike}
-          className={`cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110 ${
+          className={`hover:text-tertiary cursor-pointer duration-200 ease-in-out hover:scale-110 ${
             isButtonDisabled
-              ? "opacity-50 pointer-events-none cursor-not-allowed"
+              ? "pointer-events-none cursor-not-allowed opacity-50"
               : ""
           }`}
         />
@@ -174,9 +174,9 @@ const useUpvoteDownvoteToggle = ({
       return (
         <ThumbDownOffAltIcon
           onClick={handleDislike}
-          className={`cursor-pointer hover:text-tertiary duration-200 ease-in-out hover:scale-110 ${
+          className={`hover:text-tertiary cursor-pointer duration-200 ease-in-out hover:scale-110 ${
             isButtonDisabled
-              ? "opacity-50 pointer-events-none cursor-not-allowed"
+              ? "pointer-events-none cursor-not-allowed opacity-50"
               : ""
           }`}
         />

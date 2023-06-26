@@ -54,7 +54,7 @@ const CategoryIcon = ({ category }: Props) => {
   }
 
   return (
-    <div className="flex items-center bg-secondary px-2 py-0.5 capitalize text-main rounded-md text-xs hover:bg-secondary hover:text-main max-w-fit h-7 gap-2">
+    <div className="bg-secondary text-main hover:bg-secondary hover:text-main flex h-7 max-w-fit items-center gap-2 rounded-md px-2 py-0.5 text-xs capitalize">
       {icon} {category}
     </div>
   )

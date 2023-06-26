@@ -76,7 +76,7 @@ const PostActions = ({ post }: Props) => {
     post.creatorId._id === authUserId
 
   return (
-    <div className="flex justify-between border border-secondary rounded-b-md text-sm p-2">
+    <div className="border-secondary flex justify-between rounded-b-md border p-2 text-sm">
       <form
         className="flex items-center"
         onSubmit={handleSubmit(handleNewTaskSubmit)}
@@ -94,9 +94,9 @@ const PostActions = ({ post }: Props) => {
           <input
             type="text"
             placeholder="Add Task"
-            className={`px-2 bg-transparent h-full outline-none text-secondary rounded-md duration-200 ease-in-out ${
+            className={`text-secondary h-full rounded-md bg-transparent px-2 outline-none duration-200 ease-in-out ${
               isCurrUserAuthorized
-                ? "hover:border hover:border-secondary"
+                ? "hover:border-secondary hover:border"
                 : "cursor-not-allowed"
             }`}
             readOnly={!isCurrUserAuthorized}
@@ -105,7 +105,7 @@ const PostActions = ({ post }: Props) => {
         </Tooltip>
       </form>
 
-      <div className="flex items-center gap-10 select-none">
+      <div className="flex select-none items-center gap-10">
         <div className="flex items-center gap-2">
           <h1 className="text-gray-600">
             {dynamicSizedComments.length !== 0

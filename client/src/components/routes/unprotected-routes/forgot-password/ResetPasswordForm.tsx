@@ -62,7 +62,7 @@ const ResetPasswordForm = ({ username }: Props) => {
         className="flex flex-col gap-5"
         onSubmit={handleSubmit(resetPasswordHandler)}
       >
-        <h1 className="text-center text-sm mb-10">Reset your password</h1>
+        <h1 className="mb-10 text-center text-sm">Reset your password</h1>
         <RHFPasswordField
           label="New Password"
           register={register("newPassword")}
@@ -85,7 +85,7 @@ export default ResetPasswordForm
 const SubmitButton = () => {
   return (
     <button
-      className={`w-full mt-4 p-4 rounded-lg duration-200 hover:bg-secondary ease-in-out bg-tertiary text-secondary hover:text-main font-bold text-sm dark:bg-secondary dark:hover:bg-tertiary`}
+      className={`hover:bg-secondary bg-tertiary text-secondary hover:text-main dark:bg-secondary dark:hover:bg-tertiary mt-4 w-full rounded-lg p-4 text-sm font-bold duration-200 ease-in-out`}
       type="submit"
     >
       Reset Password

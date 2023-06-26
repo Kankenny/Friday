@@ -10,41 +10,41 @@ import DatePicker from "../../../ui/mui/DatePicker"
 
 const Playground = () => {
   return (
-    <div className="flex justify-center flex-col items-center">
+    <div className="flex flex-col items-center justify-center">
       <Overview>
         <h1 className="text-4xl font-extrabold">
           This playground route is for dev purposes only
         </h1>
       </Overview>
 
-      <div className="w-full space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-full space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">
           TW CSS Skinned MUI Date Picker Component
         </h1>
         <DatePicker />
       </div>
 
-      <div className="w-full space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-full space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">Post Skeleton Component</h1>
         <PostSkeleton />
       </div>
 
-      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-96 space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">Logo Component</h1>
         <Logo />
       </div>
 
-      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-96 space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">StyledInput Component</h1>
         <StyledInput placeholder="Some Label" name="Some Label" type="text" />
       </div>
 
-      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-96 space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">Card Component</h1>
         <Card>Some Content</Card>
       </div>
 
-      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-96 space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">StyledButton Component</h1>
         <div className="flex space-x-10">
           <StyledButton
@@ -60,12 +60,12 @@ const Playground = () => {
         </div>
       </div>
 
-      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-96 space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">StyledLink Component</h1>
         <StyledLink href="add link here" linkText="Link" />
       </div>
 
-      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-96 space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">Accordion Component</h1>
         <Accordion title="Some Title">
           <h1>Some Heading</h1>
@@ -73,7 +73,7 @@ const Playground = () => {
         </Accordion>
       </div>
 
-      <div className="w-96 space-y-4 border-b-2 border-b-black mb-10 p-5">
+      <div className="mb-10 w-96 space-y-4 border-b-2 border-b-black p-5">
         <h1 className="text-2xl font-bold">Overview Component</h1>
         <Overview twClasses="space-y-5">
           <h1 className="text-lg font-bold capitalize">

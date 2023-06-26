@@ -16,8 +16,8 @@ const ChangePFPDialog = ({
 }: Props) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <div className="py-16 px-32 space-y-16 flex flex-col items-center">
-        <div className="text-3xl font-bold text-secondary text-center">
+      <div className="flex flex-col items-center space-y-16 px-32 py-16">
+        <div className="text-secondary text-center text-3xl font-bold">
           <h1>Set Profile Picture</h1>
           <p className="text-sm font-light">Select or drag an image here</p>
         </div>

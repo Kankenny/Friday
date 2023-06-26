@@ -142,7 +142,7 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
           <button
             ref={anchorRef}
             onClick={handleToggle}
-            className={`w-full h-full uppercase border border-secondary p-2 text-sm hover:text-secondary duration-200 ${
+            className={`border-secondary hover:text-secondary h-full w-full border p-2 text-sm uppercase duration-200 ${
               progressColor[currProgress]
             } ${
               isCurrUserAuthorized ? "cursor-pointer" : "cursor-not-allowed"
@@ -169,36 +169,36 @@ const ProgressCell = ({ post, task, subtask, progress, isTaskCell }: Props) => {
                 placement === "bottom" ? "left top" : "left bottom",
             }}
           >
-            <Paper className="bg-blue-50 border border-secondary rounded-md">
+            <Paper className="border-secondary rounded-md border bg-blue-50">
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
                   id="composition-menu"
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
-                  className="py-0 rounded-md"
+                  className="rounded-md py-0"
                 >
                   <MenuItem
                     onClick={() => handleUpdateProgress("done")}
-                    className={`flex justify-center uppercase text-sm ${progressColor["done"]}`}
+                    className={`flex justify-center text-sm uppercase ${progressColor["done"]}`}
                   >
                     <h1>Done</h1>
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleUpdateProgress("working on it")}
-                    className={`flex justify-center uppercase text-sm ${progressColor["working on it"]}`}
+                    className={`flex justify-center text-sm uppercase ${progressColor["working on it"]}`}
                   >
                     <h1>Working on it</h1>
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleUpdateProgress("stuck")}
-                    className={`flex justify-center uppercase text-sm ${progressColor["stuck"]}`}
+                    className={`flex justify-center text-sm uppercase ${progressColor["stuck"]}`}
                   >
                     <h1>Stuck</h1>
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleUpdateProgress("untouched")}
-                    className={`flex justify-center uppercase text-sm ${progressColor["untouched"]}`}
+                    className={`flex justify-center text-sm uppercase ${progressColor["untouched"]}`}
                   >
                     <h1>Untouched</h1>
                   </MenuItem>

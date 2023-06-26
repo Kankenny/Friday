@@ -39,7 +39,7 @@ function ButtonField(props: ButtonFieldProps) {
       ref={ref}
       aria-label={ariaLabel}
       onClick={() => setOpen?.((prev) => !prev)}
-      className="w-full text-secondary hover:text-main font-sans"
+      className="text-secondary hover:text-main w-full font-sans"
     >
       {label ?? "Pick a date"}
     </Button>
