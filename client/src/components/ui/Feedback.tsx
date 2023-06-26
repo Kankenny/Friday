@@ -28,7 +28,7 @@ export default function Feedback() {
       onClose={handleClose}
     >
       <div
-        className={`px-6 py-3 rounded-md text-secondary shadow-xl z-10 ${
+        className={`text-secondary z-10 rounded-md px-6 py-3 shadow-xl ${
           feedbackType === "success" ? "bg-tertiary" : "bg-red-500"
         }`}
       >

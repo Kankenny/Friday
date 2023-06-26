@@ -103,7 +103,7 @@ export default LoginForm
 const LoginButton = () => {
   return (
     <button
-      className={`p-4 text-secondary bg-tertiary rounded-lg duration-200 hover:bg-black hover:text-primary ease-in-out font-semibold text-md hover:text-main`}
+      className={`text-secondary bg-tertiary hover:text-primary text-md hover:text-main rounded-lg p-4 font-semibold duration-200 ease-in-out hover:bg-black`}
       type="submit"
     >
       Log In
@@ -113,7 +113,7 @@ const LoginButton = () => {
 
 const RegisterLink = () => {
   return (
-    <div className="text-center w-full flex flex-col p-2 md:flex-row space-x-0 md:space-x-2 justify-center mx-auto text-sm text-secondary">
+    <div className="text-secondary mx-auto flex w-full flex-col justify-center space-x-0 p-2 text-center text-sm md:flex-row md:space-x-2">
       <h1>Don't have an account yet?</h1>
       <RouterLink
         routerLinkText="Register here"

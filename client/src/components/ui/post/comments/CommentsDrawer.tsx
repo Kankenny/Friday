@@ -13,12 +13,12 @@ type Props = {
 const CommentsDrawer = ({ post }: Props) => {
   return (
     <Box
-      className="w-[30em] lg:w-[50em] p-10 pb-0 min-h-screen bg-secondary text-main focus:outline-none flex flex-col justify-between"
+      className="bg-secondary text-main flex min-h-screen w-[30em] flex-col justify-between p-10 pb-0 focus:outline-none lg:w-[50em]"
       role="presentation"
     >
-      <div className="flex flex-col justify-between h-full">
+      <div className="flex h-full flex-col justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-tertiary pb-5 border-b border-main mb-5">
+          <h1 className="text-tertiary border-main mb-5 border-b pb-5 text-3xl font-bold">
             {post.title} — Comments
           </h1>
           <Comments />

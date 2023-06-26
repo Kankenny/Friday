@@ -12,13 +12,13 @@ const Headline = () => {
   }
 
   return (
-    <div className="container mx-auto flex flex-col md:flex-row items-center justify-center h-full text-center md:text-left">
-      <div className="bg-white p-16 space-y-10">
+    <div className="container mx-auto flex h-full flex-col items-center justify-center text-center md:flex-row md:text-left">
+      <div className="space-y-10 bg-white p-16">
         <h1 className="text-tertiary text-7xl font-bold">
           {head}
           {dayOfWeek}
         </h1>
-        <p className="text-gray-500 text-xl">{subhead}</p>
+        <p className="text-xl text-gray-500">{subhead}</p>
         <RouterLink
           routerLinkText="Let's Get Started"
           to="/app"

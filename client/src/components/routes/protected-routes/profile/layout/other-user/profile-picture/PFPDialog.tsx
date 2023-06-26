@@ -11,15 +11,15 @@ const PFPDialog = ({ firstName, profilePicture, open, onClose }: Props) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <div className="p-16">
-        <div className="w-96 h-96 flex justify-center items-center ">
+        <div className="flex h-96 w-96 items-center justify-center ">
           {profilePicture ? (
             <img
               src={profilePicture}
               alt="Profile Picture"
-              className="rounded-full object-cover w-full h-full"
+              className="h-full w-full rounded-full object-cover"
             />
           ) : (
-            <h1 className="text-9xl bg-gray-400 text-main select-none capitalize w-full h-full rounded-full flex items-center justify-center">
+            <h1 className="text-main flex h-full w-full select-none items-center justify-center rounded-full bg-gray-400 text-9xl capitalize">
               {firstName.charAt(0)}
             </h1>
           )}

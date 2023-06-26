@@ -6,7 +6,7 @@ export default function ConfirmPasswordTooltip() {
   return (
     <Tooltip
       title="Confirm password must match the password"
-      className="opacity-40 mb-4"
+      className="mb-4 opacity-40"
     >
       <IconButton>
         <PrivacyTipIcon />

@@ -30,7 +30,7 @@ const HomeNavigationTabs = () => {
       <Tab
         value="timeline"
         label="Timeline"
-        className={`font-semibold text-md ${
+        className={`text-md font-semibold ${
           value === "timeline" ? "text-tertiary" : "text-secondary"
         }`}
         onClick={handleTimelineClick}
@@ -38,7 +38,7 @@ const HomeNavigationTabs = () => {
       <Tab
         value="workspace"
         label="Workspace"
-        className={`font-semibold text-md ${
+        className={`text-md font-semibold ${
           value === "workspace" ? "text-tertiary" : "text-secondary"
         }`}
         onClick={handleWorkspaceClick}

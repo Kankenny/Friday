@@ -1,11 +1,11 @@
 const Features = () => {
   return (
-    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 m-8 text-xl text-tertiary text-center">
+    <div className="text-tertiary container m-8 mx-auto grid grid-cols-1 gap-4 text-center text-xl md:grid-cols-2 md:grid-rows-2">
       <div className="p-10">
         <img
           src="/list.gif"
           alt="checklist gif"
-          className="h-40 mx-auto min-w-[200px] hover:scale-110 duration-200 ease-in-out cursor-pointer"
+          className="mx-auto h-40 min-w-[200px] cursor-pointer duration-200 ease-in-out hover:scale-110"
         />
         <h1 className="text-secondary font-bold">Prioritize Your Tasks</h1>
         Easily create your to-do lists and set which tasks you'd like to
@@ -16,7 +16,7 @@ const Features = () => {
         <img
           src="/connected.gif"
           alt="connected gif"
-          className="h-40 mx-auto min-w-[200px] hover:scale-110 duration-200 ease-in-out cursor-pointer"
+          className="mx-auto h-40 min-w-[200px] cursor-pointer duration-200 ease-in-out hover:scale-110"
         />
         <h1 className="text-secondary font-bold">Connect With Others</h1>
         Choose which of your lists you'd like to share and have others join you
@@ -27,7 +27,7 @@ const Features = () => {
         <img
           src="/workflow.gif"
           alt="workflow gif"
-          className="h-40 mx-auto min-w-[200px] hover:scale-110 duration-200 ease-in-out cursor-pointer"
+          className="mx-auto h-40 min-w-[200px] cursor-pointer duration-200 ease-in-out hover:scale-110"
         />
         <h1 className="text-secondary font-bold">Work Seamlessly Together</h1>
         Integrate our service into your business and streamline your internal
@@ -38,7 +38,7 @@ const Features = () => {
         <img
           src="/password.gif"
           alt="password gif"
-          className="h-40 mx-auto min-w-[200px] hover:scale-110 duration-200 ease-in-out cursor-pointer"
+          className="mx-auto h-40 min-w-[200px] cursor-pointer duration-200 ease-in-out hover:scale-110"
         />
         <h1 className="text-secondary font-bold">Protect Your Ideas</h1>
         With our password protection feature, lock your lists and only give

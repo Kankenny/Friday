@@ -30,13 +30,13 @@ const Header = () => {
   return (
     <>
       <header
-        className={`bg-secondary w-full fixed z-50 duration-500  ${
+        className={`bg-secondary fixed z-50 w-full duration-500  ${
           isTop
             ? "bg-opacity-100 p-4"
-            : "bg-opacity-[90%] backdrop-filter backdrop-blur-sm px-2 py-1"
+            : "bg-opacity-[90%] px-2 py-1 backdrop-blur-sm backdrop-filter"
         }`}
       >
-        <div className="container mx-auto flex justify-between items-center ">
+        <div className="container mx-auto flex items-center justify-between ">
           <RouterDiv to={!isLoggedIn ? "/" : "/timeline"}>
             <Logo />
           </RouterDiv>
@@ -53,7 +53,7 @@ export default Header
 
 const UnauthenticatedHeader = () => {
   return (
-    <nav className="space-x-4 hidden md:block">
+    <nav className="hidden space-x-4 md:block">
       <RouterLink to="/timeline" routerLinkText="Home" twClasses="text-lg" />
       <RouterLink to="/login" routerLinkText="Login" twClasses="text-lg" />
       <RouterLink
@@ -67,7 +67,7 @@ const UnauthenticatedHeader = () => {
 
 const AuthenticatedHeader = () => {
   return (
-    <nav className="space-x-4 hidden md:flex md:items-center">
+    <nav className="hidden space-x-4 md:flex md:items-center">
       <RouterLink to="/timeline" routerLinkText="Home" twClasses="text-lg" />
       <NotificationMenu options={["test"]} />
       <AvatarMenu />

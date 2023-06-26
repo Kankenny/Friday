@@ -28,17 +28,17 @@ const UserPosts = () => {
 
   return (
     <div className="w-full">
-      <div className="flex items-center mb-10 gap-2">
-        <h1 className="text-3xl text-tertiary font-semibold">
+      <div className="mb-10 flex items-center gap-2">
+        <h1 className="text-tertiary text-3xl font-semibold">
           {isSameUser
             ? `Welcome back, ${sameUserFirstName}`
             : `${otherUserFirstName}'s posts`}
         </h1>
         <Tooltip
           title="Personal posts are hidden to every other user and private posts are only visible to users who follow you"
-          className="cursor-pointer bg-tertiary rounded-full p-1 text-secondary hover:bg-secondary hover:text-tertiary duration-200"
+          className="bg-tertiary text-secondary hover:bg-secondary hover:text-tertiary cursor-pointer rounded-full p-1 duration-200"
         >
-          <QuestionMarkIcon className="w-5 h-5" />
+          <QuestionMarkIcon className="h-5 w-5" />
         </Tooltip>
       </div>
       <ul className="space-y-10">

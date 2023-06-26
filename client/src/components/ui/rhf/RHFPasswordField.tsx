@@ -15,7 +15,7 @@ const RHFPasswordField = ({ label, register, error, twClasses }: Props) => {
     <div className={`${twClasses} relative`}>
       <input
         type={inputType}
-        className="peer h-10 w-full rounded-sm border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-transparent focus:border-tertiary focus:outline-none"
+        className="focus:border-tertiary peer h-10 w-full rounded-sm border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-transparent focus:outline-none"
         placeholder=""
         id={register.name}
         autoComplete="new-password"
@@ -27,10 +27,10 @@ const RHFPasswordField = ({ label, register, error, twClasses }: Props) => {
       >
         {label}
       </label>
-      <div className="absolute bottom-3 right-0 pr-2 h-full flex items-center">
+      <div className="absolute bottom-3 right-0 flex h-full items-center pr-2">
         {icon}
       </div>
-      <p className="min-h-[2em] text-xs font-semibold text-red-500 text-left">
+      <p className="min-h-[2em] text-left text-xs font-semibold text-red-500">
         {error}
       </p>
     </div>

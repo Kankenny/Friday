@@ -50,8 +50,8 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
     <div className="space-y-16">
       <input {...getInputProps()} />
       <div
-        className={`group relative flex items-center justify-center w-96 h-96 rounded-full cursor-pointer duration-500 caret-transparent  hover:bg-secondary border-4 border-secondary ${
-          isDragActive ? "border-dashed bg-tertiary" : "bg-gray-500"
+        className={`hover:bg-secondary border-secondary group relative flex h-96 w-96 cursor-pointer items-center justify-center rounded-full  border-4 caret-transparent duration-500 ${
+          isDragActive ? "bg-tertiary border-dashed" : "bg-gray-500"
         }`}
         {...getRootProps()}
       >
@@ -59,16 +59,16 @@ const AvatarDropzone = ({ firstName, profilePicture }: Props) => {
           <img
             src={URL.createObjectURL(selectedFile)}
             alt="Profile Picture"
-            className="rounded-full object-cover w-full h-full hover:opacity-50 duration-200"
+            className="h-full w-full rounded-full object-cover duration-200 hover:opacity-50"
           />
         ) : profilePicture ? (
           <img
             src={profilePicture}
             alt="Profile Picture"
-            className="rounded-full object-cover w-full h-full hover:opacity-50 duration-200"
+            className="h-full w-full rounded-full object-cover duration-200 hover:opacity-50"
           />
         ) : (
-          <h1 className="text-9xl text-gray-400 select-none capitalize hover:opacity-50 duration-200">
+          <h1 className="select-none text-9xl capitalize text-gray-400 duration-200 hover:opacity-50">
             {firstName.charAt(0)}
           </h1>
         )}

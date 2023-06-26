@@ -56,7 +56,7 @@ const CreatePostInput = ({ setIsCreating }: Props) => {
   return (
     <Card twClasses="relative p-5 border border-secondary space-y-2">
       <CancelIcon
-        className="absolute right-2 top-2 text-red-500 cursor-pointer select-none"
+        className="absolute right-2 top-2 cursor-pointer select-none text-red-500"
         onClick={() => setIsCreating(false)}
       />
       <form onSubmit={handleSubmit(handleCreatePost)}>

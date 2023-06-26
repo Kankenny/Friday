@@ -6,7 +6,7 @@ type Props = {
 
 const Body = ({ children }: Props) => {
   return (
-    <main className="min-h-screen flex flex-col container mx-auto">
+    <main className="container mx-auto flex min-h-screen flex-col">
       {children}
     </main>
   )

@@ -62,7 +62,7 @@ const HomeNavigationTabs = () => {
       <Tab
         value="user posts"
         label="User Posts"
-        className={`font-semibold text-md ${
+        className={`text-md font-semibold ${
           value === "user posts" ? "text-tertiary" : "text-secondary"
         }`}
         onClick={handleUserPostsClick}
@@ -71,7 +71,7 @@ const HomeNavigationTabs = () => {
         <Tab
           value="saved posts"
           label="Saved Posts"
-          className={`font-semibold text-md ${
+          className={`text-md font-semibold ${
             value === "saved posts" ? "text-tertiary" : "text-secondary"
           }`}
           onClick={handleSavedPostsClick}
@@ -84,7 +84,7 @@ const HomeNavigationTabs = () => {
         <Tab
           value="shared posts"
           label="Shared Posts"
-          className={`font-semibold text-md ${
+          className={`text-md font-semibold ${
             value === "shared posts" ? "text-tertiary" : "text-secondary"
           }`}
           onClick={handleSharedPostsClick}
@@ -94,7 +94,7 @@ const HomeNavigationTabs = () => {
       <Tab
         value="liked posts"
         label="Liked Posts"
-        className={`font-semibold text-md ${
+        className={`text-md font-semibold ${
           value === "liked posts" ? "text-tertiary" : "text-secondary"
         }`}
         onClick={handleLikedPostsClick}

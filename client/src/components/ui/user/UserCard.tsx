@@ -20,12 +20,12 @@ const UserCard = ({ user, toFollow = true }: Props) => {
         className="group flex items-center gap-2 md:gap-4"
       >
         <Avatar
-          className="text-secondary capitalize cursor-pointer"
+          className="text-secondary cursor-pointer capitalize"
           src={profilePicture}
         >
           {profilePicture ? "" : firstName.charAt(0)}
         </Avatar>
-        <div className="group-hover:text-tertiary duration-200 ease-in-out cursor-pointer">
+        <div className="group-hover:text-tertiary cursor-pointer duration-200 ease-in-out">
           <h1 className="group-hover:underline">
             {firstName} {lastName}
           </h1>

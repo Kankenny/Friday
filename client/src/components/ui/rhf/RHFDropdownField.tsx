@@ -20,12 +20,12 @@ const RHFDropdownField = ({
   ...rest
 }: Props) => {
   return (
-    <div className="mb-5 relative z-0 w-full">
+    <div className="relative z-0 mb-5 w-full">
       <select
         {...rest}
         id={name}
         {...register}
-        className="p-2 py-3 block w-full px-0 mt-0 bg-blue-50 border-2 appearance-none focus:outline-none focus:ring-0 focus:border-tertiary border-secondary pl-5 rounded-md dark:bg-secondary text-sm capitalize"
+        className="focus:border-tertiary border-secondary dark:bg-secondary mt-0 block w-full appearance-none rounded-md border-2 bg-blue-50 p-2 px-0 py-3 pl-5 text-sm capitalize focus:outline-none focus:ring-0"
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (
@@ -36,11 +36,11 @@ const RHFDropdownField = ({
       </select>
       <label
         htmlFor={name}
-        className="absolute duration-200 ease-in-out top-3 left-2 -z-1 origin-0 text-secondary dark:text-white"
+        className="-z-1 origin-0 text-secondary absolute left-2 top-3 duration-200 ease-in-out dark:text-white"
       >
         {placeholder}
       </label>
-      {error && <p className="text-red-600 text-xs font-semibold">{error}</p>}
+      {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
     </div>
   )
 }

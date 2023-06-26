@@ -4,10 +4,10 @@ import { Link } from "react-router-dom"
 
 const LetsGetStarted = () => {
   return (
-    <div className="bg-secondary flex justify-center align-center p-32 border-b border-b-white">
+    <div className="bg-secondary align-center flex justify-center border-b border-b-white p-32">
       <Link
         to="/app"
-        className="px-10 py-4 bg-tertiary rounded-md text-3xl hover:scale-105 duration-200 ease-in-out text-primary font-bold text-main hover:text-secondary"
+        className="bg-tertiary text-primary text-main hover:text-secondary rounded-md px-10 py-4 text-3xl font-bold duration-200 ease-in-out hover:scale-105"
       >
         Let's Get Started
       </Link>

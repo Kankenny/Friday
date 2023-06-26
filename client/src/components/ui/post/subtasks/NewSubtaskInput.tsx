@@ -79,7 +79,7 @@ const NewSubtaskInput = ({ post, task }: Props) => {
     post.creatorId._id === authUserId
 
   return (
-    <div className="border border-secondary p-2 pl-9 text-sm">
+    <div className="border-secondary border p-2 pl-9 text-sm">
       <form
         className="flex items-center"
         onSubmit={handleSubmit(handleNewSubtaskSubmit)}
@@ -90,7 +90,7 @@ const NewSubtaskInput = ({ post, task }: Props) => {
         <input
           type="text"
           placeholder="Add Subtask"
-          className={`bg-transparent px-2 h-full outline-none text-secondary rounded-md hover:border hover:border-secondary duration-200 ease-in-out ${
+          className={`text-secondary hover:border-secondary h-full rounded-md bg-transparent px-2 outline-none duration-200 ease-in-out hover:border ${
             !isCurrUserAuthorized && "cursor-not-allowed"
           }`}
           {...register("title")}

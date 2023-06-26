@@ -14,11 +14,11 @@ const SecurityAnswer = () => {
 
   return (
     <Body>
-      <div className="min-h-screen flex flex-col justify-center p-10 w-3/4 lg:w-[50em] mx-auto">
+      <div className="mx-auto flex min-h-screen w-3/4 flex-col justify-center p-10 lg:w-[50em]">
         <Card twClasses="text-center pt-0">
-          <div className="text-3xl font-semibold bg-secondary text-main p-5 rounded-t-md">
+          <div className="bg-secondary text-main rounded-t-md p-5 text-3xl font-semibold">
             <h1>Forgot Password</h1>
-            <h2 className="text-sm font-semibold text-tertiary">
+            <h2 className="text-tertiary text-sm font-semibold">
               Hello there, {firstName}!
             </h2>
           </div>

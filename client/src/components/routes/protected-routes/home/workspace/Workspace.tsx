@@ -9,7 +9,7 @@ const Workspace = () => {
 
   return (
     <div className="w-full space-y-10">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <StyledButton
           buttonText={`${!isCreating ? "New Post" : "Cancel"}`}
           onClick={() => setIsCreating(!isCreating)}

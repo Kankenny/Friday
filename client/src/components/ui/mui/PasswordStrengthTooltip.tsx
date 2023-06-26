@@ -6,7 +6,7 @@ export default function PasswordStrengthTooltip() {
   return (
     <Tooltip
       title="Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be a minimum of 8 characters long"
-      className="opacity-40 mb-4"
+      className="mb-4 opacity-40"
     >
       <IconButton>
         <PrivacyTipIcon />

@@ -108,7 +108,7 @@ export default function MenuListComposition() {
                 placement === "bottom-start" ? "left top" : "left bottom",
             }}
           >
-            <Paper className="bg-blue-50 border border-secondary">
+            <Paper className="border-secondary border bg-blue-50">
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
@@ -120,14 +120,14 @@ export default function MenuListComposition() {
                   <MenuItem
                     onClick={handleProfileClick}
                     divider
-                    className="flex gap-2 items-center"
+                    className="flex items-center gap-2"
                   >
                     <AccountCircleOutlinedIcon />
                     <h1>Profile</h1>
                   </MenuItem>
                   <MenuItem
                     onClick={handleSettingsClick}
-                    className="flex gap-2 items-center"
+                    className="flex items-center gap-2"
                   >
                     <SettingsOutlinedIcon />
                     <h1>Settings</h1>
@@ -135,7 +135,7 @@ export default function MenuListComposition() {
 
                   <MenuItem
                     onClick={handleLogoutClick}
-                    className="flex gap-2 items-center"
+                    className="flex items-center gap-2"
                   >
                     <LogoutOutlinedIcon />
                     <h1>Logout</h1>

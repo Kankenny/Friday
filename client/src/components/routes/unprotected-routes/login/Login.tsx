@@ -9,9 +9,9 @@ const Login = () => {
 
   return (
     <Body>
-      <div className="min-h-screen flex flex-col justify-center p-10 w-3/4 lg:w-[50em] mx-auto">
+      <div className="mx-auto flex min-h-screen w-3/4 flex-col justify-center p-10 lg:w-[50em]">
         <Card twClasses="text-center pt-0">
-          <h1 className="text-3xl font-semibold bg-secondary text-main p-5 rounded-t-md">
+          <h1 className="bg-secondary text-main rounded-t-md p-5 text-3xl font-semibold">
             Sign in
           </h1>
           <LoginForm successMessage={successMessage} />

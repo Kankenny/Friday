@@ -55,7 +55,7 @@ const UsersNavigationTabs = () => {
       <Tab
         value="followers"
         label="followers"
-        className={`font-semibold text-md ${
+        className={`text-md font-semibold ${
           value === "followers" ? "text-tertiary" : "text-secondary"
         }`}
         onClick={handleFollowersClick}
@@ -63,7 +63,7 @@ const UsersNavigationTabs = () => {
       <Tab
         value="following"
         label="following"
-        className={`font-semibold text-md ${
+        className={`text-md font-semibold ${
           value === "following" ? "text-tertiary" : "text-secondary"
         }`}
         onClick={handleFollowingClick}
@@ -72,7 +72,7 @@ const UsersNavigationTabs = () => {
         <Tab
           value="blocked"
           label="blocked"
-          className={`font-semibold text-md ${
+          className={`text-md font-semibold ${
             value === "blocked" ? "text-tertiary" : "text-secondary"
           }`}
           onClick={handleBlockedClick}

@@ -19,7 +19,7 @@ const RHFInputField = ({
     <div className={`${twClasses} relative`}>
       <input
         type="text"
-        className="peer h-10 w-full rounded-sm border-b-2 border-secondary bg-transparent py-2  placeholder-transparent focus:border-tertiary focus:outline-none caret-tertiary"
+        className="border-secondary focus:border-tertiary caret-tertiary peer h-10 w-full rounded-sm border-b-2  bg-transparent py-2 placeholder-transparent focus:outline-none"
         placeholder=""
         id={register.name}
         readOnly={readonly}
@@ -31,7 +31,7 @@ const RHFInputField = ({
       >
         {label}
       </label>
-      <p className="min-h-[2em] text-xs font-semibold text-red-500 text-left">
+      <p className="min-h-[2em] text-left text-xs font-semibold text-red-500">
         {error}
       </p>
     </div>

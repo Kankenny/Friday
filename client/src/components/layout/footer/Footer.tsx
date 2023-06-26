@@ -10,8 +10,8 @@ const Footer = () => {
   const { isLoggedIn } = useTypedSelector((state) => state.auth)
 
   return (
-    <footer className="bg-secondary w-full p-4 space-y-8">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
+    <footer className="bg-secondary w-full space-y-8 p-4">
+      <div className="container mx-auto flex flex-col items-center justify-between space-y-8 text-center md:flex-row md:space-y-0 md:text-left">
         {isLoggedIn ? <AuthenticatedFooter /> : <UnauthenticatedFooter />}
         <div>
           <RouterDiv to={!isLoggedIn ? "/" : "/timeline"}>
@@ -27,7 +27,7 @@ export default Footer
 
 const UnauthenticatedFooter = () => {
   return (
-    <nav className="flex flex-col md:flex-row gap-4 items-center">
+    <nav className="flex flex-col items-center gap-4 md:flex-row">
       <RouterLink to="/" routerLinkText="Home" twClasses="text-lg" />
       <RouterLink to="/login" routerLinkText="Login" twClasses="text-lg" />
       <RouterLink
@@ -41,7 +41,7 @@ const UnauthenticatedFooter = () => {
 
 const AuthenticatedFooter = () => {
   return (
-    <nav className="flex flex-col md:flex-row gap-4 items-center">
+    <nav className="flex flex-col items-center gap-4 md:flex-row">
       <RouterLink to="/timeline" routerLinkText="Home" twClasses="text-lg" />
     </nav>
   )

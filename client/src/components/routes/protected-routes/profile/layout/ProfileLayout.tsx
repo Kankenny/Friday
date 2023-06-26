@@ -59,7 +59,7 @@ const ProfileLayout = () => {
       {/*  Placeholder element */}
       <div className="h-10"></div>
       <div className="flex flex-col md:flex-row">
-        <div className="md:min-h-screen w-full md:w-[20.2em] md:max-w-[20.2em] flex-col mr-5 p-5 space-y-5">
+        <div className="mr-5 w-full flex-col space-y-5 p-5 md:min-h-screen md:w-[20.2em] md:max-w-[20.2em]">
           {PFP}
           {UserDetails}
         </div>
