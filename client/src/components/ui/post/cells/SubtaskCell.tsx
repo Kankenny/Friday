@@ -5,7 +5,7 @@ import { Tooltip } from "@mui/material"
 import { PostType } from "../../../../lib/types/primitive-types/PostType"
 import { TaskType } from "../../../../lib/types/primitive-types/TaskType"
 import { SubtaskType } from "../../../../lib/types/primitive-types/SubtaskType"
-import useSubtask from "../../../../lib/hooks/regular-hooks/useSubtask"
+import useSubtaskCell from "../../../../lib/hooks/regular-hooks/useSubtaskCell"
 
 type Props = {
   post: PostType
@@ -23,7 +23,7 @@ const SubtaskCell = ({ post, task, subtask }: Props) => {
     handleFormSubmit,
     handleFormClickAway,
     handleFormFocus,
-  } = useSubtask({ post, task, subtask })
+  } = useSubtaskCell({ post, task, subtask })
 
   return (
     <div className="border-secondary hover:bg-secondary hover:text-main flex flex-grow cursor-pointer items-center border p-2 pl-10 text-left text-sm duration-200">

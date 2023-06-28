@@ -19,13 +19,13 @@ import {
 } from "../../store/slices/timeline-slice/timelineSlice"
 import { setFeedback } from "../../store/slices/feedback-slice/feedbackSlice"
 
-type UseSubtaskProps = {
+type UseSubtaskCellProps = {
   post: PostType
   task: TaskType
   subtask: SubtaskType
 }
 
-const useSubtask = ({ post, task, subtask }: UseSubtaskProps) => {
+const useSubtaskCell = ({ post, task, subtask }: UseSubtaskCellProps) => {
   const { _id: authUserId } = useTypedSelector((state) => state.sameProfile)
   const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
@@ -130,4 +130,4 @@ const useSubtask = ({ post, task, subtask }: UseSubtaskProps) => {
   }
 }
 
-export default useSubtask
+export default useSubtaskCell
