@@ -21,7 +21,7 @@ const Headline = () => {
         <p className="text-xl text-gray-500">{subhead}</p>
         <RouterLink
           routerLinkText="Let's Get Started"
-          to="/app"
+          to="/register"
           twClasses="block md:inline-block bg-secondary px-10 py-4 rounded-md text-3xl"
         />
       </div>
