@@ -2,9 +2,7 @@
 
 A SaaS productivity platform that allows users to post and view tasks.
 
-## Work in progress
-
-## Overview of Tech and Features
+## Overview of Tech Stack and Features
 
 - MERN Stack
 - Client-Side Global State Management with Redux Toolkit
